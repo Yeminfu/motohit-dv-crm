@@ -3,6 +3,7 @@ import getUserByToken from "@/utils/users/getUserByToken";
 import { NextRequest, NextResponse } from "next/server";
 import { createSale } from "./createSale";
 import updateStock from "./updateStock";
+import addHistoryEntry from "@/utils/history/addHistoryEntry";
 
 export async function POST(request: NextRequest) {
   const data: t_CreateSaleResponseData = await request.json();
@@ -33,6 +34,8 @@ export async function POST(request: NextRequest) {
       success: false,
       error: "Плохая ошибка #fsd9",
     });
+
+  await addHistoryEntry("createSale", data);
 
   return NextResponse.json({
     success: true,
