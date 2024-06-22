@@ -6,13 +6,12 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
-export default
-    function SaleForm(props: {
-        productFull: ProductsFull, shops: ShopFromDB[], retailPrices: {
-            idShop: number,
-            sum: number
-        }[]
-    }) {
+export default function SaleForm(props: {
+    productFull: ProductsFull, shops: ShopFromDB[], retailPrices: {
+        idShop: number,
+        sum: number
+    }[]
+}) {
     const [isOpen, setIsOpen] = useState(false);
 
     const {
@@ -144,8 +143,16 @@ async function onSubmit(values: t_CreateSaleResponseData) {
             })
         }
     )
-
-    console.log('values', values);
+        .then(x => x.json())
+        .then(x => {
+            if (x.success) {
+                toast.success('Успех')
+            } else {
+                toast.error('Ошибка #fsd8: ' + x.error);
+            }
+        })
+        .catch(error => {
+            console.log('error #fds4n', error);
+            toast.error('Ошибка #d9jn');
+        })
 }
-
-
