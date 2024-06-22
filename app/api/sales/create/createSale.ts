@@ -4,10 +4,7 @@ import { t_CreateSaleResponseData } from "@/types/sales/t_CreateSaleResponseData
 export async function createSale(
   saleData: t_CreateSaleResponseData,
   idUser: number
-): Promise<{
-  success: boolean;
-  error?: any;
-}> {
+) {
   const connection = await dbConnection();
   const res = await connection
     .query(
@@ -28,16 +25,10 @@ export async function createSale(
       [saleData.idProduct, idUser, saleData.count, saleData.sumTotal]
     )
     .then(([x]: any) => {
-      console.log("xxx", x);
-      return {
-        success: !!x.insertId,
-      };
+      return x;
     })
     .catch((error) => {
-      return {
-        success: false,
-        error,
-      };
+      return error;
     });
   await connection.end();
   return res;

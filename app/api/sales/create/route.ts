@@ -2,7 +2,7 @@ import { t_CreateSaleResponseData } from "@/types/sales/t_CreateSaleResponseData
 import getUserByToken from "@/utils/users/getUserByToken";
 import { NextRequest, NextResponse } from "next/server";
 import { createSale } from "./createSale";
-import dbConnection from "@/db/connect";
+import updateStock from "./updateStock";
 
 export async function POST(request: NextRequest) {
   const data: t_CreateSaleResponseData = await request.json();
@@ -11,43 +11,30 @@ export async function POST(request: NextRequest) {
 
   const user = await getUserByToken(authToken);
 
-  const isAvailable = await checkAvailableCreateSale(data);
-
   if (!user)
     return NextResponse.json({
       success: false,
       error: "Нет прав",
     });
 
+  const updateRes = await updateStock(data);
+
+  if (updateRes?.code === "ER_WARN_DATA_OUT_OF_RANGE") {
+    return NextResponse.json({
+      success: false,
+      error: "Вы пытаетесь списать больше, чем есть на складе",
+    });
+  }
+
   const createSaleRes = await createSale(data, user.id);
 
-  return NextResponse.json({
-    success: null,
-    data,
-    authToken,
-    user,
-    createSaleRes,
-    isAvailable,
-  });
-}
-
-async function checkAvailableCreateSale(saleData: t_CreateSaleResponseData) {
-  const connection = await dbConnection();
-  const count = await connection
-    .query(
-      `
-  select 
-    * 
-  from ${process.env.TABLE_PREFIX}_stock 
-  where
-    idProduct = ?
-    and idShop = ?`,
-      [saleData.idProduct, saleData.idShop]
-    )
-    .then(([x]: any) => {
-      return x.pop().count;
+  if (!createSaleRes.insertId)
+    return NextResponse.json({
+      success: false,
+      error: "Плохая ошибка #fsd9",
     });
-  await connection.end();
-  const diff = count - saleData.count;
-  return diff >= 0;
+
+  return NextResponse.json({
+    success: true,
+  });
 }
