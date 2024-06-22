@@ -1,11 +1,19 @@
 import dbConnection from "@/db/connect";
+import { cookies } from "next/headers";
+import getUserByToken from "../users/getUserByToken";
 
 export default async function addHistoryEntry(action: string, data: any) {
-  console.log("addHistoryEntry", { action, data });
+  const authToken = String(cookies().get("auth")?.value);
+
+  const user = await getUserByToken(authToken);
+
+  if (!user) return;
+
   const connection = await dbConnection();
+
   await connection.query(
-    `insert into ${process.env.TABLE_PREFIX}_history (action, data) values (?,?)`,
-    [action, JSON.stringify(data)]
+    `insert into ${process.env.TABLE_PREFIX}_history (action, data, doneBy) values (?,?,?)`,
+    [action, JSON.stringify(data), user.id]
   );
   await connection.end();
 }
