@@ -36,7 +36,7 @@ export default function SaleForm(props: {
     return <>
 
         <Modal isOpen={isOpen} closeFn={() => setIsOpen(false)} title={`Продать ${props.productFull.name}`}>
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <form onSubmit={handleSubmit(values => onSubmit(values, reset))}>
                 <table className="table">
                     <tbody>
                         <tr>
@@ -113,7 +113,7 @@ export default function SaleForm(props: {
 }
 
 
-async function onSubmit(values: t_CreateSaleResponseData) {
+async function onSubmit(values: t_CreateSaleResponseData, reset: () => void) {
     if (!values.idProduct) {
         toast.error('Не указан товар');
         return;
@@ -146,7 +146,8 @@ async function onSubmit(values: t_CreateSaleResponseData) {
         .then(x => x.json())
         .then(x => {
             if (x.success) {
-                toast.success('Успех')
+                toast.success('Успех');
+                reset();
             } else {
                 toast.error('Ошибка #fsd8: ' + x.error);
             }
