@@ -22,7 +22,7 @@ export default async function createRetailPriceTypesTable() {
     });
   await connection.query("SET FOREIGN_KEY_CHECKS=1");
   await connection.query(
-    `insert into ${TABLE_PREFIX}_price_types (priceType) values ('fix'), ('handle'), ('percent')`
+    `insert into ${TABLE_PREFIX}_price_types (priceType) values ('фиксированный'), ('ручной'), ('процент')`
   );
   await connection.end();
 }
