@@ -16,6 +16,8 @@ export default async function createProductsTable() {
               purchase_price int not null,
               idCostPriceType int not null,
               costPriceValue int not null,
+              color varchar(100) not null,
+              code varchar(500) not null,
               created_date DATETIME DEFAULT CURRENT_TIMESTAMP,
               foreign key (idCategory) references ${TABLE_PREFIX}_categories(id),
               foreign key (idCostPriceType) references ${TABLE_PREFIX}_price_types(id)
