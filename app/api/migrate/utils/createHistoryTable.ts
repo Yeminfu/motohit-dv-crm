@@ -13,7 +13,9 @@ export default async function createHistoryTable() {
               id int primary key AUTO_INCREMENT,
               created_date DATETIME DEFAULT CURRENT_TIMESTAMP,
               data JSON not null,
-              action varchar(250) not null
+              action varchar(250) not null,
+              doneBy int not null,
+              foreign key (doneBy) references ${TABLE_PREFIX}_users(id)
           );
       `
     )
