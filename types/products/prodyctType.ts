@@ -4,6 +4,7 @@ import { RetailPriceFromDB } from "./retailPriceFromDB";
 export interface ProductFromDB {
   id: number;
   name: string;
+  note: string;
   idCategory: number;
   purchase_price: number;
   idCostPriceType: number;

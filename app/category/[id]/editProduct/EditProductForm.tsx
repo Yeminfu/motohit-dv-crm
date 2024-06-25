@@ -16,13 +16,14 @@ export default function EditProductForm(props: {
     } = useForm<any>({
 
         defaultValues: {
+            idProduct: props.product.id,
             "name": props.product.name,
-            "color": "black",
-            "code": "№выаь",
+            "color": props.product.color,
+            "code": props.product.code,
             "purchase_price": props.product.purchase_price,
             "cost_price": { "type": props.product.idCostPriceType, "value": props.product.costPriceValue },
-            "stock": { "khv": "123", "bir": "321" },
-            "note": "здравствуйте",
+            // "stock": { "khv": "123", "bir": "321" },
+            "note": props.product.note,
             // "idCategory": props.idCategory,
         }
     });
