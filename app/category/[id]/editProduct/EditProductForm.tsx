@@ -1,5 +1,6 @@
 import { PriceTypesFromDBInterface } from "@/types/products/priceTypesFromDBInterface";
 import { ProductsFull } from "@/types/products/prodyctType";
+import { useEffect } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
 
 export default function EditProductForm(props: {
@@ -37,16 +38,20 @@ export default function EditProductForm(props: {
         name: "stock",
     });
 
+    useEffect(() => {
+        const { retailPrices } = props.product;
+        for (let index = 0; index < retailPrices.length; index++) {
+            const retailPriceObj = retailPrices[index];
+            appendRetailPrice({
+                idInDB: retailPriceObj.id,
+                ...retailPriceObj
+            });
+        }
+    }, [props.product])
+
     return <>
         <form onSubmit={handleSubmit(async x => {
-            // const { success, error } = 
             await onSubmit(x);
-            // if (success) {
-            //     toast.success('Товар создан');
-            //     reset();
-            // } else {
-            //     toast.error(error)
-            // }
         })}>
             <div className="row">
                 <div className="col">
@@ -113,8 +118,8 @@ export default function EditProductForm(props: {
                         </thead>
                         <tbody>
                             <>
-                                {retailPriceFields.map((shop: any, index: any) => {
-                                    return <tr>
+                                {retailPriceFields.map((shopPriceObj: any, index: any) => {
+                                    return <tr key={shopPriceObj.id}>
                                         <td>
                                             {retailPriceFields[index].shopName}
                                         </td>

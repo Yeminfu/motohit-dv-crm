@@ -19,6 +19,8 @@ export default function EditProduct(props: {
                 .then((x: any) => {
                     setProduct(x.product)
                 })
+        } else {
+            setProduct(null);
         }
     }, [isOpen])
 
