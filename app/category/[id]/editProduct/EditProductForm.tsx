@@ -39,12 +39,19 @@ export default function EditProductForm(props: {
     });
 
     useEffect(() => {
-        const { retailPrices } = props.product;
+        const { retailPrices, stock } = props.product;
         for (let index = 0; index < retailPrices.length; index++) {
             const retailPriceObj = retailPrices[index];
             appendRetailPrice({
                 idInDB: retailPriceObj.id,
                 ...retailPriceObj
+            });
+        }
+        for (let index = 0; index < stock.length; index++) {
+            const stockObj = stock[index];
+            appendStock({
+                idInDB: stockObj.id,
+                ...stockObj
             });
         }
     }, [props.product])
@@ -152,7 +159,7 @@ export default function EditProductForm(props: {
                         <tbody>
                             <>
                                 {stockFields.map((shop: any, index: any) => {
-                                    return <tr>
+                                    return <tr key={shop.id}>
                                         <td>
                                             {stockFields[index].shopName}
                                         </td>
@@ -172,10 +179,10 @@ export default function EditProductForm(props: {
                 <textarea {...register("note", { required: true })} className="form-control" autoComplete="off" />
             </div>
 
-            <div><h5>Изображение</h5></div>
+            {/* <div><h5>Изображение</h5></div>
             <div>
                 <div className="mt-2">
-                    {/* {previewImages.map((image, index) => (
+                    {previewImages.map((image, index) => (
                         <div className="" key={index}>
                             <Image
                                 loader={() => image}
@@ -191,12 +198,12 @@ export default function EditProductForm(props: {
                                 }}
                             />
                         </div>
-                    ))} */}
+                    ))}
                 </div>
-                {/* <input type="file"  {...register("images")} onChange={handleImageChange} /> */}
+                <input type="file"  {...register("images")} onChange={handleImageChange} />
 
                 {errors.images && <span className="text-danger">Обязательное поле</span>}
-            </div>
+            </div> */}
 
             <div className="mt-4">
                 <div className="d-flex">
