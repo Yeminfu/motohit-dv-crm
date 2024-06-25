@@ -8,6 +8,8 @@ export interface ProductFromDB {
   purchase_price: number;
   idCostPriceType: number;
   costPriceValue: number;
+  color: string;
+  code: string;
 }
 
 export interface ProductOnCreate {

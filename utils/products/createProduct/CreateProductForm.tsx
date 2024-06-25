@@ -21,7 +21,7 @@ export default function CreateProductForm(props: {
 
         defaultValues: {
             "name": "Лодка 1" + Date.now(),
-            "color": "#000",
+            "color": "black",
             "code": "№выаь",
             "purchase_price": "123",
             "cost_price": { "type": "3", "value": "123" },

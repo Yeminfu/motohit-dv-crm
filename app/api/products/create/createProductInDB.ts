@@ -8,13 +8,25 @@ export async function createProductInDB(product: ProductOnCreate) {
 
   const res = await connection
     .query(
-      `insert into ${process.env.TABLE_PREFIX}_products (name, idCategory, purchase_price, idCostPriceType, costPriceValue) values (?, ?, ?, ?, ?)`,
+      `insert into ${process.env.TABLE_PREFIX}_products 
+      (
+          name, 
+          idCategory, 
+          purchase_price, 
+          idCostPriceType, 
+          costPriceValue,
+          code,
+          color
+      )
+      values (?, ?, ?, ?, ?, ?, ?)`,
       [
         product.name.trim(),
         product.idCategory,
         product.purchase_price,
         product.cost_price.type,
         product.cost_price.value,
+        product.code,
+        product.color,
       ]
     )
     .then(([x]: any) => {

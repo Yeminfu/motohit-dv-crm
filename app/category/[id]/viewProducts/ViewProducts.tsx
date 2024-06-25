@@ -24,6 +24,7 @@ export default function ViewProducts(props: {
                     <th>ID</th>
                     <th>Фото</th>
                     <th>Наименование</th>
+                    <th>Код</th>
                     {props.shops.map(shop => <th key={shop.id + 'a'} className="text-nowrap">Р.Ц. {shop.shopName}</th>)}
                     {props.shops.map(shop => <th key={shop.id + 'b'} className="text-nowrap" > К - во {shop.shopName}</th>)}
                     {viewAll && <>
@@ -36,21 +37,18 @@ export default function ViewProducts(props: {
             <tbody>
                 {props.productsFull.map(product => <tr key={product.id}>
                     <td>{product.id}</td>
-                    <td>{product.images.map(image => <Image
-                        key={image.id}
-                        loader={() => image.name}
-                        src={image.name}
-                        alt=""
-                        width={0}
-                        height={0}
-                        style={{
-                            width: "auto",
-                            height: "auto",
-                            marginBottom: 5,
-                            cursor: "pointer",
-                        }}
-                    />)}</td>
-                    <td>{product.name}</td>
+                    <td>
+                        {product.images.map(image => <Image
+                            key={image.id}
+                            loader={() => image.name}
+                            src={image.name}
+                            alt=""
+                            width={0}
+                            height={0}
+                            style={{ width: "auto", height: "auto", marginBottom: 5, cursor: "pointer", }} />)}
+                    </td>
+                    <td><span style={{ color: product.color }}>{product.name}</span></td>
+                    <td>{product.code}</td>
                     <>
                         {product.retailPrices.map(retailPriceObj => {
                             const retailPriceValue = getRetailPriceNumFromObj(
