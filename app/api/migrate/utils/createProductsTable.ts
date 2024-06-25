@@ -3,12 +3,12 @@ import dbConnection from "@/db/connect";
 const { TABLE_PREFIX } = process.env;
 
 export default async function createProductsTable() {
-    const connection = await dbConnection();
-    await connection.query("SET FOREIGN_KEY_CHECKS=0");
-    await connection.query(`drop table if exists ${TABLE_PREFIX}_products`);
-    await connection
-      .query(
-        `
+  const connection = await dbConnection();
+  await connection.query("SET FOREIGN_KEY_CHECKS=0");
+  await connection.query(`drop table if exists ${TABLE_PREFIX}_products`);
+  await connection
+    .query(
+      `
           CREATE TABLE ${TABLE_PREFIX}_products (
               id int primary key AUTO_INCREMENT,
               name varchar(250) not null unique,
@@ -18,18 +18,19 @@ export default async function createProductsTable() {
               costPriceValue int not null,
               color varchar(100) not null,
               code varchar(500) not null,
+              note varchar(5000),
               created_date DATETIME DEFAULT CURRENT_TIMESTAMP,
               foreign key (idCategory) references ${TABLE_PREFIX}_categories(id),
               foreign key (idCostPriceType) references ${TABLE_PREFIX}_price_types(id)
           );
       `
-      )
-      .then(([x]: any) => {
-        console.log("createProductsTable", x.serverStatus);
-      })
-      .catch((z) => {
-        console.log("createProductsTable", z);
-      });
-    await connection.query("SET FOREIGN_KEY_CHECKS=1");
-    await connection.end();
-  }
+    )
+    .then(([x]: any) => {
+      console.log("createProductsTable", x.serverStatus);
+    })
+    .catch((z) => {
+      console.log("createProductsTable", z);
+    });
+  await connection.query("SET FOREIGN_KEY_CHECKS=1");
+  await connection.end();
+}

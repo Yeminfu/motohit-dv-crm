@@ -1,5 +1,5 @@
 import { PriceTypesFromDBInterface } from "@/types/products/priceTypesFromDBInterface";
-import { ProductsFull } from "@/types/products/prodyctType";
+import { ProductFromDB, ProductsFull } from "@/types/products/prodyctType";
 import { useEffect } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
 
@@ -22,9 +22,8 @@ export default function EditProductForm(props: {
             "code": props.product.code,
             "purchase_price": props.product.purchase_price,
             "cost_price": { "type": props.product.idCostPriceType, "value": props.product.costPriceValue },
-            // "stock": { "khv": "123", "bir": "321" },
             "note": props.product.note,
-            // "idCategory": props.idCategory,
+            "idCategory": props.product.idCategory,
         }
     });
 
@@ -222,33 +221,29 @@ export default function EditProductForm(props: {
 
 
 async function onSubmit(data: any) {
-    // const {
-    //     name, code, color, cost_price, note, purchase_price, retail_price, stock, idCategory,
-    //     images
-    // } = data;
+    const formData = new FormData();
 
-    console.log('submit', data);
+    const mainProductFields: ProductFromDB = {
+        id: data.idProduct,
+        name: data.name,
+        note: data.note,
+        idCategory: data.idCategory,
+        purchase_price: data.idCategory,
+        idCostPriceType: data.cost_price.type,
+        costPriceValue: data.cost_price.value,
+        color: data.color,
+        code: data.code,
+    };
+    formData.append('mainProductFields', JSON.stringify(mainProductFields));
 
-    // if (!images.length) {
-    //     toast.error('Нужно добавить картинки')
-    //     return;
-    // }
+    const retail_price = JSON.stringify(data.retail_price);
+    formData.append('retail_price', JSON.stringify(retail_price));
 
-    // const jsonData = JSON.stringify({ name, code, color, cost_price, note, purchase_price, retail_price, stock, idCategory }, null, "")
+    const createRes = await fetch("/api/products/edit/" + data.idProduct, {
+        method: "POST",
+        body: formData
+    })
+        .then(x => x.json());
 
-    // const formData = new FormData();
-
-    // formData.append('jsonData', jsonData);
-
-    // for (let i = 0; i < images.length; i++) {
-    //     formData.append('images', images[i]);
-    // }
-
-    // const createRes = await fetch("/api/products/create", {
-    //     method: "POST",
-    //     body: formData
-    // })
-    //     .then(x => x.json());
-
-    // return createRes;
+    return createRes;
 }
