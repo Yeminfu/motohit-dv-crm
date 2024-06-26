@@ -268,10 +268,11 @@ async function onSubmit(data: any) {
 
     formData.append('jsonData', jsonData);
 
-    for (let i = 0; i < images.length; i++) {
-        formData.append('images', images[i]);
+    if (images) {
+        for (let i = 0; i < images.length; i++) {
+            formData.append('images', images[i]);
+        }
     }
-
     const createRes = await fetch("/api/products/create", {
         method: "POST",
         body: formData
