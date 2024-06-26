@@ -222,10 +222,6 @@ export default function EditProductForm(props: {
 
 
 async function onSubmit(data: any) {
-
-    console.log('data', data);
-
-
     const formData = new FormData();
 
     const mainProductFields: ProductFromDB = {
@@ -239,16 +235,19 @@ async function onSubmit(data: any) {
         color: data.color,
         code: data.code,
     };
-
     formData.append('mainProductFields', JSON.stringify(mainProductFields));
-
 
     const retail_price = data.retail_price.map((priceObj: any) => ({
         ...priceObj,
         id: priceObj.idInDB
     }));
-
     formData.append('retail_price', JSON.stringify(retail_price));
+
+    const stock = data.stock.map((stockObj: any) => ({
+        ...stockObj,
+        id: stockObj.idInDB
+    }));
+    formData.append('stock', JSON.stringify(stock));
 
     const createRes = await fetch("/api/products/edit/" + data.idProduct, {
         method: "POST",

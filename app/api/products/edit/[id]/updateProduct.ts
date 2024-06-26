@@ -1,7 +1,7 @@
 import dbConnection from "@/db/connect";
 import { ProductFromDB } from "@/types/products/prodyctType";
 
-export async function updateProduct(product: ProductFromDB) {
+export default async function updateProduct(product: ProductFromDB) {
   const connection = await dbConnection();
   const updateRes = await connection
     .query(
