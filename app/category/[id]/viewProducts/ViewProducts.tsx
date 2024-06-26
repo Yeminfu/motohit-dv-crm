@@ -22,7 +22,7 @@ export default function ViewProducts(props: {
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Фото</th>
+                    {/* <th>Фото</th> */}
                     <th>Наименование</th>
                     <th>Код</th>
                     {props.shops.map(shop => <th key={shop.id + 'a'} className="text-nowrap">Р.Ц. {shop.shopName}</th>)}
@@ -37,7 +37,7 @@ export default function ViewProducts(props: {
             <tbody>
                 {props.productsFull.map(product => <tr key={product.id}>
                     <td>{product.id}</td>
-                    <td>
+                    {/* <td>
                         {product.images.map(image => <Image
                             key={image.id}
                             loader={() => image.name}
@@ -46,7 +46,7 @@ export default function ViewProducts(props: {
                             width={0}
                             height={0}
                             style={{ width: "auto", height: "auto", marginBottom: 5, cursor: "pointer", }} />)}
-                    </td>
+                    </td> */}
                     <td><span style={{ color: product.color }}>{product.name}</span></td>
                     <td>{product.code}</td>
                     <>
