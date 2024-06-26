@@ -210,7 +210,7 @@ export default function CreateProductForm(props: {
                 <textarea {...register("note", { required: true })} className="form-control" autoComplete="off" />
             </div>
 
-            <div><h5>Изображение</h5></div>
+            {/* <div><h5>Изображение</h5></div>
             <div>
                 <div className="mt-2">
                     {previewImages.map((image, index) => (
@@ -231,10 +231,10 @@ export default function CreateProductForm(props: {
                         </div>
                     ))}
                 </div>
-                <input type="file" /*multiple*/ {...register("images")} onChange={handleImageChange} />
+                <input type="file" {...register("images")} onChange={handleImageChange} />
 
                 {errors.images && <span className="text-danger">Обязательное поле</span>}
-            </div>
+            </div> */}
 
             <div className="mt-4">
                 <div className="d-flex">
