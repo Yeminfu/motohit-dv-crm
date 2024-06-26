@@ -157,14 +157,14 @@ export default function CreateProductForm(props: {
                         <tbody>
                             <>
                                 {retailPriceFields.map((shop: any, index: any) => {
-                                    return <tr>
+                                    return <tr key={index}>
                                         <td>
                                             {retailPriceFields[index].shopName}
                                         </td>
                                         <td>
                                             <select {...register(`retail_price[${index}].idPriceType`, { required: true })} className="form-select" autoComplete="off" >
                                                 <option value="">-</option>
-                                                {props.priceTypes.map(priceType => <option value={priceType.id}>{priceType.priceType}</option>)}
+                                                {props.priceTypes.map(priceType => <option value={priceType.id} key={priceType.id}>{priceType.priceType}</option>)}
                                             </select>
                                         </td>
                                         <td>
@@ -190,7 +190,7 @@ export default function CreateProductForm(props: {
                         <tbody>
                             <>
                                 {stockFields.map((shop: any, index: any) => {
-                                    return <tr>
+                                    return <tr key={stockFields[index].id}>
                                         <td>
                                             {stockFields[index].shopName}
                                         </td>
