@@ -216,7 +216,6 @@ export default function EditProductForm(props: {
                 </div>
             </div>
         </form>
-        <pre>{JSON.stringify({ product: props.product }, null, 2)}</pre>
     </>
 }
 
