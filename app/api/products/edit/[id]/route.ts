@@ -4,11 +4,14 @@ import { RetailPriceFromDB } from "@/types/products/retailPriceFromDB";
 import updateRetailPrice from "./updateRetailPrice";
 import StockFromDBType from "@/types/products/stockFromDB";
 import updateStock from "./updateStock";
+import addHistoryEntry from "@/utils/history/addHistoryEntry";
 
 export async function POST(
   req: NextRequest,
   params: { params: { id: string } }
 ) {
+  const session = Date.now();
+
   const data: any = await req.formData();
 
   const mainProductFields = JSON.parse(data.get("mainProductFields"));
@@ -20,17 +23,27 @@ export async function POST(
   for (let index = 0; index < retail_price.length; index++) {
     const retailPriceObj = retail_price[index];
     const updRes = await updateRetailPrice(retailPriceObj);
-    console.log("reteilPriceUpdRes", updRes);
+    if (updRes.changedRows) {
+      await addHistoryEntry("updateRetailPrice", {
+        session,
+        ...mainProductFields,
+      });
+    }
   }
 
   const stock: StockFromDBType[] = JSON.parse(data.get("stock"));
   for (let index = 0; index < stock.length; index++) {
     const stockObj = stock[index];
     const updRes = await updateStock(stockObj);
-    console.log("stockUpdRes", updRes);
+    if (updRes.changedRows) {
+      await addHistoryEntry("updateStock", { session, ...mainProductFields });
+    }
   }
 
-  await updateProduct(mainProductFields);
+  const updProductRes = await updateProduct(mainProductFields);
+  if (updProductRes.changedRows) {
+    await addHistoryEntry("updateProduct", { session, ...mainProductFields });
+  }
 
   return NextResponse.json({ success: null });
 }
