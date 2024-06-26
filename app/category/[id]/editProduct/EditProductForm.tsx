@@ -1,5 +1,6 @@
 import { PriceTypesFromDBInterface } from "@/types/products/priceTypesFromDBInterface";
 import { ProductFromDB, ProductsFull } from "@/types/products/prodyctType";
+import { RetailPriceFromDB } from "@/types/products/retailPriceFromDB";
 import { useEffect } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
 
@@ -221,6 +222,10 @@ export default function EditProductForm(props: {
 
 
 async function onSubmit(data: any) {
+
+    console.log('data', data);
+
+
     const formData = new FormData();
 
     const mainProductFields: ProductFromDB = {
@@ -234,9 +239,15 @@ async function onSubmit(data: any) {
         color: data.color,
         code: data.code,
     };
+
     formData.append('mainProductFields', JSON.stringify(mainProductFields));
 
-    const retail_price = JSON.stringify(data.retail_price);
+
+    const retail_price = data.retail_price.map((priceObj: any) => ({
+        ...priceObj,
+        id: priceObj.idInDB
+    }));
+
     formData.append('retail_price', JSON.stringify(retail_price));
 
     const createRes = await fetch("/api/products/edit/" + data.idProduct, {
