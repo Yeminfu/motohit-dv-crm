@@ -1,8 +1,8 @@
 import { PriceTypesFromDBInterface } from "@/types/products/priceTypesFromDBInterface";
 import { ProductFromDB, ProductsFull } from "@/types/products/prodyctType";
-import { RetailPriceFromDB } from "@/types/products/retailPriceFromDB";
 import { useEffect } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 
 export default function EditProductForm(props: {
     product: ProductsFull,
@@ -258,5 +258,9 @@ async function onSubmit(data: any) {
     })
         .then(x => x.json());
 
-    return createRes;
+    if (createRes.success) {
+        toast.success('Данные товара изменены');
+    } else {
+        toast.error('Ошибка #94j \n' + JSON.stringify(createRes.errors, null, 2))
+    }
 }
