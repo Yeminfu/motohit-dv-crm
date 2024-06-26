@@ -138,7 +138,7 @@ export default function EditProductForm(props: {
                                             </select>
                                         </td>
                                         <td>
-                                            <input {...register(`retail_price[${index}].priceValue`, { required: true })} className="form-control" autoComplete="off" />
+                                            <input {...register(`retail_price[${index}].priceValue`, { required: true, pattern: /^[0-9]+$/igm })} className="form-control" autoComplete="off" />
                                         </td>
                                     </tr>
                                 })}
@@ -165,7 +165,11 @@ export default function EditProductForm(props: {
                                             {stockFields[index].shopName}
                                         </td>
                                         <td>
-                                            <input {...register(`stock[${index}].count`, { required: true })} className="form-control" autoComplete="off" />
+                                            <input {...register(`stock[${index}].count`, {
+                                                required: true,
+                                                pattern: /^[0-9]+$/igm
+
+                                            })} className="form-control" autoComplete="off" />
                                         </td>
                                     </tr>
                                 })}
