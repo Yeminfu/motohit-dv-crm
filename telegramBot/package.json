@@ -1,0 +1,10 @@
+{
+  "name": "telegramBot",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "typescript": "^5.5.3"
+  }
+}
