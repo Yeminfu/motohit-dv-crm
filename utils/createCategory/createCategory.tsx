@@ -8,8 +8,8 @@ import { toast } from "react-toastify";
 export default function CreateCategory() {
     const [isOpen, setIsOpen] = useState(false);
     return <>
-        <h3>CreateCategory</h3>
-        <button className="btn btn-outline-dark btn-sm" onClick={() => setIsOpen(!isOpen)}>
+        {/* <h3>CreateCategory</h3> */}
+        <button className="btn btn-outline-dark btn-sm w-100 text-start mt-2" onClick={() => setIsOpen(!isOpen)}>
             Создать категорию
         </button>
         <Modal

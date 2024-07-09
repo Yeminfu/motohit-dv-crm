@@ -5,10 +5,10 @@ import SideMenu from "./side-menu/SideMenu";
 export default async function AuthedLayout(props: { children: any; title: string }) {
     return <>
         <div className="row flex-nowrap" style={{ minHeight: "100vh" }}>
-            <div className="col-2 p-2 bg-secondary">
+            <div className="col-2 p-2 " style={{ background: '#eee' }}>
                 <SideMenu />
                 <CreateCategory />
-                <div className="mb-2">
+                <div className="mt-4">
                     <Link className="btn btn-dark d-block text-start mb-1" href={`/users`}>Пользователи</Link>
                 </div>
             </div>
