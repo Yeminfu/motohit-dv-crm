@@ -39,7 +39,7 @@ export default function CreateUserForm(props: { shops: ShopFromDB[] }) {
 
 async function onSubmit(values: any) {
     const { name, telegram_username } = values;
-    if( /@/.test( telegram_username)){
+    if (/@/.test(telegram_username)) {
         toast.error('Ошибка! В телеграме не должно быть "@"')
         return;
     }
@@ -51,4 +51,11 @@ async function onSubmit(values: any) {
             telegram_username
         })
     })
+        .then(x => x.json())
+        .then(x => {
+            console.log('resssss', x);
+        })
+        .catch(err => {
+            console.log('errerrerr', err);
+        })
 }
