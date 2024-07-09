@@ -21,6 +21,7 @@ export async function GET() {
 }
 
 async function migrate() {
+  if (process.env.CAN_MIGRATE !== "poopaloopa") return;
   const connection = await dbConnection();
   await connection.query("SET FOREIGN_KEY_CHECKS=0;");
   await createUsersTable();
