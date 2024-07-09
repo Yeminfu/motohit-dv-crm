@@ -134,7 +134,7 @@ export default function EditProductForm(props: {
                                         <td>
                                             <select {...register(`retail_price[${index}].idPriceType`, { required: true })} className="form-select" autoComplete="off" >
                                                 <option value="">-</option>
-                                                {props.priceTypes.map(priceType => <option value={priceType.id}>{priceType.priceType}</option>)}
+                                                {props.priceTypes.map(priceType => <option value={priceType.id} key={priceType.id}>{priceType.priceType}</option>)}
                                             </select>
                                         </td>
                                         <td>
