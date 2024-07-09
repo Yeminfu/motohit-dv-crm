@@ -8,13 +8,10 @@ export default function CreateUserForm(props: { shops: ShopFromDB[] }) {
     const {
         register,
         handleSubmit,
-        reset,
         control,
-        formState: { errors },
     } = useForm()
     return <>
         <h3>Создать пользователя</h3>
-        {/* {JSON.stringify(props.shops)} */}
         <form onSubmit={handleSubmit(async x => {
             await onSubmit(x);
         })}>
@@ -29,7 +26,7 @@ export default function CreateUserForm(props: { shops: ShopFromDB[] }) {
                         <input {...register("telegram_username", { required: true })} placeholder="" className="form-control" autoComplete="off" />
                     </div>
                     <div>
-                        <button className="btn-primary">Сохранить</button>
+                        <button className="btn btn-primary">Сохранить</button>
                     </div>
                 </div>
             </div>
