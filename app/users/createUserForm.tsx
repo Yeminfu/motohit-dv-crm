@@ -43,7 +43,6 @@ async function onSubmit(values: any) {
         toast.error('Ошибка! В телеграме не должно быть "@"')
         return;
     }
-    console.log('values', values);
     fetch('api/users/create', {
         method: 'post',
         body: JSON.stringify({
@@ -53,9 +52,14 @@ async function onSubmit(values: any) {
     })
         .then(x => x.json())
         .then(x => {
+            if (x.success) {
+                toast.success('Пользователь успешно создан!');
+            } else {
+                toast.error('Ошибка ' + x.error);
+            }
             console.log('resssss', x);
         })
         .catch(err => {
-            console.log('errerrerr', err);
+            toast.error('Плохая ошибка #fjfn5')
         })
 }
