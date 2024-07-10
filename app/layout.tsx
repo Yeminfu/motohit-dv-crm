@@ -12,7 +12,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ru">
-      <body className='p-2'>{children}
+      <body>{children}
         <ToastContainer />
       </body>
     </html>
