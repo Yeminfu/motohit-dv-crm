@@ -1,5 +1,5 @@
 import { RetailPriceFromDB } from "@/types/products/retailPriceFromDB";
-import getAmountWithMarkup from "./getAmountWithMarkup";
+import getAmountWithMarkup from "../../../../utils/getAmountWithMarkup";
 
 export default function getRetailPriceNumFromObj(
   purchasePrice: number,

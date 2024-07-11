@@ -1,4 +1,4 @@
-import getAmountWithMarkup from "./getAmountWithMarkup";
+import getAmountWithMarkup from "../../../../utils/getAmountWithMarkup";
 
 export default function getCostPriceNumFromObj(purchasePrice: number, costPrice: {
     type: number,
