@@ -15,7 +15,7 @@ export default async function Page() {
 }
 
 async function getSumInProduct() {
-    const sumInProduct = [];
+    const sumInProduct: any = [];
     const categories = await getAllCategories();
     for (let index = 0; index < categories.length; index++) {
         const category = categories[index];
@@ -38,8 +38,8 @@ async function getProductsByCategoryId(idCategory: number) {
             idCategory = ?
     `, [
         idCategory
-    ]).then(([x])=>x);
-    
+    ]).then(([x]) => x);
+
     // console.log('products', products);
     await connection.end();
     return products;
