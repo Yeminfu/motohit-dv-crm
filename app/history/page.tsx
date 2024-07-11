@@ -11,9 +11,12 @@ export default async function Page() {
                     <tbody>
                         {history.map(historyRow => <tr key={historyRow.id}>
                             <td>{historyRow.id}</td>
-                            <td>{dayjs(historyRow.created_date).toString()}</td>
-                            <td><pre>{JSON.stringify(historyRow.data, null, 2)}</pre></td>
+                            <td>{historyRow.action}</td>
                             <td>{historyRow.doneBy}  </td>
+                            <td>{dayjs(historyRow.created_date).toString()}</td>
+                            <td>
+                                <div>{typeof historyRow.data}</div>
+                                <pre>{JSON.stringify(historyRow.data, null, 2)}</pre></td>
                         </tr>)}
                     </tbody>
                 </table>
