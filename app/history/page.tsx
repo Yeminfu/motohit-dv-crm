@@ -12,9 +12,17 @@ export default async function Page() {
     </>
 }
 
-async function getHistory() {
+async function getHistory(): Promise<ts_historyInDB[]> {
     const connection = await dbConnection();
-    const res = await connection.query(`select * from ${process.env.TABLE_PREFIX}_history`).then(([x]) => x);
+    const res = await connection.query(`select * from ${process.env.TABLE_PREFIX}_history`).then(([x]: any) => x);
     await connection.end();
     return res
+}
+
+interface ts_historyInDB {
+    id: number
+    created_date: string
+    data: string
+    action: string
+    doneBy: number
 }
