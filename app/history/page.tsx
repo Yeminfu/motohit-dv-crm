@@ -28,7 +28,10 @@ export default async function Page() {
 
 async function getHistory(): Promise<ts_historyInDB[]> {
     const connection = await dbConnection();
-    const res = await connection.query(`select * from ${process.env.TABLE_PREFIX}_history`).then(([x]: any) => x);
+    const res: any = await connection.query(`select * from ${process.env.TABLE_PREFIX}_history`).then(([x]: any) => x.map((x: any) => ({
+        ...x,
+        data: typeof x.data === 'object' ? x : JSON.parse(x.data)
+    })));
     await connection.end();
     return res
 }
