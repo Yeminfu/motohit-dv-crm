@@ -1,10 +1,9 @@
 import AuthedLayout from "@/utils/authedLayout";
 import { getCategoryById } from "@/utils/getCategoryById";
-import CreateProduct from "@/utils/products/createProduct/createProduct";
-import ViewProducts from "./viewProducts/ViewProducts";
 import getPriceTypes from "@/utils/getPriceTypes";
 import getShops from "@/utils/getShops";
 import getProductsFull from "@/utils/getProductsFull";
+import Client from "./client";
 
 export default async function Page(params: { params: { id: string } }) {
     const idCategory = params.params.id;
@@ -17,10 +16,7 @@ export default async function Page(params: { params: { id: string } }) {
 
     return <>
         <AuthedLayout title={category.name}>
-            <>
-                <CreateProduct idCategory={Number(params.params.id)} priceTypes={priceTypes} shops={shops} />
-                <ViewProducts productsFull={productsFull} shops={shops} priceTypes={priceTypes} />
-            </>
+            <Client idCategory={Number(idCategory)} priceTypes={priceTypes} shops={shops} productsFull={productsFull} />
         </AuthedLayout>
     </>
 }
