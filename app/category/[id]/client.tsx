@@ -6,7 +6,6 @@ import { PriceTypesFromDBInterface } from "@/types/products/priceTypesFromDBInte
 import { ShopFromDB } from "@/types/shops/shopFromDBType";
 import { ProductsFull } from "@/types/products/prodyctType";
 import { useEffect, useState } from "react";
-import { toast } from "react-toastify";
 
 export default function Client(props: {
     idCategory: number,
@@ -15,20 +14,20 @@ export default function Client(props: {
     productsFull: ProductsFull[]
 }) {
 
-    const [products, setProducts] = useState<ProductsFull[]>(props.productsFull);
+    const [stateProducts, setProducts] = useState<ProductsFull[]>(props.productsFull);
 
     useEffect(() => {
         let work = true;
 
         (async function refresh() {
             if (!work) return;
-
-            toast('refresh');
-
-            const products = await getProducts(props.idCategory)
-            console.log('products', products);
-
-
+            const newProducts = await getProducts(props.idCategory);
+            if (newProducts.products) {
+                console.log('newProducts', newProducts);
+                if (JSON.stringify(newProducts.products) !== JSON.stringify(stateProducts)) {
+                    setProducts(newProducts.products)
+                }
+            }
             await new Promise(r => {
                 setTimeout(() => {
                     r(1)
@@ -41,9 +40,11 @@ export default function Client(props: {
         }
     }, [])
 
+    if (!props.productsFull) return <>Загрузка...</>
+
     return <>
         <CreateProduct idCategory={props.idCategory} priceTypes={props.priceTypes} shops={props.shops} />
-        <ViewProducts productsFull={products} shops={props.shops} priceTypes={props.priceTypes} />
+        <ViewProducts productsFull={stateProducts} shops={props.shops} priceTypes={props.priceTypes} />
     </>
 }
 
