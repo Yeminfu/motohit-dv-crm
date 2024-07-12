@@ -20,13 +20,13 @@ export default function CreateProductForm(props: {
     } = useForm<any>({
 
         defaultValues: {
-            "name": "Лодка 1" + Date.now(),
-            "color": "black",
-            "code": "№выаь",
-            "purchase_price": "123",
-            "cost_price": { "type": "3", "value": "123" },
-            "stock": { "khv": "123", "bir": "321" },
-            "note": "здравствуйте",
+            // "name": "Лодка 1" + Date.now(),
+            // "color": "black",
+            // "code": "№выаь",
+            // "purchase_price": "123",
+            // "cost_price": { "type": "3", "value": "123" },
+            // "stock": { "khv": "123", "bir": "321" },
+            // "note": "здравствуйте",
             "idCategory": props.idCategory,
         }
     });
@@ -47,13 +47,13 @@ export default function CreateProductForm(props: {
                 appendRetailPrice({
                     idShop: shop.id,
                     shopName: shop.shopName,
-                    idPriceType: "1",
-                    priceValue: "100"
+                    idPriceType: "",
+                    priceValue: ""
                 });
                 appendStock({
                     idShop: shop.id,
                     shopName: shop.shopName,
-                    count: "1"
+                    count: ""
                 });
             });
         },
