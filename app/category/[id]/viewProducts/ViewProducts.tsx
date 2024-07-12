@@ -2,7 +2,7 @@
 import { ProductsFull } from "@/types/products/prodyctType";
 import { ShopFromDB } from "@/types/shops/shopFromDBType";
 import Price from "@/ui/price";
-import Image from "next/image";
+// import Image from "next/image";
 import { useState } from "react";
 import getCostPriceNumFromObj from "./getCostPriceNumFromObj";
 import getRetailPriceNumFromObj from "./getRetailPriceNumFromObj";
