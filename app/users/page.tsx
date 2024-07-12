@@ -1,7 +1,7 @@
 import AuthedLayout from "@/utils/authedLayout";
 import getAllUsers from "./getAllUsers";
 import CreateUserForm from "./createUserForm";
-import getShops from "../category/[id]/getShops";
+import getShops from "../../utils/getShops";
 
 export default async function Page() {
     const users = await getAllUsers();

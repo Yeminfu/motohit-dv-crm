@@ -1,6 +1,6 @@
-import getProductImages from "@/app/category/[id]/getProductImages";
-import getProductRetailPrices from "@/app/category/[id]/getProductRetailPrices";
-import getProductStock from "@/app/category/[id]/getProductStock";
+import getProductImages from "@/utils/getProductImages";
+import getProductRetailPrices from "@/utils/getProductRetailPrices";
+import getProductStock from "@/utils/getProductStock";
 import getFullProductFromDB from "@/utils/products/getFullPRoductById/getFullPRoductFromDB";
 import { NextRequest, NextResponse } from "next/server";
 
