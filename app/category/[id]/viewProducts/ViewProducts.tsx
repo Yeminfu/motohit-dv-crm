@@ -103,7 +103,9 @@ export default function ViewProducts(props: {
                                     // </td>
                                 })}
                             />
-                            <EditProduct idProduct={product.id} priceTypes={props.priceTypes} />
+                            <EditProduct idProduct={product.id} priceTypes={props.priceTypes}
+                                shops={props.shops}
+                            />
                             <button className="btn btn-sm btn-danger" onClick={() => { console.log(product.id) }}>В архив</button>
                         </div>
                     </td>

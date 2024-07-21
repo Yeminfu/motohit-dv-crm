@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import Image from "next/image";
 import { PriceTypesFromDBInterface } from "@/types/products/priceTypesFromDBInterface";
 import { ShopFromDB } from "@/types/shops/shopFromDBType";
-
+ 
 export default function CreateProductForm(props: {
     closeFn: any,
     idCategory: number,

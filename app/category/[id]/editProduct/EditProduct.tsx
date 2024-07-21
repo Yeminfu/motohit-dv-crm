@@ -4,10 +4,12 @@ import Modal from "@/utils/modal/modal";
 import { useEffect, useState } from "react";
 import { PriceTypesFromDBInterface } from "@/types/products/priceTypesFromDBInterface";
 import EditProductForm from "./EditProductForm";
+import { ShopFromDB } from "@/types/shops/shopFromDBType";
 
 export default function EditProduct(props: {
     idProduct: number,
     priceTypes: PriceTypesFromDBInterface[],
+    shops: ShopFromDB[]
 }) {
     const [isOpen, setIsOpen] = useState(false);
     const [product, setProduct] = useState<ProductsFull | null>(null);
@@ -40,7 +42,9 @@ export default function EditProduct(props: {
                 {(() => {
                     if (product === null) return <>Загрузка...</>
                     return <>
-                        <EditProductForm product={product} priceTypes={props.priceTypes} />
+                        <EditProductForm closeFn={() => {
+                            setIsOpen(false);
+                        }} product={product} priceTypes={props.priceTypes} shops={props.shops} />
                     </>
                 })()}
             </>
