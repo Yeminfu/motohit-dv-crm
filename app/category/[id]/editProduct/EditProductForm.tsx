@@ -48,16 +48,21 @@ export default function EditProductForm(props: {
                     shop,
                     retailPrice: props.product.retailPrices.find(retPriceCityItem => retPriceCityItem.idShop === shop.id)
                 });
+
+                const retailPriceObj = props.product.retailPrices.find(retPriceCityItem => retPriceCityItem.idShop === shop.id);
                 appendRetailPrice({
                     idShop: shop.id,
                     shopName: shop.shopName,
-                    idPriceType: shop,
-                    priceValue: ""
+                    idPriceType: retailPriceObj?.idPriceType,
+                    priceValue: retailPriceObj?.priceValue
                 });
+
+                const stockObj = props.product.stock.find(stockItem => stockItem.idShop === shop.id);
+
                 appendStock({
                     idShop: shop.id,
                     shopName: shop.shopName,
-                    count: ""
+                    count: stockObj?.count
                 });
             });
         },
@@ -86,7 +91,6 @@ export default function EditProductForm(props: {
     };
 
     return <>
-        <pre>{JSON.stringify(props, null, 2)}</pre>
         <form onSubmit={handleSubmit(async x => {
             const { success, error } = await onSubmit(x);
             if (success) {
