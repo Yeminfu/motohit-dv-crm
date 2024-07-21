@@ -16,7 +16,7 @@ export default function EditProduct(props: {
 
     useEffect(() => {
         if (isOpen) {
-            fetch(`/api/products/get/${props.idProduct}`)
+            fetch(`/api/products/get/${props.idProduct}`, { method: "post" })
                 .then(x => x.json())
                 .then((x: any) => {
                     setProduct(x.product)
