@@ -11,6 +11,9 @@ export default function EditProductForm(props: {
     closeFn: any,
     shops: ShopFromDB[]
 }) {
+
+    console.log('props EditProductForm', props);
+
     const {
         register,
         handleSubmit,
