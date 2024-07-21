@@ -138,7 +138,7 @@ export default function CreateProductForm(props: {
                     </div>
                     <div className="col-6">
                         <div><b>Значение</b></div>
-                        <input {...register("cost_price.value", { required: true, pattern: /^\d+$/i })} className="form-control" autoComplete="off" />
+                        <input {...register("cost_price.value", { required: true, pattern: /[+-]?([0-9]*[.])?[0-9]+/i })} className="form-control" autoComplete="off" />
                     </div>
                 </div>
             </div>
