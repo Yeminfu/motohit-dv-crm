@@ -46,6 +46,7 @@ export default function EditProduct(props: {
                         <EditProductForm closeFn={() => {
                             setIsOpen(false);
                         }} product={product} priceTypes={props.priceTypes} shops={props.shops} />
+                        <pre>{JSON.stringify({ props, product }, null, 2)}</pre>
                     </>
                 })()}
             </>
