@@ -25,7 +25,6 @@ export default function EditProduct(props: {
             setProduct(null);
         }
     }, [isOpen])
-    console.log('props EditProduct', props);
 
     return <>
         <button className="btn btn-sm btn-primary me-2" onClick={() => {
@@ -47,7 +46,6 @@ export default function EditProduct(props: {
                         <EditProductForm closeFn={() => {
                             setIsOpen(false);
                         }} product={product} priceTypes={props.priceTypes} shops={props.shops} />
-                        
                     </>
                 })()}
             </>

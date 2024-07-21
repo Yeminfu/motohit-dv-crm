@@ -5,20 +5,28 @@ export default async function getProductRetailPrices(
   idProduct: any
 ): Promise<RetailPriceFromDB[]> {
   const connection = await dbConnection();
-  const images = await connection
+  const qs = `
+  select 
+    P.*, 
+    S.shopName, 
+    T.priceType
+  from ${process.env.TABLE_PREFIX}_retail_prices P
+    left join ${process.env.TABLE_PREFIX}_shops S on S.id = P.idShop
+    left join ${process.env.TABLE_PREFIX}_price_types T on T.id = P.idPriceType
+  where P.idProduct = ?
+`;
+  console.log('qsqsqs', qs);
+
+  const prices = await connection
     .query(
-      `select 
-          P.*, S.shopName, T.priceType
-      from ${process.env.TABLE_PREFIX}_retail_prices P
-          left join ${process.env.TABLE_PREFIX}_shops S on S.id = P.idShop
-          left join ${process.env.TABLE_PREFIX}_price_types T on T.id = P.idPriceType
-      where P.idProduct = ?
-      `,
+      qs,
       [idProduct]
     )
     .then(([x]: any) => {
       return x;
     });
+  console.log('prices from getProductRetailPrices', prices);
+
   await connection.end();
-  return images;
+  return prices;
 }
