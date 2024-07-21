@@ -25,6 +25,7 @@ export default function EditProduct(props: {
             setProduct(null);
         }
     }, [isOpen])
+    console.log('props', props);
 
     return <>
         <button className="btn btn-sm btn-primary me-2" onClick={() => {
