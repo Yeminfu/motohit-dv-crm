@@ -15,7 +15,7 @@ export default async function getProductRetailPrices(
     left join ${process.env.TABLE_PREFIX}_price_types T on T.id = P.idPriceType
   where P.idProduct = ?
 `;
-  console.log('qsqsqs', qs);
+  console.log('qs from getProductRetailPrices', qs);
 
   const prices = await connection
     .query(
