@@ -12,7 +12,7 @@ export default function EditProductForm(props: {
     shops: ShopFromDB[]
 }) {
 
-    console.log('props EditProductForm', props);
+    // console.log('props EditProductForm', props);
 
     const {
         register,
@@ -23,6 +23,7 @@ export default function EditProductForm(props: {
     } = useForm<any>({
 
         defaultValues: {
+            idProduct: props.product.id,
             "name": props.product.name,
             "color": props.product.color,
             "code": props.product.code,
