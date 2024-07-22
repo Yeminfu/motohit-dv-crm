@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import updateProduct from "./updateProduct";
+// import updateProduct from "./updateProduct";
 import { RetailPriceFromDB } from "@/types/products/retailPriceFromDB";
 import updateRetailPrice from "./updateRetailPrice";
 import StockFromDBType from "@/types/products/stockFromDB";
@@ -7,6 +7,7 @@ import updateStock from "./updateStock";
 import addHistoryEntry from "@/utils/history/addHistoryEntry";
 import { ProductFromDB } from "@/types/products/prodyctType";
 import dbConnection from "@/db/connect";
+import updateProductMainData from "./updateProductMainData";
 
 export async function POST(
   req: any,
@@ -77,29 +78,3 @@ export async function POST(
 }
 
 
-async function updateProductMainData(productData: ProductFromDB, idProduct: number) {
-  const connection = await dbConnection();
-  await connection.query(
-    `
-    update ${process.env.TABLE_PREFIX}_products
-    set
-      name = ?,
-      note = ?,
-      idCostPriceType = ?,
-      costPriceValue = ?,
-      color = ?,
-      code = ?
-    where
-      id = ?
-  `, [
-    productData.name,
-    productData.note,
-    productData.idCostPriceType,
-    productData.costPriceValue,
-    productData.color,
-    productData.code,
-    idProduct,
-  ]
-  );
-  await connection.end();
-}
