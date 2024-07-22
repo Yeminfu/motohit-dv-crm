@@ -27,6 +27,8 @@ export async function POST(
     data.get("retail_price")
   );
 
+  console.log('retail_price', retail_price);
+
   try {
     const updMainDataRes = await updateProductMainData(mainProductFields, Number(params.params.id))
     await addHistoryEntry('updateProductMainData', { mainProductFields, updMainDataRes });

@@ -55,6 +55,7 @@ export default function EditProductForm(props: {
 
                 const retailPriceObj = props.product.retailPrices.find(retPriceCityItem => retPriceCityItem.idShop === shop.id);
                 appendRetailPrice({
+                    idRecord: retailPriceObj?.id,
                     idShop: shop.id,
                     shopName: shop.shopName,
                     idPriceType: retailPriceObj?.idPriceType,
