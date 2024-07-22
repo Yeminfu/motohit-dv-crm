@@ -1,5 +1,6 @@
 export interface RetailPriceFromDB {
   id: number;
+  idRecord?: number;
   idPriceType: number;
   priceValue: number;
   idProduct: number;

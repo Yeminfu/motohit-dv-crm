@@ -19,7 +19,7 @@ export default async function updateRetailPrice(retailPriceObj: RetailPriceFromD
           retailPriceObj.priceValue,
           retailPriceObj.idProduct,
           retailPriceObj.idShop,
-          retailPriceObj.id
+          retailPriceObj.idRecord
         ]
       )
       .then(([x]: any) => {

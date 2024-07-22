@@ -38,8 +38,9 @@ export async function POST(
   // console.log('retail_price', retail_price);
   for (let index = 0; index < retail_price.length; index++) {
     const retailPriceObj = retail_price[index];
-    console.log(retailPriceObj);
-    
+    if (retailPriceObj.idRecord) {
+      await updateRetailPrice(retailPriceObj);
+    }
   }
 
 
@@ -85,5 +86,3 @@ export async function POST(
 
   return NextResponse.json({ success: true });
 }
-
-
