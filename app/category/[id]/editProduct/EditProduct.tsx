@@ -7,31 +7,17 @@ import EditProductForm from "./EditProductForm";
 import { ShopFromDB } from "@/types/shops/shopFromDBType";
 
 export default function EditProduct(props: {
-    idProduct: number,
+    product: ProductsFull,
     priceTypes: PriceTypesFromDBInterface[],
     shops: ShopFromDB[]
 }) {
     const [isOpen, setIsOpen] = useState(false);
-    const [product, setProduct] = useState<ProductsFull | null>(null);
-
-    useEffect(() => {
-        if (isOpen) {
-            fetch(`/api/products/get/${props.idProduct}`, { method: "post" })
-                .then(x => x.json())
-                .then((x: any) => {
-                    setProduct(x.product)
-                })
-        } else {
-            setProduct(null);
-        }
-    }, [isOpen])
 
     return <>
         <button className="btn btn-sm btn-primary me-2" onClick={() => {
             setIsOpen(!isOpen)
         }
         }>Изменить</button>
-        <pre>{JSON.stringify({ props, product }, null, 2)}</pre>
         {isOpen && <Modal
             isOpen={isOpen}
             title="Редактировать товар"
@@ -41,11 +27,11 @@ export default function EditProduct(props: {
         >
             <>
                 {(() => {
-                    if (product === null) return <>Загрузка...</>
+                    if (props.product == null) return <>Загрузка...</>
                     return <>
                         <EditProductForm closeFn={() => {
                             setIsOpen(false);
-                        }} product={product} priceTypes={props.priceTypes} shops={props.shops} />
+                        }} product={props.product} priceTypes={props.priceTypes} shops={props.shops} />
                     </>
                 })()}
             </>
