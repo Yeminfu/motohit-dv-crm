@@ -27,11 +27,12 @@ export async function POST(
     data.get("retail_price")
   );
 
-
-  console.log(mainProductFields);
-
-  await updateProductMainData(mainProductFields, Number(params.params.id))
-
+  try {
+    const updMainDataRes = await updateProductMainData(mainProductFields, Number(params.params.id))
+    await addHistoryEntry('updateProductMainData', { mainProductFields, updMainDataRes });
+  } catch (error) {
+    console.log('fatal error #mfn5c', error);
+  }
 
 
   // for (let index = 0; index < retail_price.length; index++) {

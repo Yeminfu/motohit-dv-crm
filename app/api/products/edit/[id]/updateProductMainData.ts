@@ -25,7 +25,6 @@ export default async function updateProductMainData(productData: ProductFromDB, 
     idProduct,
   ]
   )
-    .then(([x]) => x);
   await connection.end();
   return res;
 }
