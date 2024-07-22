@@ -34,12 +34,11 @@ export async function POST(
     console.log('fatal error #mfn5c', error);
   }
 
-
-  // console.log('retail_price', retail_price);
   for (let index = 0; index < retail_price.length; index++) {
     const retailPriceObj = retail_price[index];
     if (retailPriceObj.idRecord) {
-      await updateRetailPrice(retailPriceObj);
+      const updRetailPriceRes = await updateRetailPrice(retailPriceObj);
+      await addHistoryEntry('updateProductRetailPrice', { retailPriceObj, updRetailPriceRes });
     }
   }
 

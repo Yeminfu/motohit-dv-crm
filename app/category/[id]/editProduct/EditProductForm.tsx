@@ -57,6 +57,7 @@ export default function EditProductForm(props: {
                 appendRetailPrice({
                     idRecord: retailPriceObj?.id,
                     idShop: shop.id,
+                    idProduct: retailPriceObj?.idProduct,
                     shopName: shop.shopName,
                     idPriceType: retailPriceObj?.idPriceType,
                     priceValue: retailPriceObj?.priceValue

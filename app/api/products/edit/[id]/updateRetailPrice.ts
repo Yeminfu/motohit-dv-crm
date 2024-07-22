@@ -3,10 +3,10 @@ import { RetailPriceFromDB } from "@/types/products/retailPriceFromDB";
 
 export default async function updateRetailPrice(retailPriceObj: RetailPriceFromDB) {
 
-    const connection = await dbConnection();
-    const updateRes = await connection
-      .query(
-        `
+  const connection = await dbConnection();
+  const updateRes = await connection
+    .query(
+      `
         update ${process.env.TABLE_PREFIX}_retail_prices
         set
           idPriceType = ?,
@@ -14,19 +14,18 @@ export default async function updateRetailPrice(retailPriceObj: RetailPriceFromD
           idProduct = ?,
           idShop = ?
         where id  = ?`,
-        [
-          retailPriceObj.idPriceType,
-          retailPriceObj.priceValue,
-          retailPriceObj.idProduct,
-          retailPriceObj.idShop,
-          retailPriceObj.idRecord
-        ]
-      )
-      .then(([x]: any) => {
-        return x;
-      })
-      .catch((x) => x);
-    await connection.end();
-    return updateRes;
-  }
-  
+      [
+        retailPriceObj.idPriceType,
+        retailPriceObj.priceValue,
+        retailPriceObj.idProduct,
+        retailPriceObj.idShop,
+        retailPriceObj.idRecord
+      ]
+    )
+    .then(([x]: any) => {
+      return x;
+    })
+    .catch((x) => x);
+  await connection.end();
+  return updateRes;
+}
