@@ -37,7 +37,7 @@ export default function Modal(props: { isOpen: boolean, closeFn: any, title: str
                 top: 0,
                 width: "100%",
                 height: "100%",
-                background: "rgba(238, 238, 238, 0.82)"
+                background: "rgba(238, 238, 238, 0.50)"
             }}></div>
     </>
 }
