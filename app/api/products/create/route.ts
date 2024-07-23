@@ -8,6 +8,8 @@ import createImageInDB from "./createImageInDB";
 import checkImageIsExists from "./checkImageIsExists";
 import dbConnection from "@/db/connect";
 import addHistoryEntry from "@/utils/history/addHistoryEntry";
+import handleRetailPrices from "./handleRetailPrices";
+import handleStock from "./handleStock";
 
 const imagesFolder: string = String(process.env.IMAGES_FOLDER);
 fs.mkdirSync(imagesFolder, { recursive: true });
@@ -57,37 +59,4 @@ export async function POST(req: NextRequest) {
   return NextResponse.json({
     success: true,
   });
-}
-
-async function handleRetailPrices(
-  retailPrices: ProductOnCreate["retail_price"],
-  idProduct: number
-) {
-  const connection = await dbConnection();
-
-  for (let index = 0; index < retailPrices.length; index++) {
-    const priceObj = retailPrices[index];
-    const { idShop, idPriceType, priceValue } = priceObj;
-    await connection.query(
-      `insert into ${process.env.TABLE_PREFIX}_retail_prices (idPriceType, priceValue, idProduct, idShop) values (?, ?, ?, ?)`,
-      [idPriceType, priceValue, idProduct, idShop]
-    );
-  }
-
-  await connection.end();
-}
-
-async function handleStock(stock: ProductOnCreate["stock"], idProduct: number) {
-  const connection = await dbConnection();
-
-  for (let index = 0; index < stock.length; index++) {
-    const stockObj = stock[index];
-    const { idShop, shopName, count } = stockObj;
-    await connection.query(
-      `insert into ${process.env.TABLE_PREFIX}_stock (idShop, count, idProduct) values (?, ?, ?)`,
-      [idShop, count, idProduct]
-    );
-  }
-
-  await connection.end();
 }
