@@ -9,6 +9,7 @@ import getRetailPriceNumFromObj from "./getRetailPriceNumFromObj";
 import EditProduct from "../editProduct/EditProduct";
 import { PriceTypesFromDBInterface } from "@/types/products/priceTypesFromDBInterface";
 import SaleForm from "./SaleForm";
+import generatePriceByTypes from "@/utils/prices/generatePriceByTypes";
 
 export default function ViewProducts(props: {
     productsFull: ProductsFull[],
@@ -51,6 +52,8 @@ export default function ViewProducts(props: {
                     <td>{product.code}</td>
                     <>
                         {product.retailPrices.map(retailPriceObj => {
+                            const costPrice = generatePriceByTypes(product.purchase_price, retailPriceObj.idPriceType, retailPriceObj.priceValue);
+                            console.log('costPrice', costPrice);
                             const retailPriceValue = getRetailPriceNumFromObj(
                                 product.purchase_price,
                                 retailPriceObj, {
@@ -58,6 +61,7 @@ export default function ViewProducts(props: {
                                 value: product.costPriceValue
                             });
                             return <td key={retailPriceObj.id}>
+                                <pre>{JSON.stringify(retailPriceObj, null, 2)}</pre>
                                 <Price value={retailPriceValue} />
                             </td>
                         })}
