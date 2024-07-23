@@ -485,7 +485,7 @@ async function onSubmit(data: any): Promise<any> {
         name: data.name,
         note: data.note,
         idCategory: data.idCategory,
-        purchase_price: data.idCategory,
+        purchase_price: data.purchase_price,
         idCostPriceType: data.cost_price.type,
         costPriceValue: data.cost_price.value,
         color: data.color,
