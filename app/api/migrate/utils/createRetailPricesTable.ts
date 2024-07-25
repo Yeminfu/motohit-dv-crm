@@ -12,7 +12,7 @@ export default async function createRetailPricesTable() {
               id int primary key AUTO_INCREMENT,
               created_date DATETIME DEFAULT CURRENT_TIMESTAMP,
               idPriceType int not null,
-              priceValue int not null,
+              priceValue float not null,
               idProduct int not null,
               idShop int not null,
               foreign key (idPriceType) references ${TABLE_PREFIX}_price_types(id),

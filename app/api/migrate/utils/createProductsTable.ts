@@ -15,7 +15,7 @@ export default async function createProductsTable() {
               idCategory int not null,
               purchase_price int not null,
               idCostPriceType int not null,
-              costPriceValue int not null,
+              costPriceValue float not null,
               color varchar(100) not null,
               code varchar(500) not null,
               note varchar(5000),
