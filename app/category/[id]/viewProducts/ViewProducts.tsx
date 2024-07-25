@@ -51,18 +51,18 @@ export default function ViewProducts(props: {
                     <td><span style={{ color: product.color }}>{product.name}</span></td>
                     <td>{product.code}</td>
                     <>
-                        {product.retailPrices.map(retailPriceObj => {
-                            const costPrice = generatePriceByTypes(product.purchase_price, retailPriceObj.idPriceType, retailPriceObj.priceValue);
-                            console.log('costPrice', costPrice);
-                            const retailPriceValue = getRetailPriceNumFromObj(
-                                product.purchase_price,
-                                retailPriceObj, {
-                                type: product.idCostPriceType,
-                                value: product.costPriceValue
-                            });
-                            return <td key={retailPriceObj.id}>
+                        {product.retailPrices.map((retailPriceObj, i) => {
+                            // const costPrice = generatePriceByTypes(product.purchase_price, retailPriceObj.idPriceType, retailPriceObj.priceValue);
+                            // console.log('costPrice', costPrice);
+                            // const retailPriceValue = getRetailPriceNumFromObj(
+                            //     product.purchase_price,
+                            //     retailPriceObj, {
+                            //     type: product.idCostPriceType,
+                            //     value: product.costPriceValue
+                            // });
+                            return <td key={i}>
                                 <pre>{JSON.stringify(retailPriceObj, null, 2)}</pre>
-                                <Price value={retailPriceValue} />
+                                {/* <Price value={retailPriceValue} /> */}
                             </td>
                         })}
                     </>
@@ -87,26 +87,27 @@ export default function ViewProducts(props: {
                     </>}
                     <td style={{ whiteSpace: "nowrap" }}>
                         <div className="d-flex">
-                            <SaleForm productFull={product} shops={props.shops}
+                            <pre>{JSON.stringify(product, null, 2)}</pre>
+                            {/* <SaleForm productFull={product} shops={props.shops}
 
                                 retailPrices={product.retailPrices.map(retailPriceObj => {
-                                    const retailPriceValue = getRetailPriceNumFromObj(
-                                        product.purchase_price,
-                                        retailPriceObj, {
-                                        type: product.idCostPriceType,
-                                        value: product.costPriceValue
-                                    });
+                                    // const retailPriceValue = getRetailPriceNumFromObj(
+                                    //     product.purchase_price,
+                                    //     retailPriceObj, {
+                                    //     type: product.idCostPriceType,
+                                    //     value: product.costPriceValue
+                                    // });
 
-                                    return {
-                                        idShop: retailPriceObj.idShop,
-                                        sum: retailPriceValue
-                                    }
+                                    // return {
+                                    //     idShop: retailPriceObj.idShop,
+                                    //     sum: retailPriceValue
+                                    // }
 
                                     // return <td key={retailPriceObj.id}>
                                     //     <Price value={retailPriceValue} />
                                     // </td>
                                 })}
-                            />
+                            /> */}
                             <EditProduct product={product} priceTypes={props.priceTypes}
                                 shops={props.shops}
                             />

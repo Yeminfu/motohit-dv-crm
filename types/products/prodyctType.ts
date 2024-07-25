@@ -1,5 +1,6 @@
 import { ImageFromDB } from "./ImageFromDB";
 import { RetailPriceFromDB } from "./retailPriceFromDB";
+import ts_retailPricesByProductIdGroupedByCity from "./ts_retailPricesByProductIdGroupedByCity";
 
 export interface ProductFromDB {
   id: number;
@@ -31,7 +32,7 @@ export interface ProductOnCreate {
 
 export type ProductsFull = ProductFromDB & {
   images: ImageFromDB[];
-  retailPrices: RetailPriceFromDB[];
+  retailPrices: ts_retailPricesByProductIdGroupedByCity[];
   stock: StockFromDBInterface[];
 };
 
