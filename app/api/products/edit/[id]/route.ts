@@ -8,6 +8,7 @@ import addHistoryEntry from "@/utils/history/addHistoryEntry";
 import { ProductFromDB } from "@/types/products/prodyctType";
 import dbConnection from "@/db/connect";
 import updateProductMainData from "./updateProductMainData";
+import insertRetailPrice from "./insertRetailPrice";
 
 export async function POST(
   req: any,
@@ -40,7 +41,8 @@ export async function POST(
       const updRetailPriceRes = await updateRetailPrice(retailPriceObj);
       await addHistoryEntry('updateProductRetailPrice', { retailPriceObj, updRetailPriceRes });
     } else {
-
+      const insertRetailPriceRes = await insertRetailPrice(retailPriceObj);
+      await addHistoryEntry('insertProductRetailPrice', { retailPriceObj, insertRetailPriceRes });
     }
   }
 
@@ -87,3 +89,5 @@ export async function POST(
 
   return NextResponse.json({ success: true });
 }
+
+
