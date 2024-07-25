@@ -59,17 +59,18 @@ export async function POST(
   //   }
   // }
 
-  // const stock: StockFromDBType[] = JSON.parse(data.get("stock"));
-  // for (let index = 0; index < stock.length; index++) {
-  //   const stockObj = stock[index];
-  //   const updRes = await updateStock(stockObj);
-  //   if (updRes.code) {
-  //     errors.push({ action: "update_stock", code: updRes.code });
-  //   }
-  //   if (updRes.changedRows) {
-  //     await addHistoryEntry("updateStock", { session, ...mainProductFields });
-  //   }
-  // }
+  const stock: StockFromDBType[] = JSON.parse(data.get("stock"));
+  for (let index = 0; index < stock.length; index++) {
+    const stockObj = stock[index];
+    const updRes = await updateStock(stockObj, params.params.id);
+
+    if (updRes.code) {
+      errors.push({ action: "update_stock", code: updRes.code });
+    }
+    if (updRes.changedRows) {
+      await addHistoryEntry("updateStock", { session, ...mainProductFields });
+    }
+  }
 
   // const updProductRes = await updateProduct(mainProductFields);
   // if (updProductRes.code) {

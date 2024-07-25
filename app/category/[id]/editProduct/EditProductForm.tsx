@@ -5,6 +5,22 @@ import { useEffect, useState } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
+interface ts_EDitProductFields {
+    idProduct: number;
+    name: string;
+    color: string;
+    code: string;
+    purchase_price: string;
+    cost_price: {
+        value: string
+        type: string
+    }
+    retail_price: any
+    stock: any
+    note: string
+    idCategory: string
+}
+
 export default function EditProductForm(props: {
     product: ProductsFull,
     priceTypes: PriceTypesFromDBInterface[],
@@ -20,18 +36,18 @@ export default function EditProductForm(props: {
         reset,
         control,
         formState: { errors },
-    } = useForm<any>({
+    } = useForm<ts_EDitProductFields>({
 
         defaultValues: {
             idProduct: props.product.id,
             "name": props.product.name,
             "color": props.product.color,
             "code": props.product.code,
-            "purchase_price": props.product.purchase_price,
-            "cost_price": { "type": props.product.idCostPriceType, "value": props.product.costPriceValue },
-            "stock": { "khv": "123", "bir": "321" },
+            "purchase_price": String(props.product.purchase_price),
+            "cost_price": { "type": String(props.product.idCostPriceType), "value": String(props.product.costPriceValue) },
+            // "stock": { "khv": "123", "bir": "321" },
             "note": "здравствуйте",
-            "idCategory": props.product.idCategory,
+            "idCategory": String(props.product.idCategory),
         }
     });
 
@@ -68,7 +84,8 @@ export default function EditProductForm(props: {
                 appendStock({
                     idShop: shop.id,
                     shopName: shop.shopName,
-                    count: stockObj?.count
+                    count: stockObj?.count,
+                    idRecord: stockObj?.id,
                 });
             });
         },
@@ -171,18 +188,20 @@ export default function EditProductForm(props: {
                         </thead>
                         <tbody>
                             <>
-                                {retailPriceFields.map((shop: any, index: any) => {
+                                {retailPriceFields.map((shop: any, index: number) => {
                                     return <tr key={index}>
                                         <td>
                                             {retailPriceFields[index].shopName}
                                         </td>
                                         <td>
+                                            {/*@ts-expect-error*/}
                                             <select {...register(`retail_price[${index}].idPriceType`, { required: true })} className="form-select" autoComplete="off" >
                                                 <option value="">-</option>
                                                 {props.priceTypes.map(priceType => <option value={priceType.id} key={priceType.id}>{priceType.priceType}</option>)}
                                             </select>
                                         </td>
                                         <td>
+                                            {/*@ts-expect-error*/}
                                             <input {...register(`retail_price[${index}].priceValue`, { required: true })} className="form-control" autoComplete="off" />
                                         </td>
                                     </tr>
@@ -210,6 +229,7 @@ export default function EditProductForm(props: {
                                             {stockFields[index].shopName}
                                         </td>
                                         <td>
+                                            {/*@ts-expect-error*/}
                                             <input {...register(`stock[${index}].count`, { required: true })} className="form-control" autoComplete="off" />
                                         </td>
                                     </tr>

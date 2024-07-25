@@ -1,7 +1,8 @@
 export default interface StockFromDBType {
   id: number;
   created_date: any;
-  idProduct: number;
+  // idProduct: number;
   idShop: number;
   count: number;
+  idRecord: number;
 }
