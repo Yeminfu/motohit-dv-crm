@@ -55,12 +55,12 @@ export default function EditProductForm(props: {
 
                 const retailPriceObj = props.product.retailPrices.find(retPriceCityItem => retPriceCityItem.idShop === shop.id);
                 appendRetailPrice({
-                    idRecord: retailPriceObj?.id,
+                    idRecord: retailPriceObj?.idRetailPrice,
                     idShop: shop.id,
                     idProduct: retailPriceObj?.idProduct,
                     shopName: shop.shopName,
-                    idPriceType: retailPriceObj?.idPriceType,
-                    priceValue: retailPriceObj?.priceValue
+                    idPriceType: retailPriceObj?.retailPriceType,
+                    priceValue: retailPriceObj?.retailPriceValue
                 });
 
                 const stockObj = props.product.stock.find(stockItem => stockItem.idShop === shop.id);

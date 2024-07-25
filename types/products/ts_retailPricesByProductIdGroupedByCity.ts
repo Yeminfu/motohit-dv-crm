@@ -6,4 +6,5 @@ export default interface ts_retailPricesByProductIdGroupedByCity {
     costPriceValue: number;
     retailPriceType: number;
     retailPriceValue: number;
+    idRetailPrice: number;
 }
