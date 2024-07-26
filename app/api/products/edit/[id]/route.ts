@@ -9,6 +9,7 @@ import { ProductFromDB } from "@/types/products/prodyctType";
 import dbConnection from "@/db/connect";
 import updateProductMainData from "./updateProductMainData";
 import insertRetailPrice from "./insertRetailPrice";
+import insertStock from "./insertStock";
 
 export async function POST(
   req: any,
@@ -64,14 +65,15 @@ export async function POST(
 
   const stock: StockFromDBType[] = JSON.parse(data.get("stock"));
   for (let index = 0; index < stock.length; index++) {
-    const stockObj = stock[index];
-    const updRes = await updateStock(stockObj, params.params.id);
 
-    if (updRes.code) {
-      errors.push({ action: "update_stock", code: updRes.code });
-    }
-    if (updRes.changedRows) {
-      await addHistoryEntry("updateStock", { session, ...mainProductFields });
+    const stockObj = stock[index];
+    if (stockObj.idRecord) {
+      const updRes = await updateStock(stockObj, params.params.id);
+      await addHistoryEntry("updateStock", { session, stockObj, updRes });
+    } else {
+      const insertRes = await insertStock(stockObj, params.params.id);
+      await addHistoryEntry("insertStock", { session, stockObj, insertRes });
+
     }
   }
 
