@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import Image from "next/image";
 import { PriceTypesFromDBInterface } from "@/types/products/priceTypesFromDBInterface";
 import { ShopFromDB } from "@/types/shops/shopFromDBType";
- 
+
 export default function CreateProductForm(props: {
     closeFn: any,
     idCategory: number,
@@ -123,7 +123,7 @@ export default function CreateProductForm(props: {
             {/*Закупочная цена*/}
             <div className="mb-2">
                 <div><b>Закупочная цена</b></div>
-                <input {...register("purchase_price", { required: true, pattern: /^\d+$/i })} className="form-control" autoComplete="off" />
+                <input {...register("purchase_price", { required: true, pattern: /^-?\d*(\.\d+)?$/i })} className="form-control" autoComplete="off" />
             </div>
 
             <div className="mt-3">
@@ -138,7 +138,7 @@ export default function CreateProductForm(props: {
                     </div>
                     <div className="col-6">
                         <div><b>Значение</b></div>
-                        <input {...register("cost_price.value", { required: true, pattern: /[+-]?([0-9]*[.])?[0-9]+/i })} className="form-control" autoComplete="off" />
+                        <input {...register("cost_price.value", { required: true, pattern: /^-?\d*(\.\d+)?$/i })} className="form-control" autoComplete="off" />
                     </div>
                 </div>
             </div>
@@ -168,7 +168,7 @@ export default function CreateProductForm(props: {
                                             </select>
                                         </td>
                                         <td>
-                                            <input {...register(`retail_price[${index}].priceValue`, { required: true })} className="form-control" autoComplete="off" />
+                                            <input {...register(`retail_price[${index}].priceValue`, { required: true, pattern: /^-?\d*(\.\d+)?$/i })} className="form-control" autoComplete="off" />
                                         </td>
                                     </tr>
                                 })}
