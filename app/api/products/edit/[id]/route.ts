@@ -38,6 +38,7 @@ export async function POST(
   for (let index = 0; index < retail_price.length; index++) {
     const retailPriceObj = retail_price[index];
     if (retailPriceObj.idRecord) {
+
       const updRetailPriceRes = await updateRetailPrice(retailPriceObj);
       await addHistoryEntry('updateProductRetailPrice', { retailPriceObj, updRetailPriceRes });
     } else {

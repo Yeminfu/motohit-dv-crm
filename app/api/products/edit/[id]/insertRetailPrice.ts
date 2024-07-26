@@ -17,14 +17,12 @@ export default async function insertRetailPrice(retailPriceObj: RetailPriceFromD
         values
         (
           ?,?,?,?
-        )
-        where id  = ?`,
+        )`,
       [
         retailPriceObj.idPriceType,
         retailPriceObj.priceValue,
         retailPriceObj.idProduct,
-        retailPriceObj.idShop,
-        retailPriceObj.idRecord
+        retailPriceObj.idShop
       ]
     )
     .then(([x]: any) => {
