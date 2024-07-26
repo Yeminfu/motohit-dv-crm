@@ -64,10 +64,6 @@ export default function EditProductForm(props: {
     useEffect(
         () => {
             props.shops.forEach(shop => {
-                console.log('shop', {
-                    shop,
-                    retailPrice: props.product.retailPrices.find(retPriceCityItem => retPriceCityItem.idShop === shop.id)
-                });
 
                 const retailPriceObj = props.product.retailPrices.find(retPriceCityItem => retPriceCityItem.idShop === shop.id);
                 appendRetailPrice({
