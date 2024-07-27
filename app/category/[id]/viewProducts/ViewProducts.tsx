@@ -11,6 +11,7 @@ import { PriceTypesFromDBInterface } from "@/types/products/priceTypesFromDBInte
 import SaleForm from "./SaleForm";
 // import generatePriceByTypes from "@/utils/prices/createPriceWithMarkup";
 import createPriceWithMarkup from "@/utils/prices/createPriceWithMarkup";
+import Filter from "../filter";
 
 export default function ViewProducts(props: {
     productsFull: ProductsFull[],
@@ -20,6 +21,8 @@ export default function ViewProducts(props: {
     const [viewAll, setViewAll] = useState(false);
     return <>
         <div className="my-2"><button className="btn btn-outline-dark btn-sm" onClick={() => setViewAll(!viewAll)}>{viewAll ? "Скрыть" : "Показать"} дополнительные поля</button></div>
+
+        <Filter />
         <table className="table table-bordered table-striped">
             <thead>
                 <tr>
