@@ -23,7 +23,6 @@ export default function Client(props: {
             if (!work) return;
             const newProducts = await getProducts(props.idCategory);
             if (newProducts.products) {
-                console.log('newProducts', newProducts);
                 if (JSON.stringify(newProducts.products) !== JSON.stringify(stateProducts)) {
                     setProducts(newProducts.products)
                 }
