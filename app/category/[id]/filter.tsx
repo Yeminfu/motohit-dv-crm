@@ -1,18 +1,20 @@
 import { useForm } from "react-hook-form";
-import { useRouter } from 'next/navigation'
+// import { useRouter } from 'next/navigation'
 import { usePathname } from 'next/navigation'
 
 interface ts_inputs {
     name: string
 }
-export default function Filter() {
-    const router = useRouter()
 
-    const pathname = usePathname()
+export default function Filter() {
+
+    const pathname = usePathname();
+
+    const domain = window.location.origin;
 
     async function onSubmit(x: any) {
-        console.log('x', x);
-        router.push(`${pathname}?name=${x.name}`)
+        const newpathname = pathname + (x.name ? `?name=${x.name}` : '');
+        window.location.href = domain + '/' + newpathname;
     }
 
     const {
