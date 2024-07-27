@@ -6,6 +6,7 @@ import { PriceTypesFromDBInterface } from "@/types/products/priceTypesFromDBInte
 import { ShopFromDB } from "@/types/shops/shopFromDBType";
 import { ProductsFull } from "@/types/products/prodyctType";
 import { useEffect, useState } from "react";
+import getProducts from "./utils/getProducts";
 
 export default function Client(props: {
     idCategory: number,
@@ -45,15 +46,4 @@ export default function Client(props: {
         <CreateProduct idCategory={props.idCategory} priceTypes={props.priceTypes} shops={props.shops} />
         <ViewProducts productsFull={stateProducts} shops={props.shops} priceTypes={props.priceTypes} />
     </>
-}
-
-async function getProducts(idCategory: number) {
-    try {
-        const response = await fetch(`/api/categories/get-category-products/${idCategory}`, { method: "post" });
-        const data = await response.json();
-        return data;
-        console.log(data);
-    } catch (error) {
-        console.log('Error fetching data:', error);
-    }
 }
