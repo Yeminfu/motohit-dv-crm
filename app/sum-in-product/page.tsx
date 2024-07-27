@@ -4,7 +4,7 @@ import getSumInProduct from "./getSumInProduct";
 export default async function Page() {
     const sumInProduct = await getSumInProduct();
 
-    const total = sumInProduct.map(x => x.sumInProducts).reduce((a, b) => b + b);
+    const total = sumInProduct.map(x => x.sumInProducts).reduce((a, b) => a + b);
 
     return <>
         <AuthedLayout title="Сумма в товаре">
