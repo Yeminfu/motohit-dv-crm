@@ -6,14 +6,18 @@ export default async function getUserByToken(
 ): Promise<UserType | null> {
   const connection = await dbConnection();
 
+  const qs = `
+    select 
+      U.* 
+    from ${process.env.TABLE_PREFIX}_tokens T
+      join ${process.env.TABLE_PREFIX}_users U on U.id = T.idUser
+    where
+      T.token = ?
+  `;
+
   const user = await connection
     .query(
-      `
-        select 
-          U.* 
-        from ${process.env.TABLE_PREFIX}_users  U
-          join ${process.env.TABLE_PREFIX}_tokens T on T.token = ?;
-      `,
+      qs,
       [token]
     )
     .then(([data]: any) => {
