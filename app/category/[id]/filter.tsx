@@ -9,16 +9,7 @@ interface ts_inputs {
 }
 
 export default function Filter(props: { searchParams: ts_categoryFilter }) {
-    if (typeof window === 'undefined') return null;
     const pathname = usePathname();
-
-    const domain = window.location.origin;
-
-    async function onSubmit(x: any) {
-        const newpathname = pathname + (x.name ? `?name=${x.name}` : '');
-        window.location.href = domain + '/' + newpathname;
-    }
-
     const {
         register,
         handleSubmit,
@@ -31,6 +22,17 @@ export default function Filter(props: { searchParams: ts_categoryFilter }) {
             "name": props.searchParams.name,
         }
     });
+
+    
+    if (typeof window === 'undefined') return null;
+
+    const domain = window.location.origin;
+
+    async function onSubmit(x: any) {
+        const newpathname = pathname + (x.name ? `?name=${x.name}` : '');
+        window.location.href = domain + '/' + newpathname;
+    }
+
 
     return <>
         <div className="my-3">
