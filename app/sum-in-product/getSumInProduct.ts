@@ -16,7 +16,10 @@ export default async function getSumInProduct() {
                 const sumInProduct = stockSum * costPrice;
                 return sumInProduct;
             }))
-                .then((x) => x.reduce((a, b) => (a + b)));
+                .then((x) => {
+                    if (x.length) return x.reduce((a, b) => (a + b));
+                    return 0; //в категории нет товаров reduce вызывает ошибку
+                });
 
             return {
                 categoryName: category.name,
