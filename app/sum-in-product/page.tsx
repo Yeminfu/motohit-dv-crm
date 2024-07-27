@@ -1,46 +1,33 @@
 import AuthedLayout from "@/utils/authedLayout";
-import getAllCategories from "@/utils/getAllCategories";
-import dbConnection from "@/db/connect";
+import getSumInProduct from "./getSumInProduct";
 
 export default async function Page() {
     const sumInProduct = await getSumInProduct();
+
+    const total = sumInProduct.map(x => x.sumInProducts).reduce((a, b) => b + b);
+
     return <>
         <AuthedLayout title="Сумма в товаре">
             <>
-                asdasd
-                <pre>{JSON.stringify(sumInProduct, null, 2)}</pre>
+                <table className="table w-auto">
+                    <thead>
+                        <tr>
+                            <th>Категория</th>
+                            <th>Сумма в товаре</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {sumInProduct.map(category => <tr key={category.categoryName}>
+                            <td>{category.categoryName}</td>
+                            <td>{category.sumInProducts}</td>
+                        </tr>)}
+                        <tr>
+                            <th>Всего</th>
+                            <td>{total}</td>
+                        </tr>
+                    </tbody>
+                </table>
             </>
         </AuthedLayout>
     </>
-}
-
-async function getSumInProduct() {
-    const sumInProduct: any = [];
-    const categories = await getAllCategories();
-    for (let index = 0; index < categories.length; index++) {
-        const category = categories[index];
-        console.log(category);
-        const products = await getProductsByCategoryId(category.id);
-        console.log('products', products);
-
-        // const products = 
-    }
-    return sumInProduct;
-}
-
-async function getProductsByCategoryId(idCategory: number) {
-    const connection = await dbConnection();
-    const products = await connection.query(`
-        select
-            *
-        from ${process.env.TABLE_PREFIX}_products
-        where
-            idCategory = ?
-    `, [
-        idCategory
-    ]).then(([x]) => x);
-
-    // console.log('products', products);
-    await connection.end();
-    return products;
 }
