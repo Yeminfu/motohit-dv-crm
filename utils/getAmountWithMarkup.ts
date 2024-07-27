@@ -6,10 +6,10 @@ export default function getAmountWithMarkup(
   }
 ): number {
   if (markup.type === 1) {
-    return markup.value;
+    return sum + markup.value;
   }
   if (markup.type === 2) {
-    return sum + markup.value;
+    return markup.value;
   }
   if (markup.type === 3) {
     return sum * markup.value;
