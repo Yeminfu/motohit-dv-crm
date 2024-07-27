@@ -18,6 +18,5 @@ export default async function Page(params: { params: { id: string } }) {
         <AuthedLayout title={category.name}>
             <Client idCategory={Number(idCategory)} priceTypes={priceTypes} shops={shops} productsFull={productsFull} />
         </AuthedLayout>
-        <pre>{JSON.stringify(['productsFull', productsFull], null, 2)}</pre>
     </>
 }
