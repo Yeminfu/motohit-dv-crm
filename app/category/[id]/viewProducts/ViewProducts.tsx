@@ -12,17 +12,19 @@ import SaleForm from "./SaleForm";
 // import generatePriceByTypes from "@/utils/prices/createPriceWithMarkup";
 import createPriceWithMarkup from "@/utils/prices/createPriceWithMarkup";
 import Filter from "../filter";
+import ts_categoryFilter from "@/types/ts_categoryFilter";
 
 export default function ViewProducts(props: {
     productsFull: ProductsFull[],
     shops: ShopFromDB[],
     priceTypes: PriceTypesFromDBInterface[],
+    searchParams: ts_categoryFilter
 }) {
     const [viewAll, setViewAll] = useState(false);
     return <>
         <div className="my-2"><button className="btn btn-outline-dark btn-sm" onClick={() => setViewAll(!viewAll)}>{viewAll ? "Скрыть" : "Показать"} дополнительные поля</button></div>
 
-        <Filter />
+        <Filter searchParams={props.searchParams} />
         <table className="table table-bordered table-striped">
             <thead>
                 <tr>

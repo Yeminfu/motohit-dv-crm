@@ -1,13 +1,15 @@
+"use client"
 import { useForm } from "react-hook-form";
 // import { useRouter } from 'next/navigation'
 import { usePathname } from 'next/navigation'
+import ts_categoryFilter from "@/types/ts_categoryFilter";
 
 interface ts_inputs {
     name: string
 }
 
-export default function Filter() {
-
+export default function Filter(props: { searchParams: ts_categoryFilter }) {
+    if (typeof window === 'undefined') return null;
     const pathname = usePathname();
 
     const domain = window.location.origin;
@@ -26,10 +28,9 @@ export default function Filter() {
     } = useForm<ts_inputs>({
 
         defaultValues: {
-            // "name": props.product.name,
+            "name": props.searchParams.name,
         }
     });
-
 
     return <>
         <div className="my-3">

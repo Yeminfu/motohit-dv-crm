@@ -1,14 +1,33 @@
 import dbConnection from "@/db/connect";
 import { ProductFromDB } from "@/types/products/prodyctType";
+import ts_categoryFilter from "@/types/ts_categoryFilter";
 
 export default async function getProductsByCategoryId(
-  idCategory: string | number
+  idCategory: string | number,
+  searchParams: ts_categoryFilter
 ): Promise<ProductFromDB[]> {
+
   const connection = await dbConnection();
+
+  const a: [string, any] = searchParams.name ? [
+    `select * from ${process.env.TABLE_PREFIX}_products 
+    where 
+      idCategory = ?
+      and
+        (
+          name like ?
+          or code = ?
+        )
+    `,
+    [idCategory, `%${searchParams.name}%`, searchParams.name]
+  ] : [
+    `select * from ${process.env.TABLE_PREFIX}_products where idCategory = ?`,
+    [idCategory]
+  ];
+
   const products = await connection
     .query(
-      `select * from ${process.env.TABLE_PREFIX}_products where idCategory = ?`,
-      [idCategory]
+      a[0], a[1]
     )
     .then(([x]: any) => {
       return x;

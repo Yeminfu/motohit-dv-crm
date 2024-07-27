@@ -7,12 +7,14 @@ import { ShopFromDB } from "@/types/shops/shopFromDBType";
 import { ProductsFull } from "@/types/products/prodyctType";
 import { useEffect, useState } from "react";
 import getProducts from "./utils/getProducts";
+import ts_categoryFilter from "@/types/ts_categoryFilter";
 
 export default function Client(props: {
     idCategory: number,
     priceTypes: PriceTypesFromDBInterface[],
     shops: ShopFromDB[],
-    productsFull: ProductsFull[]
+    productsFull: ProductsFull[],
+    searchParams: ts_categoryFilter
 }) {
 
     const [stateProducts, setProducts] = useState<ProductsFull[]>(props.productsFull);
@@ -22,7 +24,7 @@ export default function Client(props: {
 
         (async function refresh() {
             if (!work) return;
-            const newProducts = await getProducts(props.idCategory);
+            const newProducts = await getProducts(props.idCategory, props.searchParams);
             if (newProducts.products) {
                 if (JSON.stringify(newProducts.products) !== JSON.stringify(stateProducts)) {
                     setProducts(newProducts.products)
@@ -44,6 +46,6 @@ export default function Client(props: {
 
     return <>
         <CreateProduct idCategory={props.idCategory} priceTypes={props.priceTypes} shops={props.shops} />
-        <ViewProducts productsFull={stateProducts} shops={props.shops} priceTypes={props.priceTypes} />
+        <ViewProducts productsFull={stateProducts} shops={props.shops} priceTypes={props.priceTypes} searchParams={props.searchParams} />
     </>
 }
