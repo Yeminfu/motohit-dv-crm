@@ -31,6 +31,7 @@ export default function ViewProducts(props: {
                     <th>ID</th>
                     {/* <th>Фото</th> */}
                     <th>Наименование</th>
+                    <th>Заметки</th>
                     <th>Код</th>
                     {props.shops.map(shop => <th key={shop.id + 'a'} className="text-nowrap">Р.Ц. {shop.shopName}</th>)}
                     {props.shops.map(shop => <th key={shop.id + 'b'} className="text-nowrap" > К - во {shop.shopName}</th>)}
@@ -55,6 +56,7 @@ export default function ViewProducts(props: {
                             style={{ width: "auto", height: "auto", marginBottom: 5, cursor: "pointer", }} />)}
                     </td> */}
                     <td><span style={{ color: product.color }}>{product.name}</span></td>
+                    <td>{product.note}</td>
                     <td>{product.code}</td>
                     <>
                         {product.retailPrices.map((retailPriceObj, i) => {
