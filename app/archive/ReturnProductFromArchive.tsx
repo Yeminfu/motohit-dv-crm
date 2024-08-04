@@ -36,8 +36,15 @@ async function onConfirm(idProduct: number, closeFn: any) {
             if (x.success) {
                 closeFn();
                 toast.success('Товар возвращен из архива')
+                setTimeout(() => {
+                    window.location.reload();
+                }, 1000);
             } else {
                 toast.error('Ошибка #fj3b9')
             }
+        })
+        .catch(() => {
+            toast.error('Ошибка #f94bk')
+
         })
 }
