@@ -506,6 +506,7 @@ async function onSubmit(data: any): Promise<any> {
         costPriceValue: data.cost_price.value,
         color: data.color,
         code: data.code,
+        isArchived: true,
     };
     formData.append('mainProductFields', JSON.stringify(mainProductFields));
 
