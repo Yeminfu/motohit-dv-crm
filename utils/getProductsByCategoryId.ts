@@ -13,6 +13,7 @@ export default async function getProductsByCategoryId(
     `select * from ${process.env.TABLE_PREFIX}_products 
     where 
       idCategory = ?
+      and isArchived = 0
       and
         (
           name like ?
@@ -21,7 +22,7 @@ export default async function getProductsByCategoryId(
     `,
     [idCategory, `%${searchParams.name}%`, searchParams.name]
   ] : [
-    `select * from ${process.env.TABLE_PREFIX}_products where idCategory = ?`,
+    `select * from ${process.env.TABLE_PREFIX}_products where idCategory = ? and isArchived = 0`,
     [idCategory]
   ];
 
