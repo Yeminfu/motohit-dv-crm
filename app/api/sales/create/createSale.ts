@@ -11,6 +11,7 @@ export async function createSale(
       `insert into ${process.env.TABLE_PREFIX}_sales
       (
         idProduct,
+        idShop,
         createtByUserId,
         count,
         sum
@@ -19,10 +20,11 @@ export async function createSale(
       ?,
       ?,
       ?,
+      ?,
       ?
     )
   `,
-      [saleData.idProduct, idUser, saleData.count, saleData.sumTotal]
+      [saleData.idProduct, saleData.idProduct, idUser, saleData.count, saleData.sumTotal]
     )
     .then(([x]: any) => {
       return x;
