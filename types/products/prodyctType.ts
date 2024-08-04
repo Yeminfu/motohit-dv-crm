@@ -12,6 +12,7 @@ export interface ProductFromDB {
   costPriceValue: number;
   color: string;
   code: string;
+  isArchived: boolean
 }
 
 export interface ProductOnCreate {
