@@ -27,6 +27,9 @@ export default async function SideMenu() {
                 </div>
                 : null
         }
+        <div className="mt-4">
+            <Link className="btn btn-dark d-block text-start mb-1" href={`/archive`}>Архив</Link>
+        </div>
     </>
 }
 
