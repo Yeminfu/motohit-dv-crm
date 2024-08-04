@@ -8,7 +8,7 @@ export default function SendProductToArchive(props: { idProduct: number, product
             setIsOpen(false);
         }}>
             <>
-                <button className="btn btn-sm btn-danger">Подтвердить</button>
+                <button className="btn btn-sm btn-danger" onClick={() => onConfirm(props.idProduct)}>Подтвердить</button>
                 <button className="btn btn-sm btn-dark ms-2" onClick={() => {
                     setIsOpen(false)
                 }}>Отмена</button>
@@ -21,4 +21,15 @@ export default function SendProductToArchive(props: { idProduct: number, product
         }}>В архив</button>
 
     </>
+}
+
+async function onConfirm(idProduct: number) {
+    // alert(idProduct)
+    fetch(
+        `/api/products/send-to-archive/${idProduct}`, { method: "post" }
+    )
+        .then(x => x.json())
+        .then(x => {
+            console.log('xxxxxxx', x);
+        })
 }
