@@ -30,6 +30,13 @@ export default async function SideMenu() {
         <div className="mt-4">
             <Link className="btn btn-dark d-block text-start mb-1" href={`/archive`}>Архив</Link>
         </div>
+        {
+            (user?.is_boss)
+                ? <div className="mt-4">
+                    <Link className="btn btn-dark d-block text-start mb-1" href={`/sales-report`}>Годовой отчет</Link>
+                </div>
+                : null
+        }
     </>
 }
 
