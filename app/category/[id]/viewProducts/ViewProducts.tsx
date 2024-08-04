@@ -13,6 +13,8 @@ import SaleForm from "./SaleForm";
 import createPriceWithMarkup from "@/utils/prices/createPriceWithMarkup";
 import Filter from "../filter";
 import ts_categoryFilter from "@/types/ts_categoryFilter";
+import Modal from "@/utils/modal/modal";
+import SendProductToArchive from "./SendProductToArchive";
 
 export default function ViewProducts(props: {
     productsFull: ProductsFull[],
@@ -133,7 +135,7 @@ export default function ViewProducts(props: {
                             <EditProduct product={product} priceTypes={props.priceTypes}
                                 shops={props.shops}
                             />
-                            <button className="btn btn-sm btn-danger" onClick={() => { console.log(product.id) }}>В архив</button>
+                            <SendProductToArchive idProduct={product.id} productName={product.name} />
                         </div>
                     </td>
                 </tr>)}
