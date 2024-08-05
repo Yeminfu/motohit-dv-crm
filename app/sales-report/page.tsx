@@ -55,7 +55,7 @@ async function getSoldProductsPerYear(year: number, idCategory: number): Promise
     select
       distinct S.idProduct, P.name as productName
     from ${process.env.TABLE_PREFIX}_sales S
-      join chbfs_products P on P.id = S.idProduct
+      join ${process.env.TABLE_PREFIX}_products P on P.id = S.idProduct
     where 
       year(S.created_date) = ? 
       and P.idCategory = ?
