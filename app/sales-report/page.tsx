@@ -5,15 +5,16 @@ import getShops from "@/utils/getShops";
 import dayjs from "dayjs";
 import ts_reportItem from "./ts_reportItem";
 import Client from "./client";
+import ts_searchParams from "./ts_searchParams";
 
-export default async function Page() {
+export default async function Page(params: { searchParams: ts_searchParams }) {
   const categories = await getAllCategories();
   const idFirstCategory = categories[0].id;
   const reportData = await getYearReportData(Number(dayjs().format('YYYY')), idFirstCategory);
   const shops = await getShops();
   return <AuthedLayout title="Годовой отчет">
     <>
-      <Client shops={shops} report={reportData} />
+      <Client shops={shops} report={reportData} categories={categories} searchParams={params.searchParams} />
     </>
   </AuthedLayout>
 }
