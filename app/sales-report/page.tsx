@@ -9,8 +9,14 @@ import ts_searchParams from "./ts_searchParams";
 
 export default async function Page(params: { searchParams: ts_searchParams }) {
   const categories = await getAllCategories();
-  const idFirstCategory = categories[0].id;
-  const reportData = await getYearReportData(Number(dayjs().format('YYYY')), idFirstCategory);
+
+  const year = params.searchParams.year || dayjs().format('YYYY');
+  const idCategory = params.searchParams.idCategory || categories[0]?.id;
+
+  const reportData = await getYearReportData(
+    Number(year),
+    idCategory,
+  );
   const shops = await getShops();
   return <AuthedLayout title="Годовой отчет">
     <>
@@ -42,6 +48,8 @@ async function getYearReportData(year: number, idCategory: number): Promise<ts_r
 
 
 async function getSoldProductsPerYear(year: number, idCategory: number): Promise<{ idProduct: number, productName: string }[]> {
+  console.log('idCategoryidCategoryidCategory', year, idCategory);
+
   const connection = await dbConnection();
   const res = await connection.query(`
     select
@@ -50,8 +58,9 @@ async function getSoldProductsPerYear(year: number, idCategory: number): Promise
       join chbfs_products P on P.id = S.idProduct
     where 
       year(S.created_date) = ? 
+      and P.idCategory = ?
        
-    `, [year/*, idCategory*/]) //ВОССТАНОВИТЬ ОТБОР ПО КАТЕГОРИЯМ КАТЕГОРИЮ
+    `, [year, idCategory])
     .then(([x]: any) => x);
   await connection.end();
   return res;

@@ -8,6 +8,7 @@ import { useForm } from "react-hook-form"
 import ts_searchParams from "./ts_searchParams"
 import { CategoryType } from "@/types/categories/categoryType"
 import dayjs from "dayjs"
+import { useEffect, useState } from "react"
 
 export default function Client(props: {
     shops: ShopFromDB[],
@@ -40,15 +41,19 @@ export default function Client(props: {
 }
 
 function Filter(props: { searchParams: ts_searchParams, categories: CategoryType[] }) {
-    const defaultCategory = props.searchParams.idCategory || props.categories[0].id
+    const [domain, setDomain] = useState("");
 
-    const startYear = 2023;
+    const defaultCategory = props.searchParams.idCategory || props.categories[0].id
+    const defaultYear = props.searchParams.year || dayjs().format('YYYY');
+
+    const startYear = 2024;
 
     const diff = dayjs().diff(dayjs(String(startYear), 'YYYY'), "year");
 
     const years = Array.from({ length: diff + 1 }, (a, b) => (startYear + b));
 
     const pathname = usePathname();
+
     const {
         register,
         handleSubmit,
@@ -58,13 +63,15 @@ function Filter(props: { searchParams: ts_searchParams, categories: CategoryType
     }>({
         defaultValues: {
             "category": String(defaultCategory),
-            "year": dayjs().format('YYYY'),
+            "year": String(defaultYear),
         }
     });
 
-    if (typeof window === 'undefined') return null;
-
-    const domain = window.location.origin;
+    useEffect(() => {
+        if (typeof window !== "undefined") {
+            setDomain(window.location.origin)
+        }
+    }, [])
 
     async function onSubmit(x: {
         category: string
@@ -85,12 +92,12 @@ function Filter(props: { searchParams: ts_searchParams, categories: CategoryType
 
                         <select {...register("category", { required: true })} className="form-select w-auto" autoComplete="off" >
                             <option value="">Категория</option>
-                            {props.categories.map(category => <option value={String(category.id)}>{category.name} {category.id}</option>)}
+                            {props.categories.map(category => <option key={category.id} value={String(category.id)}>{category.name} {category.id}</option>)}
                         </select>
 
                         <select {...register("year", { required: true })} className="form-select w-auto" autoComplete="off" >
                             <option value="">Год</option>
-                            {years.map(year => <option value={String(year)}>{year}</option>)}
+                            {years.map(year => <option value={String(year)} key={year}>{year}</option>)}
                         </select>
 
                         <button className="btn btn-dark ms-2 btn-sm" >Фильтр</button>
