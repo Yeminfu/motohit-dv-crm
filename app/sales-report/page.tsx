@@ -1,44 +1,24 @@
 import dbConnection from "@/db/connect";
-import Price from "@/ui/price";
 import AuthedLayout from "@/utils/authedLayout";
 import getAllCategories from "@/utils/getAllCategories";
 import getShops from "@/utils/getShops";
 import dayjs from "dayjs";
+import ts_reportItem from "./ts_reportItem";
+import Client from "./client";
 
 export default async function Page() {
   const categories = await getAllCategories();
   const idFirstCategory = categories[0].id;
-  const data = await getYearReportData(Number(dayjs().format('YYYY')), idFirstCategory);
+  const reportData = await getYearReportData(Number(dayjs().format('YYYY')), idFirstCategory);
   const shops = await getShops();
   return <AuthedLayout title="Годовой отчет">
     <>
-      <table className="table table-bordered tablestriped">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Нименование</th>
-            {shops.map(shop => <th key={shop.id}>{shop.shopName}</th>)}
-          </tr>
-        </thead>
-        <tbody>
-          {data.map(productSales => <tr key={productSales.idProduct}>
-            <td>{productSales.idProduct}</td>
-            <td>{productSales.productName}</td>
-
-            {productSales.sales.map(salePerShopObj => <td key={salePerShopObj.idshop}>
-              {salePerShopObj.count} /  <Price value={Number(salePerShopObj.sum)} />
-            </td>)}
-
-          </tr>)}
-          <tr></tr>
-        </tbody>
-      </table>
-      {/* <pre>{JSON.stringify(data, null, 2)}</pre> */}
+      <Client shops={shops} report={reportData} />
     </>
   </AuthedLayout>
 }
 
-async function getYearReportData(year: number, idCategory: number) {
+async function getYearReportData(year: number, idCategory: number): Promise<ts_reportItem[]> {
   const soldProducts = await getSoldProductsPerYear(year, idCategory);
   const shops = await getShops();
 
