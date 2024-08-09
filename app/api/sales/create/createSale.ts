@@ -24,7 +24,7 @@ export async function createSale(
       ?
     )
   `,
-      [saleData.idProduct, saleData.idProduct, idUser, saleData.count, saleData.sumTotal]
+      [saleData.idProduct, saleData.idShop, idUser, saleData.count, saleData.sumTotal]
     )
     .then(([x]: any) => {
       return x;
