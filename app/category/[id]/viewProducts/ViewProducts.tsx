@@ -72,11 +72,8 @@ export default function ViewProducts(props: {
                                 retailPriceObj.retailPriceType,
                                 retailPriceObj.retailPriceValue
                             );
-                            return <td key={i}
-                            // title={JSON.stringify(['#nvf84mb', retailPrice, retailPriceObj], null, 2)}
-                            >
-                                {retailPrice}
-                                {/* <pre>{JSON.stringify(['#nvf84mb', { purchase: product.purchase_price, costPrice, retailPrice }, retailPriceObj], null, 2)}</pre> */}
+                            return <td key={i}>
+                                <Price value={retailPrice} />
                             </td>
                         })}
                     </>
