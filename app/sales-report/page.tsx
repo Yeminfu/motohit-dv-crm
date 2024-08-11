@@ -48,8 +48,6 @@ async function getYearReportData(year: number, idCategory: number): Promise<ts_r
 
 
 async function getSoldProductsPerYear(year: number, idCategory: number): Promise<{ idProduct: number, productName: string }[]> {
-  console.log('idCategoryidCategoryidCategory', year, idCategory);
-
   const connection = await dbConnection();
   const res = await connection.query(`
     select
@@ -70,8 +68,8 @@ async function getSales(idProduct: number, idShop: number, year: number): Promis
   const connection = await dbConnection();
   const qs = `
   select
-    count(count) as count,
-    sum(sum*count) as sum
+    sum(count) as count,
+    sum(sum) as sum
   from ${process.env.TABLE_PREFIX}_sales S
   where 
     year(S.created_date) = ? 
