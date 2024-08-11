@@ -82,7 +82,6 @@ function Filter(props: { searchParams: ts_searchParams, categories: CategoryType
         year: string
     }) {
         const qs = Object.entries(x).map(x => `${x[0]}=${x[1]}`).join('&');
-        console.log('xxxxxxxx', qs);
         const newpathname = pathname + (qs.length ? `?${qs}` : '');
         window.location.href = domain + '/' + newpathname;
     }
@@ -96,7 +95,7 @@ function Filter(props: { searchParams: ts_searchParams, categories: CategoryType
 
                         <select {...register("category", { required: true })} className="form-select w-auto" autoComplete="off" >
                             <option value="">Категория</option>
-                            {props.categories.map(category => <option key={category.id} value={String(category.id)}>{category.name} {category.id}</option>)}
+                            {props.categories.map(category => <option key={category.id} value={String(category.id)}>{category.name}</option>)}
                         </select>
 
                         <select {...register("year", { required: true })} className="form-select w-auto" autoComplete="off" >
