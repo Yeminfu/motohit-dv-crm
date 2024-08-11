@@ -43,7 +43,7 @@ export default function Client(props: {
 function Filter(props: { searchParams: ts_searchParams, categories: CategoryType[] }) {
     const [domain, setDomain] = useState("");
 
-    const defaultCategory = props.searchParams.idCategory || props.categories[0].id
+    const defaultCategory = props.searchParams.category || props.categories[0].id
     const defaultYear = props.searchParams.year || dayjs().format('YYYY');
 
     const startYear = 2024;

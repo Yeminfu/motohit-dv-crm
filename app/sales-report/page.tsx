@@ -11,7 +11,7 @@ export default async function Page(params: { searchParams: ts_searchParams }) {
   const categories = await getAllCategories();
 
   const year = params.searchParams.year || dayjs().format('YYYY');
-  const idCategory = params.searchParams.idCategory || categories[0]?.id;
+  const idCategory = params.searchParams.category || categories[0]?.id;
 
   const reportData = await getYearReportData(
     Number(year),
