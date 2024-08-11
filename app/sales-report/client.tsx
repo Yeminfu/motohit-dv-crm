@@ -31,7 +31,11 @@ export default function Client(props: {
                     <td>{productSales.idProduct}</td>
                     <td>{productSales.productName}</td>
                     {productSales.sales.map(salePerShopObj => <td key={salePerShopObj.idshop}>
-                        {salePerShopObj.count} /  <Price value={Number(salePerShopObj.sum)} />
+                        {(()=>{
+                            if(!salePerShopObj.count) return <>-</>
+                            return <>{salePerShopObj.count} /  <Price value={Number(salePerShopObj.sum)} /></>
+                        })()}
+                        
                     </td>)}
                 </tr>)}
                 <tr></tr>
