@@ -3,8 +3,6 @@ import dbConnection from "@/db/connect";
 const { TABLE_PREFIX } = process.env;
 
 export default async function createCategoriesTable() {
-  console.log('createCategoriesTable',);
-  
   const connection = await dbConnection();
   await connection.query("SET FOREIGN_KEY_CHECKS=0");
   await connection.query(`drop table if exists ${TABLE_PREFIX}_categories`);
@@ -27,10 +25,10 @@ export default async function createCategoriesTable() {
       `
     )
     .then(([x]: any) => {
-      console.log("createCategoriesTable", x.serverStatus);
+      // console.log(`${TABLE_PREFIX}_categories`, x);
     })
     .catch((z) => {
-      console.log("createCategoriesTable", z);
+      console.log("err #f8vck", z);
     });
   await connection.query("SET FOREIGN_KEY_CHECKS=1");
   await connection.end();

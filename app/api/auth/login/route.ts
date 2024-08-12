@@ -8,21 +8,17 @@ import addHistoryEntry from "@/utils/history/addHistoryEntry";
 
 export async function POST(request: Request) {
   const resquestData = await request.json();
+  await addHistoryEntry("login", {
+    login: resquestData.login,
+    success: true,
+  });
   if (!resquestData.login) {
-    await addHistoryEntry("login", {
-      login: resquestData.login,
-      success: false,
-    });
     return NextResponse.json({ success: false });
   }
 
   const user = await getUserByTg(resquestData.login);
 
   if (!user) {
-    await addHistoryEntry("login", {
-      login: resquestData.login,
-      success: false,
-    });
     return NextResponse.json({ success: false });
   }
 
@@ -35,10 +31,6 @@ export async function POST(request: Request) {
       `Код подтверждения: ${randomNumber}`
     );
 
-    await addHistoryEntry("login", {
-      login: resquestData.login,
-      success: true,
-    });
 
     return NextResponse.json({ success: true });
   }
