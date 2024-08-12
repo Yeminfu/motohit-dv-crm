@@ -22,8 +22,6 @@ async function getToken(confirmCode: number) {
       [confirmCode]
     )
     .then(([x]: any) => {
-        console.log('xxx234',x);
-        
       if (x.length) return x.pop().token;
       return null;
     })

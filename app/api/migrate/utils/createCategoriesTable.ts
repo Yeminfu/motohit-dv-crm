@@ -3,6 +3,8 @@ import dbConnection from "@/db/connect";
 const { TABLE_PREFIX } = process.env;
 
 export default async function createCategoriesTable() {
+  console.log('createCategoriesTable',);
+  
   const connection = await dbConnection();
   await connection.query("SET FOREIGN_KEY_CHECKS=0");
   await connection.query(`drop table if exists ${TABLE_PREFIX}_categories`);
@@ -12,7 +14,15 @@ export default async function createCategoriesTable() {
           CREATE TABLE ${TABLE_PREFIX}_categories (
               id int primary key AUTO_INCREMENT,
               name varchar(250) not null unique,
-              created_date DATETIME DEFAULT CURRENT_TIMESTAMP
+              created_date datetime default CURRENT_TIMESTAMP,
+              slug varchar(250) not null unique,
+              created_by int not null,
+              is_active TINYINT(1) default 1,
+              parent int,
+              description mediumtext not null,
+              position int,
+              foreign key (parent) references ${TABLE_PREFIX}_categories(id),
+              foreign key (created_by) references ${TABLE_PREFIX}_users(id)
           );
       `
     )
