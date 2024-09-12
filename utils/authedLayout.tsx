@@ -5,7 +5,7 @@ import SideMenu from "./side-menu/SideMenu";
 export default async function AuthedLayout(props: { children: any; title: string }) {
     return <>
         <div className="d-flex flex-nowrap" style={{ minHeight: "100vh" }}>
-            <div className="p-2 " style={{ background: '#eee', minWidth: "245px" }}>
+            <div className="col-2 p-2 " style={{ background: '#eee', minWidth: "245px" }}>
                 <SideMenu />
                 
             </div>
