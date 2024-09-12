@@ -17,7 +17,7 @@ export default async function Page(params: { params: { id: string }, searchParam
     const priceTypes = await getPriceTypes();
 
     return <>
-        <AuthedLayout title={category.name}>
+        <AuthedLayout title={category.category_name}>
             <Client idCategory={Number(idCategory)} priceTypes={priceTypes} shops={shops} productsFull={productsFull}
                 searchParams={params.searchParams}
             />

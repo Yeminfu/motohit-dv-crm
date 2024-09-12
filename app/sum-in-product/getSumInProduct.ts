@@ -22,7 +22,7 @@ export default async function getSumInProduct() {
                 });
 
             return {
-                categoryName: category.name,
+                categoryName: category.category_name,
                 sumInProducts
             }
         })

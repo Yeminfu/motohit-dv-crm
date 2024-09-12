@@ -11,7 +11,7 @@ export default async function createCategoriesTable() {
       `
           CREATE TABLE ${TABLE_PREFIX}_categories (
               id int primary key AUTO_INCREMENT,
-              name varchar(250) not null unique,
+              category_name varchar(250) not null unique,
               created_date datetime default CURRENT_TIMESTAMP,
               slug varchar(250) not null unique,
               created_by int not null,

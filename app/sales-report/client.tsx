@@ -31,12 +31,11 @@ export default function Client(props: {
                     <td>{productSales.idProduct}</td>
                     <td>{productSales.productName}</td>
                     {productSales.sales.map(salePerShopObj => <td key={salePerShopObj.idshop}>
-                        {(()=>{
-                            if(!salePerShopObj.count) return <>-</>
+                        {(() => {
+                            if (!salePerShopObj.count) return <>-</>
                             return <>{salePerShopObj.count} /  <Price value={Number(salePerShopObj.sum)} /></>
                         })()}
-                        
-                    </td>)}
+                        w                    </td>)}
                 </tr>)}
                 <tr></tr>
             </tbody>
@@ -95,7 +94,7 @@ function Filter(props: { searchParams: ts_searchParams, categories: CategoryType
 
                         <select {...register("category", { required: true })} className="form-select w-auto" autoComplete="off" >
                             <option value="">Категория</option>
-                            {props.categories.map(category => <option key={category.id} value={String(category.id)}>{category.name}</option>)}
+                            {props.categories.map(category => <option key={category.id} value={String(category.id)}>{category.category_name}</option>)}
                         </select>
 
                         <select {...register("year", { required: true })} className="form-select w-auto" autoComplete="off" >
