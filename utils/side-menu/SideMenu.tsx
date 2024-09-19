@@ -47,7 +47,7 @@ export default async function SideMenu() {
         {
             (user?.is_boss)
                 ? <div className="mt-4">
-                    <Link className="btn btn-dark d-block text-start mb-1" href={`/categories-create`}>Создать категорию</Link>
+                    <Link className="btn btn-dark d-block text-start mb-1" href={`/categories/create`}>Создать категорию</Link>
                 </div>
                 : null
         }
