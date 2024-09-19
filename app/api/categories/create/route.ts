@@ -1,16 +1,17 @@
 import dbConnection from "@/db/connect";
+import { ts_categoryToRequestCreate } from "@/types/categories/categories";
 import addHistoryEntry from "@/utils/history/addHistoryEntry";
 import { NextRequest, NextResponse } from "next/server";
 import slugify from "slugify";
 
 export async function POST(req: NextRequest) {
   const body = await req.json();
-  const { name,description } = body;
-  const res = await createCategory(name,description);
+  const { category_name, description }: ts_categoryToRequestCreate = body;
+  const res = await createCategory(category_name, String(description));
   return NextResponse.json(res);
 }
 
-async function createCategory(name: string, description:string) {
+async function createCategory(name: string, description: string) {
   let slug = slugify(
     name.replace(/[^ a-zA-Zа-яА-Я0-9-.]/gim, "")
   );
@@ -23,7 +24,7 @@ async function createCategory(name: string, description:string) {
       values
         (?,?,?,?)
       `,
-      [name.trim(), slug, 1,'здравствуйте']
+      [name.trim(), slug, 1, 'здравствуйте']
     )
     .then(([x]: any) => {
       return {
