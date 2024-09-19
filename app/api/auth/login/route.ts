@@ -13,8 +13,9 @@ export async function POST(request: Request) {
     success: true,
   });
   if (!resquestData.login) {
-    return NextResponse.json({ success: false });
+    return NextResponse.json({ success: 222222 });
   }
+  console.log('resquestData', resquestData);
 
   const user = await getUserByTg(resquestData.login);
 
@@ -34,5 +35,5 @@ export async function POST(request: Request) {
 
     return NextResponse.json({ success: true });
   }
-  return NextResponse.json({ success: false });
+  return NextResponse.json({ success: false, err: '#d8dneb' });
 }

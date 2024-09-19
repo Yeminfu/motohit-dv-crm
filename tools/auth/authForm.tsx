@@ -35,6 +35,7 @@ export default function AuthForm() {
             if (data.success) {
                 setAuthStep(2);
             } else {
+                console.log('dadadadada', data);
                 toast.error("Что-то пошло не так #fjn63");
             }
         })
