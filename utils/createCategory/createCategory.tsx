@@ -4,14 +4,16 @@ import { useState } from "react"
 import Modal from "../modal/modal";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
+import { ts_categoryType } from "@/types/categories/categoryType";
 
-export default function CreateCategory() {
+export default function CreateCategory(props: { categories: ts_categoryType[] }) {
     const [isOpen, setIsOpen] = useState(false);
     return <>
         {/* <h3>CreateCategory</h3> */}
         <button className="btn btn-outline-dark btn-sm w-100 text-start mt-2" onClick={() => setIsOpen(!isOpen)}>
             Создать категорию
         </button>
+        <pre>{JSON.stringify(['props', props])}</pre>
         <Modal
             isOpen={isOpen}
             title="Создать категорию"
@@ -19,14 +21,16 @@ export default function CreateCategory() {
                 setIsOpen(false);
             }}
         >
-            <CreateCategoryForm closeFn={() => {
-                setIsOpen(false);
-            }} />
+            <CreateCategoryForm
+                categories={[]}
+                closeFn={() => {
+                    setIsOpen(false);
+                }} />
         </Modal>
     </>
 }
 
-function CreateCategoryForm(props: { closeFn: any }) {
+function CreateCategoryForm(props: { closeFn: any, categories: ts_categoryType[] }) {
     const {
         register,
         handleSubmit,
@@ -43,7 +47,8 @@ function CreateCategoryForm(props: { closeFn: any }) {
                 toast.error(error)
             }
         })}>
-            <div className="mb-2"><input {...register("name", { required: true })} placeholder="Название категории" className="form-control" autoComplete="off" /></div>
+            <div className="mb-2"><input {...register("name", { required: true })} placeholder="Название" className="form-control" autoComplete="off" /></div>
+            <div className="mb-2"><textarea {...register("descripton", { required: true })} placeholder="Описание" className="form-control" autoComplete="off" /></div>
             <div className="d-flex">
                 <button className="btn btn-sm btn-outline-dark">Сохранить</button>
                 <div className="btn btn-sm btn-outline-danger ms-2" onClick={() => {

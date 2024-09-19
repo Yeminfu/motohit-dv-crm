@@ -16,7 +16,7 @@ export default async function SideMenu() {
         {categories.map((x) => <div key={x.id} >
             <Link className="btn btn-dark d-block text-start mb-1" href={`/category/${x.id}`}>{x.category_name}</Link>
         </div>)}
-        <CreateCategory />
+        <CreateCategory categories={categories} />
         <div className="mt-4">
             <Link className="btn btn-dark d-block text-start mb-1" href={`/users`}>Пользователи</Link>
         </div>

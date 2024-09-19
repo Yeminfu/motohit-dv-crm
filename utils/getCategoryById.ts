@@ -1,9 +1,9 @@
 import dbConnection from "@/db/connect";
-import { CategoryType } from "@/types/categories/categoryType";
+import { ts_categoryType } from "@/types/categories/categoryType";
 
 export async function getCategoryById(
   idCategory: string
-): Promise<CategoryType> {
+): Promise<ts_categoryType> {
   const connection = await dbConnection();
   const isValid = await connection
     .query(

@@ -6,14 +6,14 @@ import Price from "@/ui/price"
 import { usePathname } from "next/navigation"
 import { useForm } from "react-hook-form"
 import ts_searchParams from "./ts_searchParams"
-import { CategoryType } from "@/types/categories/categoryType"
+import { ts_categoryType } from "@/types/categories/categoryType"
 import dayjs from "dayjs"
 import { useEffect, useState } from "react"
 
 export default function Client(props: {
     shops: ShopFromDB[],
     report: ts_reportItem[],
-    categories: CategoryType[],
+    categories: ts_categoryType[],
     searchParams: ts_searchParams
 }) {
     return <>
@@ -43,7 +43,7 @@ export default function Client(props: {
     </>
 }
 
-function Filter(props: { searchParams: ts_searchParams, categories: CategoryType[] }) {
+function Filter(props: { searchParams: ts_searchParams, categories: ts_categoryType[] }) {
     const [domain, setDomain] = useState("");
 
     const defaultCategory = props.searchParams.category || props.categories[0].id

@@ -1,20 +1,29 @@
 import dbConnection from "@/db/connect";
 import addHistoryEntry from "@/utils/history/addHistoryEntry";
 import { NextRequest, NextResponse } from "next/server";
+import slugify from "slugify";
 
 export async function POST(req: NextRequest) {
   const body = await req.json();
-  const { name } = body;
-  const res = await createCategory(name);
+  const { name,description } = body;
+  const res = await createCategory(name,description);
   return NextResponse.json(res);
 }
 
-async function createCategory(name: string) {
+async function createCategory(name: string, description:string) {
+  let slug = slugify(
+    name.replace(/[^ a-zA-Zа-яА-Я0-9-.]/gim, "")
+  );
+
   const connection = await dbConnection();
   const res = await connection
     .query(
-      `insert into ${process.env.TABLE_PREFIX}_categories (name) values (?)`,
-      [name.trim()]
+      `insert into ${process.env.TABLE_PREFIX}_categories 
+        (category_name, slug,created_by, description) 
+      values
+        (?,?,?,?)
+      `,
+      [name.trim(), slug, 1,'здравствуйте']
     )
     .then(([x]: any) => {
       return {
