@@ -21,16 +21,19 @@ export default function CreateCategory(props: { categories: ts_categoryType[] })
                 setIsOpen(false);
             }}
         >
-            <CreateCategoryForm
-                categories={[]}
-                closeFn={() => {
-                    setIsOpen(false);
-                }} />
+            <>
+                <CreateCategoryForm
+                    categories={props.categories}
+                    closeFn={() => {
+                        setIsOpen(false);
+                    }} />
+            </>
         </Modal>
     </>
 }
 
 function CreateCategoryForm(props: { closeFn: any, categories: ts_categoryType[] }) {
+    
     const {
         register,
         handleSubmit,
@@ -49,6 +52,12 @@ function CreateCategoryForm(props: { closeFn: any, categories: ts_categoryType[]
         })}>
             <div className="mb-2"><input {...register("name", { required: true })} placeholder="Название" className="form-control" autoComplete="off" /></div>
             <div className="mb-2"><textarea {...register("descripton", { required: true })} placeholder="Описание" className="form-control" autoComplete="off" /></div>
+            <div className="mb-2">
+                <select {...register("idParent", { required: true })} className="form-select" autoComplete="off" >
+                    <option value="">Родительская категория</option>
+                    {props.categories.map(caterogy => <option key={caterogy.id} value={caterogy.id} >{caterogy.category_name}</option>)}
+                </select>
+            </div>
             <div className="d-flex">
                 <button className="btn btn-sm btn-outline-dark">Сохранить</button>
                 <div className="btn btn-sm btn-outline-danger ms-2" onClick={() => {
