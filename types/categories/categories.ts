@@ -5,7 +5,7 @@ export type CategoryFromDBInterface = {
     slug: string
     category_name: string
     description: string
-    parent: number
+    idParent?: number
 }
 
 export type CategoryWithAttributes = CategoryFromDBInterface & { attributes: AttributeWithValues[] };
