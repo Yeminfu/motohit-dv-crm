@@ -33,7 +33,6 @@ export default function CreateCategory(props: { categories: ts_categoryType[] })
 }
 
 function CreateCategoryForm(props: { closeFn: any, categories: ts_categoryType[] }) {
-    
     const {
         register,
         handleSubmit,
@@ -50,10 +49,10 @@ function CreateCategoryForm(props: { closeFn: any, categories: ts_categoryType[]
                 toast.error(error)
             }
         })}>
-            <div className="mb-2"><input {...register("name", { required: true })} placeholder="Название" className="form-control" autoComplete="off" /></div>
-            <div className="mb-2"><textarea {...register("descripton", { required: true })} placeholder="Описание" className="form-control" autoComplete="off" /></div>
+            <div className="mb-2"><input {...register("category_name", { required: true })} placeholder="Название" className="form-control" autoComplete="off" /></div>
+            <div className="mb-2"><textarea {...register("description", { required: true })} placeholder="Описание" className="form-control" autoComplete="off" /></div>
             <div className="mb-2">
-                <select {...register("idParent", { required: true })} className="form-select" autoComplete="off" >
+                <select {...register("idParent")} className="form-select" autoComplete="off" >
                     <option value="">Родительская категория</option>
                     {props.categories.map(caterogy => <option key={caterogy.id} value={caterogy.id} >{caterogy.category_name}</option>)}
                 </select>

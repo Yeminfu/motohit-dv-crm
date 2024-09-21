@@ -12,7 +12,7 @@ export type CategoryWithAttributes = CategoryFromDBInterface & { attributes: Att
 
 export interface ts_categoryToRequestCreate {
     category_name: string;
-    parent?: number;
+    idParent?: number;
     inserted_youtube_url?: any;
     description?: string;
 }

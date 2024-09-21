@@ -6,12 +6,13 @@ import slugify from "slugify";
 
 export async function POST(req: NextRequest) {
   const body = await req.json();
-  const { category_name, description }: ts_categoryToRequestCreate = body;
-  const res = await createCategory(category_name, String(description));
+  const { category_name, description, idParent }: ts_categoryToRequestCreate = body;
+  
+  const res = await createCategory(category_name, String(description), idParent);
   return NextResponse.json(res);
 }
 
-async function createCategory(name: string, description: string) {
+async function createCategory(name: string, description: string, idParent?: number) {
   let slug = slugify(
     name.replace(/[^ a-zA-Zа-яА-Я0-9-.]/gim, "")
   );
@@ -20,11 +21,11 @@ async function createCategory(name: string, description: string) {
   const res = await connection
     .query(
       `insert into ${process.env.TABLE_PREFIX}_categories 
-        (category_name, slug,created_by, description) 
+        (category_name, slug,created_by, description, idParent) 
       values
-        (?,?,?,?)
+        (?,?,?,?, ?)
       `,
-      [name.trim(), slug, 1, 'здравствуйте']
+      [name.trim(), slug, 1, description, idParent || null]
     )
     .then(([x]: any) => {
       return {
