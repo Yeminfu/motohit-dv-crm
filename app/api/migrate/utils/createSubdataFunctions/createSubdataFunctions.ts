@@ -1,4 +1,3 @@
-import getDataFromDB from "@/db/getDataFromDB";
 import createPseudoCategories from "./createPseudoCategories";
 import createAttribute from "@/db/crud/createAttribute";
 
