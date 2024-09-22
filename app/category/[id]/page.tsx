@@ -3,8 +3,8 @@ import { getCategoryById } from "@/utils/getCategoryById";
 import getPriceTypes from "@/utils/getPriceTypes";
 import getShops from "@/utils/getShops";
 import getProductsFull from "@/utils/getProductsFull";
-import Client from "./client";
 import ts_categoryFilter from "@/types/ts_categoryFilter";
+import ProductsList from "./views/ProductsList";
 
 export default async function Page(params: { params: { id: string }, searchParams: ts_categoryFilter },) {
 
@@ -18,9 +18,14 @@ export default async function Page(params: { params: { id: string }, searchParam
 
     return <>
         <AuthedLayout title={category.category_name}>
-            <Client idCategory={Number(idCategory)} priceTypes={priceTypes} shops={shops} productsFull={productsFull}
+            {(()=>{
+                // ProductsList
+                return <ProductsList idCategory={Number(idCategory)} priceTypes={priceTypes} shops={shops} productsFull={productsFull}
                 searchParams={params.searchParams}
-            />
+            />;
+            })()}
+            {/* <pre>{JSON.stringify(category, null, 2)}</pre> */}
+            
         </AuthedLayout>
     </>
 }

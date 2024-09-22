@@ -17,7 +17,7 @@ export default async function createCategoriesTable() {
               created_by int not null,
               is_active TINYINT(1) default 1,
               idParent int,
-              description mediumtext not null,
+              description longtext not null,
               position int,
               foreign key (idParent) references ${TABLE_PREFIX}_categories(id),
               foreign key (created_by) references ${TABLE_PREFIX}_users(id)

@@ -1,4 +1,3 @@
-export interface ts_categoryType {
-  id: number;
-  category_name: string;
-}
+import { CategoryFromDBInterface } from "./categories";
+
+export type ts_categoryType = CategoryFromDBInterface;
