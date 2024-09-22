@@ -14,6 +14,7 @@ import createSuperuser from "./utils/createSuperuser";
 import createHistoryTable from "./utils/createHistoryTable";
 import createAttributesTable from "./utils/createAttributesTable";
 import createAttributesValuesTable from "./utils/createAttributesValuesTable";
+import createAttrProdRelationsTable from "./utils/createAttrProdRelationsTable";
 
 export async function GET() {
   await migrate();
@@ -46,6 +47,7 @@ async function migrate() {
 
   await createAttributesTable();
   await createAttributesValuesTable();
+  await createAttrProdRelationsTable();
 }
 
 
