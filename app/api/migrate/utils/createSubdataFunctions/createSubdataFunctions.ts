@@ -1,14 +1,9 @@
-import getDataFromDB from "@/db/getDataFromDB";
+import createCategory from "@/db/crud/createCategory";
 
 export async function createSubdataFunctions() {
-    // создать категории товаров
-
-    const category = 
-    await getDataFromDB(`select 145
-      `, []).then(x => {
-        console.log('xxxxx', x);
-
-    })
-    // if (process.env.CAN_MIGRATE !== "poopaloopa") return;
-    // await createTables()
+  const array = Array.from({ length: 10 }, (_, b) => b);
+  for (let index = 0; index < array.length; index++) {
+    const element = array[index];
+    await createCategory("название" + element, "описание" + element)
+  }
 }
