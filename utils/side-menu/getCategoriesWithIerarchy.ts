@@ -1,8 +1,7 @@
 import getDataFromDB from "@/db/getDataFromDB"
 import { ts_categoriesWithIerarchy } from "@/types/categories/ts_categoriesWithIerarchy";
 
-export default async function getCategoriesWithIerarchy() {
-  console.log('getCategoriesWithIerarchygetCategoriesWithIerarchy');
+export default async function getCategoriesWithIerarchy(): Promise<ts_categoriesWithIerarchy[]> {
 
   const parentsSql = `select
     *
@@ -13,19 +12,37 @@ export default async function getCategoriesWithIerarchy() {
   //@ts-ignore
   const parents: ts_categoriesWithIerarchy[] = await getDataFromDB(parentsSql)
 
-  const build = await recursiveBuild(parents);
-  console.log('build', build);
-
+  const build = await Promise.all(
+    parents.map(async parent => {
+      const children = await getChildren(parent.id)
+      return {
+        ...parent,
+        children
+      }
+    })
+  );
+  return build;
 }
 
-async function recursiveBuild(parents: ts_categoriesWithIerarchy[]) {
-  const parentsWithCHildren = await Promise.all(
-    parents.map(async category => {
-      const childrenSql = ``;
-      const children: ts_categoriesWithIerarchy[] = await getDataFromDB(childrenSql, [category.id])
+async function getChildren(idParent: number): Promise<ts_categoriesWithIerarchy[]> {
+  const childrenSql = `
+  select
+    *
+  from ${process.env.TABLE_PREFIX}_categories
+  where
+    idParent = ?
+`;
+  const children: ts_categoriesWithIerarchy[] = await getDataFromDB(childrenSql, [idParent]);
+
+  const build = await Promise.all(
+    children.map(async category => {
+      const children = await getChildren(category.id)
       return {
-        ...category
-      };
+        ...category,
+        children
+      }
     })
-  )
+  );
+
+  return build;
 }

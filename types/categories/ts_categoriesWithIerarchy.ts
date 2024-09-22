@@ -4,5 +4,5 @@ export type ts_categoriesWithIerarchy = {
     category_name: string
     description: string
     idParent?: number
-    chldren?: ts_categoriesWithIerarchy[]
+    children?: ts_categoriesWithIerarchy[]
 }

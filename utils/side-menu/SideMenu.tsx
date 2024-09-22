@@ -4,38 +4,26 @@ import getAllCategories from "../getAllCategories";
 import { cookies } from "next/headers";
 import getUserByToken from "../users/getUserByToken";
 import { ts_categoriesWithIerarchy } from "@/types/categories/ts_categoriesWithIerarchy";
-// import dbConnection from "@/db/connect";
-// import getDataFromDB from "@/db/getDataFromDB";
 import getCategoriesWithIerarchy from "./getCategoriesWithIerarchy";
 
 export default async function SideMenu() {
   const authToken = String(cookies().get("auth")?.value);
   const user = await getUserByToken(authToken);
   const categories = await getAllCategories();
-  const categoriesWithIerarchy: ts_categoriesWithIerarchy = {
-    id: 1,
-    slug: String(),
-    category_name: "o_" + Date.now(),
-    description: "hala baalla",
-    chldren: [
-      {
-        id: 1,
-        slug: String(),
-        category_name: "o_" + Date.now(),
-        description: "hala baalla",
-      }
-    ]
-  };
-  console.log({ categoriesWithIerarchy });
+
+  const categoriesWithIerarchy = await getCategoriesWithIerarchy();
 
   return <>
     <div className="mb-2">
       <Link className="btn btn-dark d-block text-start mb-1" href={`/`}>Главная</Link>
     </div>
     <h4>Категории</h4>
-    {categories.map((x) => <div key={x.id} >
+    <div style={{ marginLeft: "-10px" }}>
+      {categoriesWithIerarchy.map(category => <CategoryItem category={category} />)}
+    </div>
+    {/* {categories.map((x) => <div key={x.id} >
       <Link className="btn btn-dark d-block text-start mb-1" href={`/category/${x.id}`}>{x.category_name}</Link>
-    </div>)}
+    </div>)} */}
     <CreateCategory categories={categories} />
     <div className="mt-4">
       <Link className="btn btn-dark d-block text-start mb-1" href={`/users`}>Пользователи</Link>
@@ -67,5 +55,15 @@ export default async function SideMenu() {
   </>
 }
 
+function CategoryItem(props: { category: ts_categoriesWithIerarchy }) {
+  const children = props.category.children ?
+    props.category.children?.map(child => <CategoryItem category={child} />)
+    : null;
 
-getCategoriesWithIerarchy()
+  return <>
+    <div style={{ marginLeft: "10px" }}>
+      <Link className="btn btn-dark d-block text-start mb-1" href={`/category/${props.category.id}`}>{props.category.category_name}</Link>
+      {children}
+    </div>
+  </>
+}
