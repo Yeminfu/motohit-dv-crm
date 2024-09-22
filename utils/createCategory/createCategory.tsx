@@ -9,11 +9,9 @@ import { ts_categoryType } from "@/types/categories/categoryType";
 export default function CreateCategory(props: { categories: ts_categoryType[] }) {
     const [isOpen, setIsOpen] = useState(false);
     return <>
-        {/* <h3>CreateCategory</h3> */}
         <button className="btn btn-outline-dark btn-sm w-100 text-start mt-2" onClick={() => setIsOpen(!isOpen)}>
             Создать категорию
         </button>
-        <pre>{JSON.stringify(['props', props])}</pre>
         <Modal
             isOpen={isOpen}
             title="Создать категорию"
@@ -22,7 +20,7 @@ export default function CreateCategory(props: { categories: ts_categoryType[] })
             }}
         >
             <>
-                <CreateCategoryForm
+                <Form
                     categories={props.categories}
                     closeFn={() => {
                         setIsOpen(false);
@@ -32,7 +30,7 @@ export default function CreateCategory(props: { categories: ts_categoryType[] })
     </>
 }
 
-function CreateCategoryForm(props: { closeFn: any, categories: ts_categoryType[] }) {
+function Form(props: { closeFn: any, categories: ts_categoryType[] }) {
     const {
         register,
         handleSubmit,
