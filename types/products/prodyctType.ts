@@ -21,7 +21,7 @@ export interface ProductOnCreate {
   color: string;
   cost_price: { type: string; value: number };
   note: string;
-  purchase_price: string;
+  purchase_price: number;
   retail_price: RetailPriceFromDB[];
   stock: {
     idShop: number;
