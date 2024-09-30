@@ -1,36 +1,21 @@
 "use client"
 
 import { Fragment, useEffect, useState } from "react"
-import { useForm, SubmitHandler, useFieldArray } from "react-hook-form"
+import { useForm, useFieldArray } from "react-hook-form"
 import { createEvent, createStore } from "effector"
 import { useStore } from "effector-react"
-// import { updateAttributesByCategoryId } from "./updateAttributesByCategoryId"
-// import stock_statuses from "@/src/components/stock_statuses"
 import Image from "next/image"
-// import TextEditor from "@/src/components/text-editor/TextEditor"
-// import { CategoryFromDBInterface } from "@/src/app/types/categories"
 import TextEditor from "@/tools/text-editor/TextEditor"
 import stock_statuses from "@/tools/stock_statuses"
 import Inputs from "./Inputs"
 import onSubmit from "./onSubmit"
-import { CategoryFromDBInterface } from "@/types/categories/categories"
+import { CategoryFromDBInterface } from "@/types/categories/categories";
+import ts_attributesFromServer from "./ts_attributesFromServer"
 
 
 
-
-interface AttributesFromServer {
-    attribute_id: number
-    attribute_name: string
-    values: {
-        value_id: number
-        value_name: string
-    }[]
-}
-
-
-
-export const setAttributes = createEvent<AttributesFromServer[]>();
-const $attributes = createStore<AttributesFromServer[]>([])
+export const setAttributes = createEvent<ts_attributesFromServer[]>();
+const $attributes = createStore<ts_attributesFromServer[]>([])
     .on(setAttributes, (_, v) => v);
 
 export default function CreateProductForm({ categories }: { categories: CategoryFromDBInterface[] }) {
@@ -236,4 +221,3 @@ export default function CreateProductForm({ categories }: { categories: Category
         </form >
     </>
 }
-
