@@ -1,5 +1,5 @@
 import getAllCategoriesWithProducts from "@/tools/db/getAllCategoriesWithProducts";
-import CreateProductForm from "./form"
+import CreateProductForm from "./form/form"
 import { CategoryFromDBInterface } from "@/types/categories/categories";
 import AuthedLayout from "@/utils/authedLayout";
 

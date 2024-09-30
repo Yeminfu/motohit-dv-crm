@@ -1,4 +1,4 @@
-import { setAttributes } from "./form";
+import { setAttributes } from "./form/form";
 
 export async function updateAttributesByCategoryId(categoryId: number) {
     fetch(
