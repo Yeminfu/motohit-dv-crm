@@ -1,4 +1,4 @@
-import getDataFromDB from "../dbWorker";
+import dbWorker from "../dbWorker";
 
 export default async function createAttribute(
     attribute_name: string,
@@ -7,7 +7,7 @@ export default async function createAttribute(
     idCategory: number,
     is_main: boolean | 0 | 1
 ) {
-    const result = await getDataFromDB(`
+    const result = await dbWorker(`
     insert into ${process.env.TABLE_PREFIX}_attributes
     (
       attribute_name,

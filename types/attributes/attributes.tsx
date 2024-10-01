@@ -2,15 +2,18 @@ import dbConnection from "@/db/connect"
 import dbWorker from "@/db/dbWorker"
 
 export default async function Attributes() {
+    getAllAttributes()
     return <>Attributes</>
 }
 
 async function getAllAttributes() {
     dbWorker(
-        `
-        select 123
-        `,
-        []
+      `
+      select
+          *
+      from chbfs_attributes
+      `,
+      []
     ).then(x => console.log('xxx', x))
     // const connection 
 

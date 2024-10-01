@@ -1,6 +1,6 @@
 import { createProductInDB } from "@/app/api/products/create/createProductInDB";
 import createAttribute from "@/db/crud/createAttribute";
-import getDataFromDB from "@/db/getDataFromDB";
+import dbWorker from "@/db/dbWorker";
 import { ProductOnCreate } from "@/types/products/prodyctType";
 
 export default async function createPreudoProducts() {
@@ -34,7 +34,7 @@ export default async function createPreudoProducts() {
 }
 
 async function getCategories() {
-  return await getDataFromDB(`
+  return await dbWorker(`
     select  
       *
     from ${process.env.TABLE_PREFIX}_categories

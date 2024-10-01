@@ -1,5 +1,5 @@
 import createAttribute from "@/db/crud/createAttribute";
-import getDataFromDB from "@/db/getDataFromDB";
+import dbWorker from "@/db/dbWorker";
 
 export default
     async function createPreudoAttributes() {
@@ -15,7 +15,7 @@ export default
 
 
 async function getCategories() {
-    return await getDataFromDB(`
+    return await dbWorker(`
     select  
       *
     from ${process.env.TABLE_PREFIX}_categories

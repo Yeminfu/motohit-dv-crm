@@ -1,5 +1,5 @@
 import createCategory from "@/db/crud/createCategory";
-import getDataFromDB from "@/db/getDataFromDB";
+import dbWorker from "@/db/dbWorker";
 
 export default async function createPseudoCategories() {
     const array = Array.from({ length: 3 }, (_, b) => b);
@@ -37,5 +37,5 @@ export default async function createPseudoCategories() {
   }
   
   async function getChildCategories() {
-    return await getDataFromDB(`select * from ${process.env.TABLE_PREFIX}_categories where idParent is not null`, [])
+    return await dbWorker(`select * from ${process.env.TABLE_PREFIX}_categories where idParent is not null`, [])
   }
