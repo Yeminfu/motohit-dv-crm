@@ -1,4 +1,4 @@
-import getDataFromDB from "../getDataFromDB";
+import getDataFromDB from "../dbWorker";
 
 export default async function createAttribute(
     attribute_name: string,
