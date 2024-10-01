@@ -9,7 +9,7 @@ import { ts_categoryType } from "@/types/categories/categoryType";
 export default function CreateCategory(props: { categories: ts_categoryType[] }) {
     const [isOpen, setIsOpen] = useState(false);
     return <>
-        <button className="btn btn-outline-dark btn-sm w-100 text-start mt-2" onClick={() => setIsOpen(!isOpen)}>
+        <button className="btn btn-primary btn-sm w-100 text-start" onClick={() => setIsOpen(!isOpen)}>
             Создать категорию
         </button>
         <Modal

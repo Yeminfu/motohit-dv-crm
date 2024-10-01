@@ -14,27 +14,50 @@ export default async function SideMenu() {
   const categoriesWithIerarchy = await getCategoriesWithIerarchy();
 
   return <>
-    <div className="mb-2">
-      <Link className="btn btn-dark d-block text-start mb-1" href={`/`}>Главная</Link>
-    </div>
-    <h4>Категории</h4>
-    <div style={{ marginLeft: "-10px" }}>
-      {categoriesWithIerarchy.map(category => <CategoryItem category={category} />)}
-    </div>
+    <ul className="list-group list-group-flush">
+      <li className="list-group-item">
+        <Link className="btn btn-dark d-block text-start mb-1" href={`/`}>Главная</Link>
+      </li>
+      <li className="list-group-item">
+        <h4>Категории</h4>
+        <div style={{ marginLeft: "-10px" }}>
+          {categoriesWithIerarchy.map(category => <CategoryItem category={category} />)}
+        </div>
+      </li>
+      <li className="list-group-item"><div>
+        <CreateCategory categories={categories} />
+      </div></li>
+      {
+        (user?.is_boss)
+          ? <li className="list-group-item">
+            <Link className="btn btn-dark d-block text-start mb-1" href={`/products/create`}>Создать товар</Link>
+          </li>
+          : null
+      }
+      <li className="list-group-item">
+        <h4>Пользователи</h4>
+        <Link className="btn btn-dark d-block text-start" href={`/users`}>Пользователи</Link>
+      </li>
+      {
+        (user?.is_boss)
+          ? <li className="list-group-item">
+            <Link className="btn btn-dark d-block text-start mb-1" href={`/sum-in-product`}>Сумма в товаре</Link>
+          </li>
+          : null
+      }
+
+    </ul>
+
+
+
     {/* {categories.map((x) => <div key={x.id} >
       <Link className="btn btn-dark d-block text-start mb-1" href={`/category/${x.id}`}>{x.category_name}</Link>
     </div>)} */}
-    <CreateCategory categories={categories} />
-    <div className="mt-4">
+
+    {/* <div className="mt-4">
       <Link className="btn btn-dark d-block text-start mb-1" href={`/users`}>Пользователи</Link>
-    </div>
-    {
-      (user?.is_boss)
-        ? <div className="mt-4">
-          <Link className="btn btn-dark d-block text-start mb-1" href={`/sum-in-product`}>Сумма в товаре</Link>
-        </div>
-        : null
-    }
+    </div> */}
+
     <div className="mt-4">
       <Link className="btn btn-dark d-block text-start mb-1" href={`/archive`}>Архив</Link>
     </div>
@@ -45,13 +68,7 @@ export default async function SideMenu() {
         </div>
         : null
     }
-    {
-      (user?.is_boss)
-        ? <div className="mt-4">
-          <Link className="btn btn-dark d-block text-start mb-1" href={`/products/create`}>Создать товар</Link>
-        </div>
-        : null
-    }
+
   </>
 }
 
