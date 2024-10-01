@@ -9,6 +9,10 @@ export default interface Inputs {
     images: any
     video: string[]
     videoAppender: string
+    purchase_price: string
+    cost_price: any
+    // retail_price: any
+    retail_price: any
 }
 
 interface AttributeType {

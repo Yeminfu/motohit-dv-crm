@@ -20,11 +20,16 @@ const $attributes = createStore<ts_attributesFromServer[]>([])
 
 export default function CreateProductForm({ categories }: { categories: CategoryFromDBInterface[] }) {
 
-    const { register, handleSubmit, getValues, control, setValue } = useForm<Inputs>({});
+    const { register, handleSubmit, getValues, control, setValue } = useForm<any>({});
 
     const { fields: attributesFields, append: appendAttribute } = useFieldArray({ control, name: "attributes" });
 
     const { fields: videoFields, append: appendVideo, remove: removeVideo } = useFieldArray({ control, name: "videos" });
+
+    const { fields: retailPriceFields, append: appendRetailPrice }: any = useFieldArray<any>({
+        control,
+        name: "retail_price",
+    });
 
     const [previewImages, setPreviewImages] = useState([]);
 
@@ -62,6 +67,17 @@ export default function CreateProductForm({ categories }: { categories: Category
     return <>
 
         <form onSubmit={handleSubmit(onSubmit)}>
+
+
+
+
+
+
+
+
+
+
+
             <div className='row mb-2'>
                 <div className="col-lg-2 ">Наименование </div>
                 <div className="col-lg-7">
@@ -217,6 +233,68 @@ export default function CreateProductForm({ categories }: { categories: Category
                     </div>
                 </div>
             </div>
+
+            <div>
+                {/*Закупочная цена*/}
+                <div className="mb-2">
+                    <div><b>Закупочная цена</b></div>
+                    <input {...register("purchase_price", { required: true, pattern: /^\d+$/i })} className="form-control" autoComplete="off" />
+                </div>
+
+                <div className="mt-3">
+                    <b>Себестоимость</b>
+                    <div className="row">
+                        <div className="col-6">
+                            <div><b>Тип</b></div>
+                            <select {...register("cost_price.type", { required: true })} className="form-select" autoComplete="off" >
+                                <option value="">-</option>
+                                {/* {props.priceTypes.map(priceType => <option value={priceType.id} key={priceType.id}>{priceType.priceType}</option>)} */}
+                            </select>
+                        </div>
+                        <div className="col-6">
+                            <div><b>Значение</b></div>
+                            <input {...register("cost_price.value", { required: true, pattern: /^\d+$/i })} className="form-control" autoComplete="off" />
+                        </div>
+                    </div>
+                </div>
+
+                <div className="mt-3">
+                    <h5>Розн. цена</h5>
+                    <>
+                        <table className="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Тип р.ц.</th>
+                                    <th>Значение р.ц.</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <>
+                                    {retailPriceFields.map((shop: any, index: any) => {
+                                        return <tr key={index}>
+                                            <td>
+                                                {retailPriceFields[index].shopName}
+                                            </td>
+                                            <td>
+                                                <select {...register(`retail_price[${index}].idPriceType`, { required: true })} className="form-select" autoComplete="off" >
+                                                    <option value="">-</option>
+                                                    {/* {props.priceTypes.map(priceType => <option value={priceType.id} key={priceType.id}>{priceType.priceType}</option>)} */}
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <input {...register(`retail_price[${index}].priceValue`, { required: true })} className="form-control" autoComplete="off" />
+                                            </td>
+                                        </tr>
+                                    })}
+                                </>
+                            </tbody>
+                        </table>
+                    </>
+                </div>
+            </div>
+
+
             <button className="btn btn-sm btn-outline-dark">Сохранить</button>
         </form >
     </>
