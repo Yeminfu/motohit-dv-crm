@@ -1,9 +1,14 @@
+import Attributes from "@/types/attributes/attributes";
 import AuthedLayout from "@/utils/authedLayout";
 
 export default function Page() {
     return <>
         <AuthedLayout title={"Атрибуты  "}>
-            Page
-        </AuthedLayout>
+            <Attributes />
+        </AuthedLayout >
     </>
 }
+
+// async function getAttributes(){
+//     getdatafr
+// } 
