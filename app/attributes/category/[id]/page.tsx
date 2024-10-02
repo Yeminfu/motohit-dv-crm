@@ -31,6 +31,7 @@ export default async function Page(a: { params: { id: string } }) {
           <td>{attribute.is_open_in_filter}</td>
           <td>{attribute.is_main}</td>
           <td>
+            <pre>{JSON.stringify(attribute.values)}</pre>
             че по значениям?
           </td>
         </tr>)}
@@ -41,7 +42,7 @@ export default async function Page(a: { params: { id: string } }) {
 
 // chbfs_attributes_values
 
-async function getAttributeValues(idAttribute: number) {
+async function getAttributeValues(idAttribute: number): Promise<ts_attributeValue[]> {
   return dbWorker(`
     select
       *
