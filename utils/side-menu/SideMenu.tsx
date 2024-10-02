@@ -74,7 +74,7 @@ export default async function SideMenu() {
 
 function CategoryItem(props: { category: ts_categoriesWithIerarchy }) {
   const children = props.category.children ?
-    props.category.children?.map(child => <CategoryItem category={child} />)
+    props.category.children?.map(child => <CategoryItem category={child} key={child.id} />)
     : null;
 
   return <>
