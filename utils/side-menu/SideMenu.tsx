@@ -12,7 +12,7 @@ export default async function SideMenu() {
   const categories = await getAllCategories();
 
   const categoriesWithIerarchy = await getCategoriesWithIerarchy();
-
+  // if(1)return null
   return <>
     <ul className="list-group list-group-flush">
       <li className="list-group-item">
@@ -21,7 +21,7 @@ export default async function SideMenu() {
       <li className="list-group-item">
         <h4>Категории</h4>
         <div style={{ marginLeft: "-10px" }}>
-          {categoriesWithIerarchy.map(category => <CategoryItem category={category} />)}
+          {categoriesWithIerarchy.map(category => <CategoryItem category={category} key={category.id} />)}
         </div>
       </li>
       <li className="list-group-item"><div>
