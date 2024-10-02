@@ -14,7 +14,7 @@ export default async function createPreudoProducts() {
       color: "#000",
       purchase_price: 1200,
       cost_price: {
-        type: "str",
+        type: 1,
         value: 123
       },
       code: '123123d',

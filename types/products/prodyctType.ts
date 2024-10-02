@@ -19,7 +19,7 @@ export interface ProductOnCreate {
   name: string;
   code: string;
   color: string;
-  cost_price: { type: string; value: number };
+  cost_price: { type: number; value: number };
   note: string;
   purchase_price: number;
   retail_price: RetailPriceFromDB[];
