@@ -1,7 +1,6 @@
-import dbWorker from "@/db/dbWorker";
-import { AttributeType } from "@/types/categories/attributes";
-import { CategoryFromDBInterface } from "@/types/categories/categories";
 import AuthedLayout from "@/utils/authedLayout";
+import getAttributes from "./getAttributes";
+import getCategory from "./getCategory";
 
 export default async function Page(a: { params: { id: string } }) {
   const category = await getCategory(Number(a.params.id));
@@ -23,28 +22,11 @@ export default async function Page(a: { params: { id: string } }) {
           <td>{attribute.view_in_filter}</td>
           <td>{attribute.is_open_in_filter}</td>
           <td>{attribute.is_main}</td>
+          <td>
+            че по значениям?
+          </td>
         </tr>)}
       </tbody>
     </table>
   </AuthedLayout>
-}
-
-async function getAttributes(idCategory: number): Promise<AttributeType[]> {
-  return await dbWorker(`
-    select
-      *
-    from ${process.env.TABLE_PREFIX}_attributes
-    where
-      idCategory = ?
-  `, [idCategory])
-}
-
-async function getCategory(idCategory: number): Promise<CategoryFromDBInterface | undefined> {
-  return dbWorker(`
-  select
-    *
-  from ${process.env.TABLE_PREFIX}_categories
-  where
-    id = ?
-`, [idCategory]).then(x => x.pop())
 }
