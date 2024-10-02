@@ -1,6 +1,7 @@
 import dbWorker from "@/db/dbWorker";
+import { AttributeType } from "../categories/attributes";
 
-export default async function getAllAttributes() {
+export default async function getAllAttributes(): Promise<AttributeType[]> {
     const attributes = await dbWorker(
         `
       select

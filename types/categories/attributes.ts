@@ -3,6 +3,7 @@ export interface AttributeType { // FIXME DEPRECATED
     attribute_name: string
     view_in_filter: 1 | 0
     is_open_in_filter: 1 | 0
+    is_main: 1 | 0
 }
 
 export interface AttributeValueInterface {
