@@ -1,29 +1,36 @@
 import dbWorker from "@/db/dbWorker";
 import ts_attributeValue from "@/types/attributes/ts_attributeValue";
-import getUserByToken from "@/utils/users/getUserByToken";
-import { cookies } from "next/headers";
+// import getUserByToken from "@/utils/users/getUserByToken";
+// import { cookies } from "next/headers";
 
 export default async function createPreudoAttributesValues() {
-  const authToken = String(cookies().get("auth")?.value);
-  const user = await getUserByToken(authToken);
+  // const authToken = String(cookies().get("auth")?.value);
+  // const user = await getUserByToken(authToken);
 
   const attributes = await getAttributes();
-  console.log('#vnfd84', attributes);
 
-  await createAttributeValue()
-
-  //   const categories = await getCategories();
   for (let index = 0; index < attributes.length; index++) {
     const attribute = attributes[index];
-    console.log('attribute', attribute);
 
-    //     // const res = await createAttribute(
-    //     //   `атрибут для ${category.category_name}`, 1, 1, category.id, 1
-    //     // );
+    const arr = [1, 2, 3];
+
+    for (let index = 0; index < arr.length; index++) {
+      const number = arr[index];
+      await createAttributeValue({
+        value_name: "value_name_" + number,
+        idAttribute: attribute.id,
+        created_by: 1
+      });
+
+    }
   }
 }
 
-async function createAttributeValue() {
+async function createAttributeValue(props: {
+  value_name: string;
+  idAttribute: number;
+  created_by: number
+}) {
 
   await dbWorker(`
     insert into ${process.env.TABLE_PREFIX}_attributes_values
@@ -35,7 +42,7 @@ async function createAttributeValue() {
     values (
       ?, ?, ?
     )
-  `, ["значение 1", 1, 1])
+  `, [props.value_name, props.idAttribute, props.created_by])
 }
 
 async function getAttributes(): Promise<ts_attributeValue[]> {

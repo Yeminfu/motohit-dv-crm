@@ -6,7 +6,7 @@ export default async function createPreudoProducts() {
   for (let index = 0; index < categories.length; index++) {
     const category = categories[index];
 
-    const res = await createProductInDB({
+    await createProductInDB({
       name: "Товар 1" + category.id,
       color: "#000",
       purchase_price: 1200,
@@ -25,7 +25,6 @@ export default async function createPreudoProducts() {
       idCategory: 1
     });
 
-    console.log('res', res);
   }
 }
 
