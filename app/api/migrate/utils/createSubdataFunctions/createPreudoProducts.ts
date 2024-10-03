@@ -1,10 +1,7 @@
 import { createProductInDB } from "@/app/api/products/create/createProductInDB";
-import createAttribute from "@/db/crud/createAttribute";
 import dbWorker from "@/db/dbWorker";
-import { ProductOnCreate } from "@/types/products/prodyctType";
 
 export default async function createPreudoProducts() {
-
   const categories = await getCategories();
   for (let index = 0; index < categories.length; index++) {
     const category = categories[index];
@@ -29,7 +26,6 @@ export default async function createPreudoProducts() {
     });
 
     console.log('res', res);
-
   }
 }
 
