@@ -1,11 +1,7 @@
 import dbWorker from "@/db/dbWorker";
 import ts_attributeValue from "@/types/attributes/ts_attributeValue";
-// import getUserByToken from "@/utils/users/getUserByToken";
-// import { cookies } from "next/headers";
 
 export default async function createPreudoAttributesValues() {
-  // const authToken = String(cookies().get("auth")?.value);
-  // const user = await getUserByToken(authToken);
 
   const attributes = await getAttributes();
 
