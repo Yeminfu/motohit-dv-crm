@@ -22,7 +22,7 @@ export default async function createPreudoProducts() {
         shopName: 'stt',
         count: 123
       }],
-      idCategory: 1
+      idCategory: category.id
     });
 
   }
