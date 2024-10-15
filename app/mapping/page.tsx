@@ -1,6 +1,7 @@
 import AuthedLayout from "@/utils/authedLayout";
 import dbWorker from "@/db/dbWorker";
 import ts_productMatch from "./ts_productMatch";
+import Client from "./client";
 
 export default async function Page() {
   const matches = await getMatches();
@@ -8,27 +9,7 @@ export default async function Page() {
   return <>
     <AuthedLayout title="Mapping">
       <>
-        <table className="table table-bordered table-striped">
-          <thead>
-            <tr>
-              <th>Товар из магазина</th>
-              <th>Совпадения (товары из старой crm)</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            {matches.map(product => <tr key={product.idProductFromMapping}>
-              <td>{product.nameFromShop}</td>
-              <td>{product.nameFromOldCrm}</td>
-              <td>
-                <div className="d-flex">
-                  <button className="btn btn-success me-2">Подтвердить</button>
-                  <button className="btn btn-danger">Отмена</button>
-                </div>
-              </td>
-            </tr>)}
-          </tbody>
-        </table>
+        <Client matches={matches} />
       </>
     </AuthedLayout>
   </>
