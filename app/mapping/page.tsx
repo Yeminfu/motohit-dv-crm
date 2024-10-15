@@ -32,8 +32,8 @@ async function getMatches(): Promise<ts_productMatch[]> {
           motohit_dv.products as productsFromShop 
       on
           productsFromShop.id = productsFromMapping.idProductFromShop
+  where
+    productsFromMapping.isValid is null
   `, []);
-  console.log('matches', matches);
-
   return matches;
 }
