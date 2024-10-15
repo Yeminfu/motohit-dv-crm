@@ -11,10 +11,11 @@ export default async function createAttributesTable() {
             `
             CREATE TABLE ${TABLE_PREFIX}_attributes (
                 id int primary key AUTO_INCREMENT,
-                attribute_name varchar(250) not null unique,
+                attribute_name varchar(250) not null,
                 created_date datetime default CURRENT_TIMESTAMP,
                 created_by int not null,
                 view_in_filter TINYINT(1) default 1,
+                open_in_filter TINYINT(1) default 1,
                 idCategory int not null,
                 is_main int not null,
                 foreign key (idCategory) references ${TABLE_PREFIX}_categories(id),
