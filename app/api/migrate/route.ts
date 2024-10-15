@@ -2,10 +2,12 @@ import { NextResponse } from "next/server";
 import createTables from "./createTables";
 import dbWorker from "@/db/dbWorker";
 import exportCategoriesFromShop from "./utils/exportCategoriesFromShop";
+import exportAttributesFromShop from "./utils/exportAttributesFromShop";
 
 export async function GET() {
   await migrate();
   await exportCategoriesFromShop();
+  await exportAttributesFromShop();
   // await createSubdataFunctions();
   return NextResponse.json({
     success: null,
