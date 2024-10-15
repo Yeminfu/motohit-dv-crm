@@ -1,6 +1,7 @@
 "use client"
 
 import confirmMatchClient from "./confirmMatchClient";
+import declineMatchClient from "./declineMatchClient";
 import ts_productMatch from "./ts_productMatch";
 
 export default function Client(props: { matches: ts_productMatch[] }) {
@@ -20,10 +21,10 @@ export default function Client(props: { matches: ts_productMatch[] }) {
           <td>
             <div className="d-flex">
               <button className="btn btn-success me-2" onClick={async () => {
-                await confirmMatchClient(product.idProductFromMapping)
+                await confirmMatchClient(product.idProductFromMapping);
               }}>Подтвердить</button>
-              <button className="btn btn-danger" onClick={() => {
-                console.log('Отмена');
+              <button className="btn btn-danger" onClick={async () => {
+                await declineMatchClient(product.idProductFromMapping);
               }}>Отмена</button>
             </div>
           </td>
