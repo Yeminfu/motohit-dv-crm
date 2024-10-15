@@ -4,11 +4,13 @@ import createTables from "./createTables";
 import exportCategoriesFromShop from "./utils/exportCategoriesFromShop";
 import exportAttributesFromShop from "./utils/exportAttributesFromShop";
 import exportProductsFromShop from "./utils/exportProductsFromShop";
+import exportAttributesValuesFromShop from "./utils/exportAttributesValuesFromShop";
 
 export async function GET() {
   await migrate();
   await exportCategoriesFromShop();
   await exportAttributesFromShop();
+  await exportAttributesValuesFromShop();
   await exportProductsFromShop();
   return NextResponse.json({
     success: null,
