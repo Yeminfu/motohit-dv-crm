@@ -3,7 +3,7 @@
 
 export default async function confirmMatchClient(idMatch: number) {
     try {
-        const response = await fetch("/api/matches/confirm/" + idMatch);
+        const response = await fetch("/api/matches/confirm/" + idMatch, { method: "POST" });
         // Проверка на успешный ответ
         if (!response.ok) {
             // Обработка ошибок на уровне HTTP
