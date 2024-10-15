@@ -15,7 +15,7 @@ export default async function createAttrProdRelationsTable() {
                 created_by int not null,
                 idAttributeValue int not null,
                 idProduct int not null,
-                foreign key (idAttributeValue) references ${TABLE_PREFIX}_attr_prod_relation_values(id),
+                foreign key (idAttributeValue) references ${TABLE_PREFIX}_attr_prod_relation(id),
                 foreign key (idProduct) references ${TABLE_PREFIX}_products(id)
             );
         `

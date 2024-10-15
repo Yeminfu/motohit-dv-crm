@@ -2,15 +2,22 @@ import AuthedLayout from "@/utils/authedLayout";
 import dbWorker from "@/db/dbWorker";
 import ts_productMatch from "./ts_productMatch";
 import Client from "./client";
+import CreateProduct from "@/utils/products/createProduct/createProduct";
 
 export default async function Page() {
-  const matches = await getMatches();
-  const count = await getMatchesCountTotal();
+  const products = await getMatches();
+
+  for (let index = 0; index < products.length; index++) {
+    const productFromMatches = products[index];
+    console.log(productFromMatches);
+    // CreateProduct()
+    break;
+  }
+
   return <>
     <AuthedLayout title="Mapping">
       <>
-        ({count})
-        <Client matches={matches} />
+        <Client matches={products} />
       </>
     </AuthedLayout>
   </>
@@ -37,25 +44,4 @@ async function getMatches(): Promise<ts_productMatch[]> {
     productsFromMapping.isValid = 1
   `, []);
   return matches;
-}
-
-async function getMatchesCountTotal(): Promise<number> {
-  const matches = await dbWorker(`
-    select
-      count(1) count
-  from motohit_dv_mapping.products as productsFromMapping
-      left join
-          motohit_27_crm.birm_products as productsFromOldCRM 
-      on
-          productsFromOldCRM.id = productsFromMapping.idProductFromOldCrm
-      left join
-          motohit_dv.products as productsFromShop 
-      on
-          productsFromShop.id = productsFromMapping.idProductFromShop
-  where
-    productsFromMapping.isValid is null
-  `, []);
-  console.log('matches', matches[0]);
-
-  return matches[0].count;
 }
