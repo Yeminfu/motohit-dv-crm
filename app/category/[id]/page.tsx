@@ -19,7 +19,7 @@ export default async function Page(params: { params: { id: string }, searchParam
     const productsFull = await getProductsFull(Number(idCategory), params.searchParams);
     const priceTypes = await getPriceTypes();
 
-    const children = await getCategoryChildren(category.id);
+    const children = await getCategoryChildren(Number(category.id));
 
     return <>
         <AuthedLayout title={category.category_name}>
