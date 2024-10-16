@@ -1,33 +1,17 @@
 import dbWorker from "@/db/dbWorker";
 
 export default async function exportProductsFromShop() {
-
-  const productsFromShop: {
-    id: number
-    product_name: string
-    category: number
-  }[] = await dbWorker(`
-    select
-      id,
-      created_date,
-      created_by,
-      is_active,
-      stock_status,
-      product_name,
-      slug,
-      --description,
-      price,
-      category,
-      index_number,
-      short_description
-    from motohit_dv.products
-  `, []);
+  const productsFromShop = await getProductsFromShop();
 
   for (let index = 0; index < productsFromShop.length; index++) {
     const productFromShop = productsFromShop[index];
     // console.log('productFromShop', productFromShop);
 
-    const matchRes = await dbWorker(`
+    const matchRes: {
+      id: number
+      idProductFromOldCrm: number
+      // idProductFromOldCrm: number
+    }[] = await dbWorker(`
       select
         *
       from motohit_dv_mapping.products
@@ -40,31 +24,67 @@ export default async function exportProductsFromShop() {
 
     if (matchRes.length) {
       const match = matchRes.pop();
-      // const productFromOldCRM = await dbWorker(`
-      //   select
-      //     *
-      //   from motohit_27_crm.birm_products
-      //   where
-      //     id = ?
-      // `, [matchRes.pop().idProductFromOldCRM]);
 
-      console.log('productFromOldCRM', match.idProductFromOldCrm);
+      if (match) {
+
+        const [productFromOldCRM]: {
+          purchase_price: string; //'47000'
+          cost_value: string; //'1.1'
+          cost_type: string; //'percent'
+          title_color: string; //'black'
+          code: string; //'shc83'
+          note: string; //'shc83'
+          archive: boolean;
+        }[]
+          = await dbWorker(`
+          select
+            *
+          from motohit_27_crm.birm_products
+          where
+            id = ?
+        `, [match.idProductFromOldCrm]);
+
+        const priceType = {
+          fix: 1,
+          handle: 2,
+          percent: 3,
+        }
+
+        await createProduct({
+          id: productFromShop.id,
+          name: productFromShop.product_name,
+          idCategory: productFromShop.category,
+          purchase_price: Number(productFromOldCRM.purchase_price),
+          //@ts-ignore
+          idCostPriceType: priceType[productFromOldCRM.cost_type] || null,
+          costPriceValue: Number(productFromOldCRM.cost_value),
+          color: productFromOldCRM.title_color,
+          code: productFromOldCRM.code,
+          note: productFromOldCRM.note,
+          isArchived: productFromOldCRM.archive
+        })
+      }
+    } else {
+
+      await createProduct({
+        id: productFromShop.id,
+        name: productFromShop.product_name,
+        idCategory: productFromShop.category,
+        purchase_price: 0,
+        //@ts-ignore
+        idCostPriceType: null,
+        costPriceValue: null,
+        color: null,
+        code: null,
+        note: null,
+        isArchived: !productFromShop.is_active
+      })
+
     }
 
     // console.log('match', match);
 
-    // await createProduct({
-    //   id: productFromShop.id,
-    //   name: productFromShop.product_name,
-    //   idCategory: productFromShop.category,
-    //   purchase_price: productFromShop,
-    //   idCostPriceType: number,
-    //   costPriceValue: number,
-    //   color: string,
-    //   code: string,
-    //   note: string,
-    //   isArchived: boolean
-    // })
+
 
     // break;
   }
@@ -100,21 +120,62 @@ export default async function exportProductsFromShop() {
   // console.log('categoriesFromShop', categoriesFromShop);
 }
 
-
+// color
+// code
+// note
+// isArchived
 async function createProduct(productFromNewCRM: {
   id: number,
   name: string,
   idCategory: number,
   purchase_price: number,
   idCostPriceType: number,
-  costPriceValue: number,
-  color: string,
-  code: string,
-  note: string,
+  costPriceValue: number | null,
+  color: string | null,
+  code: string | null,
+  note: string | null,
   isArchived: boolean
 }) {
 
   console.log('productFromNewCRM', productFromNewCRM);
 
+  await dbWorker(`
+    insert into motohit_dv_crm.chbfs_products
+    (
+      ${Object.keys(productFromNewCRM)}
+    )
+    values
+    (
+      ${Object.values(productFromNewCRM).map(_ => '?')}
+    )
 
+  `, Object.values(productFromNewCRM));
+
+
+}
+
+async function getProductsFromShop() {
+
+  const productsFromShop: {
+    id: number
+    product_name: string
+    category: number
+    is_active: boolean;
+  }[] = await dbWorker(`
+    select
+      id,
+      created_date,
+      created_by,
+      is_active,
+      stock_status,
+      product_name,
+      slug,
+      --description,
+      price,
+      category,
+      index_number,
+      short_description
+    from motohit_dv.products
+  `, []);
+  return productsFromShop;
 }
