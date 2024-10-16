@@ -1,11 +1,11 @@
 import { NextResponse } from "next/server";
 import createTables from "./createTables";
-// import dbWorker from "@/db/dbWorker";
 import exportCategoriesFromShop from "./utils/exportCategoriesFromShop";
 import exportAttributesFromShop from "./utils/exportAttributesFromShop";
 import exportProductsFromShop from "./utils/exportProductsFromShop";
 import exportAttributesValuesFromShop from "./utils/exportAttributesValuesFromShop";
 import exportAttrProdRelationsFromShop from "./utils/exportAttrProdRelationsFromShop";
+import exportProductsImagesFromShop from "./utils/exportProductsImagesFromShop";
 
 export async function GET() {
   await migrate();
@@ -14,6 +14,7 @@ export async function GET() {
   await exportAttributesValuesFromShop();
   await exportProductsFromShop();
   await exportAttrProdRelationsFromShop();
+  await exportProductsImagesFromShop();
   return NextResponse.json({
     success: null,
   });
