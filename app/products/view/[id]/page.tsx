@@ -72,18 +72,7 @@ async function getProduct(idProduct: number): Promise<{
 }
 
 
-async function getStockByProduct(idProduct: number): Promise<{
-  // id: number
-  // name: string
-  // idCategory: number,
-  // purchase_price: number,
-  // idCostPriceType: number | null,
-  // costPriceValue: number | null,
-  // color: string | null,
-  // code: string | null,
-  // note: string | null,
-  // isArchived: boolean,
-}[]> {
+async function getStockByProduct(idProduct: number) {
   return await dbWorker(`
     select
       *
