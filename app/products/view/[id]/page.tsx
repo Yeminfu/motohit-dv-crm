@@ -6,6 +6,7 @@ export default async function Page(b: { params: { id: number } }) {
   if (!product) return null;
 
   const stock = await getStockByProduct(product.id);
+  const retailPrices = await getRetailPriceByProduct(product.id);
 
   return <>
     <AuthedLayout title={product.name}>
@@ -35,6 +36,15 @@ export default async function Page(b: { params: { id: number } }) {
           </div>
           <div className="card-body">
             <pre>{JSON.stringify(stock, null, 2)}</pre>
+          </div>
+        </div>
+
+        <div className="card">
+          <div className="card-header">
+            Рзничные цены
+          </div>
+          <div className="card-body">
+            <pre>{JSON.stringify(retailPrices, null, 2)}</pre>
           </div>
         </div>
       </>
@@ -77,6 +87,15 @@ async function getStockByProduct(idProduct: number) {
     select
       *
     from chbfs_stock
+    where idProduct = ?
+  `, [idProduct])
+}
+
+async function getRetailPriceByProduct(idProduct: number) {
+  return await dbWorker(`
+    select
+      *
+    from chbfs_retail_prices
     where idProduct = ?
   `, [idProduct])
 }
