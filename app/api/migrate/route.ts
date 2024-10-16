@@ -7,6 +7,7 @@ import exportAttributesValuesFromShop from "./utils/exportAttributesValuesFromSh
 import exportAttrProdRelationsFromShop from "./utils/exportAttrProdRelationsFromShop";
 import exportProductsImagesFromShop from "./utils/exportProductsImagesFromShop";
 import exportStockFromOldCRM from "./utils/exportStockFromOldCRM";
+import exportRetailPricesFromOldCRM from "./utils/exportRetailPricesFromOldCRM";
 
 export async function GET() {
   await migrate();
@@ -17,6 +18,7 @@ export async function GET() {
   await exportAttrProdRelationsFromShop();
   await exportProductsImagesFromShop();
   await exportStockFromOldCRM();
+  await exportRetailPricesFromOldCRM();
   return NextResponse.json({
     success: null,
   });
