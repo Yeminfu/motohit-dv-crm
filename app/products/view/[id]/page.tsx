@@ -1,4 +1,5 @@
 import dbWorker from "@/db/dbWorker";
+import ts_fullProduct from "@/types/products/ts_fullProduct";
 import AuthedLayout from "@/utils/authedLayout";
 
 export default async function Page(b: { params: { id: number } }) {
@@ -48,7 +49,7 @@ export default async function Page(b: { params: { id: number } }) {
             <pre>{JSON.stringify(retailPrices, null, 2)}</pre>
           </div>
         </div>
-        
+
         <div className="card">
           <div className="card-header">
             Изображения
@@ -62,18 +63,10 @@ export default async function Page(b: { params: { id: number } }) {
   </>
 }
 
-async function getProduct(idProduct: number): Promise<{
-  id: number
-  name: string
-  idCategory: number,
-  purchase_price: number,
-  idCostPriceType: number | null,
-  costPriceValue: number | null,
-  color: string | null,
-  code: string | null,
-  note: string | null,
-  isArchived: boolean,
-}[]> {
+async function getProduct(idProduct: number): Promise<
+  Pick<ts_fullProduct,
+    "id" | "name"
+  >[]> {
   return await dbWorker(`
     select
       id,
