@@ -50,6 +50,7 @@ export default async function exportProductsFromShop() {
         await createProduct({
           id: productFromShop.id,
           name: productFromShop.product_name,
+          slug: productFromShop.slug,
           idCategory: productFromShop.category,
           purchase_price: Number(productFromOldCRM.purchase_price),
           //@ts-ignore
@@ -68,7 +69,7 @@ export default async function exportProductsFromShop() {
         name: productFromShop.product_name,
         idCategory: productFromShop.category,
         purchase_price: 0,
-        //@ts-ignore
+        slug: productFromShop.slug,
         idCostPriceType: null,
         costPriceValue: null,
         color: null,
@@ -114,16 +115,13 @@ export default async function exportProductsFromShop() {
   // console.log('categoriesFromShop', categoriesFromShop);
 }
 
-// color
-// code
-// note
-// isArchived
 async function createProduct(productFromNewCRM: {
   id: number,
   name: string,
+  slug: string,
   idCategory: number,
   purchase_price: number,
-  idCostPriceType: number,
+  idCostPriceType: number | null,
   costPriceValue: number | null,
   color: string | null,
   code: string | null,
@@ -153,6 +151,7 @@ async function getProductsFromShop() {
   const productsFromShop: {
     id: number
     product_name: string
+    slug: string
     category: number
     is_active: boolean;
   }[] = await dbWorker(`

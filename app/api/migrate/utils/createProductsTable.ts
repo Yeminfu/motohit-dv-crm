@@ -12,6 +12,7 @@ export default async function createProductsTable() {
           CREATE TABLE ${TABLE_PREFIX}_products (
               id int primary key AUTO_INCREMENT,
               name varchar(250) not null unique,
+              slug varchar(250) not null unique,
               idCategory int not null,
               purchase_price int,
               idCostPriceType int,
