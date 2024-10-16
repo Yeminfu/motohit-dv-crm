@@ -1,23 +1,31 @@
-import dbConnection from "@/db/connect";
+import { StockFromDBInterface } from "@/types/products/prodyctType";
+import getShops from "./getShops";
+import dbWorker from "@/db/dbWorker";
 
-export default async function getProductStock(idProduct: any) {
-  const connection = await dbConnection();
-  const qs = `select 
-  Stock.*, 
-  Shop.shopName
-from ${process.env.TABLE_PREFIX}_stock Stock
-    left join ${process.env.TABLE_PREFIX}_shops Shop on Shop.id = Stock.idShop
-where Stock.idProduct = ?
-`;
+export default async function getProductStock(idProduct: any): Promise<StockFromDBInterface[]> {
+  const shops = await getShops();
+  const res = await Promise.all(
+    shops.map(async (shop) => {
+      const stockItem = await dbWorker(`
+        select 
+          id,
+          idProduct,
+          idShop,
+          count
+        from chbfs_stock
+        where
+          idProduct = ?
+          and idShop = ?
+      `, [idProduct, shop.id]);
 
-  const stock = await connection
-    .query(
-      qs,
-      [idProduct]
-    )
-    .then(([x]: any) => {
-      return x;
-    });
-  await connection.end();
-  return stock;
+      return {
+        id: stockItem.id,
+        idShop: shop.id,
+        shopName: shop.shopName,
+        count: stockItem?.pop()?.count || 0
+      }
+    })
+  )
+
+  return res;
 }

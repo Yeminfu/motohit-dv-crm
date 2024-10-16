@@ -37,9 +37,9 @@ export type ProductsFull = ProductFromDB & {
   stock: StockFromDBInterface[];
 };
 
-interface StockFromDBInterface {
+export interface StockFromDBInterface {
   id: number;
   idShop: number;
-  shopName: string;
+  // shopName: string;
   count: string;
 }
