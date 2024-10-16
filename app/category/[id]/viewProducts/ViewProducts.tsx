@@ -15,6 +15,7 @@ import Filter from "../filter";
 import ts_categoryFilter from "@/types/ts_categoryFilter";
 import Modal from "@/utils/modal/modal";
 import SendProductToArchive from "./SendProductToArchive";
+import Link from "next/link";
 
 export default function ViewProducts(props: {
     productsFull: ProductsFull[],
@@ -46,7 +47,9 @@ export default function ViewProducts(props: {
             </thead>
             <tbody>
                 {props.productsFull.map(product => <tr key={product.id}>
-                    <td>{product.id}</td>
+                    <td>
+                        <Link href={`/products/view/${product.id}`} target="_blank">{product.id}</Link>
+                    </td>
                     {/* <td>
                         {product.images.map(image => <Image
                             key={image.id}
