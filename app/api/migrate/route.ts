@@ -6,6 +6,7 @@ import exportProductsFromShop from "./utils/exportProductsFromShop";
 import exportAttributesValuesFromShop from "./utils/exportAttributesValuesFromShop";
 import exportAttrProdRelationsFromShop from "./utils/exportAttrProdRelationsFromShop";
 import exportProductsImagesFromShop from "./utils/exportProductsImagesFromShop";
+import exportStockFromOldCRM from "./utils/exportStockFromOldCRM";
 
 export async function GET() {
   await migrate();
@@ -15,6 +16,7 @@ export async function GET() {
   await exportProductsFromShop();
   await exportAttrProdRelationsFromShop();
   await exportProductsImagesFromShop();
+  await exportStockFromOldCRM();
   return NextResponse.json({
     success: null,
   });
@@ -24,13 +26,3 @@ async function migrate() {
   if (process.env.CAN_MIGRATE !== "poopaloopa") return;
   await createTables()
 }
-
-// interface ts_categoryFromShop {
-//   id: number
-//   slug: string
-//   is_active: boolean
-//   parent: number | null
-//   category_name: string
-//   description: string | null
-//   position: string | null
-// }
