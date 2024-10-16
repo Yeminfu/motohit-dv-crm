@@ -3,8 +3,10 @@ import ts_fullProduct from "@/types/products/ts_fullProduct";
 import AuthedLayout from "@/utils/authedLayout";
 
 export default async function Page(b: { params: { id: number } }) {
-  const [product] = await getProduct(b.params.id);
-  if (!product) return null;
+  const product = await getProduct(b.params.id);
+  const productColumns = await getProductColumnsFullData();
+
+  if (!product) return <>Нет такой страницы</>;
 
   const stock = await getStockByProduct(product.id);
   const retailPrices = await getRetailPriceByProduct(product.id);
@@ -22,10 +24,12 @@ export default async function Page(b: { params: { id: number } }) {
               <tbody>
                 {(() => {
                   const values = Object.values(product);
-                  return Object.keys(product).map((key, i) => <tr key={key}>
-                    <th>{key}</th>
-                    <td>{String(values[i])}</td>
-                  </tr>)
+                  return Object.keys(product).map((key, i) => {
+                    return <tr key={key}>
+                      <th>{productColumns[key] || key}</th>
+                      <td>{String(values[i])}</td>
+                    </tr>
+                  })
                 })()}
               </tbody>
             </table>
@@ -43,7 +47,7 @@ export default async function Page(b: { params: { id: number } }) {
 
         <div className="card">
           <div className="card-header">
-            Рзничные цены
+            Розничные цены
           </div>
           <div className="card-body">
             <pre>{JSON.stringify(retailPrices, null, 2)}</pre>
@@ -66,11 +70,12 @@ export default async function Page(b: { params: { id: number } }) {
 async function getProduct(idProduct: number): Promise<
   Pick<ts_fullProduct,
     "id" | "name"
-  >[]> {
+  >> {
   return await dbWorker(`
     select
       id,
       name,
+      slug,
       idCategory,
       purchase_price,
       idCostPriceType,
@@ -81,9 +86,23 @@ async function getProduct(idProduct: number): Promise<
       isArchived
     from chbfs_products
     where id = ?
-  `, [idProduct])
+  `, [idProduct]).then(x => x[0])
 }
 
+async function getProductColumnsFullData(): Promise<{ [k: string]: string; }> {
+
+  const res = await dbWorker(`SHOW FULL COLUMNS FROM motohit_dv_crm.chbfs_products;`, []);
+
+  const obj: [string, string][] = res.map((x: {
+    Comment: string; Field: string;
+  }) => ([
+    x.Field, x.Comment
+  ]));
+
+  const val = Object.fromEntries(obj);
+
+  return val;
+}
 
 async function getStockByProduct(idProduct: number) {
   return await dbWorker(`

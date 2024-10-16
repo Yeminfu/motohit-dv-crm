@@ -11,17 +11,17 @@ export default async function createProductsTable() {
       `
           CREATE TABLE ${TABLE_PREFIX}_products (
               id int primary key AUTO_INCREMENT,
-              name varchar(250) not null unique,
+              name varchar(250) not null unique comment "Название товара",
               slug varchar(250) not null unique,
-              idCategory int not null,
-              purchase_price int,
+              idCategory int not null comment "id категории",
+              purchase_price int comment "Закупочная цена",
               idCostPriceType int,
               costPriceValue float,
-              color varchar(100),
-              code varchar(500),
-              note varchar(5000),
-              isArchived boolean default 0,
-              created_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+              color varchar(100) comment "Цвет заголовка",
+              code varchar(500) comment "Код товара",
+              note varchar(5000) comment "Заметки",
+              isArchived boolean default 0 comment "Удален",
+              created_date DATETIME DEFAULT CURRENT_TIMESTAMP comment "Когда создан",
               foreign key (idCategory) references ${TABLE_PREFIX}_categories(id),
               foreign key (idCostPriceType) references ${TABLE_PREFIX}_price_types(id)
           );
