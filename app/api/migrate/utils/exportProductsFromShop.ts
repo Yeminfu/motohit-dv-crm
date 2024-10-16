@@ -5,22 +5,19 @@ export default async function exportProductsFromShop() {
 
   for (let index = 0; index < productsFromShop.length; index++) {
     const productFromShop = productsFromShop[index];
-    // console.log('productFromShop', productFromShop);
 
-    const matchRes: {
-      id: number
-      idProductFromOldCrm: number
-      // idProductFromOldCrm: number
-    }[] = await dbWorker(`
-      select
-        *
-      from motohit_dv_mapping.products
-      where
-        idProductFromShop = ? 
-    `, [productFromShop.id]);
-
-
-    // let match;
+    const matchRes:
+      {
+        id: number
+        idProductFromOldCrm: number
+      }[] = await dbWorker(
+        `
+          select
+            *
+          from motohit_dv_mapping.products
+          where
+            idProductFromShop = ? 
+        `, [productFromShop.id]);
 
     if (matchRes.length) {
       const match = matchRes.pop();
@@ -61,7 +58,7 @@ export default async function exportProductsFromShop() {
           color: productFromOldCRM.title_color,
           code: productFromOldCRM.code,
           note: productFromOldCRM.note,
-          isArchived: productFromOldCRM.archive
+          isArchived: !productFromShop.is_active
         })
       }
     } else {
@@ -79,43 +76,40 @@ export default async function exportProductsFromShop() {
         note: null,
         isArchived: !productFromShop.is_active
       })
-
     }
-
-    // console.log('match', match);
-
-
-
     // break;
   }
 
-  const categoriesFromShop = await dbWorker(`
-      insert into motohit_dv_crm.chbfs_products
-      (
-        id,
-        name,
-        idCategory,
-        purchase_price,
-        idCostPriceType,
-        costPriceValue,
-        color,
-        code,
-        note,
-        isArchived
-      )
-      select 
-        id,
-        product_name,
-        category,
-        100,
-        1,
-        1,
-        'green',
-        'code',
-        'note',
-        0
-      from motohit_dv.products;
-  `, []).then(x => x[0]);
+  // const categoriesFromShop = await dbWorker(`
+  //     insert into motohit_dv_crm.chbfs_products
+  //     (
+  //       id,
+  //       name,
+  //       idCategory,
+  //       purchase_price,
+  //       idCostPriceType,
+  //       costPriceValue,
+  //       color,
+  //       code,
+  //       note,
+  //       isArchived
+  //     )
+  //     select 
+  //       id,
+  //       product_name,
+  //       category,
+  //       100,
+  //       1,
+  //       1,
+  //       'green',
+  //       'code',
+  //       'note',
+  //       0
+  //     from motohit_dv.products
+  //     where name not in (
+  //       select name from motohit_dv_crm.chbfs_products
+  //     );
+  // `, []).then(x => x[0]);
 
   // console.log('categoriesFromShop', categoriesFromShop);
 }
