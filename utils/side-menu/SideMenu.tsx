@@ -3,7 +3,6 @@ import CreateCategory from "../createCategory/createCategory";
 import getAllCategories from "../getAllCategories";
 import { cookies } from "next/headers";
 import getUserByToken from "../users/getUserByToken";
-import { ts_categoriesWithIerarchy } from "@/types/categories/ts_categoriesWithIerarchy";
 import getCategoriesWithIerarchy from "./getCategoriesWithIerarchy";
 
 export default async function SideMenu() {
@@ -12,7 +11,6 @@ export default async function SideMenu() {
   const categories = await getAllCategories();
 
   const categoriesWithIerarchy = await getCategoriesWithIerarchy();
-  // if(1)return null
   return <>
     <ul className="list-group list-group-flush">
       <li className="list-group-item">
@@ -21,7 +19,8 @@ export default async function SideMenu() {
       <li className="list-group-item">
         <h4>Категории</h4>
         <div style={{ marginLeft: "-10px" }}>
-          {categoriesWithIerarchy.map(category => <CategoryItem category={category} key={category.id} />)}
+          {categoriesWithIerarchy.map(category => <Link className="btn btn-dark d-block text-start mb-1" href={`/category/${category.id}`}>{category.category_name}</Link>
+          )}
         </div>
       </li>
       <li className="list-group-item"><div>
@@ -48,16 +47,6 @@ export default async function SideMenu() {
 
     </ul>
 
-
-
-    {/* {categories.map((x) => <div key={x.id} >
-      <Link className="btn btn-dark d-block text-start mb-1" href={`/category/${x.id}`}>{x.category_name}</Link>
-    </div>)} */}
-
-    {/* <div className="mt-4">
-      <Link className="btn btn-dark d-block text-start mb-1" href={`/users`}>Пользователи</Link>
-    </div> */}
-
     <div className="mt-4">
       <Link className="btn btn-dark d-block text-start mb-1" href={`/archive`}>Архив</Link>
     </div>
@@ -69,18 +58,5 @@ export default async function SideMenu() {
         : null
     }
 
-  </>
-}
-
-function CategoryItem(props: { category: ts_categoriesWithIerarchy }) {
-  const children = props.category.children ?
-    props.category.children?.map(child => <CategoryItem category={child} key={child.id} />)
-    : null;
-
-  return <>
-    <div style={{ marginLeft: "10px" }}>
-      <Link className="btn btn-dark d-block text-start mb-1" href={`/category/${props.category.id}`}>{props.category.category_name}</Link>
-      {children}
-    </div>
   </>
 }
