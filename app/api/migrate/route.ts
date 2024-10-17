@@ -6,8 +6,8 @@ import exportProductsFromShop from "./utils/exportProductsFromShop";
 import exportAttributesValuesFromShop from "./utils/exportAttributesValuesFromShop";
 import exportAttrProdRelationsFromShop from "./utils/exportAttrProdRelationsFromShop";
 import exportProductsImagesFromShop from "./utils/exportProductsImagesFromShop";
-import exportStockFromOldCRM from "./utils/exportStockFromOldCRM";
-import exportRetailPricesFromOldCRM from "./utils/exportRetailPricesFromOldCRM";
+// import exportStockFromOldCRM from "./utils/exportStockFromOldCRM";
+// import exportRetailPricesFromOldCRM from "./utils/exportRetailPricesFromOldCRM";
 import dbWorker from "@/db/dbWorker";
 
 export async function GET() {
@@ -18,8 +18,8 @@ export async function GET() {
   await exportProductsFromShop();
   await exportAttrProdRelationsFromShop();
   await exportProductsImagesFromShop();
-  await exportStockFromOldCRM();
-  await exportRetailPricesFromOldCRM();
+  // await exportStockFromOldCRM();
+  // await exportRetailPricesFromOldCRM();
   return NextResponse.json({
     success: null,
   });
@@ -65,7 +65,7 @@ async function deleteTables() {
   `;
   const tables = await dbWorker(qs, []);
 
-// TABLE_NAME 	
+  // TABLE_NAME 	
   for (let index = 0; index < tables.length; index++) {
     const table = tables[index];
     // console.log('element', element);

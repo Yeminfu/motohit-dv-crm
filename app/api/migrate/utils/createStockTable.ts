@@ -13,13 +13,11 @@ export default async function createStockTable() {
           count int unsigned not null,
           foreign key (idProduct) references ${TABLE_PREFIX}_products(id),
           foreign key (idShop) references ${TABLE_PREFIX}_shops(id)
-      );
-  `, []
-  )
-    .then((x: any) => {
-      console.log("createProductsImagesTable", x.serverStatus);
-    })
-    .catch((z) => {
-      console.log("createProductsImagesTable", z);
-    });
+      ); 
+    `, []
+  );
+  await dbWorker(
+    `
+      CREATE UNIQUE INDEX unique_pair ON ${TABLE_PREFIX}_stock(idProduct, idShop);
+    `, []);
 }
