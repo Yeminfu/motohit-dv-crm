@@ -90,7 +90,7 @@ export default async function Page(b: { params: { id: number } }) {
           <div className="card-body">
             <div className="d-flex flex-wrap">
               {images.map((image) => <Fragment key={image.id}>
-                <img src={`https://мотохит-дв.рф/images/` + image.name} alt="" style={{ margin: 5 }} />
+                <img src={`https://мотохит-дв.рф/images/` + image.name} alt="" style={{ margin: 5, maxWidth:200 }} />
               </Fragment>)}
             </div>
           </div>
@@ -102,13 +102,14 @@ export default async function Page(b: { params: { id: number } }) {
 
 async function getProduct(idProduct: number): Promise<
   Pick<ts_fullProduct,
-    "id" | "name"
+    "id" | "name" | "description"
   >> {
   return await dbWorker(`
     select
       id,
       name,
       slug,
+      description,
       idCategory,
       purchase_price,
       idCostPriceType,

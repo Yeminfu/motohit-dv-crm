@@ -51,6 +51,7 @@ export default async function exportProductsFromShop() {
           id: productFromShop.id,
           name: productFromShop.product_name,
           slug: productFromShop.slug,
+          description: String(productFromShop.description),
           idCategory: productFromShop.category,
           purchase_price: Number(productFromOldCRM.purchase_price),
           //@ts-ignore
@@ -70,6 +71,7 @@ export default async function exportProductsFromShop() {
         idCategory: productFromShop.category,
         purchase_price: 0,
         slug: productFromShop.slug,
+        description: String(productFromShop.description),
         idCostPriceType: null,
         costPriceValue: null,
         color: null,
@@ -119,6 +121,7 @@ async function createProduct(productFromNewCRM: {
   id: number,
   name: string,
   slug: string,
+  description: string,
   idCategory: number,
   purchase_price: number,
   idCostPriceType: number | null,
@@ -152,6 +155,7 @@ async function getProductsFromShop() {
     id: number
     product_name: string
     slug: string
+    description: string
     category: number
     is_active: boolean;
   }[] = await dbWorker(`
@@ -163,7 +167,7 @@ async function getProductsFromShop() {
       stock_status,
       product_name,
       slug,
-      --description,
+      description,
       price,
       category,
       index_number,

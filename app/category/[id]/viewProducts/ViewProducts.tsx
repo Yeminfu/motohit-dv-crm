@@ -48,7 +48,7 @@ export default function ViewProducts(props: {
             <tbody>
                 {props.productsFull.map(product => <tr key={product.id}>
                     <td>
-                        <Link href={`/products/view/${product.id}`} target="_blank">{product.id}</Link>
+                        <Link href={`/products/view/${product.id}`} >{product.id}</Link>
                     </td>
                     {/* <td>
                         {product.images.map(image => <Image
