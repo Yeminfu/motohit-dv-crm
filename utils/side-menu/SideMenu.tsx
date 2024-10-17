@@ -19,10 +19,18 @@ export default async function SideMenu() {
       <li className="list-group-item">
         <h4>Категории</h4>
         <div style={{ marginLeft: "-10px" }}>
-          {categoriesWithIerarchy.map(category => <Link className="btn btn-dark d-block text-start mb-1" href={`/category/${category.id}`}>{category.category_name}</Link>
+          {categoriesWithIerarchy.map(category =>
+            <Link
+              key={category.id}
+              className="btn btn-dark d-block text-start mb-1"
+              href={`/category/${category.id}`}
+            >
+              {category.category_name}
+            </Link>
           )}
         </div>
       </li>
+
       <li className="list-group-item"><div>
         <CreateCategory categories={categories} />
       </div></li>

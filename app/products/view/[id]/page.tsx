@@ -14,6 +14,8 @@ export default async function Page(b: { params: { id: number } }) {
   const retailPrices = await getRetailPriceByProduct(product.id);
   const images = await getProductImages(product.id);
 
+  const attributes = await getAttributes(product.id);
+
   return <>
     <AuthedLayout title={product.name}>
       <>
@@ -85,12 +87,36 @@ export default async function Page(b: { params: { id: number } }) {
 
         <div className="card">
           <div className="card-header">
+            Атрибуты
+          </div>
+          <div className="card-body">
+            <div className="d-flex flex-wrap">
+              <table className="table" style={{ width: "auto" }}>
+                <thead>
+                  <tr>
+                    <td>Атрибут</td>
+                    <td>Значение</td>
+                  </tr>
+                </thead>
+                <tbody>
+                  {attributes.map(attributeItem => <tr key={attributeItem.attribute_name}>
+                    <th>{attributeItem.attribute_name}</th>
+                    <td>{attributeItem.value_name}</td>
+                  </tr>)}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <div className="card">
+          <div className="card-header">
             Изображения
           </div>
           <div className="card-body">
             <div className="d-flex flex-wrap">
               {images.map((image) => <Fragment key={image.id}>
-                <img src={`https://мотохит-дв.рф/images/` + image.name} alt="" style={{ margin: 5, maxWidth:200 }} />
+                <img src={`https://мотохит-дв.рф/images/` + image.name} alt="" style={{ margin: 5, maxWidth: 200 }} />
               </Fragment>)}
             </div>
           </div>
@@ -193,4 +219,25 @@ async function getProductImages(idProduct: number): Promise<{
     from chbfs_products_images
     where idProduct = ?
   `, [idProduct])
+}
+
+
+async function getAttributes(idProduct: number): Promise<{
+  attribute_name: string
+  value_name: string
+}[]> {
+  return await dbWorker(`
+    SELECT
+      attr.attribute_name,
+      vals.value_name
+    from chbfs_attr_prod_relation relation
+      left join chbfs_attributes_values vals 
+      on
+        vals.id = relation.idAttributeValue
+          left join chbfs_attributes attr 
+          on
+            attr.id = vals.idAttribute
+    where 
+      relation.idProduct = ?
+  `, [idProduct]);
 }
