@@ -45,6 +45,9 @@ export default async function SideMenu() {
         <h4>Пользователи</h4>
         <Link className="btn btn-dark d-block text-start" href={`/users`}>Пользователи</Link>
       </li>
+      <li className="list-group-item">
+        <Link className="btn btn-dark d-block text-start" href={`/attributes/categories`}>Атрибуты</Link>
+      </li>
       {
         (user?.is_boss)
           ? <li className="list-group-item">
@@ -68,3 +71,5 @@ export default async function SideMenu() {
 
   </>
 }
+
+
