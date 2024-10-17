@@ -26,14 +26,14 @@ export default async function Page(b: { params: { id: number } }) {
     <AuthedLayout title={product.name}>
       <>
         <PartWrapper title="Основные данные">
-          <table className="table w-auto">
+          <table className="table table-bordered w-auto">
             <tbody>
               {(() => {
                 const values = Object.values(product);
                 return Object.keys(product).map((key, i) => {
                   return <tr key={key}>
                     <th>{productColumns[key] || key}</th>
-                    <td>{String(values[i])}</td>
+                    <td><div dangerouslySetInnerHTML={{ __html: String(values[i]) }} /></td>
                   </tr>
                 })
               })()}
