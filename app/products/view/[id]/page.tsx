@@ -1,6 +1,7 @@
 import dbWorker from "@/db/dbWorker";
 import ts_fullProduct from "@/types/products/ts_fullProduct";
 import AuthedLayout from "@/utils/authedLayout";
+import { Fragment } from "react";
 
 export default async function Page(b: { params: { id: number } }) {
   const product = await getProduct(b.params.id);
@@ -87,7 +88,11 @@ export default async function Page(b: { params: { id: number } }) {
             Изображения
           </div>
           <div className="card-body">
-            <pre>{JSON.stringify(images, null, 2)}</pre>
+            <div className="d-flex flex-wrap">
+              {images.map((image) => <Fragment key={image.id}>
+                <img src={`https://мотохит-дв.рф/images/` + image.name} alt="" style={{ margin: 5 }} />
+              </Fragment>)}
+            </div>
           </div>
         </div>
       </>
@@ -177,7 +182,10 @@ async function getRetailPriceByProduct(idProduct: number): Promise<{
   `, [idProduct])
 }
 
-async function getProductImages(idProduct: number) {
+async function getProductImages(idProduct: number): Promise<{
+  id: number
+  name: string
+}[]> {
   return await dbWorker(`
     select
       *
