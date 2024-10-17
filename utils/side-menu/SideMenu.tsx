@@ -37,7 +37,7 @@ export default async function SideMenu() {
       {
         (user?.is_boss)
           ? <li className="list-group-item">
-            <Link className="btn btn-dark d-block text-start mb-1" href={`/products/create`}>Создать товар</Link>
+            <Link className="btn btn-dark d-block text-start mb-1" href={`/products/create`}>Создать товар (DEPRECATED)</Link>
           </li>
           : null
       }
