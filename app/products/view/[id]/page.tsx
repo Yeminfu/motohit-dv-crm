@@ -9,6 +9,7 @@ export default async function Page(b: { params: { id: number } }) {
   if (!product) return <>Нет такой страницы</>;
 
   const stock = await getStockByProduct(product.id);
+
   const retailPrices = await getRetailPriceByProduct(product.id);
   const images = await getProductImages(product.id);
 
@@ -41,7 +42,14 @@ export default async function Page(b: { params: { id: number } }) {
             Склад
           </div>
           <div className="card-body">
-            <pre>{JSON.stringify(stock, null, 2)}</pre>
+            <table className="table" style={{width:"auto"}}>
+              <tbody>
+                {stock.map(stockItem => <tr key={stockItem.id}>
+                  <th>{stockItem.shopName}</th>
+                  <td>{stockItem.count}</td>
+                </tr>)}
+              </tbody>
+            </table>
           </div>
         </div>
 
@@ -104,12 +112,26 @@ async function getProductColumnsFullData(): Promise<{ [k: string]: string; }> {
   return val;
 }
 
-async function getStockByProduct(idProduct: number) {
+async function getStockByProduct(idProduct: number): Promise<{
+  id: number
+  shopName: string
+  count: number
+  idProduct: number
+  idShop: number
+}[]> {
   return await dbWorker(`
     select
-      *
-    from chbfs_stock
-    where idProduct = ?
+      stock.id,
+      stock.idProduct,
+      stock.idShop,
+      stock.count,
+      shops.shopName
+    from chbfs_stock stock
+      left join chbfs_shops shops 
+      on 
+        shops.id = stock.idShop
+    where
+      idProduct = ?
   `, [idProduct])
 }
 
