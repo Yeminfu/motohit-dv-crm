@@ -13,6 +13,8 @@ export default async function Page(params: { searchParams: ts_searchParams }) {
   const year = params.searchParams.year || dayjs().format('YYYY');
   const idCategory = params.searchParams.category || categories[0]?.id;
 
+  if (!idCategory) return <>Такой страницы не существует</>
+
   const reportData = await getYearReportData(
     Number(year),
     idCategory,

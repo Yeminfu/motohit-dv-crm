@@ -8,7 +8,7 @@ export default async function getSumInProduct() {
 
     const sumInCategories = await Promise.all(
         categories.map(async category => {
-            const products = await getProductsFull(category.id, {});
+            const products = await getProductsFull(Number(category.id), {});
 
             const sumInProducts = await Promise.all(products.map(async product => {
                 const stockSum = await getProductTotalInStock(product.id);

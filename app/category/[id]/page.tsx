@@ -26,7 +26,7 @@ export default async function Page(params: { params: { id: string }, searchParam
             {(() => {
                 if (children.length) {
                     return <>
-                        {children.map(child => <div className="mb-2">
+                        {children.map(child => <div className="mb-2" key={child.id} >
                             <Link className="btn btn-dark d-block text-start mb-1" href={
                                 `/category/${child.id}`
                             }>{child.category_name}</Link>

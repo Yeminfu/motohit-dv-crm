@@ -1,4 +1,3 @@
-import dbWorker from "@/db/dbWorker";
 import createAttrProdRelationsTable from "./utils/createAttrProdRelationsTable";
 import createAttributesTable from "./utils/createAttributesTable";
 import createAttributesValuesTable from "./utils/createAttributesValuesTable";
@@ -16,8 +15,6 @@ import createTokensTable from "./utils/createTokensTable";
 import createUsersTable from "./utils/createUsersTable";
 
 export default async function createTables() {
-    await dbWorker("SET FOREIGN_KEY_CHECKS=0;", []);
-
     await createUsersTable();
     await createTokensTable();
     await createShopsTable();
@@ -29,7 +26,6 @@ export default async function createTables() {
     await createPriceTypesTable();
     await createStockTable();
     await createSalesTable();
-    await dbWorker("SET FOREIGN_KEY_CHECKS=1;", []);
     await createSuperuser();
     await createRetailPricesTable();
     await createHistoryTable();

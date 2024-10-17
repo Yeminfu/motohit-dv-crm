@@ -18,7 +18,7 @@ export default async function createTokensTable() {
           );
       `, []
   )
-    .then(([x]: any) => {
+    .then((x: any) => {
       console.log("createTokensTable", x.serverStatus);
     })
     .catch((z) => {

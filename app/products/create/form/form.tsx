@@ -143,7 +143,7 @@ export default function CreateProductForm({ categories }: { categories: Category
                             {attributesFields
                                 .map(
                                     (formAttribute, i) => {
-                                        const attributeFromServer = attributesStore.find(attribute => attribute.attribute_id === formAttribute.attribute_id);
+                                        const attributeFromServer = attributesStore.find(attribute => String(attribute.attribute_id) === formAttribute.id);
                                         if (!attributeFromServer) {
                                             return <tr key={formAttribute.id}><td>Ошибка #mvof84b</td></tr>
                                         }
