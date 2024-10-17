@@ -6,6 +6,7 @@ import getProductColumnsFullData from "./utils/getProductColumnsFullData";
 import getProductImages from "./utils/getProductImages";
 import getProductRetailPrices from "./utils/getProductRetailPrices";
 import getStockByProduct from "./utils/getStockByProduct";
+import PartWrapper from "./components/partWrapper";
 
 export default async function Page(b: { params: { id: number } }) {
   const product = await getProduct(b.params.id);
@@ -23,108 +24,80 @@ export default async function Page(b: { params: { id: number } }) {
   return <>
     <AuthedLayout title={product.name}>
       <>
-        <div className="card">
-          <div className="card-header">
-            Основные данные
-          </div>
-          <div className="card-body">
-            <table className="table w-auto">
-              <tbody>
-                {(() => {
-                  const values = Object.values(product);
-                  return Object.keys(product).map((key, i) => {
-                    return <tr key={key}>
-                      <th>{productColumns[key] || key}</th>
-                      <td>{String(values[i])}</td>
-                    </tr>
-                  })
-                })()}
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-        <div className="card">
-          <div className="card-header">
-            Склад
-          </div>
-          <div className="card-body">
-            <table className="table" style={{ width: "auto" }}>
-              <thead>
-                <tr>
-                  <td>Магазин</td>
-                  <td>К-во на складе</td>
-                </tr>
-              </thead>
-              <tbody>
-                {stock.map(stockItem => <tr key={stockItem.id}>
-                  <th>{stockItem.shopName}</th>
-                  <td>{stockItem.count}</td>
-                </tr>)}
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-        <div className="card">
-          <div className="card-header">
-            Розничные цены
-          </div>
-          <div className="card-body">
-            <table className="table" style={{ width: "auto" }}>
-              <thead>
-                <tr>
-                  <td>Магазин</td>
-                  <td>Р.ц.</td>
-                </tr>
-              </thead>
-              <tbody>
-                {retailPrices.map(priceItem => <tr key={priceItem.id}>
-                  <th>{priceItem.shopName}</th>
-                  <td><pre>{JSON.stringify(priceItem, null, 2)}</pre></td>
-                </tr>)}
-              </tbody>
-            </table>
-            {/* <pre>{JSON.stringify(retailPrices, null, 2)}</pre> */}
-          </div>
-        </div>
-
-        <div className="card">
-          <div className="card-header">
-            Атрибуты
-          </div>
-          <div className="card-body">
-            <div className="d-flex flex-wrap">
-              <table className="table" style={{ width: "auto" }}>
-                <thead>
-                  <tr>
-                    <td>Атрибут</td>
-                    <td>Значение</td>
+        <PartWrapper title="Основные данные">
+          <table className="table w-auto">
+            <tbody>
+              {(() => {
+                const values = Object.values(product);
+                return Object.keys(product).map((key, i) => {
+                  return <tr key={key}>
+                    <th>{productColumns[key] || key}</th>
+                    <td>{String(values[i])}</td>
                   </tr>
-                </thead>
-                <tbody>
-                  {attributes.map(attributeItem => <tr key={attributeItem.attribute_name}>
-                    <th>{attributeItem.attribute_name}</th>
-                    <td>{attributeItem.value_name}</td>
-                  </tr>)}
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
+                })
+              })()}
+            </tbody>
+          </table>
+        </PartWrapper>
 
-        <div className="card">
-          <div className="card-header">
-            Изображения
+        <PartWrapper title="Склад">
+          <table className="table" style={{ width: "auto" }}>
+            <thead>
+              <tr>
+                <td>Магазин</td>
+                <td>К-во на складе</td>
+              </tr>
+            </thead>
+            <tbody>
+              {stock.map(stockItem => <tr key={stockItem.id}>
+                <th>{stockItem.shopName}</th>
+                <td>{stockItem.count}</td>
+              </tr>)}
+            </tbody>
+          </table>
+        </PartWrapper>
+
+        <PartWrapper title="Розничные цены">
+          <table className="table" style={{ width: "auto" }}>
+            <thead>
+              <tr>
+                <td>Магазин</td>
+                <td>Р.ц.</td>
+              </tr>
+            </thead>
+            <tbody>
+              {retailPrices.map(priceItem => <tr key={priceItem.id}>
+                <th>{priceItem.shopName}</th>
+                <td><pre>{JSON.stringify(priceItem, null, 2)}</pre></td>
+              </tr>)}
+            </tbody>
+          </table>
+        </PartWrapper>
+
+        <PartWrapper title="Атрибуты">
+          <table className="table" style={{ width: "auto" }}>
+            <thead>
+              <tr>
+                <td>Атрибут</td>
+                <td>Значение</td>
+              </tr>
+            </thead>
+            <tbody>
+              {attributes.map(attributeItem => <tr key={attributeItem.attribute_name}>
+                <th>{attributeItem.attribute_name}</th>
+                <td>{attributeItem.value_name}</td>
+              </tr>)}
+            </tbody>
+          </table>
+        </PartWrapper>
+
+        <PartWrapper title="Изображения">
+          <div className="d-flex flex-wrap">
+            {images.map((image) => <Fragment key={image.id}>
+              <img src={`https://мотохит-дв.рф/images/` + image.name} alt="" style={{ margin: 5, maxWidth: 200 }} />
+            </Fragment>)}
           </div>
-          <div className="card-body">
-            <div className="d-flex flex-wrap">
-              {images.map((image) => <Fragment key={image.id}>
-                <img src={`https://мотохит-дв.рф/images/` + image.name} alt="" style={{ margin: 5, maxWidth: 200 }} />
-              </Fragment>)}
-            </div>
-          </div>
-        </div>
+        </PartWrapper>
       </>
     </AuthedLayout>
   </>
