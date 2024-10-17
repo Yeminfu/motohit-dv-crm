@@ -18,7 +18,7 @@ export default async function Page(a: { params: { id: string } }) {
   )
 
   return <AuthedLayout title={"Атрибуты категории: " + category.category_name}>
-    <table className="table table-bordered ">
+    <table className="table table-bordered table-striped">
       <thead>
         <tr className="sticky-top">
           <th>id</th><th>Название атрибута</th><th>Виден в фильтре</th><th>Открыт в фильтре</th><th>Главный</th><th>Значения</th><th></th></tr>
@@ -28,19 +28,24 @@ export default async function Page(a: { params: { id: string } }) {
           <td>{attribute.id}</td>
           <td>{attribute.attribute_name}</td>
           <td>{attribute.view_in_filter}</td>
-          <td>{attribute.is_open_in_filter}</td>
+          <td>{attribute.open_in_filter}</td>
           <td>{attribute.is_main}</td>
           <td>
-            <pre>{JSON.stringify(attribute.values)}</pre>
-            че по значениям?
+            <table className="table">
+              <tbody>
+                {attribute.values.map(attributeValue => <tr>
+                  <td>{attributeValue.value_name}</td>
+                </tr>)}
+              </tbody>
+            </table>
+            <ul>
+            </ul>
           </td>
         </tr>)}
       </tbody>
     </table>
   </AuthedLayout>
 }
-
-// chbfs_attributes_values
 
 async function getAttributeValues(idAttribute: number): Promise<ts_attributeValue[]> {
   return dbWorker(`
@@ -53,5 +58,9 @@ async function getAttributeValues(idAttribute: number): Promise<ts_attributeValu
 }
 
 interface ts_attributeValue {
-
+  id: number
+  value_name: string
+  created_date: Date
+  created_by: number
+  idAttribute: number
 }
