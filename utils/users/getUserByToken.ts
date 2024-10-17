@@ -1,10 +1,9 @@
-import dbConnection from "@/db/connect";
+import dbWorker from "@/db/dbWorker";
 import { UserType } from "@/types/users/userType";
 
 export default async function getUserByToken(
   token: string
 ): Promise<UserType | null> {
-  const connection = await dbConnection();
 
   const qs = `
     select 
@@ -15,12 +14,11 @@ export default async function getUserByToken(
       T.token = ?
   `;
 
-  const user = await connection
-    .query(
+  const user = await dbWorker(
       qs,
       [token]
     )
-    .then(([data]: any) => {
+    .then((data: any) => {
       if (!data.length) return null;
       return data.pop();
     })
@@ -28,7 +26,6 @@ export default async function getUserByToken(
       console.error("err #c93no", error);
       return;
     });
-  await connection.end();
 
   return user;
 }

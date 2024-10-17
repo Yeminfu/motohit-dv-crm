@@ -1,13 +1,11 @@
-import dbConnection from "@/db/connect";
+import dbWorker from "@/db/dbWorker";
 const { TABLE_PREFIX } = process.env;
 
 export default async function createSalesTable() {
-    const connection = await dbConnection();
-    await connection.query("SET FOREIGN_KEY_CHECKS=0");
-    await connection.query(`drop table if exists ${TABLE_PREFIX}_sales`);
-    await connection
-      .query(
-        `
+  await dbWorker("SET FOREIGN_KEY_CHECKS=0", []);
+  await dbWorker(`drop table if exists ${TABLE_PREFIX}_sales`, []);
+  await dbWorker(
+    `
           CREATE TABLE ${TABLE_PREFIX}_sales (
               id int primary key AUTO_INCREMENT,
               idProduct int not null,
@@ -20,14 +18,13 @@ export default async function createSalesTable() {
               foreign key (idShop) references ${TABLE_PREFIX}_shops(id),
               foreign key (createtByUserId) references ${TABLE_PREFIX}_users(id)
           );
-      `
-      )
-      .then(([x]: any) => {
-        console.log("createSalesTable", x.serverStatus);
-      })
-      .catch((z) => {
-        console.log("createSalesTable", z);
-      });
-    await connection.query("SET FOREIGN_KEY_CHECKS=1");
-    await connection.end();
-  }
+      `, []
+  )
+    .then(([x]: any) => {
+      console.log("createSalesTable", x.serverStatus);
+    })
+    .catch((z) => {
+      console.log("createSalesTable", z);
+    });
+  await dbWorker("SET FOREIGN_KEY_CHECKS=1", []);
+}

@@ -1,14 +1,12 @@
-import dbConnection from "@/db/connect";
+import dbWorker from "@/db/dbWorker";
 
 const { TABLE_PREFIX } = process.env;
 
 export default async function createProductsTable() {
-  const connection = await dbConnection();
-  await connection.query("SET FOREIGN_KEY_CHECKS=0");
-  await connection.query(`drop table if exists ${TABLE_PREFIX}_products`);
-  await connection
-    .query(
-      `
+  await dbWorker("SET FOREIGN_KEY_CHECKS=0", []);
+  await dbWorker(`drop table if exists ${TABLE_PREFIX}_products`, []);
+  await dbWorker(
+    `
           CREATE TABLE ${TABLE_PREFIX}_products (
               id int primary key AUTO_INCREMENT,
               name varchar(250) not null unique comment "Название товара",
@@ -26,14 +24,13 @@ export default async function createProductsTable() {
               foreign key (idCategory) references ${TABLE_PREFIX}_categories(id),
               foreign key (idCostPriceType) references ${TABLE_PREFIX}_price_types(id)
           );
-      `
-    )
+      `, []
+  )
     .then(([x]: any) => {
       console.log("createProductsTable", x.serverStatus);
     })
     .catch((z) => {
       console.log("createProductsTable", z);
     });
-  await connection.query("SET FOREIGN_KEY_CHECKS=1");
-  await connection.end();
+  await dbWorker("SET FOREIGN_KEY_CHECKS=1", []);
 }

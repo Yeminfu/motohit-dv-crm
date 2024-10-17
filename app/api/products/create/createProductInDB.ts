@@ -1,14 +1,10 @@
-import dbConnection from "@/db/connect";
+import dbWorker from "@/db/dbWorker";
 import { ProductOnCreate } from "@/types/products/prodyctType";
 
 export async function createProductInDB(product: ProductOnCreate) {
   // console.log({ product });
-
-  const connection = await dbConnection();
-
-  const res = await connection
-    .query(
-      `insert into ${process.env.TABLE_PREFIX}_products 
+  const res = await dbWorker(
+    `insert into ${process.env.TABLE_PREFIX}_products 
       (
           name, 
           idCategory, 
@@ -19,17 +15,17 @@ export async function createProductInDB(product: ProductOnCreate) {
           color
       )
       values (?, ?, ?, ?, ?, ?, ?)`,
-      [
-        product.name.trim(),
-        product.idCategory,
-        product.purchase_price,
-        product.cost_price.type,
-        product.cost_price.value,
-        product.code,
-        product.color,
-      ]
-    )
-    .then(([x]: any) => {
+    [
+      product.name.trim(),
+      product.idCategory,
+      product.purchase_price,
+      product.cost_price.type,
+      product.cost_price.value,
+      product.code,
+      product.color,
+    ]
+  )
+    .then((x: any) => {
       return x;
     })
     .catch((err) => {
@@ -48,7 +44,6 @@ export async function createProductInDB(product: ProductOnCreate) {
         error: errorText,
       };
     });
-  await connection.end();
 
   return res;
 }

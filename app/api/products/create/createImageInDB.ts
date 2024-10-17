@@ -1,16 +1,14 @@
-import dbConnection from "@/db/connect";
+import dbWorker from "@/db/dbWorker";
 
 export default async function createImageInDB(
   imageName: string,
   idProduct: number
 ) {
-  const connection = await dbConnection();
-  const res = await connection
-    .query(
-      `insert into ${process.env.TABLE_PREFIX}_products_images (name, idProduct) values (?, ?)`,
-      [imageName, idProduct]
-    )
-    .then(([x]: any) => {
+  const res = await dbWorker(
+    `insert into ${process.env.TABLE_PREFIX}_products_images (name, idProduct) values (?, ?)`,
+    [imageName, idProduct]
+  )
+    .then((x: any) => {
       return x;
     })
     .catch((err) => {
@@ -29,7 +27,6 @@ export default async function createImageInDB(
         error: errorText,
       };
     });
-  await connection.end();
 
   return res;
 }

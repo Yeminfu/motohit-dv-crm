@@ -1,14 +1,12 @@
-import dbConnection from "@/db/connect";
+import dbWorker from "@/db/dbWorker";
 
 const { TABLE_PREFIX } = process.env;
 
 export default async function createAttrProdRelationsTable() {
-    const connection = await dbConnection();
-    await connection.query("SET FOREIGN_KEY_CHECKS=0");
-    await connection.query(`drop table if exists ${TABLE_PREFIX}_attr_prod_relation`);
-    await connection
-        .query(
-            `
+    await dbWorker("SET FOREIGN_KEY_CHECKS=0", []);
+    await dbWorker(`drop table if exists ${TABLE_PREFIX}_attr_prod_relation`, []);
+    await dbWorker(
+        `
             CREATE TABLE ${TABLE_PREFIX}_attr_prod_relation (
                 id int primary key AUTO_INCREMENT,
                 created_date datetime default CURRENT_TIMESTAMP,
@@ -18,14 +16,13 @@ export default async function createAttrProdRelationsTable() {
                 foreign key (idAttributeValue) references ${TABLE_PREFIX}_attributes_values(id),
                 foreign key (idProduct) references ${TABLE_PREFIX}_products(id)
             );
-        `
-        )
+        `, []
+    )
         .then(([x]: any) => {
             // console.log(`${TABLE_PREFIX}_categories`, x);
         })
         .catch((z) => {
             console.log("err #doi3", z);
         });
-    await connection.query("SET FOREIGN_KEY_CHECKS=1");
-    await connection.end();
+    await dbWorker("SET FOREIGN_KEY_CHECKS=1", []);
 }

@@ -1,9 +1,7 @@
-import dbConnection from "@/db/connect";
+import dbWorker from "@/db/dbWorker";
 
 export default async function deleteUnusedTokens() {
-  const connection = await dbConnection();
-  await connection.query(
+  await dbWorker(
     `DELETE FROM ${process.env.TABLE_PREFIX}_tokens WHERE deadline < now();`
-  );
-  await connection.end();
+    , []);
 }

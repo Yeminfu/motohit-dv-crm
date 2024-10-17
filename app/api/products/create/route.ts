@@ -6,7 +6,6 @@ import { createProductInDB } from "./createProductInDB";
 import getRandomNumber from "@/utils/getRandomNumber";
 import createImageInDB from "./createImageInDB";
 import checkImageIsExists from "./checkImageIsExists";
-import dbConnection from "@/db/connect";
 import addHistoryEntry from "@/utils/history/addHistoryEntry";
 import handleRetailPrices from "./handleRetailPrices";
 import handleStock from "./handleStock";

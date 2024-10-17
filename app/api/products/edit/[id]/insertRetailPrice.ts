@@ -1,12 +1,10 @@
-import dbConnection from "@/db/connect";
+import dbWorker from "@/db/dbWorker";
 import { RetailPriceFromDB } from "@/types/products/retailPriceFromDB";
 
 export default async function insertRetailPrice(retailPriceObj: RetailPriceFromDB) {
 
-  const connection = await dbConnection();
-  const updateRes = await connection
-    .query(
-      `
+  const updateRes = await dbWorker(
+    `
         insert into ${process.env.TABLE_PREFIX}_retail_prices
         (
           idPriceType,
@@ -18,17 +16,16 @@ export default async function insertRetailPrice(retailPriceObj: RetailPriceFromD
         (
           ?,?,?,?
         )`,
-      [
-        retailPriceObj.idPriceType,
-        retailPriceObj.priceValue,
-        retailPriceObj.idProduct,
-        retailPriceObj.idShop
-      ]
-    )
-    .then(([x]: any) => {
+    [
+      retailPriceObj.idPriceType,
+      retailPriceObj.priceValue,
+      retailPriceObj.idProduct,
+      retailPriceObj.idShop
+    ]
+  )
+    .then((x: any) => {
       return x;
     })
     .catch((x) => x);
-  await connection.end();
   return updateRes;
 }

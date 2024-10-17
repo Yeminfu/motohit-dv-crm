@@ -1,12 +1,10 @@
-import { NextRequest, NextResponse } from "next/server";
+import {  NextResponse } from "next/server";
 // import updateProduct from "./updateProduct";
 import { RetailPriceFromDB } from "@/types/products/retailPriceFromDB";
 import updateRetailPrice from "./updateRetailPrice";
 import StockFromDBType from "@/types/products/stockFromDB";
 import updateStock from "./updateStock";
 import addHistoryEntry from "@/utils/history/addHistoryEntry";
-import { ProductFromDB } from "@/types/products/prodyctType";
-import dbConnection from "@/db/connect";
 import updateProductMainData from "./updateProductMainData";
 import insertRetailPrice from "./insertRetailPrice";
 import insertStock from "./insertStock";
@@ -16,8 +14,6 @@ export async function POST(
   params: { params: { id: any; }; }
 ) {
   const session = Date.now();
-
-  const errors: { action: string; code: string }[] = [];
 
   const data: any = await req.formData();
   // console.log('params', params);

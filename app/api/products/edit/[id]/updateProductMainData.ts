@@ -1,9 +1,8 @@
-import dbConnection from "@/db/connect";
+import dbWorker from "@/db/dbWorker";
 import { ProductFromDB } from "@/types/products/prodyctType";
 
 export default async function updateProductMainData(productData: ProductFromDB, idProduct: number) {
-  const connection = await dbConnection();
-  const res = await connection.query(
+  const res = await dbWorker(
     `
     update ${process.env.TABLE_PREFIX}_products
     set
@@ -27,6 +26,5 @@ export default async function updateProductMainData(productData: ProductFromDB, 
     idProduct,
   ]
   )
-  await connection.end();
   return res;
 }

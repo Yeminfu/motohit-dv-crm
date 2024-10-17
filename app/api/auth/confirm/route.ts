@@ -1,4 +1,4 @@
-import dbConnection from "@/db/connect";
+import dbWorker from "@/db/dbWorker";
 import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
@@ -15,13 +15,11 @@ export async function POST(request: Request) {
 }
 
 async function getToken(confirmCode: number) {
-  const connection = await dbConnection();
-  const res = await connection
-    .query(
-      `select token from ${process.env.TABLE_PREFIX}_tokens where confirmCode = ?`,
-      [confirmCode]
-    )
-    .then(([x]: any) => {
+  const res = await dbWorker(
+    `select token from ${process.env.TABLE_PREFIX}_tokens where confirmCode = ?`,
+    [confirmCode]
+  )
+    .then((x: any) => {
       if (x.length) return x.pop().token;
       return null;
     })
@@ -29,6 +27,5 @@ async function getToken(confirmCode: number) {
       console.log("err #fvfd8", error);
       return null;
     });
-  await connection.end();
   return res;
 }

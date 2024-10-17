@@ -1,14 +1,12 @@
-import dbConnection from "@/db/connect";
+import dbWorker from "@/db/dbWorker";
 
 const { TABLE_PREFIX } = process.env;
 
 export default async function createCategoriesTable() {
-  const connection = await dbConnection();
-  await connection.query("SET FOREIGN_KEY_CHECKS=0");
-  await connection.query(`drop table if exists ${TABLE_PREFIX}_categories`);
-  await connection
-    .query(
-      `
+  await dbWorker("SET FOREIGN_KEY_CHECKS=0", []);
+  await dbWorker(`drop table if exists ${TABLE_PREFIX}_categories`, []);
+  await dbWorker(
+    `
           CREATE TABLE ${TABLE_PREFIX}_categories (
               id int primary key AUTO_INCREMENT,
               category_name varchar(250) not null unique,
@@ -22,16 +20,13 @@ export default async function createCategoriesTable() {
               foreign key (idParent) references ${TABLE_PREFIX}_categories(id),
               foreign key (created_by) references ${TABLE_PREFIX}_users(id)
           );
-      `
-    )
+      `, []
+  )
     .then(([x]: any) => {
       // console.log(`${TABLE_PREFIX}_categories`, x);
     })
     .catch((z) => {
       console.log("err #f8vck", z);
     });
-  await connection.query("SET FOREIGN_KEY_CHECKS=1");
-  await connection.end();
-
- 
+  await dbWorker("SET FOREIGN_KEY_CHECKS=1", []);
 }

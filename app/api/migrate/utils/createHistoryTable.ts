@@ -1,14 +1,12 @@
-import dbConnection from "@/db/connect";
+import dbWorker from "@/db/dbWorker";
 
 const { TABLE_PREFIX } = process.env;
 
 export default async function createHistoryTable() {
-  const connection = await dbConnection();
-  await connection.query("SET FOREIGN_KEY_CHECKS=0");
-  await connection.query(`drop table if exists ${TABLE_PREFIX}_history`);
-  await connection
-    .query(
-      `
+  await dbWorker("SET FOREIGN_KEY_CHECKS=0", []);
+  await dbWorker(`drop table if exists ${TABLE_PREFIX}_history`, []);
+  await dbWorker(
+    `
           CREATE TABLE ${TABLE_PREFIX}_history (
               id int primary key AUTO_INCREMENT,
               created_date DATETIME DEFAULT CURRENT_TIMESTAMP,
@@ -17,14 +15,13 @@ export default async function createHistoryTable() {
               doneBy int not null,
               foreign key (doneBy) references ${TABLE_PREFIX}_users(id)
           );
-      `
-    )
+      `, []
+  )
     .then(([x]: any) => {
       console.log("createProductsImagesTable", x.serverStatus);
     })
     .catch((z) => {
       console.log("createProductsImagesTable", z);
     });
-  await connection.query("SET FOREIGN_KEY_CHECKS=1");
-  await connection.end();
+  await dbWorker("SET FOREIGN_KEY_CHECKS=1", []);
 }

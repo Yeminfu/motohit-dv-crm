@@ -1,14 +1,12 @@
-import dbConnection from "@/db/connect";
+import dbWorker from "@/db/dbWorker";
 
 const { TABLE_PREFIX } = process.env;
 
 export default async function createAttributesTable() {
-    const connection = await dbConnection();
-    await connection.query("SET FOREIGN_KEY_CHECKS=0");
-    await connection.query(`drop table if exists ${TABLE_PREFIX}_attributes`);
-    await connection
-        .query(
-            `
+    await dbWorker("SET FOREIGN_KEY_CHECKS=0", []);
+    await dbWorker(`drop table if exists ${TABLE_PREFIX}_attributes`, []);
+    await dbWorker(
+        `
             CREATE TABLE ${TABLE_PREFIX}_attributes (
                 id int primary key AUTO_INCREMENT,
                 attribute_name varchar(250) not null,
@@ -21,15 +19,13 @@ export default async function createAttributesTable() {
                 foreign key (idCategory) references ${TABLE_PREFIX}_categories(id),
                 foreign key (created_by) references ${TABLE_PREFIX}_users(id)
             );
-        `
-        )
+        `, []
+    )
         .then(([x]: any) => {
             // console.log(`${TABLE_PREFIX}_categories`, x);
         })
         .catch((z) => {
             console.log("err #в0ыл", z);
         });
-    await connection.query("SET FOREIGN_KEY_CHECKS=1");
-    await connection.end();
+    await dbWorker("SET FOREIGN_KEY_CHECKS=1", []);
 }
-

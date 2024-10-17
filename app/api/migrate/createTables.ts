@@ -1,4 +1,4 @@
-import dbConnection from "@/db/connect";
+import dbWorker from "@/db/dbWorker";
 import createAttrProdRelationsTable from "./utils/createAttrProdRelationsTable";
 import createAttributesTable from "./utils/createAttributesTable";
 import createAttributesValuesTable from "./utils/createAttributesValuesTable";
@@ -16,8 +16,7 @@ import createTokensTable from "./utils/createTokensTable";
 import createUsersTable from "./utils/createUsersTable";
 
 export default async function createTables() {
-    const connection = await dbConnection();
-    await connection.query("SET FOREIGN_KEY_CHECKS=0;");
+    await dbWorker("SET FOREIGN_KEY_CHECKS=0;", []);
 
     await createUsersTable();
     await createTokensTable();
@@ -30,8 +29,7 @@ export default async function createTables() {
     await createPriceTypesTable();
     await createStockTable();
     await createSalesTable();
-    await connection.query("SET FOREIGN_KEY_CHECKS=1;");
-    await connection.end();
+    await dbWorker("SET FOREIGN_KEY_CHECKS=1;", []);
     await createSuperuser();
     await createRetailPricesTable();
     await createHistoryTable();
