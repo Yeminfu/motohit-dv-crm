@@ -1,4 +1,4 @@
-import dbConnection from "@/db/connect";
+import dbWorker from "@/db/dbWorker";
 import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
@@ -18,17 +18,14 @@ export async function POST(request: Request) {
 }
 
 async function checkTokenIsValid(token: string) {
-  const connection = await dbConnection();
-  const isValid = await connection
-    .query(
+  const isValid = await dbWorker(
       `select * from ${process.env.TABLE_PREFIX}_tokens where token = ? and deadline > NOW() `,
       [token]
     )
-    .then(([x]: any) => {
+    .then((x: any) => {
       if (x.length) return true;
       return false;
     });
 
-  await connection.end();
   return isValid;
 }
