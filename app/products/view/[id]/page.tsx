@@ -7,6 +7,7 @@ import getProductImages from "./utils/getProductImages";
 import getProductRetailPrices from "./utils/getProductRetailPrices";
 import getStockByProduct from "./utils/getStockByProduct";
 import PartWrapper from "./components/partWrapper";
+import createPriceWithMarkup from "@/utils/prices/createPriceWithMarkup";
 
 export default async function Page(b: { params: { id: number } }) {
   const product = await getProduct(b.params.id);
@@ -62,13 +63,29 @@ export default async function Page(b: { params: { id: number } }) {
             <thead>
               <tr>
                 <td>Магазин</td>
-                <td>Р.ц.</td>
+                <td>Тип р.ц.</td>
+                <td>Значение р.ц.</td>
+                <td>Итог р.ц.</td>
               </tr>
             </thead>
             <tbody>
-              {retailPrices.map(priceItem => <tr key={priceItem.id}>
-                <th>{priceItem.shopName}</th>
-                <td><pre>{JSON.stringify(priceItem, null, 2)}</pre></td>
+              {retailPrices.map(retailPriceItem => <tr key={retailPriceItem.id}>
+                <th>{retailPriceItem.shopName}</th>
+                <td>{retailPriceItem.idPriceType}</td>
+                <td>{retailPriceItem.priceValue}</td>
+                <td>{(() => {
+                  const costPrice = createPriceWithMarkup(
+                    product.purchase_price,
+                    product.idCostPriceType,
+                    product.costPriceValue
+                  )
+                  const retailPrice = createPriceWithMarkup(
+                    costPrice,
+                    retailPriceItem.idPriceType,
+                    retailPriceItem.priceValue
+                  )
+                  return retailPrice;
+                })()}</td>
               </tr>)}
             </tbody>
           </table>

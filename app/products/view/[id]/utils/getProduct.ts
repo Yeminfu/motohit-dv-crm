@@ -2,11 +2,11 @@ import dbWorker from "@/db/dbWorker";
 import ts_fullProduct from "@/types/products/ts_fullProduct";
 
 type ts_localType = Pick<ts_fullProduct,
-    "id" | "name" | "description"
+  "id" | "name" | "description" | "purchase_price" | "idCostPriceType" | "costPriceValue"
 >
 
 export default async function getProduct(idProduct: number): Promise<ts_localType> {
-    return await dbWorker(`
+  return await dbWorker(`
     select
       id,
       name,

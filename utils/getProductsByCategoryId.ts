@@ -18,7 +18,6 @@ export default async function getProductsByCategoryId(
           name like ?
           or code = ?
         )
-        
     `,
     [idCategory, `%${searchParams.name}%`, searchParams.name]
   ] : [
@@ -29,10 +28,5 @@ export default async function getProductsByCategoryId(
   const products = await dbWorker(
     sqlParams[0], sqlParams[1]
   )
-    // .then(([x]: any) => {
-    //   return x;
-    // });
-
-  // await connection.end();
   return products;
 }
