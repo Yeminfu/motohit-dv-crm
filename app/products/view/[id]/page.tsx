@@ -1,7 +1,11 @@
-import dbWorker from "@/db/dbWorker";
-import ts_fullProduct from "@/types/products/ts_fullProduct";
 import AuthedLayout from "@/utils/authedLayout";
 import { Fragment } from "react";
+import getAttributes from "./utils/getAttributes";
+import getProduct from "./utils/getProduct";
+import getProductColumnsFullData from "./utils/getProductColumnsFullData";
+import getProductImages from "./utils/getProductImages";
+import getProductRetailPrices from "./utils/getProductRetailPrices";
+import getStockByProduct from "./utils/getStockByProduct";
 
 export default async function Page(b: { params: { id: number } }) {
   const product = await getProduct(b.params.id);
@@ -11,7 +15,7 @@ export default async function Page(b: { params: { id: number } }) {
 
   const stock = await getStockByProduct(product.id);
 
-  const retailPrices = await getRetailPriceByProduct(product.id);
+  const retailPrices = await getProductRetailPrices(product.id);
   const images = await getProductImages(product.id);
 
   const attributes = await getAttributes(product.id);
@@ -124,120 +128,4 @@ export default async function Page(b: { params: { id: number } }) {
       </>
     </AuthedLayout>
   </>
-}
-
-async function getProduct(idProduct: number): Promise<
-  Pick<ts_fullProduct,
-    "id" | "name" | "description"
-  >> {
-  return await dbWorker(`
-    select
-      id,
-      name,
-      slug,
-      description,
-      idCategory,
-      purchase_price,
-      idCostPriceType,
-      costPriceValue,
-      color,
-      code,
-      note,
-      isArchived
-    from chbfs_products
-    where id = ?
-  `, [idProduct]).then(x => x[0])
-}
-
-async function getProductColumnsFullData(): Promise<{ [k: string]: string; }> {
-
-  const res = await dbWorker(`SHOW FULL COLUMNS FROM motohit_dv_crm.chbfs_products;`, []);
-
-  const obj: [string, string][] = res.map((x: {
-    Comment: string; Field: string;
-  }) => ([
-    x.Field, x.Comment
-  ]));
-
-  const val = Object.fromEntries(obj);
-
-  return val;
-}
-
-async function getStockByProduct(idProduct: number): Promise<{
-  id: number
-  shopName: string
-  count: number
-  idProduct: number
-  idShop: number
-}[]> {
-  return await dbWorker(`
-    select
-      stock.id,
-      stock.idProduct,
-      stock.idShop,
-      stock.count,
-      shops.shopName
-    from chbfs_stock stock
-      left join chbfs_shops shops 
-      on 
-        shops.id = stock.idShop
-    where
-      idProduct = ?
-  `, [idProduct])
-}
-
-async function getRetailPriceByProduct(idProduct: number): Promise<{
-  id: number
-  created_date: Date
-  idPriceType: number
-  priceValue: number
-  idProduct: number
-  idShop: number
-  shopName: string
-
-}[]> {
-  return await dbWorker(`
-    select
-      prices.*,
-      shops.shopName
-    from chbfs_retail_prices prices
-      left join chbfs_shops shops 
-      on 
-        shops.id = prices.idShop
-    where idProduct = ?
-  `, [idProduct])
-}
-
-async function getProductImages(idProduct: number): Promise<{
-  id: number
-  name: string
-}[]> {
-  return await dbWorker(`
-    select
-      *
-    from chbfs_products_images
-    where idProduct = ?
-  `, [idProduct])
-}
-
-
-async function getAttributes(idProduct: number): Promise<{
-  attribute_name: string
-  value_name: string
-}[]> {
-  return await dbWorker(`
-    SELECT
-      attr.attribute_name,
-      vals.value_name
-    from chbfs_attr_prod_relation relation
-      left join chbfs_attributes_values vals 
-      on
-        vals.id = relation.idAttributeValue
-          left join chbfs_attributes attr 
-          on
-            attr.id = vals.idAttribute
-    where 
-      relation.idProduct = ?
-  `, [idProduct]);
 }
