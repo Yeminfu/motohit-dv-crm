@@ -42,7 +42,13 @@ export default async function Page(b: { params: { id: number } }) {
             Склад
           </div>
           <div className="card-body">
-            <table className="table" style={{width:"auto"}}>
+            <table className="table" style={{ width: "auto" }}>
+              <thead>
+                <tr>
+                  <td>Магазин</td>
+                  <td>К-во на складе</td>
+                </tr>
+              </thead>
               <tbody>
                 {stock.map(stockItem => <tr key={stockItem.id}>
                   <th>{stockItem.shopName}</th>
@@ -58,7 +64,21 @@ export default async function Page(b: { params: { id: number } }) {
             Розничные цены
           </div>
           <div className="card-body">
-            <pre>{JSON.stringify(retailPrices, null, 2)}</pre>
+            <table className="table" style={{ width: "auto" }}>
+              <thead>
+                <tr>
+                  <td>Магазин</td>
+                  <td>Р.ц.</td>
+                </tr>
+              </thead>
+              <tbody>
+                {retailPrices.map(priceItem => <tr key={priceItem.id}>
+                  <th>{priceItem.shopName}</th>
+                  <td><pre>{JSON.stringify(priceItem, null, 2)}</pre></td>
+                </tr>)}
+              </tbody>
+            </table>
+            {/* <pre>{JSON.stringify(retailPrices, null, 2)}</pre> */}
           </div>
         </div>
 
@@ -135,11 +155,24 @@ async function getStockByProduct(idProduct: number): Promise<{
   `, [idProduct])
 }
 
-async function getRetailPriceByProduct(idProduct: number) {
+async function getRetailPriceByProduct(idProduct: number): Promise<{
+  id: number
+  created_date: Date
+  idPriceType: number
+  priceValue: number
+  idProduct: number
+  idShop: number
+  shopName: string
+
+}[]> {
   return await dbWorker(`
     select
-      *
-    from chbfs_retail_prices
+      prices.*,
+      shops.shopName
+    from chbfs_retail_prices prices
+      left join chbfs_shops shops 
+      on 
+        shops.id = prices.idShop
     where idProduct = ?
   `, [idProduct])
 }
