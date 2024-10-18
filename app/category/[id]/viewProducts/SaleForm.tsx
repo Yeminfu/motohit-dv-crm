@@ -42,31 +42,26 @@ export default function SaleForm(props: {
                         <tr>
                             <th>Магазин</th>
                             <td>
-                                <select {...register(`idShop`, {
-                                    required: true,
-                                    onChange: (e) => {
-                                        const idShop = e.target.value;
-                                        (() => {
-                                            const count = getValues('count');
-                                            if (!idShop || !count) return;
-                                            const priceObj = props.retailPrices.find(priceObj => priceObj.idShop === Number(idShop));
-                                            const retailPriceSum = priceObj?.sum;
-                                            if (!retailPriceSum) return;
-                                            const totalSum = Number(count) * retailPriceSum;
-                                            if (totalSum) setValue('sumTotal', String(totalSum));
-                                        })();
-                                        // return field.onChange(idShop);
-                                    }
-                                })} className="form-select" autoComplete="off" >
-                                    <option value="">Выберите магазин</option>
-                                    {props.shops.map(shop => <option key={shop.id} value={shop.id}>{shop.shopName} { }</option>)}
-                                </select>
+                                <div className="form-group">
+                                    {/* {props.shops.map(shop => <option key={shop.id} value={shop.id}>{shop.shopName} { }</option>)} */}
+                                    {props.shops.map((shop, i) => <div key={shop.id} className="form-check">
+                                        <input
+                                            type="radio"
+                                            className="form-check-input"
+                                            id={`option_${i}`}
+                                            value={`option_${i}`}
+                                            {...register('option')}
+                                        />
+                                        <label className="form-check-label" htmlFor={`option_${i}`}>{shop.shopName}</label>
+                                    </div>)}
+                                </div>
                             </td>
                         </tr>
                         <tr>
                             <th>Количество</th>
                             <td>
                                 <input {...register("count", {
+                                    value: "1",
                                     required: true, onChange: (e) => {
                                         const clearCount: String = e.target.value.replace(/[^0-9.]+/igm, '');
                                         (() => {
