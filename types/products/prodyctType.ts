@@ -15,6 +15,10 @@ export interface ProductFromDB {
   isArchived: boolean
 }
 
+export interface ts_attributeToCreate {
+  idAttributeValue: string
+}
+
 export interface ProductOnCreate {
   name: string;
   code: string;
@@ -29,6 +33,7 @@ export interface ProductOnCreate {
     count: number;
   }[];
   idCategory: number;
+  attributes: ts_attributeToCreate[]
   // images: any;
 }
 

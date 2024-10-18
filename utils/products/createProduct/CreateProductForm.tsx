@@ -292,7 +292,8 @@ async function onSubmit(data: any) {
     purchase_price,
     retail_price,
     stock,
-    idCategory
+    idCategory,
+    attributes
   }
 
   const jsonData = JSON.stringify(scalarData, null, "");
