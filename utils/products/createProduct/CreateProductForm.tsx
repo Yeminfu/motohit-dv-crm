@@ -89,7 +89,7 @@ export default function CreateProductForm(props: {
       const { success, error } = await onSubmit(x);
       if (success) {
         toast.success('Товар создан');
-        // reset();
+        reset();
       } else {
         toast.error(error)
       }
@@ -224,7 +224,7 @@ export default function CreateProductForm(props: {
               </td>
               <td>
                 <select {...register(`attributes.${i}.idAttributeValue`, { required: true })} className="form-select" autoComplete="off" >
-                  <option value="">Значение атрибута</option>
+                  <option value="">-</option>
                   {attribute.values.map(attributeValue =>
                     <option value={attributeValue.id}>{attributeValue.value_name}</option>
                   )}
