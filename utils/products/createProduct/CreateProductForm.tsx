@@ -89,7 +89,7 @@ export default function CreateProductForm(props: {
       const { success, error } = await onSubmit(x);
       if (success) {
         toast.success('Товар создан');
-        // reset();
+        reset();
       } else {
         toast.error(error)
       }
