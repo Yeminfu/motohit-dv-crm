@@ -29,6 +29,7 @@ export interface ProductOnCreate {
     count: number;
   }[];
   idCategory: number;
+  // images: any;
 }
 
 export type ProductsFull = ProductFromDB & {

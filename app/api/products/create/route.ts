@@ -14,7 +14,9 @@ const imagesFolder: string = String(process.env.IMAGES_FOLDER);
 fs.mkdirSync(imagesFolder, { recursive: true });
 
 export async function POST(req: NextRequest) {
+
   const formData: any = await req.formData();
+
   const bodyObject: ProductOnCreate = JSON.parse(formData.get("jsonData"));
 
   const createRes = await createProductInDB(bodyObject);
@@ -26,6 +28,14 @@ export async function POST(req: NextRequest) {
     });
   }
 
+  console.log('bodyObject', bodyObject);
+
+
+  await addHistoryEntry("createProduct", {
+    bodyObject,
+    createRes,
+  });
+
   await handleRetailPrices(bodyObject.retail_price, createRes.insertId);
 
   await handleStock(bodyObject.stock, createRes.insertId);
@@ -33,29 +43,29 @@ export async function POST(req: NextRequest) {
   const images = formData.get("images");
 
   if (images) {
-    let filename = slugify(
-      images.name.toLocaleLowerCase().replace(/[^ a-zA-Zа-яА-Я0-9-.]/gim, "")
-    );
-
-    await createImageInDB(filename, createRes.insertId);
-
-    const imageIsExists = await checkImageIsExists(filename);
-    if (imageIsExists) {
-      const randomNumber = getRandomNumber(1, 99999);
-      filename = randomNumber + filename;
-    }
-
-    const buffer = await images.arrayBuffer();
-    const filePath = `${imagesFolder}/${filename}`;
-    fs.writeFileSync(filePath, Buffer.from(buffer));
+    await handleImages(createRes.insertId, images)
   }
-
-  await addHistoryEntry("createProduct", {
-    bodyObject,
-    createRes,
-  });
 
   return NextResponse.json({
     success: true,
   });
+}
+
+
+async function handleImages(idProduct: number, images: any) {
+  let filename = slugify(
+    images.name.toLocaleLowerCase().replace(/[^ a-zA-Zа-яА-Я0-9-.]/gim, "")
+  );
+
+  await createImageInDB(filename, idProduct);
+
+  const imageIsExists = await checkImageIsExists(filename);
+  if (imageIsExists) {
+    const randomNumber = getRandomNumber(1, 99999);
+    filename = randomNumber + filename;
+  }
+
+  const buffer = await images.arrayBuffer();
+  const filePath = `${imagesFolder}/${filename}`;
+  fs.writeFileSync(filePath, Buffer.from(buffer));
 }

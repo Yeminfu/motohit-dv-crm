@@ -5,6 +5,7 @@ import Image from "next/image";
 import { PriceTypesFromDBInterface } from "@/types/products/priceTypesFromDBInterface";
 import { ShopFromDB } from "@/types/shops/shopFromDBType";
 import tsAttributeWithValues from "@/types/attributes/ts_attributesWithValues";
+import { ProductOnCreate } from "@/types/products/prodyctType";
 
 export default function CreateProductForm(props: {
   closeFn: any,
@@ -88,7 +89,7 @@ export default function CreateProductForm(props: {
       const { success, error } = await onSubmit(x);
       if (success) {
         toast.success('Товар создан');
-        reset();
+        // reset();
       } else {
         toast.error(error)
       }
@@ -274,21 +275,15 @@ export default function CreateProductForm(props: {
 }
 
 async function onSubmit(data: any) {
-  console.log(data);
+  // console.log(data);
 
   const {
     name, code, color, cost_price, note, purchase_price, retail_price, stock, idCategory,
-    images
+    images, attributes
   } = data;
 
-  console.log('submit', data);
 
-  // if (!images.length) {
-  //     toast.error('Нужно добавить картинки')
-  //     return;
-  // }
-
-  const jsonData = JSON.stringify({
+  const scalarData: ProductOnCreate = {
     name,
     code,
     color,
@@ -298,7 +293,9 @@ async function onSubmit(data: any) {
     retail_price,
     stock,
     idCategory
-  }, null, "")
+  }
+
+  const jsonData = JSON.stringify(scalarData, null, "");
 
   const formData = new FormData();
 
