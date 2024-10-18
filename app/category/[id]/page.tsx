@@ -34,7 +34,6 @@ export default async function Page(params: { params: { id: string }, searchParam
       ...attribute,
       values
     })
-    break;
   }
 
   return <>

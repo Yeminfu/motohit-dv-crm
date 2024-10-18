@@ -1,5 +1,6 @@
 import dbWorker from "@/db/dbWorker";
 import { ProductOnCreate } from "@/types/products/prodyctType";
+import slugify from "slugify";
 
 export async function createProductInDB(product: ProductOnCreate) {
   // console.log({ product });
@@ -7,6 +8,7 @@ export async function createProductInDB(product: ProductOnCreate) {
     `insert into ${process.env.TABLE_PREFIX}_products 
       (
           name, 
+          slug, 
           idCategory, 
           purchase_price, 
           idCostPriceType, 
@@ -14,9 +16,10 @@ export async function createProductInDB(product: ProductOnCreate) {
           code,
           color
       )
-      values (?, ?, ?, ?, ?, ?, ?)`,
+      values (?,?, ?, ?, ?, ?, ?, ?)`,
     [
       product.name.trim(),
+      slugify(product.name.trim()),
       product.idCategory,
       product.purchase_price,
       product.cost_price.type,

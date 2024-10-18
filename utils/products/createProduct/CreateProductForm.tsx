@@ -217,16 +217,17 @@ export default function CreateProductForm(props: {
       <div>
         <table className="table table-bordered">
           <tbody>
-            {props.attributesWithValues.map(attribute => <tr key={attribute.id}>
-              <td>{attribute.attribute_name}</td>
+            {props.attributesWithValues.map((attribute, i) => <tr key={attribute.id}>
               <td>
-                <table className="table table-bordered">
-                  <tbody>
-                    {attribute.values.map(attributeValue => <tr key={attributeValue.id}>
-                      <td>{attributeValue.value_name}</td>
-                    </tr>)}
-                  </tbody>
-                </table>
+                {attribute.attribute_name}
+              </td>
+              <td>
+                <select {...register(`attributes.${i}.idAttributeValue`, { required: true })} className="form-select" autoComplete="off" >
+                  <option value="">Значение атрибута</option>
+                  {attribute.values.map(attributeValue =>
+                    <option value={attributeValue.id}>{attributeValue.value_name}</option>
+                  )}
+                </select>
               </td>
             </tr>)}
           </tbody>
@@ -273,6 +274,8 @@ export default function CreateProductForm(props: {
 }
 
 async function onSubmit(data: any) {
+  console.log(data);
+
   const {
     name, code, color, cost_price, note, purchase_price, retail_price, stock, idCategory,
     images
@@ -285,7 +288,17 @@ async function onSubmit(data: any) {
   //     return;
   // }
 
-  const jsonData = JSON.stringify({ name, code, color, cost_price, note, purchase_price, retail_price, stock, idCategory }, null, "")
+  const jsonData = JSON.stringify({
+    name,
+    code,
+    color,
+    cost_price,
+    note,
+    purchase_price,
+    retail_price,
+    stock,
+    idCategory
+  }, null, "")
 
   const formData = new FormData();
 
