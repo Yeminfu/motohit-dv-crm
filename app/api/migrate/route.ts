@@ -12,14 +12,7 @@ import dbWorker from "@/db/dbWorker";
 
 export async function GET() {
   await migrate();
-  await exportCategoriesFromShop();
-  await exportAttributesFromShop();
-  await exportAttributesValuesFromShop();
-  await exportProductsFromShop();
-  await exportAttrProdRelationsFromShop();
-  await exportProductsImagesFromShop();
-  // await exportStockFromOldCRM();
-  // await exportRetailPricesFromOldCRM();
+
   return NextResponse.json({
     success: null,
   });
@@ -31,6 +24,15 @@ async function migrate() {
   await deleteForeignKeys();
   await deleteTables();
   await createTables();
+
+  await exportCategoriesFromShop();
+  await exportAttributesFromShop();
+  await exportAttributesValuesFromShop();
+  await exportProductsFromShop();
+  await exportAttrProdRelationsFromShop();
+  await exportProductsImagesFromShop();
+  // await exportStockFromOldCRM();
+  // await exportRetailPricesFromOldCRM();
 }
 
 async function deleteForeignKeys() {
