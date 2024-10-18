@@ -20,10 +20,10 @@ export default async function createTables() {
     await createShopsTable();
     await createCategoriesTable();
 
+    await createPriceTypesTable();
     await createProductsTable();
     await createProductsImagesTable();
 
-    await createPriceTypesTable();
     await createStockTable();
     await createSalesTable();
     await createSuperuser();

@@ -10,7 +10,7 @@ export default async function exportAttributesFromShop() {
         created_by,
         idCategory,
         view_in_filter,
-        open_in_filter,
+        isOpenInFilter,
         is_main
       )
       

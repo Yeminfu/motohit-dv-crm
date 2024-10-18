@@ -11,7 +11,7 @@ export default async function createAttributesTable() {
         created_date datetime default CURRENT_TIMESTAMP,
         created_by int not null,
         view_in_filter TINYINT(1) default 1,
-        is_open_in_filter TINYINT(1) default 1,
+        isOpenInFilter TINYINT(1) default 1,
         idCategory int not null,
         is_main int not null,
         foreign key (idCategory) references ${TABLE_PREFIX}_categories(id),

@@ -28,7 +28,7 @@ export default async function Page(a: { params: { id: string } }) {
           <td>{attribute.id}</td>
           <td>{attribute.attribute_name}</td>
           <td>{attribute.view_in_filter}</td>
-          <td>{attribute.open_in_filter}</td>
+          <td>{attribute.isOpenInFilter}</td>
           <td>{attribute.is_main}</td>
           <td>
             <table className="table">
