@@ -90,10 +90,12 @@ export default function CreateProductForm(props: {
       if (success) {
         toast.success('Товар создан');
         reset();
+        setPreviewImages([]);
       } else {
         toast.error(error)
       }
     })}>
+
       {/* <pre>{JSON.stringify(props.attributesWithValues, null, 2)}</pre> */}
       <div className="row">
         <div className="col">
@@ -235,30 +237,31 @@ export default function CreateProductForm(props: {
         </table>
       </div>
 
-      <div><h5>Изображение</h5></div>
       <div>
-        <div className="mt-2">
-          {previewImages.map((image, index) => (
-            <div className="" key={index}>
-              <Image
-                loader={() => image}
-                src={image}
-                alt=""
-                width={0}
-                height={0}
-                style={{
-                  width: "auto",
-                  height: "auto",
-                  marginBottom: 5,
-                  // cursor: "pointer",
-                  maxWidth: 500
-                }}
-              />
-            </div>
-          ))}
+        <div><h5>Изображение</h5></div>
+        <div>
+          <div className="mt-2">
+            {previewImages.map((image, index) => (
+              <div className="" key={index}>
+                <Image
+                  loader={() => image}
+                  src={image}
+                  alt=""
+                  width={0}
+                  height={0}
+                  style={{
+                    width: "auto",
+                    height: "auto",
+                    marginBottom: 5,
+                    // cursor: "pointer",
+                    maxWidth: 500
+                  }}
+                />
+              </div>
+            ))}
+          </div>
+          <input type="file" {...register("images")} onChange={handleImageChange} multiple />
         </div>
-        <input type="file" {...register("images")} onChange={handleImageChange} multiple />
-
         {errors.images && <span className="text-danger">Обязательное поле</span>}
       </div>
 
@@ -312,7 +315,7 @@ async function onSubmit(data: any) {
     method: "POST",
     body: formData
   })
-    .then(x => x.json());
+    .then(x => x.json())
 
   return createRes;
 }
