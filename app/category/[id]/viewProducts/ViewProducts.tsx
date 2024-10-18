@@ -13,15 +13,17 @@ import SaleForm from "./SaleForm";
 import createPriceWithMarkup from "@/utils/prices/createPriceWithMarkup";
 import Filter from "../filter";
 import ts_categoryFilter from "@/types/ts_categoryFilter";
-import Modal from "@/utils/modal/modal";
+// import Modal from "@/utils/modal/modal";
 import SendProductToArchive from "./SendProductToArchive";
 import Link from "next/link";
+// import tsAttributeWithValues from "@/types/attributes/ts_attributesWithValues";
 
 export default function ViewProducts(props: {
     productsFull: ProductsFull[],
     shops: ShopFromDB[],
     priceTypes: PriceTypesFromDBInterface[],
     searchParams: ts_categoryFilter
+    
 }) {
     const [viewAll, setViewAll] = useState(false);
     return <>

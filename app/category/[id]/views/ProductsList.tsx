@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import ts_categoryFilter from "@/types/ts_categoryFilter";
 import getProducts from "../utils/getProducts";
 import ViewProducts from "../viewProducts/ViewProducts";
+import tsAttributeWithValues from "@/types/attributes/ts_attributesWithValues";
 
 export default function ProductsList(props: {
     idCategory: number,
@@ -15,6 +16,7 @@ export default function ProductsList(props: {
     shops: ShopFromDB[],
     productsFull: ProductsFull[],
     searchParams: ts_categoryFilter
+    attributesWithValues: tsAttributeWithValues[]
 }) {
 
     const [stateProducts, setProducts] = useState<ProductsFull[]>(props.productsFull);
@@ -45,7 +47,7 @@ export default function ProductsList(props: {
     if (!props.productsFull) return <>Загрузка...</>
 
     return <>
-        <CreateProduct idCategory={props.idCategory} priceTypes={props.priceTypes} shops={props.shops} />
+        <CreateProduct idCategory={props.idCategory} priceTypes={props.priceTypes} shops={props.shops} attributesWithValues={props.attributesWithValues}/>
         <ViewProducts productsFull={stateProducts} shops={props.shops} priceTypes={props.priceTypes} searchParams={props.searchParams} />
     </>
 }

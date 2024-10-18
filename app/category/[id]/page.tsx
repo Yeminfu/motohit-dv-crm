@@ -40,7 +40,7 @@ export default async function Page(params: { params: { id: string }, searchParam
   return <>
     <AuthedLayout title={category.category_name}>
       <>
-        <pre>{JSON.stringify(attributesWithValues, null, 2)}</pre>
+        {/* <pre>{JSON.strinegify(attributesWithValues, null, 2)}</pre> */}
         {(() => {
           if (children.length) {
             return <>
@@ -51,8 +51,13 @@ export default async function Page(params: { params: { id: string }, searchParam
               </div>)}
             </>
           }
-          return <ProductsList idCategory={Number(idCategory)} priceTypes={priceTypes} shops={shops} productsFull={productsFull}
+          return <ProductsList
+            idCategory={Number(idCategory)}
+            priceTypes={priceTypes}
+            shops={shops}
+            productsFull={productsFull}
             searchParams={params.searchParams}
+            attributesWithValues={attributesWithValues}
           />;
         })()}
       </>

@@ -4,12 +4,14 @@ import { toast } from "react-toastify";
 import Image from "next/image";
 import { PriceTypesFromDBInterface } from "@/types/products/priceTypesFromDBInterface";
 import { ShopFromDB } from "@/types/shops/shopFromDBType";
+import tsAttributeWithValues from "@/types/attributes/ts_attributesWithValues";
 
 export default function CreateProductForm(props: {
     closeFn: any,
     idCategory: number,
     priceTypes: PriceTypesFromDBInterface[],
     shops: ShopFromDB[]
+    attributesWithValues: tsAttributeWithValues[]
 }) {
     const {
         register,
@@ -91,6 +93,7 @@ export default function CreateProductForm(props: {
                 toast.error(error)
             }
         })}>
+            {/* <pre>{JSON.stringify(props.atteeributesWithValues, null, 2)}</pre> */}
             <div className="row">
                 <div className="col">
                     <div className="mb-2">
