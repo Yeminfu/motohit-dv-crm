@@ -33,7 +33,7 @@ export default async function Page(a: { params: { id: string } }) {
           <td>
             <table className="table">
               <tbody>
-                {attribute.values.map(attributeValue => <tr>
+                {attribute.values.map(attributeValue => <tr key={attributeValue.id}>
                   <td>{attributeValue.value_name}</td>
                 </tr>)}
               </tbody>
