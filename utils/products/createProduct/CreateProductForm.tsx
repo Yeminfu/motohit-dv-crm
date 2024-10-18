@@ -89,7 +89,7 @@ export default function CreateProductForm(props: {
       const { success, error } = await onSubmit(x);
       if (success) {
         toast.success('Товар создан');
-        reset();
+        // reset();
       } else {
         toast.error(error)
       }
@@ -235,31 +235,32 @@ export default function CreateProductForm(props: {
         </table>
       </div>
 
-      {/* <div><h5>Изображение</h5></div>
-            <div>
-                <div className="mt-2">
-                    {previewImages.map((image, index) => (
-                        <div className="" key={index}>
-                            <Image
-                                loader={() => image}
-                                src={image}
-                                alt=""
-                                width={0}
-                                height={0}
-                                style={{
-                                    width: "auto",
-                                    height: "auto",
-                                    marginBottom: 5,
-                                    cursor: "pointer",
-                                }}
-                            />
-                        </div>
-                    ))}
-                </div>
-                <input type="file" {...register("images")} onChange={handleImageChange} />
+      <div><h5>Изображение</h5></div>
+      <div>
+        <div className="mt-2">
+          {previewImages.map((image, index) => (
+            <div className="" key={index}>
+              <Image
+                loader={() => image}
+                src={image}
+                alt=""
+                width={0}
+                height={0}
+                style={{
+                  width: "auto",
+                  height: "auto",
+                  marginBottom: 5,
+                  // cursor: "pointer",
+                  maxWidth: 500
+                }}
+              />
+            </div>
+          ))}
+        </div>
+        <input type="file" {...register("images")} onChange={handleImageChange} multiple />
 
-                {errors.images && <span className="text-danger">Обязательное поле</span>}
-            </div> */}
+        {errors.images && <span className="text-danger">Обязательное поле</span>}
+      </div>
 
       <div className="mt-4">
         <div className="d-flex">

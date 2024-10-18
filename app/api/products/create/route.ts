@@ -20,6 +20,9 @@ export async function POST(req: NextRequest) {
 
   const bodyObject: ProductOnCreate = JSON.parse(formData.get("jsonData"));
 
+  const items: any = Array.from(formData);
+
+
   /**
    * создали базу товара
    */
@@ -51,8 +54,18 @@ export async function POST(req: NextRequest) {
    * картинки
    */
   const images = formData.get("images");
-  if (images) {
-    await handleImages(createRes.insertId, images)
+
+
+  // if (images) {
+  //   await handleImages(createRes.insertId, images)
+  // }
+
+  for (let index = 0; index < items.length; index++) {
+    const [name, value] = items[index];
+    // console.log({ name, value });
+    if (value instanceof File) {
+      await handleImage(createRes.insertId, value)
+    }
   }
 
   /**
@@ -86,10 +99,14 @@ async function handleAttributes(idProduct: number, attributesWithValues: ts_attr
   await dbWorker(qs, values)
 }
 
-async function handleImages(idProduct: number, images: any) {
-  let filename = slugify(
-    images.name.toLocaleLowerCase().replace(/[^ a-zA-Zа-яА-Я0-9-.]/gim, "")
+async function handleImage(idProduct: number, image: any) {
+
+  console.log('image', image);
+
+  let filename = Date.now() + slugify(
+    image.name.toLocaleLowerCase().replace(/[^ a-zA-Zа-яА-Я0-9-.]/gim, "")
   );
+  console.log('filename', filename);
 
   await createImageInDB(filename, idProduct);
 
@@ -97,9 +114,20 @@ async function handleImages(idProduct: number, images: any) {
   if (imageIsExists) {
     const randomNumber = getRandomNumber(1, 99999);
     filename = randomNumber + filename;
+  } else {
+    console.log('err #d83jnf', 'файл не создался');
+
   }
 
-  const buffer = await images.arrayBuffer();
+  const buffer = await image.arrayBuffer();
   const filePath = `${imagesFolder}/${filename}`;
+  console.log('filePath', filePath);
+
   fs.writeFileSync(filePath, Buffer.from(buffer));
 }
+
+// /home/zuacer/Desktop/work/motohit/images/701191729230235464snimok-ekrana-ot-2024-01-19-18-56-35.png
+
+// /home/zuacer/Desktop/work/motohit/images
+
+// 1729230318611snimok-ekrana-ot-2024-01-30-15-54-03.png

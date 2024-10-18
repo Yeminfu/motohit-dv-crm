@@ -10,7 +10,7 @@ export default async function createProductsImagesTable() {
         name varchar(250) not null unique,
         idProduct int not null,
         created_date DATETIME DEFAULT CURRENT_TIMESTAMP,
-        isMain tinyint(1),
+        isMain tinyint(1) default 0,
         foreign key (idProduct) references ${TABLE_PREFIX}_products(id)
       );
     `, []
