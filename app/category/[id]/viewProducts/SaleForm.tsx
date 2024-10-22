@@ -2,12 +2,15 @@ import { ProductsFull } from "@/types/products/prodyctType";
 import { t_CreateSaleResponseData } from "@/types/sales/t_CreateSaleResponseData";
 import { ShopFromDB } from "@/types/shops/shopFromDBType";
 import Modal from "@/utils/modal/modal";
+import createPriceWithMarkup from "@/utils/prices/createPriceWithMarkup";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
 export default function SaleForm(props: {
-    productFull: ProductsFull, shops: ShopFromDB[], retailPrices: {
+    productFull: ProductsFull,
+    shops: ShopFromDB[],
+    retailPrices: {
         idShop: number,
         sum: number
     }[]
@@ -37,7 +40,7 @@ export default function SaleForm(props: {
 
         <Modal isOpen={isOpen} closeFn={() => setIsOpen(false)} title={`Продать ${props.productFull.name}`}>
             <form onSubmit={handleSubmit(values => onSubmit(values, reset))}>
-                <table className="table">
+                <table className="table m-0">
                     <tbody>
                         <tr>
                             <th>Магазин</th>
@@ -49,8 +52,22 @@ export default function SaleForm(props: {
                                             type="radio"
                                             className="form-check-input"
                                             id={`option_${i}`}
-                                            value={`option_${i}`}
-                                            {...register('option')}
+                                            value={shop.id}
+                                            {...register('idShop', {
+                                                onChange: (e) => {
+                                                    const idShop = e.target.value;
+                                                    (() => {
+                                                        const count = getValues('count');
+                                                        if (!count) return;
+                                                        const priceObj = props.retailPrices.find(priceObj => priceObj.idShop === Number(idShop));
+                                                        const retailPriceSum = priceObj?.sum;
+                                                        if (!retailPriceSum) return;
+                                                        const totalSum = Number(count) * retailPriceSum;
+                                                        setValue('sumTotal', String(totalSum));
+                                                    })();
+                                                }
+                                            })}
+
                                         />
                                         <label className="form-check-label" htmlFor={`option_${i}`}>{shop.shopName}</label>
                                     </div>)}
@@ -62,18 +79,18 @@ export default function SaleForm(props: {
                             <td>
                                 <input {...register("count", {
                                     value: "1",
-                                    required: true, onChange: (e) => {
-                                        const clearCount: String = e.target.value.replace(/[^0-9.]+/igm, '');
+                                    required: true,
+                                    onChange: (e) => {
+                                        const clearCount = Number(e.target.value.replace(/[^0-9.]+/igm, ''));
                                         (() => {
                                             const idShop = getValues('idShop');
-                                            if (!idShop || !clearCount) return;
+                                            if (!idShop) return;
                                             const priceObj = props.retailPrices.find(priceObj => priceObj.idShop === Number(idShop));
                                             const retailPriceSum = priceObj?.sum;
                                             if (!retailPriceSum) return;
                                             const totalSum = Number(clearCount) * retailPriceSum;
-                                            if (totalSum) setValue('sumTotal', String(totalSum));
+                                            setValue('sumTotal', String(totalSum));
                                         })();
-                                        setValue('count', clearCount);
                                     }
                                 })} placeholder="Введите к-во" className="form-control" autoComplete="off" />
                             </td>
@@ -141,7 +158,7 @@ async function onSubmit(values: t_CreateSaleResponseData, reset: () => void) {
         .then(x => x.json())
         .then(x => {
             if (x.success) {
-                toast.success('Успех');
+                toast.success('Продажа проведена');
                 reset();
             } else {
                 toast.error('Ошибка #fsd8: ' + x.error);
