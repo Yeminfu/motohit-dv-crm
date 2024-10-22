@@ -28,7 +28,6 @@ export default async function Page(a: { params: { id: string } }) {
             <th>Открыт в фильтре</th>
             <th>Главный</th>
             <th>Значения</th>
-            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -49,7 +48,6 @@ export default async function Page(a: { params: { id: string } }) {
                     ))}
                   </tbody>
                 </table>
-                <ul></ul>
               </td>
             </tr>
           ))}
@@ -65,7 +63,7 @@ async function getAttributeValues(
   return dbWorker(
     `
       select
-        *codestyle
+        *
       from ${process.env.TABLE_PREFIX}_attributes_values
       where
         idAttribute = ?
