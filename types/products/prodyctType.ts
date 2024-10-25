@@ -40,7 +40,7 @@ export interface ProductOnCreate {
 export type ProductsFull = ProductFromDB & {
   images: ImageFromDB[];
   retailPrices: ts_retailPricesByProductIdGroupedByCity[];
-  stock: StockFromDBInterface[];
+  stock: (StockFromDBInterface | null)[];
 };
 
 export interface StockFromDBInterface {

@@ -106,8 +106,8 @@ export default function ViewProducts(props: {
                 })}
               </>
               <>
-                {product.stock.map((stockObj) => {
-                  return <td key={stockObj.id}>{stockObj.count}</td>;
+                {product.stock.map((stockObj, i) => {
+                  return <td key={i}>{stockObj ? stockObj.count : 0}</td>;
                 })}
               </>
               {viewAll && (

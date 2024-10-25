@@ -2,11 +2,12 @@ import { StockFromDBInterface } from "@/types/products/prodyctType";
 import getShops from "./getShops";
 import dbWorker from "@/db/dbWorker";
 
-export default async function getProductStock(idProduct: any): Promise<StockFromDBInterface[]> {
+
+export default async function getProductStock(idProduct: any): Promise<(StockFromDBInterface | null)[]> {
   const shops = await getShops();
   const res = await Promise.all(
     shops.map(async (shop) => {
-      const stockItem = await dbWorker(`
+      const [stockItem]: StockFromDBInterface[] = await dbWorker(`
         select 
           id,
           idProduct,
@@ -18,11 +19,13 @@ export default async function getProductStock(idProduct: any): Promise<StockFrom
           and idShop = ?
       `, [idProduct, shop.id]);
 
+      if (!stockItem) return null;
+
       return {
         id: stockItem.id,
         idShop: shop.id,
         shopName: shop.shopName,
-        count: stockItem?.pop()?.count || 0
+        count: stockItem.count
       }
     })
   )

@@ -78,7 +78,7 @@ export default function EditProductForm(props: {
       });
 
       const stockObj = props.product.stock.find(
-        (stockItem) => stockItem.idShop === shop.id
+        (stockItem) => stockItem && stockItem.idShop === shop.id
       );
 
       appendStock({
