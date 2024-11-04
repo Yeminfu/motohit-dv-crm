@@ -47,7 +47,7 @@ export default function EditProductForm(props: {
         value: String(props.product.costPriceValue),
       },
       // "stock": { "khv": "123", "bir": "321" },
-      note: "здравствуйте",
+      note: String(props.product.note),
       idCategory: String(props.product.idCategory),
     },
   });
@@ -62,6 +62,8 @@ export default function EditProductForm(props: {
     control,
     name: "stock",
   });
+
+  // const { fields: attributesFields, append: appendAttribute, remove } = useFieldArray({ control, name: "attributes" });
 
   useEffect(() => {
     props.shops.forEach((shop) => {
