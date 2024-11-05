@@ -12,11 +12,11 @@ export interface ProductFromDB {
   costPriceValue: number;
   color: string;
   code: string;
-  isArchived: boolean
+  isArchived: boolean;
 }
 
 export interface ts_attributeToCreate {
-  idAttributeValue: string
+  idAttributeValue: string;
 }
 
 export interface ProductOnCreate {
@@ -33,7 +33,7 @@ export interface ProductOnCreate {
     count: number;
   }[];
   idCategory: number;
-  attributes: ts_attributeToCreate[]
+  attributes: ts_attributeToCreate[];
   // images: any;
 }
 
