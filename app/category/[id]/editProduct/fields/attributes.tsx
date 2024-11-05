@@ -3,7 +3,10 @@
 import ts_productAttributes from "@/types/products/ts_productAttributes";
 import { useEffect, useState } from "react";
 
-export default function Attributes(props: { idProduct: number }) {
+export default function Attributes(props: {
+  idProduct: number;
+  idCategory: number;
+}) {
   const [productAttributes, setProductAttributes] = useState<
     ts_productAttributes[] | null
   >(null);
@@ -13,7 +16,7 @@ export default function Attributes(props: { idProduct: number }) {
   }, []);
   return (
     <>
-      <pre>{JSON.stringify(productAttributes, null, 2)}</pre>
+      <pre>{JSON.stringify({ productAttributes, props }, null, 2)}</pre>
     </>
   );
 }

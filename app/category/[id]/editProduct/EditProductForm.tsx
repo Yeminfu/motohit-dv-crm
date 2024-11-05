@@ -354,7 +354,10 @@ export default function EditProductForm(props: {
           <h5>Атрибуты</h5>
         </div>
         <div>
-          <Attributes idProduct={props.product.id} />
+          <Attributes
+            idProduct={props.product.id}
+            idCategory={props.product.idCategory}
+          />
         </div>
 
         <div className="mt-4">
