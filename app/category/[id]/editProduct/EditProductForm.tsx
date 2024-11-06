@@ -34,6 +34,7 @@ export default function EditProductForm(props: {
     register,
     handleSubmit,
     reset,
+    watch,
     control,
     formState: { errors },
   } = useForm<ts_EDitProductFields>({
@@ -95,24 +96,26 @@ export default function EditProductForm(props: {
 
   const [previewImages, setPreviewImages] = useState([]);
 
-  const handleImageChange = async (e: any) => {
-    const files = e.target.files;
+  // const handleImageChange = async (e: any) => {
+  //   const files = e.target.files;
 
-    const newImages: any = [];
-    for (let i = 0; i < files.length; i++) {
-      const imageBase64 = await new Promise((r) => {
-        const file = files[i];
-        const reader = new FileReader();
-        reader.onload = () => {
-          const previewImage = reader.result;
-          r(previewImage);
-        };
-        reader.readAsDataURL(file);
-      });
-      newImages.push(imageBase64);
-    }
-    setPreviewImages(newImages);
-  };
+  //   const newImages: any = [];
+  //   for (let i = 0; i < files.length; i++) {
+  //     const imageBase64 = await new Promise((r) => {
+  //       const file = files[i];
+  //       const reader = new FileReader();
+  //       reader.onload = () => {
+  //         const previewImage = reader.result;
+  //         r(previewImage);
+  //       };
+  //       reader.readAsDataURL(file);
+  //     });
+  //     newImages.push(imageBase64);
+  //   }
+  //   setPreviewImages(newImages);
+  // };
+
+  const idCategory = watch("idCategory");
 
   return (
     <>
@@ -351,12 +354,34 @@ export default function EditProductForm(props: {
         </div>
 
         <div>
+          <h5>Категория</h5>
+        </div>
+        <div>
+          <select
+            {...register("idCategory", { required: true })}
+            className="form-select"
+            autoComplete="off"
+          >
+            <option value="">Цвет</option>
+            <option value="1" style={{ color: "black" }}>
+              Черный
+            </option>
+            <option value="2" style={{ color: "green" }}>
+              Зеленый
+            </option>
+            <option value="3" style={{ color: "red" }}>
+              Красный
+            </option>
+          </select>
+        </div>
+
+        <div>
           <h5>Атрибуты</h5>
         </div>
         <div>
           <Attributes
             idProduct={props.product.id}
-            idCategory={props.product.idCategory}
+            idCategory={Number(idCategory)}
           />
         </div>
 

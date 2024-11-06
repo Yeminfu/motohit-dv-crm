@@ -14,6 +14,7 @@ export default function Attributes(props: {
   useEffect(() => {
     getAttributes(props.idProduct).then(setProductAttributes);
   }, []);
+
   return (
     <>
       <pre>{JSON.stringify({ productAttributes, props }, null, 2)}</pre>
