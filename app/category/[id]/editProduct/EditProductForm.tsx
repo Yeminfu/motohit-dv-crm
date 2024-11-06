@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import Attributes from "./fields/attributes";
+import { CategoryFromDBInterface } from "@/types/categories/categories";
 
 interface ts_EDitProductFields {
   idProduct: number;
@@ -27,6 +28,7 @@ export default function EditProductForm(props: {
   priceTypes: PriceTypesFromDBInterface[];
   closeFn: any;
   shops: ShopFromDB[];
+  categories: CategoryFromDBInterface[];
 }) {
   // console.log('props EditProductForm', props);
 
@@ -362,16 +364,12 @@ export default function EditProductForm(props: {
             className="form-select"
             autoComplete="off"
           >
-            <option value="">Цвет</option>
-            <option value="1" style={{ color: "black" }}>
-              Черный
-            </option>
-            <option value="2" style={{ color: "green" }}>
-              Зеленый
-            </option>
-            <option value="3" style={{ color: "red" }}>
-              Красный
-            </option>
+            <option value="">-</option>
+            {props.categories.map((category) => (
+              <option value={String(category.id)} key={category.id}>
+                {category.category_name}
+              </option>
+            ))}
           </select>
         </div>
 

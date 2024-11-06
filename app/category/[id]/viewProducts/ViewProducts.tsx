@@ -16,6 +16,7 @@ import ts_categoryFilter from "@/types/ts_categoryFilter";
 // import Modal from "@/utils/modal/modal";
 import SendProductToArchive from "./SendProductToArchive";
 import Link from "next/link";
+import { CategoryFromDBInterface } from "@/types/categories/categories";
 // import tsAttributeWithValues from "@/types/attributes/ts_attributesWithValues";
 
 export default function ViewProducts(props: {
@@ -23,6 +24,7 @@ export default function ViewProducts(props: {
   shops: ShopFromDB[];
   priceTypes: PriceTypesFromDBInterface[];
   searchParams: ts_categoryFilter;
+  categories: CategoryFromDBInterface[];
 }) {
   const [viewAll, setViewAll] = useState(false);
   return (
@@ -167,6 +169,7 @@ export default function ViewProducts(props: {
                     product={product}
                     priceTypes={props.priceTypes}
                     shops={props.shops}
+                    categories={props.categories}
                   />
                   <SendProductToArchive
                     idProduct={product.id}
