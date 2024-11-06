@@ -1,5 +1,5 @@
 import { AttributeType } from "../categories/attributes";
 import ts_attributeValue from "./ts_attributeValue";
 
-type tsAttributeWithValues = AttributeType & { values: ts_attributeValue[] };
-export default tsAttributeWithValues;
+type ts_AttributeWithValues = AttributeType & { values: ts_attributeValue[] };
+export default ts_AttributeWithValues;
