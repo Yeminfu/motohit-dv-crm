@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Controller, useForm, useFormContext } from "react-hook-form";
 import getCategoryAttributes from "./utils/getCategoryAttributes";
 import ts_AttributeWithValues from "@/types/attributes/ts_attributesWithValues";
+import getProductAttributes from "./utils/getProductAttributes";
 
 export default function Attributes(props: {
   idProduct: number;
@@ -23,9 +24,13 @@ export default function Attributes(props: {
     ts_AttributeWithValues[]
   >([]);
 
-  // useEffect(() => {
-  //   console.log("idProduct", props.idProduct);
-  // }, [props.idProduct]);
+  useEffect(() => {
+    console.log("idProduct", props.idProduct);
+    (async () => {
+      const attributes = await getProductAttributes(props.idProduct);
+      console.log("attributes", attributes);
+    })();
+  }, [props.idProduct]);
 
   useEffect(() => {
     (async () => {
