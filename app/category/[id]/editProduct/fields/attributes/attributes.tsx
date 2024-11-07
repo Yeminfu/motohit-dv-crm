@@ -1,8 +1,9 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Controller, useForm, useFormContext } from "react-hook-form";
 import getCategoryAttributes from "./utils/getCategoryAttributes";
+import ts_AttributeWithValues from "@/types/attributes/ts_attributesWithValues";
 
 export default function Attributes(props: {
   idProduct: number;
@@ -18,17 +19,26 @@ export default function Attributes(props: {
     setValue,
   } = useFormContext();
 
+  const [categoryAttributes, setCategoryAttributes] = useState<
+    ts_AttributeWithValues[]
+  >([]);
+
+  // useEffect(() => {
+  //   console.log("idProduct", props.idProduct);
+  // }, [props.idProduct]);
+
   useEffect(() => {
-    // Устанавливаем дефолтные значения для атрибутов
-
-    getCategoryAttributes();
-
-    attributes.forEach((attr) => {
-      if (attr.values.length > 0) {
-        setValue(`attributes[${attr.id}]`, attr.values[0].id);
-      }
-    });
-  }, [attributes, setValue]);
+    (async () => {
+      const attributes = await getCategoryAttributes(props.idCategory);
+      setCategoryAttributes(attributes);
+      console.log("attributes", attributes);
+      attributes.forEach((attr) => {
+        if (attr.values.length > 0) {
+          setValue(`attributes[${attr.id}]`, attr.values[0].id);
+        }
+      });
+    })();
+  }, [props.idCategory]);
 
   // const onSubmit = (data: any) => {
   //   console.log(data);
@@ -47,9 +57,9 @@ export default function Attributes(props: {
       >
         btn
       </div>
-      {attributes.map((attr) => (
+      {categoryAttributes.map((attr) => (
         <div key={attr.id}>
-          <label>{attr.name}</label>
+          <label>{attr.attribute_name}</label>
           <Controller
             name={`attributes[${attr.id}]`}
             control={control}
@@ -58,7 +68,7 @@ export default function Attributes(props: {
                 <option value="">Выберите значение</option>
                 {attr.values.map((value) => (
                   <option key={value.id} value={value.id}>
-                    {value.name}
+                    {value.value_name}
                   </option>
                 ))}
               </select>
@@ -66,27 +76,6 @@ export default function Attributes(props: {
           />
         </div>
       ))}
-      <pre>{JSON.stringify(attributes, null, 2)}</pre>
     </>
   );
 }
-
-// Пример использования компонента
-const attributes = [
-  {
-    name: "первый атрибут",
-    id: 1,
-    values: [
-      { id: 1, name: "первое значение атрибута" },
-      { id: 2, name: "второе значение атрибута" },
-    ],
-  },
-  {
-    name: "второй атрибут",
-    id: 2,
-    values: [
-      { id: 3, name: "первое значение атрибута" },
-      { id: 4, name: "второе значение атрибута" },
-    ],
-  },
-];
