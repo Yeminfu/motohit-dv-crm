@@ -4,13 +4,12 @@ import { Fragment, useEffect, useState } from "react";
 import { useFieldArray, useFormContext } from "react-hook-form";
 import getAttributesWithValues from "./utils/getAttributesWithValues";
 import ts_attributeWithValuesAndDefaultValue from "./types/ts_AttributeWithValues";
-import { CACHE_ONE_YEAR } from "next/dist/lib/constants";
 
 export default function Attributes(props: {
   idProduct: number;
   idCategory: number;
 }) {
-  const { register, control } = useFormContext();
+  const { register, control, setValue } = useFormContext();
 
   const [categoryAttributes, setCategoryAttributes] = useState<
     ts_attributeWithValuesAndDefaultValue[]
@@ -22,6 +21,7 @@ export default function Attributes(props: {
   });
 
   useEffect(() => {
+    setValue("attributes", []);
     if (props.idCategory && props.idProduct) {
       (async () => {
         const attributeWithValuesAndDefaultValue =
@@ -76,7 +76,14 @@ export default function Attributes(props: {
               const matchWithCategoryAttributes = categoryAttributes.find(
                 (CA) => String(CA.id) === field.idAttribute
               );
-              if (!matchWithCategoryAttributes) return <>Err #dma9332</>;
+              if (!matchWithCategoryAttributes)
+                return (
+                  <tr>
+                    <td>
+                      Err #dma9332 {field.id} {field.idAttribute}
+                    </td>
+                  </tr>
+                );
 
               return (
                 <tr key={field.id}>

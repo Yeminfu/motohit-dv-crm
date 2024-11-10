@@ -490,6 +490,9 @@ async function onSubmit(data: any): Promise<any> {
   }));
   formData.append("retail_price", JSON.stringify(retail_price));
 
+  const attributes = data.attributes;
+  formData.append("attributes", JSON.stringify(attributes));
+
   const stock = data.stock.map((stockObj: any) => ({
     ...stockObj,
     id: stockObj.idInDB,
