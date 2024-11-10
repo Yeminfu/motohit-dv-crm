@@ -2,7 +2,12 @@ import { PriceTypesFromDBInterface } from "@/types/products/priceTypesFromDBInte
 import { ProductFromDB, ProductsFull } from "@/types/products/prodyctType";
 import { ShopFromDB } from "@/types/shops/shopFromDBType";
 import { useEffect, useState } from "react";
-import { FormProvider, useFieldArray, useForm } from "react-hook-form";
+import {
+  Controller,
+  FormProvider,
+  useFieldArray,
+  useForm,
+} from "react-hook-form";
 import { toast } from "react-toastify";
 import Attributes from "./fields/attributes/attributes";
 import { CategoryFromDBInterface } from "@/types/categories/categories";
@@ -21,6 +26,10 @@ interface ts_EDitProductFields {
   stock: any;
   note: string;
   idCategory: string;
+  attributes: {
+    idAttribute: string;
+    idAttributeValue: string;
+  }[]; //string[];
 }
 
 export default function EditProductForm(props: {
@@ -44,6 +53,15 @@ export default function EditProductForm(props: {
         value: String(props.product.costPriceValue),
       },
       // "stock": { "khv": "123", "bir": "321" },
+      attributes: [
+        // ,
+      ],
+      // items: [
+      //   {
+      //     data: "item1",
+      //   },
+      //   // "item2",
+      // ], // Дефолтное значение - массив
       note: String(props.product.note),
       idCategory: String(props.product.idCategory),
     },
@@ -55,6 +73,7 @@ export default function EditProductForm(props: {
     reset,
     watch,
     control,
+    getValues,
     formState: { errors },
   } = methods;
 
@@ -135,6 +154,48 @@ export default function EditProductForm(props: {
             }
           })}
         >
+          {/* <div
+            className="btn btn-dark"
+            onClick={() => {
+              console.log(getValues("items"));
+            }}
+          >
+            btn
+          </div> */}
+
+          {[{ attributeId: 1, attributeValueId: 2 }].map((attribute) => {
+            return <></>;
+          })}
+
+          {/* <Controller
+            name="attributes"
+            control={control}
+            render={({ field }) => (
+              <div>
+                {field.value
+                  //@ts-ignore
+                  .map((item, index) => (
+                    <div key={index}>
+                      <input
+                        {...field}
+                        value={item}
+                        onChange={(e) => {
+                          const newItems = [...field.value];
+                          newItems[index] = e.target.value;
+                          field.onChange(newItems);
+                        }}
+                      />
+                    </div>
+                  ))}
+                <button
+                  type="button"
+                  onClick={() => field.onChange([...field.value, ""])}
+                >
+                  Добавить элемент
+                </button>
+              </div>
+            )}
+          /> */}
           <div className="row">
             <div className="col">
               <div className="mb-2">
