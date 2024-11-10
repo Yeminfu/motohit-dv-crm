@@ -1,10 +1,6 @@
-import ts_AttributeWithValues from "@/types/attributes/ts_attributesWithValues";
 import getCategoryAttributesWithValues from "./getCategoryAttributesWithValues";
 import getAttributesByIdProduct from "./getAttributesByIdProduct";
-
-type ts_attributeWithValuesAndDefaultValue = ts_AttributeWithValues & {
-  idDefaultAttributeValue: string;
-};
+import ts_attributeWithValuesAndDefaultValue from "../types/ts_AttributeWithValues";
 
 export default async function getAttributesWithValues(
   idCategory: number,

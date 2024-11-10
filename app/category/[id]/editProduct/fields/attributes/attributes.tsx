@@ -6,6 +6,7 @@ import getAttributesWithValues from "./utils/getAttributesWithValues";
 import ts_AttributeWithValues from "@/types/attributes/ts_attributesWithValues";
 import getProductAttributes from "./utils/getProductAttributes";
 import ts_productAttributes from "#app/api/attributes/getProductAttributes/types/ts_productAttributes.js";
+import ts_attributeWithValuesAndDefaultValue from "./types/ts_AttributeWithValues";
 
 export default function Attributes(props: {
   idProduct: number;
@@ -22,7 +23,7 @@ export default function Attributes(props: {
   } = useFormContext();
 
   const [categoryAttributes, setCategoryAttributes] = useState<
-    ts_AttributeWithValues[]
+    ts_attributeWithValuesAndDefaultValue[]
   >([]);
 
   const [productDefaultAttributes, setProductDefaultAttributes] = useState<
@@ -34,7 +35,7 @@ export default function Attributes(props: {
       (async () => {
         const attributeWithValuesAndDefaultValue =
           await getAttributesWithValues(props.idCategory, props.idProduct);
-        console.log({ attributeWithValuesAndDefaultValue });
+        setCategoryAttributes(attributeWithValuesAndDefaultValue);
       })();
     }
     // alert(1);
@@ -84,11 +85,7 @@ export default function Attributes(props: {
   return (
     <>
       <pre>
-        {JSON.stringify(
-          ["productDefaultAttributes", productDefaultAttributes],
-          null,
-          2
-        )}
+        {JSON.stringify(["categoryAttributes", categoryAttributes], null, 2)}
       </pre>
       <div
         className="btn btn-dark"
