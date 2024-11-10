@@ -1,4 +1,4 @@
-import {  NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 // import updateProduct from "./updateProduct";
 import { RetailPriceFromDB } from "@/types/products/retailPriceFromDB";
 import updateRetailPrice from "./updateRetailPrice";
@@ -9,10 +9,7 @@ import updateProductMainData from "./updateProductMainData";
 import insertRetailPrice from "./insertRetailPrice";
 import insertStock from "./insertStock";
 
-export async function POST(
-  req: any,
-  params: { params: { id: any; }; }
-) {
+export async function POST(req: any, params: { params: { id: any } }) {
   const session = Date.now();
 
   const data: any = await req.formData();
@@ -26,21 +23,32 @@ export async function POST(
   );
 
   try {
-    const updMainDataRes = await updateProductMainData(mainProductFields, Number(params.params.id))
-    await addHistoryEntry('updateProductMainData', { mainProductFields, updMainDataRes });
+    const updMainDataRes = await updateProductMainData(
+      mainProductFields,
+      Number(params.params.id)
+    );
+    await addHistoryEntry("updateProductMainData", {
+      mainProductFields,
+      updMainDataRes,
+    });
   } catch (error) {
-    console.log('fatal error #mfn5c', error);
+    console.log("fatal error #mfn5c", error);
   }
 
   for (let index = 0; index < retail_price.length; index++) {
     const retailPriceObj = retail_price[index];
     if (retailPriceObj.idRecord) {
-
       const updRetailPriceRes = await updateRetailPrice(retailPriceObj);
-      await addHistoryEntry('updateProductRetailPrice', { retailPriceObj, updRetailPriceRes });
+      await addHistoryEntry("updateProductRetailPrice", {
+        retailPriceObj,
+        updRetailPriceRes,
+      });
     } else {
       const insertRetailPriceRes = await insertRetailPrice(retailPriceObj);
-      await addHistoryEntry('insertProductRetailPrice', { retailPriceObj, insertRetailPriceRes });
+      await addHistoryEntry("insertProductRetailPrice", {
+        retailPriceObj,
+        insertRetailPriceRes,
+      });
     }
   }
 
@@ -61,7 +69,6 @@ export async function POST(
 
   const stock: StockFromDBType[] = JSON.parse(data.get("stock"));
   for (let index = 0; index < stock.length; index++) {
-
     const stockObj = stock[index];
     if (stockObj.idRecord) {
       const updRes = await updateStock(stockObj, params.params.id);
@@ -69,8 +76,21 @@ export async function POST(
     } else {
       const insertRes = await insertStock(stockObj, params.params.id);
       await addHistoryEntry("insertStock", { session, stockObj, insertRes });
-
     }
+  }
+
+  const attributes: StockFromDBType[] = JSON.parse(data.get("attributes"));
+  for (let index = 0; index < attributes.length; index++) {
+    const attributeObj = attributes[index];
+    console.log("attributeObj", attributeObj);
+
+    // if (stockObj.idRecord) {
+    //   const updRes = await updateStock(stockObj, params.params.id);
+    //   await addHistoryEntry("updateStock", { session, stockObj, updRes });
+    // } else {
+    //   const insertRes = await insertStock(stockObj, params.params.id);
+    //   await addHistoryEntry("insertStock", { session, stockObj, insertRes });
+    // }
   }
 
   // const updProductRes = await updateProduct(mainProductFields);
@@ -88,5 +108,3 @@ export async function POST(
 
   return NextResponse.json({ success: true });
 }
-
-
