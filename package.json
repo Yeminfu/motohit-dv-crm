@@ -2,6 +2,9 @@
   "name": "motohit-crm",
   "version": "0.1.0",
   "private": true,
+  "imports": {
+    "#*": "./*"
+  },
   "scripts": {
     "dev": "next dev -p 3003",
     "build": "next build",
