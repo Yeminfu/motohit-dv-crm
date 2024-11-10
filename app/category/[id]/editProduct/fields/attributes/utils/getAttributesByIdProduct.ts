@@ -1,14 +1,13 @@
-import ts_AttributeWithValues from "@/types/attributes/ts_attributesWithValues";
+import ts_productAttributes from "#app/api/attributes/getProductAttributes/types/ts_productAttributes.ts";
 
-export default async function getCategoryAttributes(
-  idCategory: number
-): Promise<ts_AttributeWithValues[]> {
-  // console.log("getCategoryAttributes", idCategory);
+export default async function getAttributesByIdProduct(
+  idProduct: number
+): Promise<ts_productAttributes[]> {
   try {
-    const response = await fetch("/api/attributes/getCategoryAttributes", {
+    const response = await fetch("/api/attributes/getProductAttributes", {
       method: "POST",
       body: JSON.stringify({
-        idCategory,
+        idProduct,
       }),
     });
     if (!response.ok) {

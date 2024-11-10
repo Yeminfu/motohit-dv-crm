@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { Controller, useForm, useFormContext } from "react-hook-form";
-import getCategoryAttributes from "./utils/getCategoryAttributes";
+import getAttributesWithValues from "./utils/getAttributesWithValues";
 import ts_AttributeWithValues from "@/types/attributes/ts_attributesWithValues";
 import getProductAttributes from "./utils/getProductAttributes";
 import ts_productAttributes from "#app/api/attributes/getProductAttributes/types/ts_productAttributes.js";
@@ -30,41 +30,49 @@ export default function Attributes(props: {
   >([]);
 
   useEffect(() => {
+    if (props.idCategory && props.idProduct) {
+      (async () => {
+        const attributeWithValuesAndDefaultValue =
+          await getAttributesWithValues(props.idCategory, props.idProduct);
+        console.log({ attributeWithValuesAndDefaultValue });
+      })();
+    }
+    // alert(1);
     // console.log("idProduct", props.idProduct);
-    (async () => {
-      const attributes = await getProductAttributes(props.idProduct);
-      setValue(
-        "attributes",
-        attributes.map((a) => {
-          console.log("a.idAttributeValue", a);
-          return {
-            idAttribute: a.idAttribute,
-            idAttributeValue: a.idAttributeValue,
-          };
-        })
-        // [
-        //   { idAttribute: "1", idAttributeValue: "2" },
-        //   { idAttribute: "3", idAttributeValue: "4" },
-        // ]
-      );
-      // { idAttribute: "1", idAttributeValue: "2" },
-      //   { idAttribute: "3", idAttributeValue: "4" }
-      setProductDefaultAttributes(attributes);
-    })();
-  }, [props.idProduct]);
+    // (async () => {
+    //   const attributes = await getProductAttributes(props.idProduct);
+    //   setValue(
+    //     "attributes",
+    //     attributes.map((a) => {
+    //       console.log("a.idAttributeValue", a);
+    //       return {
+    //         idAttribute: a.idAttribute,
+    //         idAttributeValue: a.idAttributeValue,
+    //       };
+    //     })
+    //     // [
+    //     //   { idAttribute: "1", idAttributeValue: "2" },
+    //     //   { idAttribute: "3", idAttributeValue: "4" },
+    //     // ]
+    //   );
+    //   // { idAttribute: "1", idAttributeValue: "2" },
+    //   //   { idAttribute: "3", idAttributeValue: "4" }
+    //   setProductDefaultAttributes(attributes);
+    // })();
+  }, [props.idProduct, props.idCategory]);
 
-  useEffect(() => {
-    (async () => {
-      const attributes = await getCategoryAttributes(props.idCategory);
-      setCategoryAttributes(attributes);
-      console.log("attributes", attributes);
-      // attributes.forEach((attr) => {
-      //   if (attr.values.length > 0) {
-      //     setValue(`attributes[${attr.id}]`, attr.values[0].id);
-      //   }
-      // });
-    })();
-  }, [props.idCategory]);
+  // useEffect(() => {
+  //   (async () => {
+  //     const attributes = await getCategoryAttributes(props.idCategory);
+  //     setCategoryAttributes(attributes);
+  //     console.log("attributes", attributes);
+  //     // attributes.forEach((attr) => {
+  //     //   if (attr.values.length > 0) {
+  //     //     setValue(`attributes[${attr.id}]`, attr.values[0].id);
+  //     //   }
+  //     // });
+  //   })();
+  // }, [props.idCategory]);
 
   // const onSubmit = (data: any) => {
   //   console.log(data);
@@ -90,78 +98,89 @@ export default function Attributes(props: {
       >
         btn
       </div>
-      <Controller
-        name="attributes"
-        control={control}
-        render={({ field }) => {
-          console.log("field", [field, field.value]);
 
-          return (
-            <div>
-              <table className="table table-bordered">
-                <thead>
-                  <tr>
-                    <th>categoryAttribute.id</th>
-                    <th>categoryAttribute.id</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {categoryAttributes.map((categoryAttribute) => {
-                    const match = productDefaultAttributes.find(
-                      (P_A) => P_A.idAttribute === 0
-                    );
+      {/* ******************************************** */}
+      <table className="table table-bordered">
+        <thead>
+          <tr>
+            <th>categoryAttribute.id</th>
+            <th>categoryAttribute.id</th>
+          </tr>
+        </thead>
+        <tbody>
+          {categoryAttributes.map((categoryAttribute) => {
+            const match = productDefaultAttributes.find(
+              (P_A) => P_A.idAttribute === categoryAttribute.id
+            );
+            /**
+             * если id атрибута из категории совпадает с каким-то атрибутом из дефолтных значений товара
+             * он назначается дефолтным
+             *
+             */
+            console.log("matchmatch", match);
 
-                    return (
-                      <tr key={categoryAttribute.id}>
-                        <td>{categoryAttribute.id}</td>
-                        <td>
-                          value
-                          <pre>
-                            {JSON.stringify(
-                              {
-                                productDefaultAttributes,
-                                "field.value": field.value,
-                              },
-                              null,
-                              2
-                            )}
-                          </pre>
-                        </td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
-              {/* {field.value
-                // []
-                //@ts-ignore
-                .map((item, index) => {
-                  // console.log({ item });
-                  return (
-                    <div key={index}>
-                      <pre>{JSON.stringify({ item }, null, 2)}</pre>
-                      <select
-                        {...{
-                          ...field,
-                        }}
-                      >
-                        <option value="">Выберите значение</option>
-                        <option value="attr_value_1">attr_value_1</option>
-                        <option value="attr_value_2">attr_value_2</option>
-                      </select>
-                    </div>
-                  );
-                })} */}
-              {/* <button
-                type="button"
-                onClick={() => field.onChange([...field.value, ""])}
-              >
-                Добавить элемент
-              </button> */}
-            </div>
-          );
-        }}
-      />
+            return (
+              <tr key={categoryAttribute.id}>
+                <td>
+                  {categoryAttribute.attribute_name} (id: {categoryAttribute.id}
+                  )
+                </td>
+                <td>
+                  {/* value */}
+                  <select
+                    //  {...(() => {
+                    //   return register(
+                    //     //@ts-ignore
+                    //     `retail_price[${index}].idPriceType`,
+                    //     {
+                    //       required: true,
+                    //     }
+                    //   );
+                    // })()}
+                    value={String(match?.idAttributeValue || "")}
+                    onChange={(e) => {
+                      console.log("eee", e.target.value);
+                    }}
+                  >
+                    <option value="">Выберите значение</option>
+                    {categoryAttribute.values.map((C_A_value) => {
+                      console.log("C_A_value", C_A_value.id);
+
+                      return (
+                        <>
+                          <option value={String(C_A_value.id)}>
+                            {C_A_value.value_name} (id: {C_A_value.id})
+                          </option>
+                        </>
+                      );
+                    })}
+                    {/* {attr.values.map((value) => {
+                      console.log("value", value);
+
+                      return (
+                        <option key={value.id} value={value.id}>
+                          {value.value_name}
+                        </option>
+                      );
+                    })} */}
+                  </select>
+                  {/* <pre>
+                    {JSON.stringify(
+                      {
+                        productDefaultAttributes,
+                        "field.value": field.value,
+                      },
+                      null,
+                      2
+                    )}
+                  </pre> */}
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+      {/* ******************************************** */}
       {/* {categoryAttributes.map((attr) => {
         console.log("attr", attr);
 
@@ -193,3 +212,12 @@ export default function Attributes(props: {
     </>
   );
 }
+
+function handleChangeCategory(idCategory: number) {
+  console.log();
+}
+
+function handleChangeAttributeValue(
+  idAttribute: number,
+  idAttributeNEWValue: number
+) {}

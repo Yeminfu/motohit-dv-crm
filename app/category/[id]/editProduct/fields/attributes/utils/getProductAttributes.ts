@@ -1,4 +1,4 @@
-import ts_productAttributes from "@/types/products/ts_productAttributes";
+import ts_productAttributes from "#app/api/attributes/getProductAttributes/types/ts_productAttributes.js";
 
 export default async function getProductAttributes(
   idProduct: number
