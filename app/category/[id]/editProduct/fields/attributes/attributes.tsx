@@ -1,30 +1,25 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { Controller, useForm, useFormContext } from "react-hook-form";
+import { Fragment, useEffect, useState } from "react";
+import { useFieldArray, useFormContext } from "react-hook-form";
 import getAttributesWithValues from "./utils/getAttributesWithValues";
-import ts_AttributeWithValues from "@/types/attributes/ts_attributesWithValues";
-import getProductAttributes from "./utils/getProductAttributes";
-import ts_productAttributes from "#app/api/attributes/getProductAttributes/types/ts_productAttributes.js";
 import ts_attributeWithValuesAndDefaultValue from "./types/ts_AttributeWithValues";
+import { CACHE_ONE_YEAR } from "next/dist/lib/constants";
 
 export default function Attributes(props: {
   idProduct: number;
   idCategory: number;
 }) {
-  // const { control, handleSubmit, setValue, getValues } = useForm();
-
-  const {
-    register,
-    formState: { errors },
-    getValues,
-    control,
-    setValue,
-  } = useFormContext();
+  const { register, control } = useFormContext();
 
   const [categoryAttributes, setCategoryAttributes] = useState<
     ts_attributeWithValuesAndDefaultValue[]
   >([]);
+
+  const { fields: attributesFields, append: appendAttribute } = useFieldArray({
+    control,
+    name: "attributes",
+  });
 
   useEffect(() => {
     if (props.idCategory && props.idProduct) {
@@ -39,34 +34,27 @@ export default function Attributes(props: {
           index++
         ) {
           const attributeWithValue = attributeWithValuesAndDefaultValue[index];
+
+          appendAttribute({
+            idAttribute: String(attributeWithValue.id),
+            idAttributeValue: String(
+              attributeWithValue.idDefaultAttributeValue
+            ),
+          });
+
           console.log("attributeWithValue#9f8s", {
-            idAttribute: attributeWithValue.id,
-            idAttributeValue: attributeWithValue.idDefaultAttributeValue,
+            idAttribute: String(attributeWithValue.id),
+            idAttributeValue: String(
+              attributeWithValue.idDefaultAttributeValue
+            ),
           });
         }
-
-        // setValue('attributes',)
-
-        // console.log(
-        //   "attributeWithValuesAndDefaultValue"
-        //   // attributeWithValuesAndDefaultValue.map((a=>))
-        // );
       })();
     }
   }, [props.idProduct, props.idCategory]);
 
   return (
     <>
-      <div
-        className="btn btn-dark"
-        onClick={() => {
-          console.log(JSON.stringify(getValues("attributes"), null, 2));
-        }}
-      >
-        btn
-      </div>
-
-      {/* ******************************************** */}
       <table className="table table-bordered">
         <thead>
           <tr>
@@ -75,40 +63,51 @@ export default function Attributes(props: {
           </tr>
         </thead>
         <tbody>
-          {categoryAttributes.map((categoryAttribute) => {
-            return (
-              <tr key={categoryAttribute.id}>
-                <td>{categoryAttribute.attribute_name}</td>
-                <td>
-                  <select
-                    {...register(`attribute`, { required: true })}
-                    className="form-select"
-                    autoComplete="off"
-                  >
-                    <option value="">Значение атрибута</option>
-                    {categoryAttribute.values.map((value) => (
-                      <option key={value.id} value={String(value.id)}>
-                        {value.value_name}
-                      </option>
-                    ))}
-                  </select>
-                  {/* <pre>
-                    {JSON.stringify(
-                      categoryAttribute.idDefaultAttributeValue,
-                      null,
-                      2
-                    )}
-                  </pre>
-                  <pre>{JSON.stringify(categoryAttribute.values, null, 2)}</pre> */}
-                </td>
-              </tr>
-            );
-          })}
+          {attributesFields.map(
+            //@ts-ignore
+            (
+              field: {
+                id: string;
+                idAttribute: string;
+                idAttributeValue: string;
+              },
+              index
+            ) => {
+              const matchWithCategoryAttributes = categoryAttributes.find(
+                (CA) => String(CA.id) === field.idAttribute
+              );
+              if (!matchWithCategoryAttributes) return <>Err #dma9332</>;
+
+              return (
+                <tr key={field.id}>
+                  <td>{matchWithCategoryAttributes.attribute_name}</td>
+                  <td>
+                    <select
+                      {...register(`attributes.${index}.idAttributeValue`, {
+                        required: true,
+                      })}
+                      className="form-control"
+                    >
+                      <option value={""}>выберите значение</option>
+                      <>
+                        {matchWithCategoryAttributes.values.map(
+                          (attributeValue) => (
+                            <Fragment key={attributeValue.id}>
+                              <option value={attributeValue.id}>
+                                {attributeValue.value_name}
+                              </option>
+                            </Fragment>
+                          )
+                        )}
+                      </>
+                    </select>
+                  </td>
+                </tr>
+              );
+            }
+          )}
         </tbody>
       </table>
-      <pre>
-        {JSON.stringify(["categoryAttributes", categoryAttributes], null, 2)}
-      </pre>
     </>
   );
 }
