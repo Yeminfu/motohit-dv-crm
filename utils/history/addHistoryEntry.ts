@@ -3,12 +3,9 @@ import { cookies } from "next/headers";
 import getUserByToken from "../users/getUserByToken";
 
 export default async function addHistoryEntry(action: string, data: any) {
-
   const authToken = String(cookies().get("auth")?.value);
 
   const user = await getUserByToken(authToken);
-  console.log('user', user);
-
 
   if (!user) return;
 

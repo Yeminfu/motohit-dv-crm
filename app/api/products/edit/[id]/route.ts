@@ -8,6 +8,7 @@ import addHistoryEntry from "@/utils/history/addHistoryEntry";
 import updateProductMainData from "./updateProductMainData";
 import insertRetailPrice from "./insertRetailPrice";
 import insertStock from "./insertStock";
+import editProductAttributes from "./utils/editProductAttributes";
 
 export async function POST(req: any, params: { params: { id: any } }) {
   const session = Date.now();
@@ -79,19 +80,11 @@ export async function POST(req: any, params: { params: { id: any } }) {
     }
   }
 
-  const attributes: StockFromDBType[] = JSON.parse(data.get("attributes"));
-  for (let index = 0; index < attributes.length; index++) {
-    const attributeObj = attributes[index];
-    console.log("attributeObj", attributeObj);
+  const attributes = JSON.parse(data.get("attributes"));
+  // console.log("attributeObj", attributeObj);
+  // console.log("mainProductFields", mainProductFields);
 
-    // if (stockObj.idRecord) {
-    //   const updRes = await updateStock(stockObj, params.params.id);
-    //   await addHistoryEntry("updateStock", { session, stockObj, updRes });
-    // } else {
-    //   const insertRes = await insertStock(stockObj, params.params.id);
-    //   await addHistoryEntry("insertStock", { session, stockObj, insertRes });
-    // }
-  }
+  await editProductAttributes(mainProductFields.id, attributes);
 
   // const updProductRes = await updateProduct(mainProductFields);
   // if (updProductRes.code) {
