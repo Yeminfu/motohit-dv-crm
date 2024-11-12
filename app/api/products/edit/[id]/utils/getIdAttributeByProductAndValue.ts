@@ -21,5 +21,5 @@ export default async function getIdAttributeByProductAndValue(
   const res = await dbWorker(sql, [idProduct, idAttributeValue]).then((x) => {
     return Number(x.pop().idAttribute);
   });
-  return 0;
+  return res;
 }
