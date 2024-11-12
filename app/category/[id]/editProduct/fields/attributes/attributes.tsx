@@ -78,13 +78,12 @@ export default function Attributes(props: {
               );
               if (!matchWithCategoryAttributes)
                 return (
-                  <tr>
+                  <tr key={index}>
                     <td>
                       Err #dma9332 {field.id} {field.idAttribute}
                     </td>
                   </tr>
                 );
-
               return (
                 <tr key={field.id}>
                   <td>{matchWithCategoryAttributes.attribute_name}</td>

@@ -1,5 +1,4 @@
-import dbWorker from "#db/dbWorker.ts";
-import checkRelationIsExists from "./checkRelationIsExists";
+import getIdAttributeByProductAndValue from "./getIdAttributeByProductAndValue";
 
 export default async function editProductAttributes(
   idProduct: number,
@@ -8,16 +7,12 @@ export default async function editProductAttributes(
     idAttributeValue: string;
   }[]
 ) {
-  // console.log("editProductAttributes", { idProduct, attributes });
-
   for (let index = 0; index < attributes.length; index++) {
     const element = attributes[index];
-    const relationIsExists = await checkRelationIsExists(
+    const relationIsExists = await getIdAttributeByProductAndValue(
       idProduct,
       Number(element.idAttributeValue)
     );
     console.log("relationIsExists", relationIsExists);
   }
-
-  // console.log("currentRelations", currentRelations);
 }
