@@ -86,7 +86,10 @@ export default function Attributes(props: {
                 );
               return (
                 <tr key={field.id}>
-                  <td>{matchWithCategoryAttributes.attribute_name}</td>
+                  <td>
+                    {matchWithCategoryAttributes.attribute_name} ID# атрибута{" "}
+                    {matchWithCategoryAttributes.id}
+                  </td>
                   <td>
                     <select
                       {...register(`attributes.${index}.idAttributeValue`, {
@@ -100,7 +103,8 @@ export default function Attributes(props: {
                           (attributeValue) => (
                             <Fragment key={attributeValue.id}>
                               <option value={attributeValue.id}>
-                                {attributeValue.value_name}
+                                {attributeValue.value_name} ID# значения
+                                атрибута {attributeValue.id}
                               </option>
                             </Fragment>
                           )
