@@ -1,4 +1,5 @@
 import dbWorker from "#db/dbWorker.ts";
+import { ResultSetHeader } from "mysql2";
 import getAttributeRelation from "./getAttributeRelation";
 
 export default async function editProductAttributes(
@@ -8,73 +9,24 @@ export default async function editProductAttributes(
     idAttributeValue: string;
   }[]
 ) {
+  const errors = [];
+
   for (let index = 0; index < attributes.length; index++) {
     const newAttribute = attributes[index];
 
-    console.log("newAttribute", newAttribute);
-
-    const oldAttribute = await getAttributeRelation(
+    const oldRelation = await getAttributeRelation(
       idProduct,
-      Number(newAttribute.idAttributeValue)
+      Number(newAttribute.idAttribute)
     );
 
-    console.log({
-      idProduct,
-      oldAttribute,
-      newAttribute,
-    });
+    const result = await updateAttrProdRelation(
+      Number(newAttribute.idAttributeValue),
+      oldRelation.id
+    );
 
-    /*
-  входные данные: idAttributeValue (new) и idProduct
-
-  по idAttributeValue находим idAttribute
-
-  по idAttribute и idProduct находим relations
-    select
-      *
-    from chbfs_attr_prod_relation
-    where
-      idProduct = idProduct
-      and idAttributeValue in (
-        select
-          id
-        from chbfs_attributes_values
-        where
-          idAttribute = idAttribute
-      )
-*/
-
-    console.log({
-      newAttribute,
-      oldAttribute,
-    });
-
-    console.log("oldAttribute", oldAttribute);
-
-    // if (matchedRelation) {
-    //   console.log(
-    //     "matchedRelation.idAttribute",
-    //     Number(matchedRelation.idAttribute)
-    //   );
-
-    //   if (Number(matchedRelation.idAttribute) === 97225) {
-    //     console.log("matchedRelation", matchedRelation);
-    //     //     console.log({
-    //     //       newAttribute,
-    //     //       matchedRelation,
-    //     //     });
-    //     console.log("йахэй баля");
-    //   }
-    // }
-
-    //   const result = await updateAttrProdRelation(
-    //     Number(newAttribute.idAttributeValue),
-    //     matchedRelation.idRelation
-    //   );
-    //   // console.log("result", result);
-    //   // break;
-    // } else {
-    // }
+    if (result.affectedRows !== 1) {
+      errors.push({ newAttribute, oldRelation, result });
+    }
   }
 }
 
@@ -82,16 +34,6 @@ async function updateAttrProdRelation(
   idAttributeValue: number,
   idRelation: number
 ) {
-  console.log(
-    "zzz",
-    await dbWorker(
-      `
-      select * from chbfs_attr_prod_relation where id = ?
-    `,
-      [idRelation]
-    )
-  );
-
   const sql = `
     update chbfs_attr_prod_relation
     set
@@ -99,7 +41,10 @@ async function updateAttrProdRelation(
     where
       id = ?
   `;
-  console.log(sql, idAttributeValue, idRelation);
 
-  return await dbWorker(sql, [idAttributeValue, idRelation]);
+  const res: ResultSetHeader = await dbWorker(sql, [
+    idAttributeValue,
+    idRelation,
+  ]);
+  return res;
 }
