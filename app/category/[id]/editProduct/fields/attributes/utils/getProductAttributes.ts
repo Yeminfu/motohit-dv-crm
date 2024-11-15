@@ -11,7 +11,7 @@ export default async function getProductAttributes(
       }),
     });
     if (!response.ok) {
-      alert("err #f943mn");
+      alert("err #f943mn83");
       throw new Error(`Ошибка: ${response.statusText}`);
     }
     const data = await response.json();

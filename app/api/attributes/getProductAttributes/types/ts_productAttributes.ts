@@ -1,4 +1,5 @@
 export default interface ts_productAttributes {
+  idRelation: number;
   attribute_name: string;
   idAttribute: number;
   idAttributeValue: number;

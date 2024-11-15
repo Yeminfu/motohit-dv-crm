@@ -15,7 +15,7 @@ export default async function getCategoryAttributesWithValues(
       }
     );
     if (!response.ok) {
-      alert("err #f943mn");
+      alert("err #f943mn0s");
       throw new Error(`Ошибка: ${response.statusText}`);
     }
     const data = await response.json();
