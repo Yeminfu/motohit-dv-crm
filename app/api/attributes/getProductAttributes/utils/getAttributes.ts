@@ -11,7 +11,7 @@ export default async function getAttributes(
       attr.attribute_name,
       attr.id idAttribute,
       vals.value_name,
-      vals.id idAttributeValue,
+      vals.id idAttributeValue
     from chbfs_attr_prod_relation relation
       left join chbfs_attributes_values vals 
       on
