@@ -11,28 +11,6 @@ export default async function editProductAttributes(
 ) {
   const errors = [];
 
-  for (let index = 0; index < attributes.length; index++) {
-    const newAttribute = attributes[index];
-
-    const oldRelation = await getAttributeRelation(
-      idProduct,
-      Number(newAttribute.idAttribute)
-    );
-
-    if (oldRelation) {
-      //изменяем существующие связи
-      const result = await updateAttrProdRelation(
-        Number(newAttribute.idAttributeValue),
-        oldRelation.id
-      );
-      if (result.affectedRows !== 1) {
-        errors.push({ newAttribute, oldRelation, result });
-      }
-    } else {
-      //создаем новые связи
-    }
-  }
-
   /**
    * удаляем связи, которые больше не нужны
    */
@@ -58,4 +36,27 @@ export default async function editProductAttributes(
   ]);
 
   console.log("deleteResult", deleteResult);
+
+  for (let index = 0; index < attributes.length; index++) {
+    const newAttribute = attributes[index];
+
+    const oldRelation = await getAttributeRelation(
+      idProduct,
+      Number(newAttribute.idAttribute)
+    );
+
+    if (oldRelation) {
+      //изменяем существующие связи
+      const result = await updateAttrProdRelation(
+        Number(newAttribute.idAttributeValue),
+        oldRelation.id
+      );
+      if (result.affectedRows !== 1) {
+        errors.push({ newAttribute, oldRelation, result });
+      }
+    } else {
+      //создаем новые связи
+      console.log("создаем новые связи");
+    }
+  }
 }

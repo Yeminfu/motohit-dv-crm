@@ -1,4 +1,4 @@
-import dbWorker from "#db/dbWorker.js";
+import dbWorker from "#db/dbWorker.ts";
 
 export default async function removeRedundantRelations(
   idProduct: number,
