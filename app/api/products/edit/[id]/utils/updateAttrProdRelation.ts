@@ -1,4 +1,4 @@
-import dbWorker from "#db/dbWorker.js";
+import dbWorker from "#db/dbWorker.ts";
 import { ResultSetHeader } from "mysql2";
 
 export default async function updateAttrProdRelation(

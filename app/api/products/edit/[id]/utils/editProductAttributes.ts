@@ -1,3 +1,4 @@
+import dbWorker from "#db/dbWorker.ts";
 import getAttributeRelation from "./getAttributeRelation";
 import updateAttrProdRelation from "./updateAttrProdRelation";
 
@@ -18,13 +19,59 @@ export default async function editProductAttributes(
       Number(newAttribute.idAttribute)
     );
 
-    const result = await updateAttrProdRelation(
-      Number(newAttribute.idAttributeValue),
-      oldRelation.id
-    );
-
-    if (result.affectedRows !== 1) {
-      errors.push({ newAttribute, oldRelation, result });
+    if (oldRelation) {
+      //изменяем существующие связи
+      const result = await updateAttrProdRelation(
+        Number(newAttribute.idAttributeValue),
+        oldRelation.id
+      );
+      if (result.affectedRows !== 1) {
+        errors.push({ newAttribute, oldRelation, result });
+      }
+    } else {
+      //создаем новые связи
     }
   }
+
+  /**
+   * удаляем связи, которые больше не нужны
+   */
+  const allRelations = await Promise.all(
+    attributes.map(async (newAttribute) => {
+      const relation = await getAttributeRelation(
+        idProduct,
+        Number(newAttribute.idAttribute)
+      );
+      return relation?.id;
+    })
+  ).then((x) => x);
+
+  //@ts-ignore
+  const relationsNumbersOnly: number[] = allRelations.filter(
+    (x) => typeof x === "number"
+  );
+
+  const deleteResult = await removeRedundantRelations(idProduct, [
+    ...relationsNumbersOnly,
+    //массив не должен быть пустой, на всякий случай добавляем 0
+    0,
+  ]);
+
+  console.log("deleteResult", deleteResult);
+}
+
+async function removeRedundantRelations(
+  idProduct: number,
+  requiredRelations: number[]
+) {
+  const sql = `
+    delete from chbfs_attr_prod_relation
+    where
+      idProduct = ?
+      and id not in (
+        ${requiredRelations.map((_) => "?")}
+      )
+  `;
+  const result = await dbWorker(sql, [idProduct, ...requiredRelations]);
+  return result;
 }

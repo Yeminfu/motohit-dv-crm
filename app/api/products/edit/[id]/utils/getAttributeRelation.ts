@@ -3,7 +3,7 @@ import dbWorker from "#db/dbWorker.ts";
 export default async function getAttributeRelation(
   idProduct: number,
   idAttribute: number
-): Promise<ts_returnRelation> {
+): Promise<ts_returnRelation | undefined> {
   const sql = `
     select
       *
