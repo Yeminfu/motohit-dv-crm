@@ -1,13 +1,12 @@
 import getAttributeRelation from "./getAttributeRelation";
 import updateAttrProdRelation from "../updateAttrProdRelation";
 import removeRedundantRelations from "./removeRedundantRelations";
+import createNewRelation from "./createNewRelation";
+import ts_attributesFromClient from "./ts_attributesFromClient";
 
 export default async function editProductAttributes(
   idProduct: number,
-  attributes: {
-    idAttribute: string;
-    idAttributeValue: string;
-  }[]
+  attributes: ts_attributesFromClient[]
 ) {
   const errors = [];
 
@@ -59,4 +58,7 @@ export default async function editProductAttributes(
       console.log("создаем новые связи");
     }
   }
+
+  const createRelationResult = await createNewRelation(idProduct, attributes);
+  console.log({ createRelationResult });
 }
