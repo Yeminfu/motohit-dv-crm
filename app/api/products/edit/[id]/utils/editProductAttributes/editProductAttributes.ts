@@ -1,6 +1,6 @@
-import dbWorker from "#db/dbWorker.ts";
 import getAttributeRelation from "./getAttributeRelation";
-import updateAttrProdRelation from "./updateAttrProdRelation";
+import updateAttrProdRelation from "../updateAttrProdRelation";
+import removeRedundantRelations from "./removeRedundantRelations";
 
 export default async function editProductAttributes(
   idProduct: number,
@@ -58,20 +58,4 @@ export default async function editProductAttributes(
   ]);
 
   console.log("deleteResult", deleteResult);
-}
-
-async function removeRedundantRelations(
-  idProduct: number,
-  requiredRelations: number[]
-) {
-  const sql = `
-    delete from chbfs_attr_prod_relation
-    where
-      idProduct = ?
-      and id not in (
-        ${requiredRelations.map((_) => "?")}
-      )
-  `;
-  const result = await dbWorker(sql, [idProduct, ...requiredRelations]);
-  return result;
 }

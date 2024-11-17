@@ -8,7 +8,7 @@ import addHistoryEntry from "@/utils/history/addHistoryEntry";
 import updateProductMainData from "./updateProductMainData";
 import insertRetailPrice from "./insertRetailPrice";
 import insertStock from "./insertStock";
-import editProductAttributes from "./utils/editProductAttributes";
+import editProductAttributes from "./utils/editProductAttributes/editProductAttributes";
 
 export async function POST(req: any, params: { params: { id: any } }) {
   const session = Date.now();
