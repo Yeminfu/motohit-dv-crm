@@ -17,6 +17,7 @@ import ts_categoryFilter from "@/types/ts_categoryFilter";
 import SendProductToArchive from "./SendProductToArchive";
 import Link from "next/link";
 import { CategoryFromDBInterface } from "@/types/categories/categories";
+import Image from "next/image";
 // import tsAttributeWithValues from "@/types/attributes/ts_attributesWithValues";
 
 export default function ViewProducts(props: {
@@ -43,7 +44,7 @@ export default function ViewProducts(props: {
         <thead>
           <tr>
             <th>ID</th>
-            {/* <th>Фото</th> */}
+            <th>Фото</th>
             <th>Наименование</th>
             <th>Заметки</th>
             <th>Код</th>
@@ -73,16 +74,45 @@ export default function ViewProducts(props: {
               <td>
                 <Link href={`/products/view/${product.id}`}>{product.id}</Link>
               </td>
-              {/* <td>
-                        {product.images.map(image => <Image
-                            key={image.id}
-                            loader={() => image.name}
-                            src={image.name}
-                            alt=""
-                            width={0}
-                            height={0}
-                            style={{ width: "auto", height: "auto", marginBottom: 5, cursor: "pointer", }} />)}
-                    </td> */}
+              <td>
+                {(() => {
+                  // https://мотохит-дв.рф/images/20230901_170628-rotated.jpg
+                  const name = (() => {
+                    if (!product.images.length) return null;
+                    const mainImage = product.images.find((img) => img.isMain);
+                    if (!mainImage) return product.images[0].name;
+                    return mainImage.name;
+                  })();
+
+                  if (!name) return null;
+
+                  const url = "https://мотохит-дв.рф/images/" + name;
+
+                  return (
+                    <>
+                      <div
+                        style={{
+                          width: "100px",
+                          height: "100px",
+                        }}
+                      >
+                        <Image
+                          loader={() => url}
+                          src={url}
+                          alt=""
+                          width={0}
+                          height={0}
+                          style={{
+                            width: "auto",
+                            height: "auto",
+                            marginBottom: 5,
+                          }}
+                        />
+                      </div>
+                    </>
+                  );
+                })()}
+              </td>
               <td>
                 <span style={{ color: product.color }}>{product.name}</span>
               </td>
