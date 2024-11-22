@@ -3,15 +3,18 @@ import AuthedLayout from "@/utils/authedLayout";
 import getCategoriesWithIerarchy from "@/utils/side-menu/getCategoriesWithIerarchy";
 import Link from "next/link";
 import GlobalSearch from "./global-search/globalSearch";
+import ts_categoryFilter from "#types/ts_categoryFilter.js";
 
-export default async function Home() {
+export default async function Home(params: {
+  searchParams: ts_categoryFilter;
+}) {
   const categoriesWithIerarchy = await getCategoriesWithIerarchy();
 
   return (
     <main>
       <AuthedLayout title="Главная">
         <>
-          <GlobalSearch />
+          <GlobalSearch searchParams={params.searchParams} />
           <div style={{ marginLeft: "-10px" }}>
             {categoriesWithIerarchy.map((category) => (
               <CategoryItem category={category} key={category.id} />
