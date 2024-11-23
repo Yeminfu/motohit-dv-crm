@@ -87,7 +87,7 @@ export default function ViewProducts(props: {
                       <div
                         style={{
                           width: "100px",
-                          height: "100px",
+                          // height: "100px",
                         }}
                       >
                         <Image
