@@ -2,23 +2,18 @@
 import { ProductsFull } from "@/types/products/prodyctType";
 import { ShopFromDB } from "@/types/shops/shopFromDBType";
 import Price from "@/ui/price";
-// import Image from "next/image";
 import { useState } from "react";
-import getCostPriceNumFromObj from "./getCostPriceNumFromObj";
-// import getRetailPriceNumFromObj from "./getRetailPriceNumFromObj";
-import EditProduct from "../editProduct/EditProduct";
 import { PriceTypesFromDBInterface } from "@/types/products/priceTypesFromDBInterface";
-import SaleForm from "./SaleForm";
-// import generatePriceByTypes from "@/utils/prices/createPriceWithMarkup";
 import createPriceWithMarkup from "@/utils/prices/createPriceWithMarkup";
-import Filter from "../filter";
 import ts_categoryFilter from "@/types/ts_categoryFilter";
-// import Modal from "@/utils/modal/modal";
-import SendProductToArchive from "./SendProductToArchive";
 import Link from "next/link";
 import { CategoryFromDBInterface } from "@/types/categories/categories";
 import Image from "next/image";
-// import tsAttributeWithValues from "@/types/attributes/ts_attributesWithValues";
+import getCostPriceNumFromObj from "#app/category/[id]/viewProducts/getCostPriceNumFromObj.ts";
+import EditProduct from "#app/category/[id]/editProduct/EditProduct.tsx";
+import SaleForm from "#app/category/[id]/viewProducts/SaleForm.tsx";
+import SendProductToArchive from "#app/category/[id]/viewProducts/SendProductToArchive.tsx";
+import Filter from "./filter";
 
 export default function ViewProducts(props: {
   productsFull: ProductsFull[];
@@ -76,7 +71,6 @@ export default function ViewProducts(props: {
               </td>
               <td>
                 {(() => {
-                  // https://мотохит-дв.рф/images/20230901_170628-rotated.jpg
                   const name = (() => {
                     if (!product.images.length) return null;
                     const mainImage = product.images.find((img) => img.isMain);
@@ -163,7 +157,6 @@ export default function ViewProducts(props: {
               )}
               <td style={{ whiteSpace: "nowrap" }}>
                 <div className="d-flex">
-                  {/* <pre>{JSON.stringify(product, null, 2)}</pre> */}
                   <SaleForm
                     productFull={product}
                     shops={props.shops}
@@ -178,21 +171,11 @@ export default function ViewProducts(props: {
                         retailPriceObj.retailPriceType,
                         retailPriceObj.retailPriceValue
                       );
-                      // const retailPriceValue = getRetailPriceNumFromObj(
-                      //     product.purchase_price,
-                      //     retailPriceObj, {
-                      //     type: product.idCostPriceType,
-                      //     value: product.costPriceValue
-                      // });
 
                       return {
                         idShop: retailPriceObj.idShop,
                         sum: retailPrice,
                       };
-
-                      // return <td key={retailPriceObj.id}>
-                      //     <Price value={retailPriceValue} />
-                      // </td>
                     })}
                   />
                   <EditProduct
