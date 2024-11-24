@@ -16,12 +16,20 @@ export default async function SideMenu() {
     <>
       {user?.id === 1 && (
         <Card title="Админ">
-          <Link
-            className="btn btn-dark d-block text-start mb-1"
-            href={`/admin`}
-          >
-            Админ
-          </Link>
+          <>
+            <Link
+              className="btn btn-dark d-block text-start mb-1"
+              href={`/admin`}
+            >
+              Админ
+            </Link>
+            <Link
+              className="btn btn-dark d-block text-start mb-1"
+              href={`/admin/config`}
+            >
+              Конфигурация
+            </Link>
+          </>
         </Card>
       )}
 
