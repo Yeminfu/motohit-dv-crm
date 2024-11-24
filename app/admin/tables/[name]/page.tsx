@@ -1,6 +1,6 @@
-import dbWorker from "#db/dbWorker.ts";
 import AuthedLayout from "#utils/authedLayout.tsx";
 import Link from "next/link";
+import getColumnsByTableName from "./getColumnsByTableName";
 
 export default async function Page(props: { params: { name: string } }) {
   const tables = await getColumnsByTableName(props.params.name);
@@ -47,38 +47,5 @@ export default async function Page(props: { params: { name: string } }) {
         </>
       </AuthedLayout>
     </>
-  );
-}
-
-async function getColumnsByTableName(tableName: string): Promise<
-  {
-    COLUMN_NAME: string;
-    DATA_TYPE: string;
-    CHARACTER_MAXIMUM_LENGTH: number | null;
-    IS_NULLABLE: "YES" | "NO";
-    COLUMN_KEY: null | "PRI" | "MUL";
-    COLUMN_DEFAULT: null | string;
-  }[]
-> {
-  /*
-    COLUMN_NAME, 
-    DATA_TYPE,
-    CHARACTER_MAXIMUM_LENGTH,
-    IS_NULLABLE
-  */
-  return dbWorker(
-    `
-      select
-        COLUMN_NAME, 
-        DATA_TYPE,
-        CHARACTER_MAXIMUM_LENGTH,
-        IS_NULLABLE,
-        COLUMN_KEY,
-        COLUMN_DEFAULT
-      from information_schema.columns
-      where
-        table_name = ?
-    `,
-    [tableName]
   );
 }
