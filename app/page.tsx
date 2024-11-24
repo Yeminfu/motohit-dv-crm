@@ -14,11 +14,27 @@ export default async function Home(params: {
     <main>
       <AuthedLayout title="Главная">
         <>
-          <GlobalSearch searchParams={params.searchParams} />
-          <div style={{ marginLeft: "-10px" }}>
-            {categoriesWithIerarchy.map((category) => (
-              <CategoryItem category={category} key={category.id} />
-            ))}
+          <div className="card">
+            <div className="card-header">
+              <strong>Товары</strong>
+            </div>
+            <div className="card-body">
+              <GlobalSearch searchParams={params.searchParams} />
+            </div>
+          </div>
+          <div className="mt-2">
+            <div className="card">
+              <div className="card-header">
+                <strong>Категории</strong>
+              </div>
+              <div className="card-body">
+                <div style={{ marginLeft: "-10px" }}>
+                  {categoriesWithIerarchy.map((category) => (
+                    <CategoryItem category={category} key={category.id} />
+                  ))}
+                </div>
+              </div>
+            </div>
           </div>
         </>
       </AuthedLayout>
