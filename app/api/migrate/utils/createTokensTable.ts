@@ -16,13 +16,12 @@ export default async function createTokensTable() {
               deadline DATETIME not null,
               foreign key (idUser) references ${TABLE_PREFIX}_users(id)
           );
-      `, []
+      `,
+    []
   )
-    .then((x: any) => {
-      console.log("createTokensTable", x.serverStatus);
-    })
+    .then((x: any) => {})
     .catch((z) => {
-      console.log("createUsersTable", z);
+      console.error("createUsersTable", z);
     });
   await dbWorker("SET FOREIGN_KEY_CHECKS=0", []);
 }

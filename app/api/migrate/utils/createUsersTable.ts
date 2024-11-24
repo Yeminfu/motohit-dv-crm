@@ -19,10 +19,8 @@ export default async function createUsersTable() {
   `;
 
   await dbWorker(qs, [])
-    .then((x: any) => {
-      console.log("createUsersTable", x.serverStatus);
-    })
+    .then((x: any) => {})
     .catch((z: any) => {
-      console.log("createUsersTable", z);
+      console.error("createUsersTable", z);
     });
 }

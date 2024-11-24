@@ -39,8 +39,6 @@ export default function EditProductForm(props: {
   shops: ShopFromDB[];
   categories: CategoryFromDBInterface[];
 }) {
-  // console.log('props EditProductForm', props);
-
   const methods = useForm<ts_EDitProductFields>({
     defaultValues: {
       idProduct: props.product.id,
@@ -154,48 +152,10 @@ export default function EditProductForm(props: {
             }
           })}
         >
-          {/* <div
-            className="btn btn-dark"
-            onClick={() => {
-              console.log(getValues("items"));
-            }}
-          >
-            btn
-          </div> */}
-
           {[{ attributeId: 1, attributeValueId: 2 }].map((attribute) => {
             return <></>;
           })}
 
-          {/* <Controller
-            name="attributes"
-            control={control}
-            render={({ field }) => (
-              <div>
-                {field.value
-                  //@ts-ignore
-                  .map((item, index) => (
-                    <div key={index}>
-                      <input
-                        {...field}
-                        value={item}
-                        onChange={(e) => {
-                          const newItems = [...field.value];
-                          newItems[index] = e.target.value;
-                          field.onChange(newItems);
-                        }}
-                      />
-                    </div>
-                  ))}
-                <button
-                  type="button"
-                  onClick={() => field.onChange([...field.value, ""])}
-                >
-                  Добавить элемент
-                </button>
-              </div>
-            )}
-          /> */}
           <div className="row">
             <div className="col">
               <div className="mb-2">

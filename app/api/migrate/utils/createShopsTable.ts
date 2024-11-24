@@ -10,15 +10,15 @@ export default async function createShopsTable() {
           shopName varchar(250) not null,
           created_date DATETIME DEFAULT CURRENT_TIMESTAMP
       );
-    `, []
+    `,
+    []
   )
-    .then((x: any) => {
-      console.log("createShopsTable", x.serverStatus);
-    })
+    .then((x: any) => {})
     .catch((z) => {
-      console.log("createUsersTable", z);
+      console.error("createUsersTable", z);
     });
   await dbWorker(
-    `insert into ${TABLE_PREFIX}_shops (shopName) values ('Биробиджан'), ('Хабаровск'), ('Благовещенск')`, []
+    `insert into ${TABLE_PREFIX}_shops (shopName) values ('Биробиджан'), ('Хабаровск'), ('Благовещенск')`,
+    []
   );
 }

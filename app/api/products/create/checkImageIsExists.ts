@@ -9,7 +9,7 @@ export default async function checkImageIsExists(imageName: string) {
       return !!x.length;
     })
     .catch((err) => {
-      console.log("err #asdj4", err.code);
+      console.error("err #asdj4", err.code);
       return false;
     });
   return res;

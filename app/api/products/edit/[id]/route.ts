@@ -1,5 +1,4 @@
 import { NextResponse } from "next/server";
-// import updateProduct from "./updateProduct";
 import { RetailPriceFromDB } from "@/types/products/retailPriceFromDB";
 import updateRetailPrice from "./updateRetailPrice";
 import StockFromDBType from "@/types/products/stockFromDB";
@@ -14,8 +13,6 @@ export async function POST(req: any, params: { params: { id: any } }) {
   const session = Date.now();
 
   const data: any = await req.formData();
-  // console.log('params', params);
-  // console.log('req', req.params);
 
   const mainProductFields = JSON.parse(data.get("mainProductFields"));
 
@@ -33,7 +30,7 @@ export async function POST(req: any, params: { params: { id: any } }) {
       updMainDataRes,
     });
   } catch (error) {
-    console.log("fatal error #mfn5c", error);
+    console.error("fatal error #mfn5c", error);
   }
 
   for (let index = 0; index < retail_price.length; index++) {
@@ -81,23 +78,8 @@ export async function POST(req: any, params: { params: { id: any } }) {
   }
 
   const attributes = JSON.parse(data.get("attributes"));
-  // console.log("attributeObj", attributeObj);
-  // console.log("mainProductFields", mainProductFields);
 
   await editProductAttributes(mainProductFields.id, attributes);
-
-  // const updProductRes = await updateProduct(mainProductFields);
-  // if (updProductRes.code) {
-  //   errors.push({ action: "update_product", code: updProductRes.code });
-  // }
-  // if (updProductRes.changedRows) {
-  //   await addHistoryEntry("updateProduct", { session, ...mainProductFields });
-  // }
-
-  // if (errors.length) {
-  //   await addHistoryEntry("sql_error", { session, errors });
-  //   return NextResponse.json({ success: false, errors });
-  // }
 
   return NextResponse.json({ success: true });
 }

@@ -1,7 +1,8 @@
 import dbWorker from "@/db/dbWorker";
 
 export default async function exportAttributesValuesFromShop() {
-    const categoriesFromShop = await dbWorker(`
+  const categoriesFromShop = await dbWorker(
+    `
       insert into motohit_dv_crm.chbfs_attributes_values
       (
         id ,
@@ -16,7 +17,7 @@ export default async function exportAttributesValuesFromShop() {
         attribute,
         value_name 
       from motohit_dv.attributes_values
-  `, []).then(x => x[0]);
-
-    console.log('categoriesFromShop', categoriesFromShop);
+  `,
+    []
+  ).then((x) => x[0]);
 }

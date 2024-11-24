@@ -4,7 +4,6 @@ export default async function saveTgChatId(
   idUser: number,
   idTgChat: number
 ): Promise<boolean> {
-  console.log({ idUser, idTgChat });
   const connection = await dbConnection();
   const res = await connection
     .query(
@@ -12,11 +11,10 @@ export default async function saveTgChatId(
       [idTgChat, idUser]
     )
     .then(([x]: any) => {
-      console.log("xxx", x);
       return !!x.changedRows;
     })
     .catch((err) => {
-      console.log("err #fsdf", err);
+      console.error("err #fsdf", err);
       return false;
     });
 

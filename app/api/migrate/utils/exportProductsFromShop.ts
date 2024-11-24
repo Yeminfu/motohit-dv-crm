@@ -6,24 +6,24 @@ export default async function exportProductsFromShop() {
   for (let index = 0; index < productsFromShop.length; index++) {
     const productFromShop = productsFromShop[index];
 
-    const matchRes:
-      {
-        id: number
-        idProductFromOldCrm: number
-      }[] = await dbWorker(
-        `
+    const matchRes: {
+      id: number;
+      idProductFromOldCrm: number;
+    }[] = await dbWorker(
+      `
           select
             *
           from motohit_dv_mapping.products
           where
             idProductFromShop = ? 
-        `, [productFromShop.id]);
+        `,
+      [productFromShop.id]
+    );
 
     if (matchRes.length) {
       const match = matchRes.pop();
 
       if (match) {
-
         const [productFromOldCRM]: {
           purchase_price: string; //'47000'
           cost_value: string; //'1.1'
@@ -32,20 +32,22 @@ export default async function exportProductsFromShop() {
           code: string; //'shc83'
           note: string; //'shc83'
           archive: boolean;
-        }[]
-          = await dbWorker(`
+        }[] = await dbWorker(
+          `
           select
             *
           from motohit_27_crm.birm_products
           where
             id = ?
-        `, [match.idProductFromOldCrm]);
+        `,
+          [match.idProductFromOldCrm]
+        );
 
         const priceType = {
           fix: 1,
           handle: 2,
           percent: 3,
-        }
+        };
 
         await createProduct({
           id: productFromShop.id,
@@ -60,11 +62,10 @@ export default async function exportProductsFromShop() {
           color: productFromOldCRM.title_color,
           code: productFromOldCRM.code,
           note: productFromOldCRM.note,
-          isArchived: !productFromShop.is_active
-        })
+          isArchived: !productFromShop.is_active,
+        });
       }
     } else {
-
       await createProduct({
         id: productFromShop.id,
         name: productFromShop.product_name,
@@ -77,8 +78,8 @@ export default async function exportProductsFromShop() {
         color: null,
         code: null,
         note: null,
-        isArchived: !productFromShop.is_active
-      })
+        isArchived: !productFromShop.is_active,
+      });
     }
     // break;
   }
@@ -97,7 +98,7 @@ export default async function exportProductsFromShop() {
   //       note,
   //       isArchived
   //     )
-  //     select 
+  //     select
   //       id,
   //       product_name,
   //       category,
@@ -113,52 +114,48 @@ export default async function exportProductsFromShop() {
   //       select name from motohit_dv_crm.chbfs_products
   //     );
   // `, []).then(x => x[0]);
-
-  // console.log('categoriesFromShop', categoriesFromShop);
 }
 
 async function createProduct(productFromNewCRM: {
-  id: number,
-  name: string,
-  slug: string,
-  description: string,
-  idCategory: number,
-  purchase_price: number,
-  idCostPriceType: number | null,
-  costPriceValue: number | null,
-  color: string | null,
-  code: string | null,
-  note: string | null,
-  isArchived: boolean
+  id: number;
+  name: string;
+  slug: string;
+  description: string;
+  idCategory: number;
+  purchase_price: number;
+  idCostPriceType: number | null;
+  costPriceValue: number | null;
+  color: string | null;
+  code: string | null;
+  note: string | null;
+  isArchived: boolean;
 }) {
-
-  console.log('productFromNewCRM', productFromNewCRM);
-
-  await dbWorker(`
+  await dbWorker(
+    `
     insert into motohit_dv_crm.chbfs_products
     (
       ${Object.keys(productFromNewCRM)}
     )
     values
     (
-      ${Object.values(productFromNewCRM).map(_ => '?')}
+      ${Object.values(productFromNewCRM).map((_) => "?")}
     )
 
-  `, Object.values(productFromNewCRM));
-
-
+  `,
+    Object.values(productFromNewCRM)
+  );
 }
 
 async function getProductsFromShop() {
-
   const productsFromShop: {
-    id: number
-    product_name: string
-    slug: string
-    description: string
-    category: number
+    id: number;
+    product_name: string;
+    slug: string;
+    description: string;
+    category: number;
     is_active: boolean;
-  }[] = await dbWorker(`
+  }[] = await dbWorker(
+    `
     select
       id,
       created_date,
@@ -173,6 +170,8 @@ async function getProductsFromShop() {
       index_number,
       short_description
     from motohit_dv.products
-  `, []);
+  `,
+    []
+  );
   return productsFromShop;
 }

@@ -13,12 +13,11 @@ export default async function createProductsImagesTable() {
         isMain tinyint(1) default 0,
         foreign key (idProduct) references ${TABLE_PREFIX}_products(id)
       );
-    `, []
+    `,
+    []
   )
-    .then((x: any) => {
-      console.log("createProductsImagesTable", x.serverStatus);
-    })
+    .then((x: any) => {})
     .catch((z) => {
-      console.log("createProductsImagesTable", z);
+      console.error("createProductsImagesTable", z);
     });
 }

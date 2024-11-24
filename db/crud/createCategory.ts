@@ -2,10 +2,12 @@ import slugify from "slugify";
 import dbConnection from "../connect";
 import addHistoryEntry from "@/utils/history/addHistoryEntry";
 
-export default async function createCategory(name: string, description: string, idParent?: number) {
-  let slug = slugify(
-    name.replace(/[^ a-zA-Zа-яА-Я0-9-.]/gim, "")
-  );
+export default async function createCategory(
+  name: string,
+  description: string,
+  idParent?: number
+) {
+  let slug = slugify(name.replace(/[^ a-zA-Zа-яА-Я0-9-.]/gim, ""));
 
   const connection = await dbConnection();
   const res = await connection
@@ -21,7 +23,7 @@ export default async function createCategory(name: string, description: string, 
       return x;
     })
     .catch((err) => {
-      console.log("err #d9dn3", err.code);
+      console.error("err #d9dn3", err.code);
 
       const errors: any = {
         ER_DUP_ENTRY: "Категория с таким названием уже создана",

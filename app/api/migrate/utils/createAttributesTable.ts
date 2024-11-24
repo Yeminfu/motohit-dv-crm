@@ -17,13 +17,12 @@ export default async function createAttributesTable() {
         foreign key (idCategory) references ${TABLE_PREFIX}_categories(id),
         foreign key (created_by) references ${TABLE_PREFIX}_users(id)
       );
-    `, []
+    `,
+    []
   )
-    .then((x: any) => {
-      // console.log(`${TABLE_PREFIX}_categories`, x);
-    })
+    .then((x: any) => {})
     .catch((z) => {
-      console.log("err #в0ыл", z);
+      console.error("err #в0ыл", z);
     });
   await dbWorker("SET FOREIGN_KEY_CHECKS=1", []);
 }

@@ -18,12 +18,11 @@ export default async function createCategoriesTable() {
         foreign key (idParent) references ${TABLE_PREFIX}_categories(id),
         foreign key (created_by) references ${TABLE_PREFIX}_users(id)
       );
-    `, []
+    `,
+    []
   )
-    .then((x: any) => {
-      // console.log(`${TABLE_PREFIX}_categories`, x);
-    })
+    .then((x: any) => {})
     .catch((z) => {
-      console.log("err #f8vck", z);
+      console.error("err #f8vck", z);
     });
 }

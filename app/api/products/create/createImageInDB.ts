@@ -12,7 +12,7 @@ export default async function createImageInDB(
       return x;
     })
     .catch((err) => {
-      console.log("err #dasd8", err.code);
+      console.error("err #dasd8", err.code);
 
       const errors: any = {
         ER_DUP_ENTRY: "Товар с таким названием уже создан",

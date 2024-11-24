@@ -9,15 +9,15 @@ export default async function createRetailPriceTypesTable() {
         id int primary key AUTO_INCREMENT,
         priceType varchar(250) not null unique
       )
-  `, []
+  `,
+    []
   )
-    .then((x: any) => {
-      console.log("createSalesTable", x.serverStatus);
-    })
+    .then((x: any) => {})
     .catch((z) => {
-      console.log("err #vdf8", z);
+      console.error("err #vdf8", z);
     });
-  await dbWorker(`
+  await dbWorker(
+    `
     insert into ${TABLE_PREFIX}_price_types
     (
       priceType
@@ -26,5 +26,7 @@ export default async function createRetailPriceTypesTable() {
       ('Фиксированный'),
       ('Ручной'),
       ('Процент')
-  `, [])
+  `,
+    []
+  );
 }

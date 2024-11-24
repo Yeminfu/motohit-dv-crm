@@ -1,7 +1,8 @@
 import dbWorker from "@/db/dbWorker";
 
 export default async function exportProductsImagesFromShop() {
-    const categoriesFromShop = await dbWorker(`
+  const categoriesFromShop = await dbWorker(
+    `
       insert into motohit_dv_crm.chbfs_products_images
       (
         id,
@@ -20,7 +21,7 @@ export default async function exportProductsImagesFromShop() {
           select id from motohit_dv_crm.chbfs_products
         )
       group by name;
-  `, []).then(x => x[0]);
-
-    console.log('categoriesFromShop', categoriesFromShop);
+  `,
+    []
+  ).then((x) => x[0]);
 }

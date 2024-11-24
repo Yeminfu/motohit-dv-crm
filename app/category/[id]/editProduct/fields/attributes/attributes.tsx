@@ -41,13 +41,6 @@ export default function Attributes(props: {
               attributeWithValue.idDefaultAttributeValue
             ),
           });
-
-          console.log("attributeWithValue#9f8s", {
-            idAttribute: String(attributeWithValue.id),
-            idAttributeValue: String(
-              attributeWithValue.idDefaultAttributeValue
-            ),
-          });
         }
       })();
     }

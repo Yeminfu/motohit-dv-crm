@@ -9,6 +9,6 @@ export default async function getProducts(searchParams: ts_categoryFilter) {
     const data = await response.json();
     return data;
   } catch (error) {
-    console.log("Error fetching data:", error);
+    console.error("Error fetching data:", error);
   }
 }
