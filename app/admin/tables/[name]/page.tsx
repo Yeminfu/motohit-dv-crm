@@ -2,23 +2,23 @@ import dbWorker from "#db/dbWorker.ts";
 import AuthedLayout from "#utils/authedLayout.tsx";
 import Link from "next/link";
 
-export default async function Page() {
-  const tables = await getDBTables();
+export default async function Page(props: { params: { name: string } }) {
+  const tables = await getColumnsByTableName(props.params.name);
   return (
     <>
       <AuthedLayout title="Панель администратора">
         <>
-          <h3>Таблицы</h3>
+          <h3>Колонки таблицы: {props.params.name}</h3>
           <table className="table table-bordered w-auto">
             <tbody>
               {tables.map((table) => (
-                <tr key={table.Tables_in_motohit_dv_crm}>
+                <tr>
                   <td>
                     <Link
                       className=""
-                      href={`/admin/tables/${table.Tables_in_motohit_dv_crm}`}
+                      href={`/admin/tables/${table.COLUMN_NAME}`}
                     >
-                      {table.Tables_in_motohit_dv_crm}
+                      {table.COLUMN_NAME}
                     </Link>
                   </td>
                 </tr>
@@ -31,6 +31,17 @@ export default async function Page() {
   );
 }
 
-async function getDBTables(): Promise<{ Tables_in_motohit_dv_crm: string }[]> {
-  return dbWorker(`show tables`, []);
+async function getColumnsByTableName(
+  tableName: string
+): Promise<{ COLUMN_NAME: string }[]> {
+  return dbWorker(
+    `
+      select
+      COLUMN_NAME 	 
+      from information_schema.columns
+      where
+        table_name = 'chbfs_attributes'
+    `,
+    []
+  );
 }
