@@ -17,6 +17,7 @@ export default async function Page(props: { params: { name: string } }) {
                 <th>CHARACTER_MAXIMUM_LENGTH</th>
                 <th>IS_NULLABLE</th>
                 <th>COLUMN_KEY</th>
+                <th>COLUMN_DEFAULT</th>
               </tr>
             </thead>
             <tbody>
@@ -35,6 +36,7 @@ export default async function Page(props: { params: { name: string } }) {
                   <td>{column.CHARACTER_MAXIMUM_LENGTH}</td>
                   <td>{column.IS_NULLABLE}</td>
                   <td>{column.COLUMN_KEY}</td>
+                  <td>{column.COLUMN_DEFAULT}</td>
                   <td>
                     <pre>{JSON.stringify(column, null, 2)}</pre>
                   </td>
@@ -55,6 +57,7 @@ async function getColumnsByTableName(tableName: string): Promise<
     CHARACTER_MAXIMUM_LENGTH: number | null;
     IS_NULLABLE: "YES" | "NO";
     COLUMN_KEY: null | "PRI" | "MUL";
+    COLUMN_DEFAULT: null | string;
   }[]
 > {
   /*
@@ -70,7 +73,8 @@ async function getColumnsByTableName(tableName: string): Promise<
         DATA_TYPE,
         CHARACTER_MAXIMUM_LENGTH,
         IS_NULLABLE,
-        COLUMN_KEY
+        COLUMN_KEY,
+        COLUMN_DEFAULT
       from information_schema.columns
       where
         table_name = ?
