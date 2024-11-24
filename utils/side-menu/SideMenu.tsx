@@ -4,6 +4,7 @@ import getAllCategories from "../getAllCategories";
 import { cookies } from "next/headers";
 import getUserByToken from "../users/getUserByToken";
 import getCategoriesWithIerarchy from "./getCategoriesWithIerarchy";
+import Card from "./Card";
 
 export default async function SideMenu() {
   const authToken = String(cookies().get("auth")?.value);
@@ -11,15 +12,29 @@ export default async function SideMenu() {
   const categories = await getAllCategories();
 
   const categoriesWithIerarchy = await getCategoriesWithIerarchy();
-  return <>
-    <ul className="list-group list-group-flush">
-      <li className="list-group-item">
-        <Link className="btn btn-dark d-block text-start mb-1" href={`/`}>Главная</Link>
-      </li>
-      <li className="list-group-item">
-        <h4>Категории</h4>
-        <div style={{ marginLeft: "-10px" }}>
-          {categoriesWithIerarchy.map(category =>
+  return (
+    <>
+      {user?.id === 1 && (
+        <Card title="Админ">
+          <Link
+            className="btn btn-dark d-block text-start mb-1"
+            href={`/admin`}
+          >
+            Админ
+          </Link>
+        </Card>
+      )}
+
+      <Card title="">
+        <div>
+          <Link className="btn btn-dark d-block text-start mb-1" href={`/`}>
+            Главная
+          </Link>
+        </div>
+      </Card>
+      <Card title="Категории">
+        <>
+          {categoriesWithIerarchy.map((category) => (
             <Link
               key={category.id}
               className="btn btn-dark d-block text-start mb-1"
@@ -27,49 +42,71 @@ export default async function SideMenu() {
             >
               {category.category_name}
             </Link>
-          )}
-        </div>
-      </li>
+          ))}
+          <CreateCategory categories={categories} />
+        </>
+      </Card>
 
-      <li className="list-group-item"><div>
-        <CreateCategory categories={categories} />
-      </div></li>
-      {
-        (user?.is_boss)
-          ? <li className="list-group-item">
-            <Link className="btn btn-dark d-block text-start mb-1" href={`/products/create`}>Создать товар (DEPRECATED)</Link>
-          </li>
-          : null
-      }
-      <li className="list-group-item">
-        <h4>Пользователи</h4>
-        <Link className="btn btn-dark d-block text-start" href={`/users`}>Пользователи</Link>
-      </li>
-      <li className="list-group-item">
-        <Link className="btn btn-dark d-block text-start" href={`/attributes/categories`}>Атрибуты</Link>
-      </li>
-      {
-        (user?.is_boss)
-          ? <li className="list-group-item">
-            <Link className="btn btn-dark d-block text-start mb-1" href={`/sum-in-product`}>Сумма в товаре</Link>
-          </li>
-          : null
-      }
+      <ul className="list-group list-group-flush">
+        {/* <li className="list-group-item"></li> */}
 
-    </ul>
+        <li className="list-group-item"></li>
 
-    <div className="mt-4">
-      <Link className="btn btn-dark d-block text-start mb-1" href={`/archive`}>Архив</Link>
-    </div>
-    {
-      (user?.is_boss)
-        ? <div className="mt-4">
-          <Link className="btn btn-dark d-block text-start mb-1" href={`/sales-report`}>Годовой отчет</Link>
-        </div>
-        : null
-    }
+        <li className="list-group-item">
+          <Link
+            className="btn btn-dark d-block text-start"
+            href={`/attributes/categories`}
+          >
+            Атрибуты
+          </Link>
+        </li>
+      </ul>
 
-  </>
+      <Card title="Пользователи">
+        <>
+          <Link
+            className="btn btn-dark d-block text-start mb-1"
+            href={`/users`}
+          >
+            Пользователи
+          </Link>
+        </>
+      </Card>
+
+      <div className="mt-4"></div>
+      {(() => {
+        if (!user?.is_boss) return null;
+        return (
+          <Card title="Отчеты">
+            <>
+              <Link
+                className="btn btn-dark d-block text-start mb-1"
+                href={`/sales-report`}
+              >
+                Годовой отчет
+              </Link>
+              {user?.is_boss ? (
+                <li className="list-group-item">
+                  <Link
+                    className="btn btn-dark d-block text-start mb-1"
+                    href={`/sum-in-product`}
+                  >
+                    Сумма в товаре
+                  </Link>
+                </li>
+              ) : null}
+            </>
+          </Card>
+        );
+      })()}
+      <Card title="">
+        <Link
+          className="btn btn-dark d-block text-start mb-1"
+          href={`/archive`}
+        >
+          Архив
+        </Link>
+      </Card>
+    </>
+  );
 }
-
-
