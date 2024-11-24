@@ -32,10 +32,10 @@ export default function Filter(props: { searchParams: ts_categoryFilter }) {
 
   return (
     <>
-      <div className="my-3">
+      <div>
         <div className="shadow p-2">
           <div>
-            <strong>Фильтр</strong>
+            <strong>Поиск</strong>
           </div>
 
           <form onSubmit={handleSubmit(onSubmit)}>
