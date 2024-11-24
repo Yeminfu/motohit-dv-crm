@@ -1,6 +1,7 @@
 import AuthedLayout from "#utils/authedLayout.tsx";
 import Link from "next/link";
 import getColumnsByTableName from "./getColumnsByTableName";
+import HiddeableBox from "./HiddeableBox";
 
 export default async function Page(props: { params: { name: string } }) {
   const tables = await getColumnsByTableName(props.params.name);
@@ -38,7 +39,9 @@ export default async function Page(props: { params: { name: string } }) {
                   <td>{column.COLUMN_KEY}</td>
                   <td>{column.COLUMN_DEFAULT}</td>
                   <td>
-                    <pre>{JSON.stringify(column, null, 2)}</pre>
+                    <HiddeableBox>
+                      <pre>{JSON.stringify(column, null, 2)}</pre>
+                    </HiddeableBox>
                   </td>
                 </tr>
               ))}
