@@ -41,7 +41,7 @@ export default async function Page() {
             </tbody>
           </table>
           <h3>Ключи</h3>
-          {/* <pre>{JSON.stringify(keys, null, 2)}</pre> */}
+          <pre>{JSON.stringify(keys, null, 2)}</pre>
         </>
       </AuthedLayout>
     </>
