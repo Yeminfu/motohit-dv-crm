@@ -16,7 +16,7 @@ export default async function Home(params: {
         <>
           <div className="card">
             <div className="card-header">
-              <strong>Товары</strong>
+              <strong>Поиск по всем товарам</strong>
             </div>
             <div className="card-body">
               <GlobalSearch searchParams={params.searchParams} />

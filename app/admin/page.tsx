@@ -8,7 +8,7 @@ export default async function Page() {
     <>
       <AuthedLayout title="Панель администратора">
         <>
-          <h3>Классы</h3>
+          <h3>Таблицы</h3>
           <table className="table table-bordered w-auto">
             <tbody>
               {tables.map((table) => (

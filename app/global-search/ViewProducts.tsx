@@ -41,7 +41,8 @@ export default function ViewProducts(props: {
       })()}
 
       {(() => {
-        if (!props.productsFull.length) return <>Воспользуйтесь поиском</>;
+        if (!props.productsFull.length) return null;
+        // return <div className="mt-2">Воспользуйтесь поиском</div>;
         return (
           <table className="table table-bordered table-striped">
             <thead>

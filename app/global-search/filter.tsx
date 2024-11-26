@@ -35,20 +35,18 @@ export default function Filter(props: { searchParams: ts_categoryFilter }) {
       <div>
         <div className="shadow p-2">
           <div>
-            <strong>Поиск</strong>
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <div className="d-flex">
+                <input
+                  {...register("name")}
+                  placeholder="Наименование/код"
+                  className="form-control w-auto"
+                  autoComplete="off"
+                />
+                <button className="btn btn-dark ms-2 btn-sm">Фильтр</button>
+              </div>
+            </form>
           </div>
-
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="d-flex">
-              <input
-                {...register("name")}
-                placeholder="Наименование/код"
-                className="form-control w-auto"
-                autoComplete="off"
-              />
-              <button className="btn btn-dark ms-2 btn-sm">Фильтр</button>
-            </div>
-          </form>
         </div>
       </div>
     </>
