@@ -9,22 +9,24 @@ export default async function Page() {
 
   for (let index = 0; index < products.length; index++) {
     const productFromMatches = products[index];
-    console.log(productFromMatches);
     // CreateProduct()
     break;
   }
 
-  return <>
-    <AuthedLayout title="Mapping">
-      <>
-        <Client matches={products} />
-      </>
-    </AuthedLayout>
-  </>
+  return (
+    <>
+      <AuthedLayout title="Mapping">
+        <>
+          <Client matches={products} />
+        </>
+      </AuthedLayout>
+    </>
+  );
 }
 
 async function getMatches(): Promise<ts_productMatch[]> {
-  const matches = await dbWorker(`
+  const matches = await dbWorker(
+    `
     select
       productsFromMapping.id as idProductFromMapping,
       productsFromMapping.idProductFromShop as idProductFromShop,
@@ -42,6 +44,8 @@ async function getMatches(): Promise<ts_productMatch[]> {
           productsFromShop.id = productsFromMapping.idProductFromShop
   where
     productsFromMapping.isValid = 1
-  `, []);
+  `,
+    []
+  );
   return matches;
 }

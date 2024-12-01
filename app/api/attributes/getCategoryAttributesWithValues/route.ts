@@ -17,8 +17,6 @@ export async function POST(a: NextRequest, b: any) {
 async function getAttributesWithValues(
   idCategory: number
 ): Promise<ts_AttributeWithValues[]> {
-  console.log({ idCategory });
-
   const attributes = await getAttributes(idCategory);
 
   const attributesWithValues = await Promise.all(

@@ -34,8 +34,6 @@ export default async function editProductAttributes(
     0,
   ]);
 
-  console.log("deleteResult", deleteResult);
-
   for (let index = 0; index < attributes.length; index++) {
     const newAttribute = attributes[index];
 
@@ -55,10 +53,8 @@ export default async function editProductAttributes(
       }
     } else {
       //создаем новые связи
-      console.log("создаем новые связи");
     }
   }
 
   const createRelationResult = await createNewRelation(idProduct, attributes);
-  console.log({ createRelationResult });
 }

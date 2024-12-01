@@ -14,12 +14,11 @@ export default async function createAttrProdRelationsTable() {
         foreign key (idAttributeValue) references ${TABLE_PREFIX}_attributes_values(id),
         foreign key (idProduct) references ${TABLE_PREFIX}_products(id)
       );
-    `, []
+    `,
+    []
   )
-    .then((x: any) => {
-      // console.log(`${TABLE_PREFIX}_categories`, x);
-    })
+    .then((x: any) => {})
     .catch((z) => {
-      console.log("err #doi3", z);
+      console.error("err #doi3", z);
     });
 }

@@ -22,12 +22,11 @@ export default async function createProductsTable() {
         foreign key (idCategory) references ${TABLE_PREFIX}_categories(id),
         foreign key (idCostPriceType) references ${TABLE_PREFIX}_price_types(id)
       );
-    `, []
+    `,
+    []
   )
-    .then((x: any) => {
-      console.log("createProductsTable", x.serverStatus);
-    })
+    .then((x: any) => {})
     .catch((z) => {
-      console.log("createProductsTable", z);
+      console.error("createProductsTable", z);
     });
 }

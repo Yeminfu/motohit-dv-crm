@@ -25,6 +25,6 @@ export default async function sendMessageToTg(
       return x;
     })
     .catch((err) => {
-      console.log("err #f9f8023", err);
+      console.error("err #f9f8023", err);
     });
 }

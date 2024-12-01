@@ -22,7 +22,6 @@ export default async function getCategoryAttributesWithValues(
 
     if (data.attributes) {
       return data.attributes;
-      // console.log("Обновления:", data);
       // Здесь вы можете обработать обновления, например, отправить ответ на сообщения
     } else {
       alert("err #d03mn");

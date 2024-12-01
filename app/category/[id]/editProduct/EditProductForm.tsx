@@ -2,15 +2,11 @@ import { PriceTypesFromDBInterface } from "@/types/products/priceTypesFromDBInte
 import { ProductFromDB, ProductsFull } from "@/types/products/prodyctType";
 import { ShopFromDB } from "@/types/shops/shopFromDBType";
 import { useEffect, useState } from "react";
-import {
-  Controller,
-  FormProvider,
-  useFieldArray,
-  useForm,
-} from "react-hook-form";
+import { FormProvider, useFieldArray, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import Attributes from "./fields/attributes/attributes";
 import { CategoryFromDBInterface } from "@/types/categories/categories";
+import Stock from "./fields/stock/stock";
 
 interface ts_EDitProductFields {
   idProduct: number;
@@ -39,8 +35,6 @@ export default function EditProductForm(props: {
   shops: ShopFromDB[];
   categories: CategoryFromDBInterface[];
 }) {
-  // console.log('props EditProductForm', props);
-
   const methods = useForm<ts_EDitProductFields>({
     defaultValues: {
       idProduct: props.product.id,
@@ -154,48 +148,10 @@ export default function EditProductForm(props: {
             }
           })}
         >
-          {/* <div
-            className="btn btn-dark"
-            onClick={() => {
-              console.log(getValues("items"));
-            }}
-          >
-            btn
-          </div> */}
-
           {[{ attributeId: 1, attributeValueId: 2 }].map((attribute) => {
             return <></>;
           })}
 
-          {/* <Controller
-            name="attributes"
-            control={control}
-            render={({ field }) => (
-              <div>
-                {field.value
-                  //@ts-ignore
-                  .map((item, index) => (
-                    <div key={index}>
-                      <input
-                        {...field}
-                        value={item}
-                        onChange={(e) => {
-                          const newItems = [...field.value];
-                          newItems[index] = e.target.value;
-                          field.onChange(newItems);
-                        }}
-                      />
-                    </div>
-                  ))}
-                <button
-                  type="button"
-                  onClick={() => field.onChange([...field.value, ""])}
-                >
-                  Добавить элемент
-                </button>
-              </div>
-            )}
-          /> */}
           <div className="row">
             <div className="col">
               <div className="mb-2">
@@ -383,25 +339,7 @@ export default function EditProductForm(props: {
                 </thead>
                 <tbody>
                   <>
-                    {stockFields.map((shop: any, index: any) => {
-                      return (
-                        <tr key={stockFields[index].id}>
-                          <td>{stockFields[index].shopName}</td>
-                          <td>
-                            <input
-                              {...(() => {
-                                //@ts-ignore
-                                return register(`stock[${index}].count`, {
-                                  required: true,
-                                });
-                              })()}
-                              className="form-control"
-                              autoComplete="off"
-                            />
-                          </td>
-                        </tr>
-                      );
-                    })}
+                    <Stock stockFields={stockFields} />
                   </>
                 </tbody>
               </table>

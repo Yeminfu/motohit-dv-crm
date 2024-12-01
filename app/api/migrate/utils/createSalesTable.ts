@@ -16,12 +16,11 @@ export default async function createSalesTable() {
         foreign key (idShop) references ${TABLE_PREFIX}_shops(id),
         foreign key (createtByUserId) references ${TABLE_PREFIX}_users(id)
       );
-    `, []
+    `,
+    []
   )
-    .then((x: any) => {
-      console.log("createSalesTable", x.serverStatus);
-    })
+    .then((x: any) => {})
     .catch((z) => {
-      console.log("createSalesTable", z);
+      console.error("createSalesTable", z);
     });
 }

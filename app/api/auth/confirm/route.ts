@@ -24,7 +24,7 @@ async function getToken(confirmCode: number) {
       return null;
     })
     .catch((error) => {
-      console.log("err #fvfd8", error);
+      console.error("err #fvfd8", error);
       return null;
     });
   return res;

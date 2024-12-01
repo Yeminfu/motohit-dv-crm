@@ -52,6 +52,6 @@ async function updateTokenDeadline(token: string, currentUrl: string) {
       return x.status === 200;
     })
     .catch((err) => {
-      console.log("err #vng3", err);
+      console.error("err #vng3", err);
     });
 }

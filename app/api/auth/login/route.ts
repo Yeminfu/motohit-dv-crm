@@ -15,7 +15,6 @@ export async function POST(request: Request) {
   if (!resquestData.login) {
     return NextResponse.json({ success: 222222 });
   }
-  console.log('resquestData', resquestData);
 
   const user = await getUserByTg(resquestData.login);
 
@@ -32,8 +31,7 @@ export async function POST(request: Request) {
       `Код подтверждения: ${randomNumber}`
     );
 
-
     return NextResponse.json({ success: true });
   }
-  return NextResponse.json({ success: false, err: '#d8dneb' });
+  return NextResponse.json({ success: false, err: "#d8dneb" });
 }

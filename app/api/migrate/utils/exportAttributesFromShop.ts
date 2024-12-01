@@ -1,7 +1,8 @@
 import dbWorker from "@/db/dbWorker";
 
 export default async function exportAttributesFromShop() {
-    const categoriesFromShop = await dbWorker(`
+  const categoriesFromShop = await dbWorker(
+    `
       insert into motohit_dv_crm.chbfs_attributes
       (
         id,
@@ -24,7 +25,7 @@ export default async function exportAttributesFromShop() {
         is_open_in_filter,
         is_main
       from motohit_dv.attributes
-  `, []).then(x => x[0]);
-
-    console.log('categoriesFromShop', categoriesFromShop);
+  `,
+    []
+  ).then((x) => x[0]);
 }

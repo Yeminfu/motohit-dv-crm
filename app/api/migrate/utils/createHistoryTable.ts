@@ -13,12 +13,11 @@ export default async function createHistoryTable() {
         doneBy int not null,
         foreign key (doneBy) references ${TABLE_PREFIX}_users(id)
       );
-    `, []
+    `,
+    []
   )
-    .then((x: any) => {
-      console.log("createProductsImagesTable", x.serverStatus);
-    })
+    .then((x: any) => {})
     .catch((z) => {
-      console.log("createProductsImagesTable", z);
+      console.error("err #kdsn4 createProductsImagesTable", z);
     });
 }

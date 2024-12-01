@@ -47,17 +47,17 @@ async function deleteForeignKeys() {
   `;
   const foreignKeys = await dbWorker(qs, []);
 
-
   for (let index = 0; index < foreignKeys.length; index++) {
     const element = foreignKeys[index];
-    // console.log('element', element);
-    const res2 = await dbWorker(`
+    const res2 = await dbWorker(
+      `
       ALTER TABLE ${element.Table}
         DROP FOREIGN KEY ${element.ForeignKey};
-    `, []);
+    `,
+      []
+    );
   }
 }
-
 
 async function deleteTables() {
   const qs = `
@@ -67,12 +67,14 @@ async function deleteTables() {
   `;
   const tables = await dbWorker(qs, []);
 
-  // TABLE_NAME 	
+  // TABLE_NAME
   for (let index = 0; index < tables.length; index++) {
     const table = tables[index];
-    // console.log('element', element);
-    const res2 = await dbWorker(`
+    const res2 = await dbWorker(
+      `
       DROP TABLE ${table.TABLE_NAME};
-    `, []);
+    `,
+      []
+    );
   }
 }

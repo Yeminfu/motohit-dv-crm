@@ -3,7 +3,6 @@ import { ProductOnCreate } from "@/types/products/prodyctType";
 import slugify from "slugify";
 
 export async function createProductInDB(product: ProductOnCreate) {
-  // console.log({ product });
   const res = await dbWorker(
     `insert into ${process.env.TABLE_PREFIX}_products 
       (
@@ -32,7 +31,7 @@ export async function createProductInDB(product: ProductOnCreate) {
       return x;
     })
     .catch((err) => {
-      console.log("err #djf7", err);
+      console.error("err #djf7", err);
 
       const errors: any = {
         ER_DUP_ENTRY: "Товар с таким названием уже создан",
