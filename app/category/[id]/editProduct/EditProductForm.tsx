@@ -129,9 +129,7 @@ export default function EditProductForm(props: {
           </div>
 
           <div className="mb-2">
-            <div>
-              <b>Закупочная цена</b>
-            </div>
+            <b>Закупочная цена</b>
             <input
               {...register("purchase_price", {
                 required: true,
@@ -149,24 +147,19 @@ export default function EditProductForm(props: {
 
           <div className="mt-3">
             <h5>Розн. цена</h5>
-            <>
-              <RetailPrices
-                retailPriceFields={retailPriceFields}
-                priceTypes={props.priceTypes}
-              />
-            </>
+            <RetailPrices
+              retailPriceFields={retailPriceFields}
+              priceTypes={props.priceTypes}
+            />
           </div>
+
           <div className="mt-3">
             <h5>Склад</h5>
-            <>
-              <Stock stockFields={stockFields} />
-            </>
+            <Stock stockFields={stockFields} />
           </div>
 
           <div>
             <h5>Заметки</h5>
-          </div>
-          <div>
             <textarea
               {...register("note", { required: true })}
               className="form-control"
@@ -176,8 +169,6 @@ export default function EditProductForm(props: {
 
           <div>
             <h5>Категория</h5>
-          </div>
-          <div>
             <select
               {...register("idCategory", { required: true })}
               className="form-select"
@@ -194,8 +185,6 @@ export default function EditProductForm(props: {
 
           <div>
             <h5>Атрибуты</h5>
-          </div>
-          <div>
             <Attributes
               idProduct={props.product.id}
               idCategory={Number(idCategory)}
