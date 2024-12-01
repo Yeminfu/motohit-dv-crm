@@ -2,15 +2,11 @@ import { PriceTypesFromDBInterface } from "@/types/products/priceTypesFromDBInte
 import { ProductFromDB, ProductsFull } from "@/types/products/prodyctType";
 import { ShopFromDB } from "@/types/shops/shopFromDBType";
 import { useEffect, useState } from "react";
-import {
-  Controller,
-  FormProvider,
-  useFieldArray,
-  useForm,
-} from "react-hook-form";
+import { FormProvider, useFieldArray, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import Attributes from "./fields/attributes/attributes";
 import { CategoryFromDBInterface } from "@/types/categories/categories";
+import Stock from "./fields/stock/stock";
 
 interface ts_EDitProductFields {
   idProduct: number;
@@ -343,25 +339,7 @@ export default function EditProductForm(props: {
                 </thead>
                 <tbody>
                   <>
-                    {stockFields.map((shop: any, index: any) => {
-                      return (
-                        <tr key={stockFields[index].id}>
-                          <td>{stockFields[index].shopName}</td>
-                          <td>
-                            <input
-                              {...(() => {
-                                //@ts-ignore
-                                return register(`stock[${index}].count`, {
-                                  required: true,
-                                });
-                              })()}
-                              className="form-control"
-                              autoComplete="off"
-                            />
-                          </td>
-                        </tr>
-                      );
-                    })}
+                    <Stock stockFields={stockFields} />
                   </>
                 </tbody>
               </table>
