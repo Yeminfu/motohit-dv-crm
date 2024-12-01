@@ -1,7 +1,7 @@
 import { PriceTypesFromDBInterface } from "@/types/products/priceTypesFromDBInterface";
-import { ProductFromDB, ProductsFull } from "@/types/products/prodyctType";
+import { ProductsFull } from "@/types/products/prodyctType";
 import { ShopFromDB } from "@/types/shops/shopFromDBType";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { FormProvider, useFieldArray, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import Attributes from "./fields/attributes/attributes";
