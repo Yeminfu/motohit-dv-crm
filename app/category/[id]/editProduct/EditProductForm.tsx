@@ -276,19 +276,7 @@ export default function EditProductForm(props: {
           <div className="mt-3">
             <h5>Склад</h5>
             <>
-              <table className="table table-bordered">
-                <thead>
-                  <tr>
-                    <th></th>
-                    <th>К-во на складе</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <>
-                    <Stock stockFields={stockFields} />
-                  </>
-                </tbody>
-              </table>
+              <Stock stockFields={stockFields} />
             </>
           </div>
 
