@@ -19,7 +19,7 @@ export default async function Keys() {
           return (
             <tr key={keyObject.COLUMN_NAME}>
               {Object.values(keyObject).map((value) => (
-                <td>{value}</td>
+                <td key={value}>{value}</td>
               ))}
               <td>
                 <div className="btn" title={JSON.stringify(keyObject, null, 2)}>

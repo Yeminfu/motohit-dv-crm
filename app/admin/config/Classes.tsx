@@ -9,7 +9,7 @@ export default async function Classes() {
         <tr>
           <th>LINK</th>
           {Object.keys(tables[0]).map((key) => (
-            <th>{key}</th>
+            <th key={key}>{key}</th>
           ))}
         </tr>
       </thead>
@@ -25,9 +25,6 @@ export default async function Classes() {
                   {table.Tables_in_motohit_dv_crm}
                 </Link>
               </td>
-              {/* {Object.values(keys[0]).map((key) => (
-            <td>{key}</td>
-          ))} */}
             </tr>
           );
         })}
