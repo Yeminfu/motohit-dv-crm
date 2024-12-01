@@ -49,30 +49,12 @@ export default function EditProductForm(props: {
         type: String(props.product.idCostPriceType),
         value: String(props.product.costPriceValue),
       },
-      // "stock": { "khv": "123", "bir": "321" },
-      attributes: [
-        // ,
-      ],
-      // items: [
-      //   {
-      //     data: "item1",
-      //   },
-      //   // "item2",
-      // ], // Дефолтное значение - массив
       note: String(props.product.note),
       idCategory: String(props.product.idCategory),
     },
   });
 
-  const {
-    register,
-    handleSubmit,
-    reset,
-    watch,
-    control,
-    getValues,
-    formState: { errors },
-  } = methods;
+  const { register, handleSubmit, reset, watch, control } = methods;
 
   const { fields: retailPriceFields, append: appendRetailPrice }: any =
     useFieldArray<any>({
@@ -84,8 +66,6 @@ export default function EditProductForm(props: {
     control,
     name: "stock",
   });
-
-  // const { fields: attributesFields, append: appendAttribute, remove } = useFieldArray({ control, name: "attributes" });
 
   useEffect(() => {
     props.shops.forEach((shop) => {
@@ -114,27 +94,6 @@ export default function EditProductForm(props: {
     });
   }, []);
 
-  const [previewImages, setPreviewImages] = useState([]);
-
-  // const handleImageChange = async (e: any) => {
-  //   const files = e.target.files;
-
-  //   const newImages: any = [];
-  //   for (let i = 0; i < files.length; i++) {
-  //     const imageBase64 = await new Promise((r) => {
-  //       const file = files[i];
-  //       const reader = new FileReader();
-  //       reader.onload = () => {
-  //         const previewImage = reader.result;
-  //         r(previewImage);
-  //       };
-  //       reader.readAsDataURL(file);
-  //     });
-  //     newImages.push(imageBase64);
-  //   }
-  //   setPreviewImages(newImages);
-  // };
-
   const idCategory = watch("idCategory");
 
   return (
@@ -151,10 +110,6 @@ export default function EditProductForm(props: {
             }
           })}
         >
-          {[{ attributeId: 1, attributeValueId: 2 }].map((attribute) => {
-            return <></>;
-          })}
-
           <div className="row">
             <div className="col">
               <div className="mb-2">
@@ -191,7 +146,6 @@ export default function EditProductForm(props: {
             </div>
           </div>
 
-          {/*Закупочная цена*/}
           <div className="mb-2">
             <div>
               <b>Закупочная цена</b>
