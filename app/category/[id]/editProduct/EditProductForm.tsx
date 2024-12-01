@@ -12,6 +12,7 @@ import onSubmit from "./utils/onSubmit";
 import Color from "./fields/color/color";
 import ts_EDitProductFields from "./types/ts_EDitProductFields";
 import CostPrice from "./fields/costPrice/costPrice";
+import Categories from "./fields/categories/categories";
 
 export default function EditProductForm(props: {
   product: ProductsFull;
@@ -158,7 +159,7 @@ export default function EditProductForm(props: {
             <Stock stockFields={stockFields} />
           </div>
 
-          <div>
+          <div className="mt-3">
             <h5>Заметки</h5>
             <textarea
               {...register("note", { required: true })}
@@ -167,23 +168,12 @@ export default function EditProductForm(props: {
             />
           </div>
 
-          <div>
+          <div className="mt-3">
             <h5>Категория</h5>
-            <select
-              {...register("idCategory", { required: true })}
-              className="form-select"
-              autoComplete="off"
-            >
-              <option value="">-</option>
-              {props.categories.map((category) => (
-                <option value={String(category.id)} key={category.id}>
-                  {category.category_name}
-                </option>
-              ))}
-            </select>
+            <Categories categories={props.categories} />
           </div>
 
-          <div>
+          <div className="mt-3">
             <h5>Атрибуты</h5>
             <Attributes
               idProduct={props.product.id}
