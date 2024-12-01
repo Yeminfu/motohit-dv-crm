@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 import Attributes from "./fields/attributes/attributes";
 import { CategoryFromDBInterface } from "@/types/categories/categories";
 import Stock from "./fields/stock/stock";
+import RetailPrices from "./fields/retailPrices/retailPrices";
 
 interface ts_EDitProductFields {
   idProduct: number;
@@ -266,65 +267,10 @@ export default function EditProductForm(props: {
           <div className="mt-3">
             <h5>Розн. цена</h5>
             <>
-              <table className="table table-bordered">
-                <thead>
-                  <tr>
-                    <th></th>
-                    <th>Тип р.ц.</th>
-                    <th>Значение р.ц.</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <>
-                    {retailPriceFields.map((shop: any, index: number) => {
-                      //@ts-ignore
-                      return (
-                        <tr key={index}>
-                          <td>{retailPriceFields[index].shopName}</td>
-                          <td>
-                            <select
-                              {...(() => {
-                                return register(
-                                  //@ts-ignore
-                                  `retail_price[${index}].idPriceType`,
-                                  {
-                                    required: true,
-                                  }
-                                );
-                              })()}
-                              className="form-select"
-                              autoComplete="off"
-                            >
-                              <option value="">-</option>
-                              {props.priceTypes.map((priceType) => (
-                                <option value={priceType.id} key={priceType.id}>
-                                  {priceType.priceType}
-                                </option>
-                              ))}
-                            </select>
-                          </td>
-                          <td>
-                            <input
-                              {...(() => {
-                                return register(
-                                  //@ts-ignore
-                                  `retail_price[${index}].priceValue`,
-                                  {
-                                    required: true,
-                                    pattern: /^-?\d*(\.\d+)?$/i,
-                                  }
-                                );
-                              })()}
-                              className="form-control"
-                              autoComplete="off"
-                            />
-                          </td>
-                        </tr>
-                      );
-                    })}
-                  </>
-                </tbody>
-              </table>
+              <RetailPrices
+                retailPriceFields={retailPriceFields}
+                priceTypes={props.priceTypes}
+              />
             </>
           </div>
           <div className="mt-3">
