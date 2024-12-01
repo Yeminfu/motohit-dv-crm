@@ -10,26 +10,8 @@ import Stock from "./fields/stock/stock";
 import RetailPrices from "./fields/retailPrices/retailPrices";
 import onSubmit from "./utils/onSubmit";
 import Color from "./fields/color/color";
-
-interface ts_EDitProductFields {
-  idProduct: number;
-  name: string;
-  color: string;
-  code: string;
-  purchase_price: string;
-  cost_price: {
-    value: string;
-    type: string;
-  };
-  retail_price: any;
-  stock: any;
-  note: string;
-  idCategory: string;
-  attributes: {
-    idAttribute: string;
-    idAttributeValue: string;
-  }[]; //string[];
-}
+import ts_EDitProductFields from "./types/ts_EDitProductFields";
+import CostPrice from "./fields/costPrice/costPrice";
 
 export default function EditProductForm(props: {
   product: ProductsFull;
@@ -162,38 +144,7 @@ export default function EditProductForm(props: {
 
           <div className="mt-3">
             <h5>Себестоимость</h5>
-            <div className="row">
-              <div className="col-6">
-                <div>
-                  <b>Тип</b>
-                </div>
-                <select
-                  {...register("cost_price.type", { required: true })}
-                  className="form-select"
-                  autoComplete="off"
-                >
-                  <option value="">-</option>
-                  {props.priceTypes.map((priceType) => (
-                    <option value={priceType.id} key={priceType.id}>
-                      {priceType.priceType}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div className="col-6">
-                <div>
-                  <b>Значение</b>
-                </div>
-                <input
-                  {...register("cost_price.value", {
-                    required: true,
-                    pattern: /^-?\d*(\.\d+)?$/i,
-                  })}
-                  className="form-control"
-                  autoComplete="off"
-                />
-              </div>
-            </div>
+            <CostPrice priceTypes={props.priceTypes} />
           </div>
 
           <div className="mt-3">
