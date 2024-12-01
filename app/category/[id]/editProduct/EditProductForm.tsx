@@ -9,6 +9,7 @@ import { CategoryFromDBInterface } from "@/types/categories/categories";
 import Stock from "./fields/stock/stock";
 import RetailPrices from "./fields/retailPrices/retailPrices";
 import onSubmit from "./utils/onSubmit";
+import Color from "./fields/color/color";
 
 interface ts_EDitProductFields {
   idProduct: number;
@@ -173,31 +174,7 @@ export default function EditProductForm(props: {
                 <div>
                   <b>Цвет</b>
                 </div>
-                <select
-                  {...register("color", { required: true })}
-                  className="form-select"
-                  autoComplete="off"
-                >
-                  <option value="">Цвет</option>
-                  <option value="black" style={{ color: "black" }}>
-                    Черный
-                  </option>
-                  <option value="green" style={{ color: "green" }}>
-                    Зеленый
-                  </option>
-                  <option value="red" style={{ color: "red" }}>
-                    Красный
-                  </option>
-                  <option value="blue" style={{ color: "blue" }}>
-                    Синий
-                  </option>
-                  <option value="brown" style={{ color: "brown" }}>
-                    Коричневый
-                  </option>
-                  <option value="orange" style={{ color: "orange" }}>
-                    Рыжий
-                  </option>
-                </select>
+                <Color />
               </div>
             </div>
             <div className="col">
