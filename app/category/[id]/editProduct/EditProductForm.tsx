@@ -13,6 +13,7 @@ import Color from "./fields/color/color";
 import ts_EDitProductFields from "./types/ts_EDitProductFields";
 import CostPrice from "./fields/costPrice/costPrice";
 import Categories from "./fields/categories/categories";
+import Images from "./fields/Images/images";
 
 export default function EditProductForm(props: {
   product: ProductsFull;
@@ -179,6 +180,11 @@ export default function EditProductForm(props: {
               idProduct={props.product.id}
               idCategory={Number(idCategory)}
             />
+          </div>
+
+          <div className="mt-3">
+            <h5>Изображения</h5>
+            <Images idProduct={props.product.id} />
           </div>
 
           <div className="mt-4">
