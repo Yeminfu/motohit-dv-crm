@@ -1,33 +1,44 @@
 import { useEffect } from "react";
 import getImages from "./utils/getImages";
-import { useFieldArray, useFormContext } from "react-hook-form";
+import { Controller, useFieldArray, useFormContext } from "react-hook-form";
 import Image from "next/image";
+import OldImages from "./components/oldImages";
 
 export default function Images(props: { idProduct: number }) {
-  const { control } = useFormContext();
+  // const { control } = useFormContext();
 
-  const {
-    fields: oldImages,
-    append: appendOldImage,
-    remove: removeOldImage,
-  } = useFieldArray({
-    control,
-    name: "oldImages",
-  });
+  // const {
+  //   fields: oldImages,
+  //   append: appendOldImage,
+  //   remove: removeOldImage,
+  // } = useFieldArray({
+  //   control,
+  //   name: "oldImages",
+  // });
 
-  useEffect(() => {
-    getImages(props.idProduct).then((imagesFromAPI) => {
-      for (let index = 0; index < imagesFromAPI.length; index++) {
-        const imgObj = imagesFromAPI[index];
-        console.log("imgObj", imgObj);
-        appendOldImage(imgObj);
-      }
-    });
-  }, []);
+  // const {
+  //   fields: newImages,
+  //   append: appendNewImage,
+  //   remove: removeNewImage,
+  // } = useFieldArray({
+  //   control,
+  //   name: "newImages",
+  // });
+
+  // useEffect(() => {
+  //   getImages(props.idProduct).then((imagesFromAPI) => {
+  //     for (let index = 0; index < imagesFromAPI.length; index++) {
+  //       const imgObj = imagesFromAPI[index];
+  //       console.log("imgObj", imgObj);
+  //       appendOldImage(imgObj);
+  //     }
+  //   });
+  // }, []);
 
   return (
     <>
-      <div className="d-flex flex-wrap">
+      <OldImages idProduct={props.idProduct} />
+      {/* <div className="d-flex flex-wrap">
         {oldImages.map((item, index) => {
           //@ts-ignore
           const url = `https://мотохит-дв.рф/images/` + item.name;
@@ -60,7 +71,20 @@ export default function Images(props: { idProduct: number }) {
             </div>
           );
         })}
-      </div>
+      </div> */}
+
+      {/* <Controller
+        name="newImages"
+        control={control}
+        render={({ field }) => (
+          <input
+            type="file"
+            accept="image/*"
+            multiple
+            onChange={handleImageChange}
+          />
+        )}
+      /> */}
     </>
   );
 }
