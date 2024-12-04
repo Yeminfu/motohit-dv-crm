@@ -2,8 +2,6 @@ import { ProductFromDB } from "#types/products/prodyctType.ts";
 import { toast } from "react-toastify";
 
 export default async function onSubmit(data: any): Promise<any> {
-  console.log("oldImages", data.oldImages);
-
   const formData = new FormData();
 
   const mainProductFields: ProductFromDB = {
