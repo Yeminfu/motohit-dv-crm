@@ -50,7 +50,7 @@ export async function POST(req: any, params: { params: { id: any } }) {
   await editOldImages(params.params.id, oldImages);
 
   const newImages = data.getAll("newImages");
-  await createNewImages(newImages);
+  await createNewImages(Number(params.params.id), newImages);
 
   return NextResponse.json({ success: true });
 }
