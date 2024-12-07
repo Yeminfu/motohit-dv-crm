@@ -24,11 +24,11 @@ export default async function getCategoryAttributesWithValues(
       return data.attributes;
       // Здесь вы можете обработать обновления, например, отправить ответ на сообщения
     } else {
-      alert("err #d03mn");
+      alert("err #da9sn3n");
       return [];
     }
   } catch (error) {
-    alert("err #d03mn");
+    alert("err #s0sn3n");
     return [];
   }
 }

@@ -1,6 +1,9 @@
+import { ts_imageFromDB } from "#types/products/ts_imageFromDB.js";
 import dbConnection from "@/db/connect";
 
-export default async function getProductImages(idProduct: any) {
+export default async function getProductImages(
+  idProduct: any
+): Promise<ts_imageFromDB[]> {
   const connection = await dbConnection();
   const images = await connection
     .query(
@@ -11,5 +14,6 @@ export default async function getProductImages(idProduct: any) {
       return x;
     });
   await connection.end();
+
   return images;
 }

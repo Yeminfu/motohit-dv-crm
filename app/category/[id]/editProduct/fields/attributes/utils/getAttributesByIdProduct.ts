@@ -20,11 +20,11 @@ export default async function getAttributesByIdProduct(
       return data.attributes;
       // Здесь вы можете обработать обновления, например, отправить ответ на сообщения
     } else {
-      alert("err #d03mn");
+      alert("err #dss93j");
       return [];
     }
   } catch (error) {
-    alert("err #d03mn");
+    alert("err #djsan4b");
     return [];
   }
 }
