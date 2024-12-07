@@ -46,7 +46,7 @@ export async function POST(req: any, params: { params: { id: any } }) {
   await editProductAttributes(mainProductFields.id, attributes);
 
   const oldImages: ts_imageFromDB[] = JSON.parse(data.get("oldImages"));
-  await editOldImages(oldImages);
+  await editOldImages(params.params.id, oldImages);
 
   return NextResponse.json({ success: true });
 }
