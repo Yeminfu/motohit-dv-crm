@@ -8,6 +8,7 @@ import editRetailPrices from "./utils/editRetailPrices/editRetailPrices";
 import editStock from "./utils/editStock/editStock";
 import { ts_imageFromDB } from "#types/products/ts_imageFromDB.ts";
 import editOldImages from "./utils/editOldImages/editOldImages";
+import createNewImages from "./utils/createNewImages/createNewImages";
 
 export async function POST(req: any, params: { params: { id: any } }) {
   const session = Date.now();
@@ -47,6 +48,9 @@ export async function POST(req: any, params: { params: { id: any } }) {
 
   const oldImages: ts_imageFromDB[] = JSON.parse(data.get("oldImages"));
   await editOldImages(params.params.id, oldImages);
+
+  const newImages = data.getAll("newImages");
+  await createNewImages(newImages);
 
   return NextResponse.json({ success: true });
 }

@@ -37,8 +37,10 @@ export default async function onSubmit(data: any): Promise<any> {
   formData.append("oldImages", JSON.stringify(oldImages));
 
   const newImages = data.newImages;
-  for (let index = 0; index < newImages.length; index++) {
-    formData.append("newImages", newImages[index]);
+  if (newImages) {
+    for (let index = 0; index < newImages.length; index++) {
+      formData.append("newImages", newImages[index]);
+    }
   }
 
   const createRes = await fetch("/api/products/edit/" + data.idProduct, {
