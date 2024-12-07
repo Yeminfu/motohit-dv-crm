@@ -2,8 +2,6 @@ import { ProductFromDB } from "#types/products/prodyctType.ts";
 import { toast } from "react-toastify";
 
 export default async function onSubmit(data: any): Promise<any> {
-  console.log("oldImages", data);
-
   const formData = new FormData();
 
   const mainProductFields: ProductFromDB = {
@@ -37,6 +35,11 @@ export default async function onSubmit(data: any): Promise<any> {
 
   const oldImages = data.oldImages;
   formData.append("oldImages", JSON.stringify(oldImages));
+
+  const newImages = data.newImages;
+  for (let index = 0; index < newImages.length; index++) {
+    formData.append("newImages", newImages[index]);
+  }
 
   const createRes = await fetch("/api/products/edit/" + data.idProduct, {
     method: "POST",
