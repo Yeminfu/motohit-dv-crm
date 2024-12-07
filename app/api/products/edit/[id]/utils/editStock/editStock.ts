@@ -1,5 +1,5 @@
-import StockFromDBType from "#types/products/stockFromDB.js";
-import addHistoryEntry from "#utils/history/addHistoryEntry.js";
+import StockFromDBType from "#types/products/stockFromDB.ts";
+import addHistoryEntry from "#utils/history/addHistoryEntry.ts";
 import insertStock from "./insertStock";
 import updateStock from "./updateStock";
 
