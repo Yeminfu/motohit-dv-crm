@@ -50,21 +50,6 @@ export async function POST(req: any, params: { params: { id: any } }) {
     }
   }
 
-  // for (let index = 0; index < retail_price.length; index++) {
-  //   const retailPriceObj = retail_price[index];
-  //   const updRes = await updateRetailPrice(retailPriceObj);
-
-  //   if (updRes.code) {
-  //     errors.push({ action: "update_retail_price", code: updRes.code });
-  //   }
-  //   if (updRes.changedRows) {
-  //     await addHistoryEntry("updateRetailPrice", {
-  //       session,
-  //       ...mainProductFields,
-  //     });
-  //   }
-  // }
-
   const stock: StockFromDBType[] = JSON.parse(data.get("stock"));
   for (let index = 0; index < stock.length; index++) {
     const stockObj = stock[index];
