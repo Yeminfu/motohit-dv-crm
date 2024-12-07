@@ -10,6 +10,8 @@ export default async function editProductAttributes(
 ) {
   const errors = [];
 
+  if (!attributes.length) return;
+
   /**
    * удаляем связи, которые больше не нужны
    */
