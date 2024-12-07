@@ -1,11 +1,11 @@
 import { NextResponse } from "next/server";
 import { RetailPriceFromDB } from "@/types/products/retailPriceFromDB";
-import updateRetailPrice from "./updateRetailPrice";
+import updateRetailPrice from "./utils/editRetailPrices/updateRetailPrice";
 import StockFromDBType from "@/types/products/stockFromDB";
 import updateStock from "./updateStock";
 import addHistoryEntry from "@/utils/history/addHistoryEntry";
 import updateProductMainData from "./updateProductMainData";
-import insertRetailPrice from "./insertRetailPrice";
+import insertRetailPrice from "./utils/editRetailPrices/insertRetailPrice";
 import insertStock from "./insertStock";
 import editProductAttributes from "./utils/editProductAttributes/editProductAttributes";
 
