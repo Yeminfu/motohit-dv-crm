@@ -8,6 +8,7 @@ import updateProductMainData from "./updateProductMainData";
 import insertRetailPrice from "./utils/editRetailPrices/insertRetailPrice";
 import insertStock from "./insertStock";
 import editProductAttributes from "./utils/editProductAttributes/editProductAttributes";
+import editRetailPrices from "./utils/editRetailPrices/editRetailPrices";
 
 export async function POST(req: any, params: { params: { id: any } }) {
   const session = Date.now();
@@ -33,22 +34,7 @@ export async function POST(req: any, params: { params: { id: any } }) {
     console.error("fatal error #mfn5c", error);
   }
 
-  for (let index = 0; index < retail_price.length; index++) {
-    const retailPriceObj = retail_price[index];
-    if (retailPriceObj.idRecord) {
-      const updRetailPriceRes = await updateRetailPrice(retailPriceObj);
-      await addHistoryEntry("updateProductRetailPrice", {
-        retailPriceObj,
-        updRetailPriceRes,
-      });
-    } else {
-      const insertRetailPriceRes = await insertRetailPrice(retailPriceObj);
-      await addHistoryEntry("insertProductRetailPrice", {
-        retailPriceObj,
-        insertRetailPriceRes,
-      });
-    }
-  }
+  await editRetailPrices(retail_price);
 
   const stock: StockFromDBType[] = JSON.parse(data.get("stock"));
   for (let index = 0; index < stock.length; index++) {
