@@ -10,7 +10,7 @@ import Color from "./components/color";
 import CostPrice from "./components/costPrice/costPrice";
 import RetailPrices from "./components/retailPrices/retailPrices";
 import Stock from "./components/stock/stock";
-import Attributes from "./components/attributes/attributes";
+import Attributes from "./components/fields/attributes";
 
 export default function CreateProductForm(props: {
   closeFn: any;
