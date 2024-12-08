@@ -16,6 +16,8 @@ import dbWorker from "@/db/dbWorker";
 import createProductMainData from "./utils/createProductMainData/createProductMainData";
 import { RetailPriceFromDB } from "#types/products/retailPriceFromDB.js";
 import createRetailPrices from "./utils/createRetailPrices/createRetailPrices";
+import StockFromDBType from "#types/products/stockFromDB.ts";
+import insertStock from "./utils/insertStock/insertStock";
 
 const imagesFolder: string = String(process.env.IMAGES_FOLDER);
 fs.mkdirSync(imagesFolder, { recursive: true });
@@ -52,6 +54,13 @@ export async function POST(req: NextRequest) {
     data.get("retail_price")
   );
   await createRetailPrices(idProduct, retail_price);
+
+  const stock: StockFromDBType[] = JSON.parse(data.get("stock"));
+  /* const stockRes = */ await insertStock({
+    stock,
+    session,
+    idProduct,
+  });
 
   return NextResponse.json({ success: null });
 
