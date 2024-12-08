@@ -8,6 +8,7 @@ import tsAttributeWithValues from "@/types/attributes/ts_attributesWithValues";
 import { ProductOnCreate } from "@/types/products/prodyctType";
 import Color from "./components/color";
 import CostPrice from "./components/costPrice/costPrice";
+import RetailPrices from "./components/retailPrices/retailPrices";
 
 export default function CreateProductForm(props: {
   closeFn: any;
@@ -35,11 +36,19 @@ export default function CreateProductForm(props: {
   //   },
   // });
 
-  // const { fields: retailPriceFields, append: appendRetailPrice }: any =
-  //   useFieldArray<any>({
-  //     control,
-  //     name: "retail_price",
-  //   });
+  const methods = useForm<any>({
+    defaultValues: {
+      idCategory: props.idCategory,
+    },
+  });
+
+  const { register, handleSubmit, reset, control } = methods;
+
+  const { fields: retailPriceFields, append: appendRetailPrice }: any =
+    useFieldArray<any>({
+      control,
+      name: "retail_price",
+    });
 
   // const { fields: stockFields, append: appendStock }: any = useFieldArray<any>({
   //   control,
@@ -82,25 +91,6 @@ export default function CreateProductForm(props: {
     }
     setPreviewImages(newImages);
   };
-
-  const methods = useForm<any>({
-    defaultValues: {
-      idCategory: props.idCategory,
-      // idProduct: props.product.id,
-      // name: props.product.name,
-      // color: props.product.color,
-      // code: props.product.code,
-      // purchase_price: String(props.product.purchase_price),
-      // cost_price: {
-      //   type: String(props.product.idCostPriceType),
-      //   value: String(props.product.costPriceValue),
-      // },
-      // note: String(props.product.note),
-      // idCategory: String(props.product.idCategory),
-    },
-  });
-
-  const { register, handleSubmit, reset, watch, control } = methods;
 
   return (
     <>
@@ -174,63 +164,15 @@ export default function CreateProductForm(props: {
             <CostPrice priceTypes={props.priceTypes} />
           </div>
 
-          {/* <div className="mt-3">
+          <div className="mt-3">
             <h5>Розн. цена</h5>
             <>
-              <table className="table table-bordered">
-                <thead>
-                  <tr>
-                    <th></th>
-                    <th>Тип р.ц.</th>
-                    <th>Значение р.ц.</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <>
-                    {retailPriceFields.map((shop: any, index: any) => {
-                      return (
-                        <tr key={index}>
-                          <td>{retailPriceFields[index].shopName}</td>
-                          <td>
-                            <select
-                              {...register(
-                                `retail_price[${index}].idPriceType`,
-                                {
-                                  required: true,
-                                }
-                              )}
-                              className="form-select"
-                              autoComplete="off"
-                            >
-                              <option value="">-</option>
-                              {props.priceTypes.map((priceType) => (
-                                <option value={priceType.id} key={priceType.id}>
-                                  {priceType.priceType}
-                                </option>
-                              ))}
-                            </select>
-                          </td>
-                          <td>
-                            <input
-                              {...register(
-                                `retail_price[${index}].priceValue`,
-                                {
-                                  required: true,
-                                  pattern: /^-?\d*(\.\d+)?$/i,
-                                }
-                              )}
-                              className="form-control"
-                              autoComplete="off"
-                            />
-                          </td>
-                        </tr>
-                      );
-                    })}
-                  </>
-                </tbody>
-              </table>
+              <RetailPrices
+                retailPriceFields={retailPriceFields}
+                priceTypes={props.priceTypes}
+              />
             </>
-          </div> */}
+          </div>
           {/* <div className="mt-3">
             <h5>Склад</h5>
             <>
