@@ -9,6 +9,7 @@ import { ProductOnCreate } from "@/types/products/prodyctType";
 import Color from "./components/color";
 import CostPrice from "./components/costPrice/costPrice";
 import RetailPrices from "./components/retailPrices/retailPrices";
+import Stock from "./components/stock/stock";
 
 export default function CreateProductForm(props: {
   closeFn: any;
@@ -50,6 +51,10 @@ export default function CreateProductForm(props: {
       name: "retail_price",
     });
 
+  const { fields: stockFields, append: appendStock }: any = useFieldArray<any>({
+    control,
+    name: "stock",
+  });
   // const { fields: stockFields, append: appendStock }: any = useFieldArray<any>({
   //   control,
   //   name: "stock",
@@ -173,10 +178,11 @@ export default function CreateProductForm(props: {
               />
             </>
           </div>
-          {/* <div className="mt-3">
+          <div className="mt-3">
             <h5>Склад</h5>
             <>
-              <table className="table table-bordered">
+              <Stock stockFields={stockFields} />
+              {/* <table className="table table-bordered">
                 <thead>
                   <tr>
                     <th></th>
@@ -203,9 +209,9 @@ export default function CreateProductForm(props: {
                     })}
                   </>
                 </tbody>
-              </table>
+              </table> */}
             </>
-          </div> */}
+          </div>
 
           <div>
             <h5>Заметки</h5>
