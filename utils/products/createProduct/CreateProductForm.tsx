@@ -60,21 +60,21 @@ export default function CreateProductForm(props: {
   //   name: "stock",
   // });
 
-  // useEffect(() => {
-  //   props.shops.forEach((shop) => {
-  //     appendRetailPrice({
-  //       idShop: shop.id,
-  //       shopName: shop.shopName,
-  //       idPriceType: "",
-  //       priceValue: "",
-  //     });
-  //     appendStock({
-  //       idShop: shop.id,
-  //       shopName: shop.shopName,
-  //       count: "",
-  //     });
-  //   });
-  // }, []);
+  useEffect(() => {
+    props.shops.forEach((shop) => {
+      appendRetailPrice({
+        idShop: shop.id,
+        shopName: shop.shopName,
+        idPriceType: "",
+        priceValue: "",
+      });
+      appendStock({
+        idShop: shop.id,
+        shopName: shop.shopName,
+        count: "",
+      });
+    });
+  }, []);
 
   const [previewImages, setPreviewImages] = useState([]);
 
