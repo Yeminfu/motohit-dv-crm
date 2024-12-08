@@ -10,6 +10,7 @@ import Color from "./components/color";
 import CostPrice from "./components/costPrice/costPrice";
 import RetailPrices from "./components/retailPrices/retailPrices";
 import Stock from "./components/stock/stock";
+import Attributes from "./components/attributes/attributes";
 
 export default function CreateProductForm(props: {
   closeFn: any;
@@ -194,7 +195,11 @@ export default function CreateProductForm(props: {
             <h5>Атрибуты</h5>
           </div>
           <div>
-            <table className="table table-bordered">
+            <Attributes
+              // idProduct={props.product.id}
+              idCategory={Number(props.idCategory)}
+            />
+            {/* <table className="table table-bordered">
               <tbody>
                 {props.attributesWithValues.map((attribute, i) => (
                   <tr key={attribute.id}>
@@ -218,7 +223,7 @@ export default function CreateProductForm(props: {
                   </tr>
                 ))}
               </tbody>
-            </table>
+            </table> */}
           </div>
 
           <div>
