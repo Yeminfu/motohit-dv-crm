@@ -13,112 +13,142 @@ import addHistoryEntry from "@/utils/history/addHistoryEntry";
 import handleRetailPrices from "./handleRetailPrices";
 import handleStock from "./handleStock";
 import dbWorker from "@/db/dbWorker";
+import createProductMainData from "./utils/createProductMainData/createProductMainData";
 
 const imagesFolder: string = String(process.env.IMAGES_FOLDER);
 fs.mkdirSync(imagesFolder, { recursive: true });
 
 export async function POST(req: NextRequest) {
-  const formData: any = await req.formData();
+  const session = Date.now();
 
-  const bodyObject: ProductOnCreate = JSON.parse(formData.get("jsonData"));
+  const data: any = await req.formData();
 
-  const items: any = Array.from(formData);
+  const productMainData = JSON.parse(data.get("productMainData"));
 
-  /**
-   * создали базу товара
-   */
-  const createRes = await createProductInDB(bodyObject);
+  // console.log({ eproductMainData });
 
-  if (!createRes.insertId) {
-    return NextResponse.json({
-      success: false,
-      error: createRes.error,
+  let idProduct = Number();
+
+  try {
+    const updMainDataRes = await createProductMainData(productMainData);
+    console.log("updMainDataRes", updMainDataRes);
+
+    if (updMainDataRes.insertId) idProduct = updMainDataRes.insertId;
+
+    await addHistoryEntry("createProduct", {
+      productMainData,
+      updMainDataRes,
     });
+  } catch (error) {
+    console.error("fatal error #mfn5c", error);
+    return NextResponse.json({ success: false });
   }
-  await addHistoryEntry("createProduct", {
-    bodyObject,
-    createRes,
-  });
 
-  /**
-   * розн цены
-   */
-  await handleRetailPrices(bodyObject.retail_price, createRes.insertId);
+  // console.log(updMainDataRes);
 
-  /**
-   * склад
-   */
-  await handleStock(bodyObject.stock, createRes.insertId);
+  return NextResponse.json({ success: null });
 
-  /**
-   * картинки
-   */
-  const images = formData.get("images");
+  // const formData: any = await req.formData();
 
-  // if (images) {
-  //   await handleImages(createRes.insertId, images)
+  // const bodyObject: ProductOnCreate = JSON.parse(formData.get("jsonData"));
+
+  // const items: any = Array.from(formData);
+
+  // /**
+  //  * создали базу товара
+  //  */
+  // const createRes = await createProductInDB(bodyObject);
+
+  // if (!createRes.insertId) {
+  //   return NextResponse.json({
+  //     success: false,
+  //     error: createRes.error,
+  //   });
+  // }
+  // await addHistoryEntry("createProduct", {
+  //   bodyObject,
+  //   createRes,
+  // });
+
+  // /**
+  //  * розн цены
+  //  */
+  // await handleRetailPrices(bodyObject.retail_price, createRes.insertId);
+
+  // /**
+  //  * склад
+  //  */
+  // await handleStock(bodyObject.stock, createRes.insertId);
+
+  // /**
+  //  * картинки
+  //  */
+  // const images = formData.get("images");
+
+  // // if (images) {
+  // //   await handleImages(createRes.insertId, images)
+  // // }
+
+  // for (let index = 0; index < items.length; index++) {
+  //   const [name, value] = items[index];
+  //   if (value instanceof File) {
+  //     await handleImage(createRes.insertId, value);
+  //   }
   // }
 
-  for (let index = 0; index < items.length; index++) {
-    const [name, value] = items[index];
-    if (value instanceof File) {
-      await handleImage(createRes.insertId, value);
-    }
-  }
+  // /**
+  //  * атрибуты
+  //  */
+  // await handleAttributes(createRes.insertId, bodyObject.attributes);
 
-  /**
-   * атрибуты
-   */
-  await handleAttributes(createRes.insertId, bodyObject.attributes);
-
-  return NextResponse.json({
-    success: true,
-  });
+  // return NextResponse.json({
+  //   success: true,
+  // });
 }
 
-async function handleAttributes(
-  idProduct: number,
-  attributesWithValues: ts_attributeToCreate[]
-) {
-  const values = [];
+// async function handleAttributes(
+//   idProduct: number,
+//   attributesWithValues: ts_attributeToCreate[]
+// ) {
+//   const values = [];
 
-  for (let index = 0; index < attributesWithValues.length; index++) {
-    const element = attributesWithValues[index];
-    values.push(element.idAttributeValue);
-    values.push(idProduct);
-  }
+//   for (let index = 0; index < attributesWithValues.length; index++) {
+//     const element = attributesWithValues[index];
+//     values.push(element.idAttributeValue);
+//     values.push(idProduct);
+//   }
 
-  const qs = `
-    insert into ${process.env.TABLE_PREFIX}_attr_prod_relation
-    (
-      idAttributeValue, idProduct, created_by
-    )
-    values
-      ${attributesWithValues.map((_) => "(?,?,1)")}
-  `;
+//   const qs = `
+//     insert into ${process.env.TABLE_PREFIX}_attr_prod_relation
+//     (
+//       idAttributeValue, idProduct, created_by
+//     )
+//     values
+//       ${attributesWithValues.map((_) => "(?,?,1)")}
+//   `;
 
-  await dbWorker(qs, values);
-}
+//   await dbWorker(qs, values);
+// }
 
-async function handleImage(idProduct: number, image: any) {
-  let filename =
-    Date.now() +
-    slugify(
-      image.name.toLocaleLowerCase().replace(/[^ a-zA-Zа-яА-Я0-9-.]/gim, "")
-    );
+// async function handleImage(idProduct: number, image: any) {
+//   let filename =
+//     Date.now() +
+//     slugify(
+//       image.name.toLocaleLowerCase().replace(/[^ a-zA-Zа-яА-Я0-9-.]/gim, "")
+//     );
 
-  await createImageInDB(filename, idProduct);
+//   await createImageInDB(filename, idProduct);
 
-  const imageIsExists = await checkImageIsExists(filename);
-  if (imageIsExists) {
-    const randomNumber = getRandomNumber(1, 99999);
-    filename = randomNumber + filename;
-  } else {
-    console.error("err #d83jnf", "файл не создался");
-  }
+//   const imageIsExists = await checkImageIsExists(filename);
+//   if (imageIsExists) {
+//     const randomNumber = getRandomNumber(1, 99999);
+//     filename = randomNumber + filename;
+//   } else {
+//     console.error("err #d83jnf", "файл не создался");
+//   }
 
-  const buffer = await image.arrayBuffer();
-  const filePath = `${imagesFolder}/${filename}`;
+//   const buffer = await image.arrayBuffer();
+//   const filePath = `${imagesFolder}/${filename}`;
 
-  fs.writeFileSync(filePath, Buffer.from(buffer));
-}
+//   fs.writeFileSync(filePath, Buffer.from(buffer));
+// }

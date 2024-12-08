@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 export default async function onSubmit(formValues: any) {
   const formData = new FormData();
 
-  const mainProductFields: any = {
+  const productMainData: any = {
     id: formValues.idProduct,
     name: formValues.name,
     note: formValues.note,
@@ -16,7 +16,7 @@ export default async function onSubmit(formValues: any) {
     code: formValues.code,
     isArchived: true,
   };
-  formData.append("mainProductFields", JSON.stringify(mainProductFields));
+  formData.append("productMainData", JSON.stringify(productMainData));
 
   const retail_price = formValues.retail_price.map((priceObj: any) => ({
     ...priceObj,
