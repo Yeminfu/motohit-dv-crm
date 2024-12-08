@@ -146,18 +146,14 @@ export default function CreateProductForm(props: {
             />
           </div>
 
-          <div>
+          <div className="mt-3">
             <h5>Атрибуты</h5>
-          </div>
-          <div>
             <Attributes idCategory={Number(props.idCategory)} />
           </div>
 
-          <div>
-            <div>
-              <h5>Изображение</h5>
-              <Images />
-            </div>
+          <div className="mt-3">
+            <h5>Изображение</h5>
+            <Images />
           </div>
 
           <div className="mt-4">
