@@ -11,6 +11,7 @@ import RetailPrices from "./components/retailPrices/retailPrices";
 import Stock from "./components/stock/stock";
 import Attributes from "./components/fields/attributes";
 import Images from "./components/images/images";
+import onSubmit from "./utils/onSubmit";
 
 export default function CreateProductForm(props: {
   closeFn: any;
@@ -177,51 +178,4 @@ export default function CreateProductForm(props: {
       </FormProvider>
     </>
   );
-}
-
-async function onSubmit(data: any) {
-  const {
-    name,
-    code,
-    color,
-    cost_price,
-    note,
-    purchase_price,
-    retail_price,
-    stock,
-    idCategory,
-    images,
-    attributes,
-  } = data;
-
-  const scalarData: ProductOnCreate = {
-    name,
-    code,
-    color,
-    cost_price,
-    note,
-    purchase_price,
-    retail_price,
-    stock,
-    idCategory,
-    attributes,
-  };
-
-  const jsonData = JSON.stringify(scalarData, null, "");
-
-  const formData = new FormData();
-
-  formData.append("jsonData", jsonData);
-
-  if (images) {
-    for (let i = 0; i < images.length; i++) {
-      formData.append("images", images[i]);
-    }
-  }
-  const createRes = await fetch("/api/products/create", {
-    method: "POST",
-    body: formData,
-  }).then((x) => x.json());
-
-  return createRes;
 }
