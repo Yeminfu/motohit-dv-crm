@@ -20,31 +20,31 @@ export default function Attributes(props: {
     name: "attributes",
   });
 
-  // useEffect(() => {
-  //   setValue("attributes", []);
-  //   if (props.idCategory && props.idProduct) {
-  //     (async () => {
-  //       const attributeWithValuesAndDefaultValue =
-  //         await getAttributesWithValues(props.idCategory, props.idProduct);
-  //       setCategoryAttributes(attributeWithValuesAndDefaultValue);
+  useEffect(() => {
+    setValue("attributes", []);
+    if (props.idCategory) {
+      (async () => {
+        const attributeWithValuesAndDefaultValue =
+          await getAttributesWithValues(props.idCategory);
+        setCategoryAttributes(attributeWithValuesAndDefaultValue);
 
-  //       for (
-  //         let index = 0;
-  //         index < attributeWithValuesAndDefaultValue.length;
-  //         index++
-  //       ) {
-  //         const attributeWithValue = attributeWithValuesAndDefaultValue[index];
+        for (
+          let index = 0;
+          index < attributeWithValuesAndDefaultValue.length;
+          index++
+        ) {
+          const attributeWithValue = attributeWithValuesAndDefaultValue[index];
 
-  //         appendAttribute({
-  //           idAttribute: String(attributeWithValue.id),
-  //           idAttributeValue: String(
-  //             attributeWithValue.idDefaultAttributeValue
-  //           ),
-  //         });
-  //       }
-  //     })();
-  //   }
-  // }, [props.idProduct, props.idCategory]);
+          appendAttribute({
+            idAttribute: String(attributeWithValue.id),
+            idAttributeValue: String(
+              attributeWithValue.idDefaultAttributeValue
+            ),
+          });
+        }
+      })();
+    }
+  }, [props.idCategory]);
 
   return (
     <>

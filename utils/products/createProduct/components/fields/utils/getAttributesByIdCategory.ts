@@ -1,17 +1,20 @@
 import ts_productAttributes from "#app/api/attributes/getProductAttributes/types/ts_productAttributes.ts";
 
-export default async function getAttributesByIdProduct(
-  idProduct: number
+export default async function getAttributesByIdCategory(
+  idCategory: number
 ): Promise<ts_productAttributes[]> {
   try {
-    const response = await fetch("/api/attributes/getProductAttributes", {
-      method: "POST",
-      body: JSON.stringify({
-        idProduct,
-      }),
-    });
+    const response = await fetch(
+      "/api/attributes/getCategoryAttributesWithValues",
+      {
+        method: "POST",
+        body: JSON.stringify({
+          idCategory,
+        }),
+      }
+    );
     if (!response.ok) {
-      alert("err #f943mn2k");
+      alert("err #as0dm3n");
       throw new Error(`Ошибка: ${response.statusText}`);
     }
     const data = await response.json();
@@ -20,11 +23,11 @@ export default async function getAttributesByIdProduct(
       return data.attributes;
       // Здесь вы можете обработать обновления, например, отправить ответ на сообщения
     } else {
-      alert("err #dss93j");
+      alert("err #s8dn3");
       return [];
     }
   } catch (error) {
-    alert("err #djsan4b");
+    alert("err #kdjb47");
     return [];
   }
 }
