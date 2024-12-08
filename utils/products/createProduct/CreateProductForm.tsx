@@ -1,7 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { FormProvider, useFieldArray, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
-import Image from "next/image";
 import { PriceTypesFromDBInterface } from "@/types/products/priceTypesFromDBInterface";
 import { ShopFromDB } from "@/types/shops/shopFromDBType";
 import tsAttributeWithValues from "@/types/attributes/ts_attributesWithValues";
@@ -11,6 +10,7 @@ import CostPrice from "./components/costPrice/costPrice";
 import RetailPrices from "./components/retailPrices/retailPrices";
 import Stock from "./components/stock/stock";
 import Attributes from "./components/fields/attributes";
+import Images from "./components/images/images";
 
 export default function CreateProductForm(props: {
   closeFn: any;
@@ -19,25 +19,6 @@ export default function CreateProductForm(props: {
   shops: ShopFromDB[];
   attributesWithValues: tsAttributeWithValues[];
 }) {
-  // const {
-  //   register,
-  //   handleSubmit,
-  //   reset,
-  //   control,
-  //   formState: { errors },
-  // } = useForm<any>({
-  //   defaultValues: {
-  //     // "name": "Лодка 1" + Date.now(),
-  //     // "color": "black",
-  //     // "code": "№выаь",
-  //     // "purchase_price": "123",
-  //     // "cost_price": { "type": "3", "value": "123" },
-  //     // "stock": { "khv": "123", "bir": "321" },
-  //     // "note": "здравствуйте",
-  //     idCategory: props.idCategory,
-  //   },
-  // });
-
   const methods = useForm<any>({
     defaultValues: {
       idCategory: props.idCategory,
@@ -56,10 +37,6 @@ export default function CreateProductForm(props: {
     control,
     name: "stock",
   });
-  // const { fields: stockFields, append: appendStock }: any = useFieldArray<any>({
-  //   control,
-  //   name: "stock",
-  // });
 
   useEffect(() => {
     props.shops.forEach((shop) => {
@@ -77,27 +54,6 @@ export default function CreateProductForm(props: {
     });
   }, []);
 
-  const [previewImages, setPreviewImages] = useState([]);
-
-  const handleImageChange = async (e: any) => {
-    const files = e.target.files;
-
-    const newImages: any = [];
-    for (let i = 0; i < files.length; i++) {
-      const imageBase64 = await new Promise((r) => {
-        const file = files[i];
-        const reader = new FileReader();
-        reader.onload = () => {
-          const previewImage = reader.result;
-          r(previewImage);
-        };
-        reader.readAsDataURL(file);
-      });
-      newImages.push(imageBase64);
-    }
-    setPreviewImages(newImages);
-  };
-
   return (
     <>
       <FormProvider {...methods}>
@@ -107,7 +63,6 @@ export default function CreateProductForm(props: {
             if (success) {
               toast.success("Товар создан");
               reset();
-              setPreviewImages([]);
             } else {
               toast.error(error);
             }
@@ -229,38 +184,8 @@ export default function CreateProductForm(props: {
           <div>
             <div>
               <h5>Изображение</h5>
+              <Images />
             </div>
-            <div>
-              <div className="mt-2">
-                {previewImages.map((image, index) => (
-                  <div className="" key={index}>
-                    <Image
-                      loader={() => image}
-                      src={image}
-                      alt=""
-                      width={0}
-                      height={0}
-                      style={{
-                        width: "auto",
-                        height: "auto",
-                        marginBottom: 5,
-                        // cursor: "pointer",
-                        maxWidth: 500,
-                      }}
-                    />
-                  </div>
-                ))}
-              </div>
-              <input
-                type="file"
-                {...register("images")}
-                onChange={handleImageChange}
-                multiple
-              />
-            </div>
-            {/* {errors.images && (
-              <span className="text-danger">Обязательное поле</span>
-            )} */}
           </div>
 
           <div className="mt-4">
