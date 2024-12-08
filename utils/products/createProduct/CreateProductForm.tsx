@@ -68,7 +68,6 @@ export default function CreateProductForm(props: {
             }
           })}
         >
-          {/* <pre>{JSON.stringify(props.attributesWithValues, null, 2)}</pre> */}
           <div className="row">
             <div className="col">
               <div className="mb-2">
@@ -150,35 +149,7 @@ export default function CreateProductForm(props: {
             <h5>Атрибуты</h5>
           </div>
           <div>
-            <Attributes
-              // idProduct={props.product.id}
-              idCategory={Number(props.idCategory)}
-            />
-            {/* <table className="table table-bordered">
-              <tbody>
-                {props.attributesWithValues.map((attribute, i) => (
-                  <tr key={attribute.id}>
-                    <td>{attribute.attribute_name}</td>
-                    <td>
-                      <select
-                        {...register(`attributes.${i}.idAttributeValue`, {
-                          required: true,
-                        })}
-                        className="form-select"
-                        autoComplete="off"
-                      >
-                        <option value="">-</option>
-                        {attribute.values.map((attributeValue) => (
-                          <option value={attributeValue.id}>
-                            {attributeValue.value_name}
-                          </option>
-                        ))}
-                      </select>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table> */}
+            <Attributes idCategory={Number(props.idCategory)} />
           </div>
 
           <div>
