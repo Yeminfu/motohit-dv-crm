@@ -6,10 +6,6 @@ export default async function editOldImages(
   idProduct: number,
   images: ts_imageFromDB[]
 ): Promise<ResultSetHeader | undefined> {
-  if (!images.length) {
-    return;
-  }
-
   const ids = images.map((img) => img.id);
   return await deleteImages(idProduct, ids);
 }
