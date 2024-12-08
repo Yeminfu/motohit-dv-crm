@@ -14,7 +14,19 @@ export default async function saveImage(file: File, idProduct: number) {
   const buffer = await file.arrayBuffer();
   const filePath = `${imagesFolder}/${filename}`;
 
-  fs.writeFileSync(filePath, Buffer.from(buffer));
-
+  const savedToFs = saveImageToFS(filePath, buffer);
+  if (!savedToFs) {
+    return;
+  }
   return await insertImageToDB(filename, idProduct);
+}
+
+function saveImageToFS(filePath: string, buffer: ArrayBuffer) {
+  try {
+    fs.writeFileSync(filePath, Buffer.from(buffer));
+    return true;
+  } catch (error) {
+    console.error("err #fs0dfjn", error);
+    return false;
+  }
 }
