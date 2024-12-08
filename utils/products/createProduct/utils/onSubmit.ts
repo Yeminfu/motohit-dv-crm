@@ -33,13 +33,10 @@ export default async function onSubmit(formValues: any) {
   }));
   formData.append("stock", JSON.stringify(stock));
 
-  const oldImages = formValues.oldImages;
-  formData.append("oldImages", JSON.stringify(oldImages));
-
-  const newImages = formValues.newImages;
-  if (newImages) {
-    for (let index = 0; index < newImages.length; index++) {
-      formData.append("newImages", newImages[index]);
+  const images = formValues.images;
+  if (images) {
+    for (let index = 0; index < images.length; index++) {
+      formData.append("images", images[index]);
     }
   }
 
