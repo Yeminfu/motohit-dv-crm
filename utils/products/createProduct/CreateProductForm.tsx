@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import { FormProvider, useFieldArray, useForm } from "react-hook-form";
-import { toast } from "react-toastify";
 import { PriceTypesFromDBInterface } from "@/types/products/priceTypesFromDBInterface";
 import { ShopFromDB } from "@/types/shops/shopFromDBType";
 import tsAttributeWithValues from "@/types/attributes/ts_attributesWithValues";
@@ -59,13 +58,8 @@ export default function CreateProductForm(props: {
       <FormProvider {...methods}>
         <form
           onSubmit={handleSubmit(async (x) => {
-            const { success, error } = await onSubmit(x);
-            if (success) {
-              toast.success("Товар создан");
-              reset();
-            } else {
-              toast.error(error);
-            }
+            await onSubmit(x);
+            reset();
           })}
         >
           <div className="row">
