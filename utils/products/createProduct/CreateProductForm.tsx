@@ -5,12 +5,12 @@ import { PriceTypesFromDBInterface } from "@/types/products/priceTypesFromDBInte
 import { ShopFromDB } from "@/types/shops/shopFromDBType";
 import tsAttributeWithValues from "@/types/attributes/ts_attributesWithValues";
 import { ProductOnCreate } from "@/types/products/prodyctType";
-import Color from "./components/color";
-import CostPrice from "./components/costPrice/costPrice";
-import RetailPrices from "./components/retailPrices/retailPrices";
-import Stock from "./components/stock/stock";
-import Attributes from "./components/attributes/attributes";
-import Images from "./components/images/images";
+import Color from "./fields/color";
+import CostPrice from "./fields/costPrice/costPrice";
+import RetailPrices from "./fields/retailPrices/retailPrices";
+import Stock from "./fields/stock/stock";
+import Attributes from "./fields/attributes/attributes";
+import Images from "./fields/images/images";
 import onSubmit from "./utils/onSubmit";
 
 export default function CreateProductForm(props: {
