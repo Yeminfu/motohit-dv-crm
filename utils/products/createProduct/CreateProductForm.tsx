@@ -181,10 +181,8 @@ export default function CreateProductForm(props: {
             <Stock stockFields={stockFields} />
           </div>
 
-          <div>
+          <div className="mt-3">
             <h5>Заметки</h5>
-          </div>
-          <div>
             <textarea
               {...register("note", { required: true })}
               className="form-control"
