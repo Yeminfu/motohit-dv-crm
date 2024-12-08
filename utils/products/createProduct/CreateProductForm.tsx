@@ -171,46 +171,14 @@ export default function CreateProductForm(props: {
 
           <div className="mt-3">
             <h5>Розн. цена</h5>
-            <>
-              <RetailPrices
-                retailPriceFields={retailPriceFields}
-                priceTypes={props.priceTypes}
-              />
-            </>
+            <RetailPrices
+              retailPriceFields={retailPriceFields}
+              priceTypes={props.priceTypes}
+            />
           </div>
           <div className="mt-3">
             <h5>Склад</h5>
-            <>
-              <Stock stockFields={stockFields} />
-              {/* <table className="table table-bordered">
-                <thead>
-                  <tr>
-                    <th></th>
-                    <th>К-во на складе</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <>
-                    {stockFields.map((shop: any, index: any) => {
-                      return (
-                        <tr key={stockFields[index].id}>
-                          <td>{stockFields[index].shopName}</td>
-                          <td>
-                            <input
-                              {...register(`stock[${index}].count`, {
-                                required: true,
-                              })}
-                              className="form-control"
-                              autoComplete="off"
-                            />
-                          </td>
-                        </tr>
-                      );
-                    })}
-                  </>
-                </tbody>
-              </table> */}
-            </>
+            <Stock stockFields={stockFields} />
           </div>
 
           <div>
