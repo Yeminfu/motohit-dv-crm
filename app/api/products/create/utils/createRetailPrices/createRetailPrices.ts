@@ -1,10 +1,11 @@
 import dbWorker from "#db/dbWorker.ts";
 import { RetailPriceFromDB } from "#types/products/retailPriceFromDB.js";
+import { ResultSetHeader } from "mysql2";
 
 export default async function createRetailPrices(
   idProduct: number,
   retail_price: RetailPriceFromDB[]
-) {
+): Promise<ResultSetHeader> {
   const sql = `
   insert into ${process.env.TABLE_PREFIX}_retail_prices
   (
@@ -14,21 +15,13 @@ export default async function createRetailPrices(
     idShop
   )
   values
-  (
     ${retail_price.map(() => "(?,?,?,?)")}
-  )
   `;
-
-  console.log("sql", sql);
 
   const values = retail_price
     .map((v) => [v.idPriceType, v.priceValue, idProduct, v.idShop])
     .flat();
 
-  console.log("values", values);
-
   const res = await dbWorker(sql, values);
-  console.log("res", res);
-
-  // console.log("retail_price", retail_price);
+  return res;
 }

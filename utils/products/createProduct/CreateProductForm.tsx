@@ -59,7 +59,7 @@ export default function CreateProductForm(props: {
         <form
           onSubmit={handleSubmit(async (x) => {
             await onSubmit(x);
-            reset();
+            // reset();
           })}
         >
           <div className="row">
