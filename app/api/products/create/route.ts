@@ -18,12 +18,21 @@ import { RetailPriceFromDB } from "#types/products/retailPriceFromDB.js";
 import createRetailPrices from "./utils/createRetailPrices/createRetailPrices";
 import StockFromDBType from "#types/products/stockFromDB.ts";
 import insertStock from "./utils/insertStock/insertStock";
+import createAttributes from "./utils/createAttributes/createAttributes";
+import getUserByToken from "#utils/users/getUserByToken.ts";
 
 const imagesFolder: string = String(process.env.IMAGES_FOLDER);
 fs.mkdirSync(imagesFolder, { recursive: true });
 
 export async function POST(req: NextRequest) {
   const session = Date.now();
+
+  const { cookies } = req;
+  const authToken = String(cookies.get("auth")?.value);
+
+  const user = await getUserByToken(authToken);
+
+  if (!user) return NextResponse.json({ success: false });
 
   const data: any = await req.formData();
 
@@ -35,7 +44,6 @@ export async function POST(req: NextRequest) {
 
   try {
     const updMainDataRes = await createProductMainData(productMainData);
-    console.log("updMainDataRes", updMainDataRes);
 
     if (updMainDataRes.insertId) idProduct = updMainDataRes.insertId;
 
@@ -61,6 +69,13 @@ export async function POST(req: NextRequest) {
     session,
     idProduct,
   });
+
+  const attributes = JSON.parse(data.get("attributes"));
+  /* const createAttributesRes = */ await createAttributes(
+    idProduct,
+    attributes,
+    user.id
+  );
 
   return NextResponse.json({ success: null });
 
