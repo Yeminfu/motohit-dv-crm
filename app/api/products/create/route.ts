@@ -14,6 +14,8 @@ import handleRetailPrices from "./handleRetailPrices";
 import handleStock from "./handleStock";
 import dbWorker from "@/db/dbWorker";
 import createProductMainData from "./utils/createProductMainData/createProductMainData";
+import { RetailPriceFromDB } from "#types/products/retailPriceFromDB.js";
+import createRetailPrices from "./utils/createRetailPrices/createRetailPrices";
 
 const imagesFolder: string = String(process.env.IMAGES_FOLDER);
 fs.mkdirSync(imagesFolder, { recursive: true });
@@ -45,6 +47,11 @@ export async function POST(req: NextRequest) {
   }
 
   // console.log(updMainDataRes);
+
+  const retail_price: RetailPriceFromDB[] = JSON.parse(
+    data.get("retail_price")
+  );
+  await createRetailPrices(idProduct, retail_price);
 
   return NextResponse.json({ success: null });
 
