@@ -1,4 +1,3 @@
-import { ProductOnCreate } from "#types/products/prodyctType.ts";
 import { toast } from "react-toastify";
 
 export default async function onSubmit(formValues: any) {
@@ -57,52 +56,4 @@ export default async function onSubmit(formValues: any) {
   } catch (error) {
     alert("Ошибка #ssjj3");
   }
-  // console.log("data", data);
-
-  // return;
-
-  // const {
-  //   name,
-  //   code,
-  //   color,
-  //   cost_price,
-  //   note,
-  //   purchase_price,
-  //   retail_price,
-  //   stock,
-  //   idCategory,
-  //   images,
-  //   attributes,
-  // } = data;
-
-  // const scalarData: ProductOnCreate = {
-  //   name,
-  //   code,
-  //   color,
-  //   cost_price,
-  //   note,
-  //   purchase_price,
-  //   retail_price,
-  //   stock,
-  //   idCategory,
-  //   attributes,
-  // };
-
-  // const jsonData = JSON.stringify(scalarData, null, "");
-
-  // const formData = new FormData();
-
-  // formData.append("jsonData", jsonData);
-
-  // if (images) {
-  //   for (let i = 0; i < images.length; i++) {
-  //     formData.append("images", images[i]);
-  //   }
-  // }
-  // const createRes = await fetch("/api/products/create", {
-  //   method: "POST",
-  //   body: formData,
-  // }).then((x) => x.json());
-
-  // return createRes;
 }

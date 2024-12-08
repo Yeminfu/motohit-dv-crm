@@ -1,18 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
-import slugify from "slugify";
 import fs from "fs";
-import {
-  ProductOnCreate,
-  ts_attributeToCreate,
-} from "@/types/products/prodyctType";
-import { createProductInDB } from "./createProductInDB";
-import getRandomNumber from "@/utils/getRandomNumber";
-import createImageInDB from "./createImageInDB";
-import checkImageIsExists from "./checkImageIsExists";
 import addHistoryEntry from "@/utils/history/addHistoryEntry";
-import handleRetailPrices from "./handleRetailPrices";
-import handleStock from "./handleStock";
-import dbWorker from "@/db/dbWorker";
 import createProductMainData from "./utils/createProductMainData/createProductMainData";
 import { RetailPriceFromDB } from "#types/products/retailPriceFromDB.js";
 import createRetailPrices from "./utils/createRetailPrices/createRetailPrices";
@@ -51,7 +39,7 @@ export async function POST(req: NextRequest) {
       updMainDataRes,
     });
   } catch (error) {
-    console.error("fatal error #mfn5c", error);
+    console.error("err #mfn5c", error);
     return NextResponse.json({ success: false });
   }
 
