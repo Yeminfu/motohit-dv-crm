@@ -4,7 +4,6 @@ import { toast } from "react-toastify";
 import { PriceTypesFromDBInterface } from "@/types/products/priceTypesFromDBInterface";
 import { ShopFromDB } from "@/types/shops/shopFromDBType";
 import tsAttributeWithValues from "@/types/attributes/ts_attributesWithValues";
-import { ProductOnCreate } from "@/types/products/prodyctType";
 import Color from "./fields/color";
 import CostPrice from "./fields/costPrice/costPrice";
 import RetailPrices from "./fields/retailPrices/retailPrices";
