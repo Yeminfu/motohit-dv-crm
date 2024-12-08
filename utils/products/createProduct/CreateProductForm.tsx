@@ -7,6 +7,7 @@ import { ShopFromDB } from "@/types/shops/shopFromDBType";
 import tsAttributeWithValues from "@/types/attributes/ts_attributesWithValues";
 import { ProductOnCreate } from "@/types/products/prodyctType";
 import Color from "./components/color";
+import CostPrice from "./components/costPrice/costPrice";
 
 export default function CreateProductForm(props: {
   closeFn: any;
@@ -170,7 +171,8 @@ export default function CreateProductForm(props: {
 
           <div className="mt-3">
             <h5>Себестоимость</h5>
-            <div className="row">
+            <CostPrice priceTypes={props.priceTypes} />
+            {/* <div className="row">
               <div className="col-6">
                 <div>
                   <b>Тип</b>
@@ -201,7 +203,7 @@ export default function CreateProductForm(props: {
                   autoComplete="off"
                 />
               </div>
-            </div>
+            </div> */}
           </div>
 
           {/* <div className="mt-3">
