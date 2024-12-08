@@ -1,7 +1,7 @@
 "use client";
 import { ProductsFull } from "@/types/products/prodyctType";
 import Modal from "@/utils/modal/modal";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { PriceTypesFromDBInterface } from "@/types/products/priceTypesFromDBInterface";
 import EditProductForm from "./EditProductForm";
 import { ShopFromDB } from "@/types/shops/shopFromDBType";
@@ -37,7 +37,7 @@ export default function EditProduct(props: {
             {(() => {
               if (props.product == null) return <>Загрузка...</>;
               return (
-                <>
+                <div style={{ maxWidth: "1000px" }}>
                   <EditProductForm
                     closeFn={() => {
                       setIsOpen(false);
@@ -47,7 +47,7 @@ export default function EditProduct(props: {
                     shops={props.shops}
                     categories={props.categories}
                   />
-                </>
+                </div>
               );
             })()}
           </>
