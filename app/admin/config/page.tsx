@@ -3,6 +3,7 @@ import getDBKeys from "./getDBKeys";
 import Tables from "./Tables";
 import Keys from "./Keys";
 import CreateClassButton from "./createClassButton";
+import Classes from "./components/Classes/Classes";
 
 export default async function Page() {
   const dbKeys = await getDBKeys();
@@ -11,6 +12,8 @@ export default async function Page() {
     <>
       <AuthedLayout title="config">
         <>
+          <h3>Классы</h3>
+          <Classes />
           <CreateClassButton />
           <h3>Таблицы</h3>
           <Tables />
