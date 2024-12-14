@@ -1,7 +1,7 @@
 import Link from "next/link";
 import getDBTables from "./getDBTables";
 
-export default async function Classes() {
+export default async function Tables() {
   const tables = await getDBTables();
   return (
     <table className="table table-bordered w-auto">
