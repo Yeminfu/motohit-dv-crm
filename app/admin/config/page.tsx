@@ -2,7 +2,6 @@ import AuthedLayout from "#utils/authedLayout.tsx";
 import getDBKeys from "./getDBKeys";
 import Tables from "./Tables";
 import Keys from "./Keys";
-import CreateClassButton from "./createClassButton";
 import Classes from "./components/Classes/Classes";
 
 export default async function Page() {
@@ -14,7 +13,6 @@ export default async function Page() {
         <>
           <h3>Классы</h3>
           <Classes />
-          <CreateClassButton />
           <h3>Таблицы</h3>
           <Tables />
           {/*************************************************************** */}

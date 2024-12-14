@@ -1,10 +1,12 @@
 import getClasses from "../utils/getClasses";
+import CreateClassButton from "./components/create/createClassButton";
 import Delete from "./components/delete/Delete";
 
 export default async function Classes() {
   const classes = await getClasses();
   return (
     <>
+      <CreateClassButton />
       <table className="table table-bordered w-auto">
         <thead>
           <tr>
