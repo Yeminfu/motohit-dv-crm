@@ -2,6 +2,7 @@ import AuthedLayout from "#utils/authedLayout.tsx";
 import getDBKeys from "./getDBKeys";
 import Classes from "./Classes";
 import Keys from "./Keys";
+import CreateClassButton from "./createClassButton";
 
 export default async function Page() {
   const dbKeys = await getDBKeys();
@@ -10,6 +11,7 @@ export default async function Page() {
     <>
       <AuthedLayout title="config">
         <>
+          <CreateClassButton />
           <h3>Классы</h3>
           <Classes />
           {/*************************************************************** */}
