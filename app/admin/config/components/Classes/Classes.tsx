@@ -1,15 +1,17 @@
 import getClasses from "../utils/getClasses";
+import Delete from "./components/delete/Delete";
 
 export default async function Classes() {
   const classes = await getClasses();
   return (
     <>
-      <table className="table table-bordered">
+      <table className="table table-bordered w-auto">
         <thead>
           <tr>
             <th>id</th>
             <th>className</th>
             <th>json</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -18,6 +20,9 @@ export default async function Classes() {
               <td>{_class.id}</td>
               <td>{_class.className}</td>
               <td>{JSON.stringify(_class)}</td>
+              <td>
+                <Delete idClass={_class.id} />
+              </td>
             </tr>
           ))}
         </tbody>
