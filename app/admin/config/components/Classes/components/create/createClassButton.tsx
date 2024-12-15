@@ -1,8 +1,8 @@
 "use client";
 
-import dbWorker from "#db/dbWorker.js";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 
 export default function CreateClassButton() {
   const [isOpen, setOpen] = useState(false);
@@ -12,16 +12,6 @@ export default function CreateClassButton() {
         <button
           onClick={() => {
             setOpen(true);
-            // const _class = {
-            //   id: 1,
-            //   className: `chbfs_products`,
-            // };
-            // fetch("/admin/api/classes/create", {
-            //   method: "post",
-            //   body: JSON.stringify(_class),
-            // })
-            //   .then((x) => x.json())
-            //   .then(console.log);
           }}
           className="btn btn-outline-dark"
         >
@@ -90,10 +80,13 @@ async function onSubmit(values: ts_formValues) {
     className: values.className,
     title: values.title,
   };
-  fetch("/admin/api/classes/create", {
+  const res: any = await fetch("/admin/api/classes/create", {
     method: "post",
     body: JSON.stringify(_class),
-  })
-    .then((x) => x.json())
-    .then(console.log);
+  }).then((x) => x.json());
+
+  if (res.error) {
+    toast.error(res.error.code);
+    return;
+  }
 }
