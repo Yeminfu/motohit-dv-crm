@@ -2,9 +2,9 @@
 
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { toast } from "react-toastify";
+// import { toast } from "react-toastify";
 
-export default function CreateClassButton() {
+export default function Create() {
   const [isOpen, setOpen] = useState(false);
   if (!isOpen)
     return (
@@ -15,7 +15,7 @@ export default function CreateClassButton() {
           }}
           className="btn btn-outline-dark"
         >
-          createClassButton
+          Create procedure
         </button>
       </>
     );
@@ -30,8 +30,9 @@ export default function CreateClassButton() {
 }
 
 interface ts_formValues {
-  className: string;
+  procedureName: string;
   title: string;
+  SQLString: string;
 }
 
 function Form() {
@@ -46,10 +47,10 @@ function Form() {
         <table className="bable w-auto">
           <tbody>
             <tr>
-              <th>Название класса (лат.)</th>
+              <th>Название процедуры (лат.)</th>
               <td>
                 <input
-                  {...register("className")}
+                  {...register("procedureName")}
                   className="form-control w-auto"
                   autoComplete="off"
                 />
@@ -60,6 +61,16 @@ function Form() {
               <td>
                 <input
                   {...register("title")}
+                  className="form-control w-auto"
+                  autoComplete="off"
+                />
+              </td>
+            </tr>
+            <tr>
+              <th>SQLString</th>
+              <td>
+                <textarea
+                  {...register("SQLString")}
                   className="form-control w-auto"
                   autoComplete="off"
                 />
@@ -76,17 +87,16 @@ function Form() {
 }
 
 async function onSubmit(values: ts_formValues) {
-  const _class = {
-    className: values.className,
-    title: values.title,
-  };
-  const res: any = await fetch("/admin/api/classes/create", {
-    method: "post",
-    body: JSON.stringify(_class),
-  }).then((x) => x.json());
-
-  if (res.error) {
-    toast.error(res.error.code);
-    return;
-  }
+  // const _class = {
+  //   className: values.className,
+  //   title: values.title,
+  // };
+  // const res: any = await fetch("/admin/api/classes/create", {
+  //   method: "post",
+  //   body: JSON.stringify(_class),
+  // }).then((x) => x.json());
+  // if (res.error) {
+  //   toast.error(res.error.code);
+  //   return;
+  // }
 }
