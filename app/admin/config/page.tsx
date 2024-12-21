@@ -11,14 +11,33 @@ export default async function Page() {
     <>
       <AuthedLayout title="config">
         <>
-          <h3>Классы</h3>
-          <Classes />
-          <h3>Таблицы</h3>
-          <Tables />
-          {/*************************************************************** */}
-          <h3>Ключи</h3>
-          <Keys />
-          <pre>{JSON.stringify(dbKeys, null, 2)}</pre>
+          <div className="card">
+            <div className="card-header">
+              <h3>Классы</h3>
+            </div>
+            <div className="card-body">
+              <Classes />
+            </div>
+          </div>
+
+          <div className="card">
+            <div className="card-header">
+              <h3>Таблицы</h3>
+            </div>
+            <div className="card-body">
+              <Tables />
+            </div>
+          </div>
+
+          <div className="card">
+            <div className="card-header">
+              <h3>Ключи</h3>
+            </div>
+            <div className="card-body">
+              <Keys />
+              <pre>{JSON.stringify(dbKeys, null, 2)}</pre>
+            </div>
+          </div>
         </>
       </AuthedLayout>
     </>
