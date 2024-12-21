@@ -18,12 +18,12 @@ export default async function Classes() {
         </thead>
         <tbody>
           {classes.map((_class) => (
-            <tr>
+            <tr key={_class.id}>
               <td>{_class.id}</td>
               <td>{_class.className}</td>
               <td>{JSON.stringify(_class)}</td>
               <td>
-                <Delete idClass={_class.id} />
+                <Delete className={_class.className} />
               </td>
             </tr>
           ))}

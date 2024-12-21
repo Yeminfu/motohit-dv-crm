@@ -9,23 +9,23 @@ export async function POST(request: NextRequest) {
 }
 
 /*
-DELIMITER //
-CREATE PROCEDURE
+delimiter //
+create procedure
   createClass (
-    IN className varchar(250),
+    in className varchar(250),
     out id int
   )
-BEGIN
+begin
   set @tableName = className;
-  set @sql = CONCAT('CREATE TABLE ', @tableName, ' (id INT AUTO_INCREMENT PRIMARY KEY, name VARCHAR(100), age INT)');
-  PREPARE stmt FROM @sql;
-  EXECUTE stmt;
-  DEALLOCATE PREPARE stmt;
+  set @sql = concat('create table ', @tableName, ' (id int auto_increment primary key, name varchar(100))');
+  prepare stmt from @sql;
+  execute stmt;
+  deallocate prepare stmt;
 
   insert into chbfs_sys$classes
   (className)
   values
   (className);
-  SELECT LAST_INSERT_ID() AS id;
-END//
+  select last_insert_id() as id;
+end//
 */
