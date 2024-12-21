@@ -1,5 +1,5 @@
 import Link from "next/link";
-import getDBTables from "./getDBTables";
+import getDBTables from "../../utils/getDBTables";
 
 export default async function Tables() {
   const tables = await getDBTables();

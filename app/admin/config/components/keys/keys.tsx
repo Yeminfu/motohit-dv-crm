@@ -1,4 +1,4 @@
-import getDBKeys from "./getDBKeys";
+import getDBKeys from "../../utils/getDBKeys";
 
 export default async function Keys() {
   const dbKeys = await getDBKeys();

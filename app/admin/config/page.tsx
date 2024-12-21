@@ -1,7 +1,7 @@
 import AuthedLayout from "#utils/authedLayout.tsx";
-import getDBKeys from "./getDBKeys";
-import Tables from "./Tables";
-import Keys from "./Keys";
+import getDBKeys from "./utils/getDBKeys";
+import Tables from "./components/tables/tables";
+import Keys from "./components/keys/keys";
 import Classes from "./components/Classes/Classes";
 
 export default async function Page() {
