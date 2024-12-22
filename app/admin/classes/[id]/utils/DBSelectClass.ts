@@ -1,6 +1,15 @@
 import dbWorker from "#db/dbWorker2.ts";
 
-export default async function DBSelectClass(idClass: number) {
+export default async function DBSelectClass(idClass: number): Promise<
+  | {
+      id: number;
+      className: string;
+      title: string | null;
+      description: string | null;
+      idParent: string | null;
+    }
+  | undefined
+> {
   const res = await dbWorker(
     `
       select
