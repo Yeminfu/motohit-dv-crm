@@ -1,8 +1,9 @@
 "use client";
 
+import ts_procedure4create from "#app/admin/config/types/ts_procedure4create.ts";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-// import { toast } from "react-toastify";
+import { toast } from "react-toastify";
 
 export default function Create() {
   const [isOpen, setOpen] = useState(false);
@@ -29,14 +30,8 @@ export default function Create() {
   );
 }
 
-interface ts_formValues {
-  procedureName: string;
-  title: string;
-  SQLString: string;
-}
-
 function Form() {
-  const { register, handleSubmit } = useForm<ts_formValues>({
+  const { register, handleSubmit } = useForm<ts_procedure4create>({
     defaultValues: {
       // "name": props.searchParams.name,
     },
@@ -86,17 +81,18 @@ function Form() {
   );
 }
 
-async function onSubmit(values: ts_formValues) {
-  // const _class = {
-  //   className: values.className,
-  //   title: values.title,
-  // };
-  // const res: any = await fetch("/admin/api/classes/create", {
-  //   method: "post",
-  //   body: JSON.stringify(_class),
-  // }).then((x) => x.json());
-  // if (res.error) {
-  //   toast.error(res.error.code);
-  //   return;
-  // }
+async function onSubmit(values: ts_procedure4create) {
+  const _class = {
+    procedureName: values.procedureName,
+    title: values.title,
+    SQLString: values.SQLString,
+  };
+  const res: any = await fetch("/admin/api/procedures/create", {
+    method: "post",
+    body: JSON.stringify(_class),
+  }).then((x) => x.json());
+  if (res.error) {
+    toast.error(res.error.code);
+    return;
+  }
 }
