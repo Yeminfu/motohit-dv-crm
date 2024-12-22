@@ -4,6 +4,7 @@ import Link from "next/link";
 import DBSelectClass from "./utils/DBSelectClass";
 import HiddeableBox from "#app/admin/tables/[name]/HiddeableBox.tsx";
 import CreateNewField from "./components/createNewField/createNewField";
+import DeleteField from "./components/deleteField/deleteField";
 
 export default async function Page(params: { params: { id: string } }) {
   const _class = await DBSelectClass(Number(params.params.id));
@@ -55,9 +56,15 @@ export default async function Page(params: { params: { id: string } }) {
                     <td>{column.COLUMN_KEY}</td>
                     <td>{column.COLUMN_DEFAULT}</td>
                     <td>
-                      <HiddeableBox>
-                        <pre>{JSON.stringify(column, null, 2)}</pre>
-                      </HiddeableBox>
+                      <div className="d-flex">
+                        <HiddeableBox>
+                          <pre>{JSON.stringify(column, null, 2)}</pre>
+                        </HiddeableBox>
+                        <DeleteField
+                          className={_class.className}
+                          columnName={column.COLUMN_NAME}
+                        />
+                      </div>
                     </td>
                   </tr>
                 ))}

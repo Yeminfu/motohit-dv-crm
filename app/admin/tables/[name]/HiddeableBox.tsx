@@ -6,7 +6,7 @@ export default function HiddeableBox(props: { children: ReactElement }) {
   return (
     <>
       <button
-        className="btn btn-outline-dark btn-sm"
+        className="btn btn-outline-dark btn-sm text-nowrap"
         onClick={() => setIsVisible(!isVisible)}
       >
         {isVisible ? "Скрыть" : "Показать"} элемент
