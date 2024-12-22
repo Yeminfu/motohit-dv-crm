@@ -3,6 +3,7 @@
 import ts_column4create from "#app/admin/classes/types/ts_column4create.ts";
 import { Fragment } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 
 export default function CreateNewField(props: { className: string }) {
   const { register, handleSubmit } = useForm<ts_column4create["column"]>({
@@ -102,8 +103,27 @@ export default function CreateNewField(props: { className: string }) {
 }
 
 async function onSubmit(values: ts_column4create) {
-  return await fetch(`/admin/api/classes/fields/create`, {
-    method: "post",
-    body: JSON.stringify(values),
-  });
+  try {
+    const response = await fetch(`/admin/api/classes/fields/create`, {
+      method: "post",
+      body: JSON.stringify(values),
+    });
+    if (!response.ok) {
+      throw new Error(`Ошибка HTTP: ${response.status}`);
+    }
+    const data = await response.json();
+    console.log("data", data);
+
+    if (data.error) {
+      alert("Ошибка: #d9dk3h: " + data.error?.code);
+      return;
+    }
+
+    if (data.result) {
+      toast.success("Колонка сохранена");
+      return;
+    }
+  } catch (error: any) {
+    alert("err #d9sj3nb");
+  }
 }
