@@ -6,7 +6,7 @@ export default async function Procedures() {
   return (
     <>
       <Create />
-      <div>{JSON.stringify(procedures)}</div>
+      <pre>{JSON.stringify(procedures, null, 2)}</pre>
     </>
   );
 }

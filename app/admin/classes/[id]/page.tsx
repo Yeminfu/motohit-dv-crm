@@ -14,14 +14,8 @@ export default async function Page(params: { params: { id: string } }) {
   const columns = await getColumnsByTableName(_class.className);
 
   return (
-    <AuthedLayout title={`Класс #${params.params.id}`}>
+    <AuthedLayout title={`Класс #${params.params.id} ${_class.className}`}>
       <>
-        <div className="card">
-          <div className="card-header">Создать новую колонку</div>
-          <div className="card-body">
-            <CreateNewField className={_class.className} />
-          </div>
-        </div>
         <div className="card">
           <div className="card-header">
             <strong>Колонки</strong>
@@ -70,6 +64,12 @@ export default async function Page(params: { params: { id: string } }) {
                 ))}
               </tbody>
             </table>
+          </div>
+        </div>
+        <div className="card">
+          <div className="card-header">Создать новую колонку</div>
+          <div className="card-body">
+            <CreateNewField className={_class.className} />
           </div>
         </div>
       </>
