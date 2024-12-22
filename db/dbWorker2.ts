@@ -3,14 +3,10 @@ import dbConnection from "./connect";
 export default async function dbWorker(
   sqlSQ: string,
   parameters: any
-): Promise<
-  | {
-      result: any;
-    }
-  | {
-      error: { code: string };
-    }
-> {
+): Promise<{
+  result?: any;
+  error?: { code: string };
+}> {
   const connection = await dbConnection();
   try {
     const sql = await connection.query(sqlSQ, parameters);

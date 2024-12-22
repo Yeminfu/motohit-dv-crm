@@ -1,3 +1,4 @@
+import Link from "next/link";
 import getClasses from "../utils/getClasses";
 import CreateClassButton from "./components/create/createClassButton";
 import Delete from "./components/delete/Delete";
@@ -19,8 +20,12 @@ export default async function Classes() {
         <tbody>
           {classes.map((_class) => (
             <tr key={_class.id}>
-              <td>{_class.id}</td>
-              <td>{_class.className}</td>
+              <td> {_class.id}</td>
+              <td>
+                <Link href={`/admin/classes/` + _class.id}>
+                  {_class.className}
+                </Link>
+              </td>
               <td>{JSON.stringify(_class)}</td>
               <td>
                 <Delete className={_class.className} />

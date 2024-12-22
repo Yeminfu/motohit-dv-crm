@@ -1,6 +1,6 @@
 import AuthedLayout from "#utils/authedLayout.tsx";
 import Link from "next/link";
-import getColumnsByTableName from "./getColumnsByTableName";
+import getColumnsByTableName from "../../utils/getColumnsByTableName";
 import HiddeableBox from "./HiddeableBox";
 
 export default async function Page(props: { params: { name: string } }) {
