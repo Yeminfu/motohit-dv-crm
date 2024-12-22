@@ -20,6 +20,8 @@ export default async function dbWorker(
     };
   } catch (error: any) {
     await connection.end();
+    console.error("#kadsj", error);
+
     if (error.code)
       return {
         error: {
