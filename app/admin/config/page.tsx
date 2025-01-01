@@ -6,6 +6,7 @@ import Classes from "./components/Classes/Classes";
 import Procedures from "./components/procedures/procedures";
 import SQLConsole from "./components/sqlConsole/sqlConsole";
 import ConfigThree from "./components/configThree/configThree";
+import CreateConfig from "./components/createConfig/createConfig";
 
 export default async function Page() {
   const dbKeys = await getDBKeys();
@@ -20,6 +21,7 @@ export default async function Page() {
             </div>
             <div className="card-body">
               <ConfigThree />
+              <CreateConfig />
             </div>
           </div>
           <div className="card">
