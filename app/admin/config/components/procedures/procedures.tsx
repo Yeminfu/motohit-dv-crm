@@ -12,21 +12,22 @@ export default async function Procedures() {
       <Create />
       <table className="table table-bordered table-striped">
         <tbody>
-          {procedures.map((procedure: any) => (
-            <tr key={procedure.id}>
+          {procedures.map((procedure) => (
+            <tr key={procedure.Name} title={JSON.stringify(procedure, null, 2)}>
               <td>
-                <Link href={`/admin/procedures/${procedure.id}`}>
+                <Link href={`/admin/procedures/${procedure.Name}`}>
                   {procedure.Name}
                 </Link>
               </td>
               <td>{dayjs(procedure.Created).format("DD-MM-YYYY")}</td>
               <td>{procedure.Comment}</td>
-              <td>{procedure.SQLString}</td>
+              <td>
+                <pre>{procedure["Create Procedure"]}</pre>
+              </td>
             </tr>
           ))}
         </tbody>
       </table>
-      <pre>{JSON.stringify(procedures, null, 2)}</pre>
     </>
   );
 }
