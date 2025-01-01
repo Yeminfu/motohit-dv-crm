@@ -4,6 +4,7 @@ import Tables from "./components/tables/tables";
 import Keys from "./components/keys/keys";
 import Classes from "./components/Classes/Classes";
 import Procedures from "./components/procedures/procedures";
+import SQLConsole from "./components/sqlConsole/sqlConsole";
 
 export default async function Page() {
   const dbKeys = await getDBKeys();
@@ -12,6 +13,15 @@ export default async function Page() {
     <>
       <AuthedLayout title="config">
         <>
+          <div className="card">
+            <div className="card-header">
+              <h3>Консоль</h3>
+            </div>
+            <div className="card-body">
+              <SQLConsole />
+            </div>
+          </div>
+
           <div className="card">
             <div className="card-header">
               <h3>Процедуры</h3>
