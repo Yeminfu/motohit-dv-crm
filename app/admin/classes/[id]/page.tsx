@@ -33,7 +33,6 @@ export default async function Page(params: { params: { id: string } }) {
                 </tr>
               </thead>
               <tbody>
-                <thead></thead>
                 {columns.map((column) => (
                   <tr key={column.COLUMN_NAME}>
                     <td>
