@@ -2,11 +2,7 @@
 
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
-
-interface ts_config4create {
-  name: string;
-  description: string;
-}
+import ts_config4create from "../../types/ts_config4create";
 
 export default function CreateConfig() {
   const { register, handleSubmit } = useForm<ts_config4create>();
