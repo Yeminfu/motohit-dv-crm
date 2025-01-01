@@ -1,23 +1,14 @@
 import dbWorker from "#db/dbWorker2.ts";
 
-export default async function getProcedures(idProcedure: number): Promise<
+export default async function getProcedure(procedureName: string): Promise<
   | {
-      id: number;
-      name: string;
-      SQLString: string;
+      Procedure: string;
+      "Create Procedure": string;
       title: string;
     }
   | undefined
 > {
-  const sql = `
-    select
-      *
-    from chbfs_sys$procedures
-    where
-      id = ?
-  `;
-
-  const result = await dbWorker(sql, [idProcedure]);
+  const result = await dbWorker(`show create procedure ${procedureName}`, []);
 
   if (result.error) {
     console.error("err #ksdf84", result.error);
