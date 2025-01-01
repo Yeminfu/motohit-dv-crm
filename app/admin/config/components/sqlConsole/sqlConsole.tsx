@@ -1,7 +1,7 @@
 "use client";
 
+import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { toast } from "react-toastify";
 
 interface values4sql {
   sql: string;
@@ -9,11 +9,18 @@ interface values4sql {
 
 export default function SQLConsole() {
   const { register, handleSubmit } = useForm<values4sql>();
+  const [state, setState] = useState();
   return (
     <>
-      <form onSubmit={handleSubmit((values) => onSubmit(values))}>
+      <form
+        onSubmit={handleSubmit(async (values) => {
+          const res = await onSubmit(values);
+          setState(res);
+        })}
+      >
         <>
           <textarea
+            rows={5}
             {...register("sql", { required: true })}
             className="form-control "
             autoComplete="off"
@@ -23,6 +30,11 @@ export default function SQLConsole() {
           </div>
         </>
       </form>
+      <div className="mt-2">
+        <div className="shadow p-2">
+          <pre>{JSON.stringify(state, null, 2)}</pre>
+        </div>
+      </div>
     </>
   );
 }
@@ -39,15 +51,15 @@ async function onSubmit(values: values4sql) {
     const data = await response.json();
     console.log("data", data);
 
-    if (data.error) {
-      alert("Ошибка: #asdk8: " + data.error?.code);
-      return;
-    }
-
-    if (data.result) {
-      toast.success("Колонка сохранена");
-      return;
-    }
+    // if (data.error) {
+    //   alert("Ошибка: #asdk8: " + data.error?.code);
+    //   return;
+    // }
+    return data;
+    // if (data.result) {
+    //   toast.success("Колонка сохранена");
+    //   return;
+    // }
   } catch (error: any) {
     alert("err #kasd983");
   }
