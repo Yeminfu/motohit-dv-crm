@@ -17,13 +17,14 @@ export default function RecursiveView(props: {
               toast("открываем конфигу");
             }}
           >
-            Conf: {props.config.name}
+            Conf: {props.config.name} #{props.config.id}
           </strong>
           <div className="ms-2" onClick={() => setIsOpen(!isOpen)}>
             открыть
           </div>
         </div>
       </div>
+
       {isOpen && (
         <div className="card-body">
           {props.config.children.map((config) => (
