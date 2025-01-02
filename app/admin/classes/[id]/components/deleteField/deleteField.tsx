@@ -1,7 +1,6 @@
 "use client";
 
 import ts_column4delete from "#app/admin/classes/types/ts_column4delete.js";
-import dbWorker from "#db/dbWorker2.js";
 import { toast } from "react-toastify";
 
 export default function DeleteField(props: ts_column4delete) {
