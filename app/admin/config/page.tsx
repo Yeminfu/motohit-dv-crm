@@ -17,19 +17,19 @@ export default async function Page() {
         <>
           <div className="card">
             <div className="card-header">
+              <h3>Консоль</h3>
+            </div>
+            <div className="card-body">
+              <SQLConsole />
+            </div>
+          </div>
+          <div className="card">
+            <div className="card-header">
               <h3>Дерево конфигурации</h3>
             </div>
             <div className="card-body">
               <ConfigThree />
               <CreateConfig />
-            </div>
-          </div>
-          <div className="card">
-            <div className="card-header">
-              <h3>Консоль</h3>
-            </div>
-            <div className="card-body">
-              <SQLConsole />
             </div>
           </div>
 

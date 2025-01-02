@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import CreateView4Class from "./components/createView4Class/createView4Class";
 
 export default function DBViews(props: { idClass: number }) {
   useEffect(() => {
@@ -7,7 +8,11 @@ export default function DBViews(props: { idClass: number }) {
       console.log("views", views);
     })();
   }, []);
-  return <>idClass:number</>;
+  return (
+    <>
+      <CreateView4Class idClass={props.idClass} />
+    </>
+  );
 }
 
 async function getViews(idClass: number) {
@@ -15,7 +20,6 @@ async function getViews(idClass: number) {
     method: "POST",
     body: JSON.stringify({ idClass }),
   });
-
   const body = await res.json();
   console.log("body", body);
 }

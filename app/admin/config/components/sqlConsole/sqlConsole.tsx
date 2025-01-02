@@ -20,7 +20,7 @@ export default function SQLConsole() {
       >
         <>
           <textarea
-            rows={5}
+            rows={10}
             {...register("sql", { required: true })}
             className="form-control "
             autoComplete="off"

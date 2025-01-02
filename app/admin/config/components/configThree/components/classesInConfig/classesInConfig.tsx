@@ -28,7 +28,7 @@ export default function ClassesInConfig(props: { idConfig: number }) {
         </div>
       ))}
 
-      <pre>{JSON.stringify(classes, null, 2)}</pre>
+      {/* <pre>{JSON.stringify(classes, null, 2)}</pre> */}
     </>
   );
 }
