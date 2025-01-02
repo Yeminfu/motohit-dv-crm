@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import ts_configWithChildren from "../types/ts_configWithChildren";
+import ts_configWithChildren from "../../types/ts_configWithChildren";
 import { toast } from "react-toastify";
 
 export default function RecursiveView(props: {

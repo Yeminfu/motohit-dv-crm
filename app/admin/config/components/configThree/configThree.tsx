@@ -1,4 +1,4 @@
-import RecursiveView from "./components/RecursiveView";
+import RecursiveView from "./components/recursiveView/recursiveView";
 import getConfigThree from "./utils/getConfigThree";
 
 export default async function ConfigThree() {
