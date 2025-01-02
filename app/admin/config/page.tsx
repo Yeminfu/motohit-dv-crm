@@ -66,7 +66,6 @@ export default async function Page() {
             </div>
             <div className="card-body">
               <Keys />
-              <pre>{JSON.stringify(dbKeys, null, 2)}</pre>
             </div>
           </div>
         </>

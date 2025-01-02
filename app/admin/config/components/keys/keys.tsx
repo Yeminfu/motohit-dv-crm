@@ -1,4 +1,5 @@
 import getDBKeys from "../../utils/getDBKeys";
+import DeleteKeyBtn from "./components/deleteKeyBtn/deleteKeyBtn";
 
 export default async function Keys() {
   const dbKeys = await getDBKeys();
@@ -24,6 +25,13 @@ export default async function Keys() {
               <td>
                 <div className="btn" title={JSON.stringify(keyObject, null, 2)}>
                   ...
+                </div>
+                <DeleteKeyBtn keyObject={keyObject} />
+                <div
+                  className="btn tn-sm"
+                  title={JSON.stringify(keyObject, null, 2)}
+                >
+                  удалить ключ
                 </div>
               </td>
             </tr>
