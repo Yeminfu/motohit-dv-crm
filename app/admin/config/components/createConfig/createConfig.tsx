@@ -35,7 +35,7 @@ export default function CreateConfig() {
               <th>Родительская конфигурация</th>
               <td>
                 <input
-                  {...register("idParent", { required: true })}
+                  {...register("idParent")}
                   className="form-control w-auto"
                   autoComplete="off"
                 />
@@ -57,7 +57,18 @@ async function onSubmit(values: ts_config4create) {
     body: JSON.stringify(values),
   }).then((x) => x.json());
   if (res.error) {
-    toast.error(res.error.code);
+    alert(res.error.code);
     return;
   }
+
+  if (!res.result) {
+    alert("Ошибка #dksdf4n");
+    return;
+  }
+
+  if (!res.result.insertId) {
+    alert("Ошибка #kds93j0");
+  }
+
+  toast.success("Конфигурация создана успешно");
 }
