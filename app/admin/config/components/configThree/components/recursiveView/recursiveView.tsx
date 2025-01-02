@@ -3,6 +3,7 @@
 import { useState } from "react";
 import ts_configWithChildren from "../../types/ts_configWithChildren";
 import { toast } from "react-toastify";
+import ClassesInConfig from "../classesInConfig/classesInConfig";
 
 export default function RecursiveView(props: {
   config: ts_configWithChildren;
@@ -30,6 +31,7 @@ export default function RecursiveView(props: {
           {props.config.children.map((config) => (
             <RecursiveView config={config} key={config.id} />
           ))}
+          <ClassesInConfig idConfig={props.config.id} />
         </div>
       )}
     </div>
