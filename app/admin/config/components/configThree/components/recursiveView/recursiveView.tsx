@@ -21,7 +21,7 @@ export default function RecursiveView(props: {
             Conf: {props.config.name} #{props.config.id}
           </strong>
           <div className="ms-2" onClick={() => setIsOpen(!isOpen)}>
-            открыть
+            развернуть
           </div>
         </div>
       </div>
