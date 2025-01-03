@@ -17,7 +17,7 @@ export default async function DBSelectClass(idClass: number): Promise<
         className,
         title,
         description,
-        idParent
+        idConfig
       from chbfs_sys$classes where id = ?
     `,
     [idClass]
