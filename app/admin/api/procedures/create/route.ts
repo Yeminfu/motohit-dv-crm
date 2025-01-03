@@ -4,8 +4,15 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {
   const procedure: ts_procedure4create = await request.json();
-  const res = await DBInsertProcedure(procedure);
-  return NextResponse.json(res);
+  const resCreate = await DBCreateProcedure(procedure);
+  if (!resCreate.result) return NextResponse.json(resCreate);
+
+  const insertRes = await DBInsertProcedure(procedure);
+  return NextResponse.json(insertRes);
+}
+
+async function DBCreateProcedure(props: ts_procedure4create) {
+  return dbWorker(props.SQLString, []);
 }
 
 async function DBInsertProcedure(props: ts_procedure4create) {

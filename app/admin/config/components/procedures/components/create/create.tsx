@@ -33,6 +33,7 @@ export default function Create() {
 function Form() {
   const { register, handleSubmit } = useForm<ts_procedure4create>({
     defaultValues: {
+      SQLString,
       // "name": props.searchParams.name,
     },
   });
@@ -65,9 +66,11 @@ function Form() {
               <th>SQLString</th>
               <td>
                 <textarea
+                  rows={20}
                   {...register("SQLString")}
                   className="form-control w-auto"
                   autoComplete="off"
+                  style={{ width: "1000px" }}
                 />
               </td>
             </tr>
@@ -95,4 +98,19 @@ async function onSubmit(values: ts_procedure4create) {
     toast.error(res.error.code);
     return;
   }
+
+  alert(JSON.stringify(res, null, 2));
 }
+
+const SQLString = `
+  create procedure procedureName (
+    in value varchar(250)
+  ) 
+  begin
+    set @value = value;
+    set @sql = concat('select " ', @value,'"');
+    prepare stmt from @sql;
+    execute stmt;
+    deallocate prepare stmt;
+  end
+`;
