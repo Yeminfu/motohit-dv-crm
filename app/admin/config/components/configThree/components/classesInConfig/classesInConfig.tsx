@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import DBViews from "../dbViews/dbViews";
+import { toast } from "react-toastify";
+import Link from "next/link";
 
 export default function ClassesInConfig(props: { idConfig: number }) {
   const [load, setLoad] = useState(false);
@@ -21,7 +23,21 @@ export default function ClassesInConfig(props: { idConfig: number }) {
     <>
       {classes.map((classFromDB) => (
         <div className="card">
-          <div className="card-header">Класс {classFromDB.className}</div>
+          <div
+            className="card-header"
+            onClick={() => {
+              toast("Открываем класс");
+            }}
+          >
+            Класс{" "}
+            <Link
+              href={`/admin/classes/${classFromDB.id}`}
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              {classFromDB.className}
+            </Link>
+          </div>
           <div className="card-body">
             <DBViews idClass={classFromDB.id} />
           </div>
