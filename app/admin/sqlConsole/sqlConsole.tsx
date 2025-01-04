@@ -25,7 +25,10 @@ export default function SQLConsole() {
 
   return (
     <>
+      {/* switchButton */}
       {switchButton}
+
+      {/* форма */}
       <form
         onSubmit={handleSubmit(async (values) => {
           const res = await onSubmit(values);
@@ -44,6 +47,8 @@ export default function SQLConsole() {
           </div>
         </>
       </form>
+
+      {/* вывод */}
       <div className="mt-2">
         <div className="shadow p-2">
           <pre>{JSON.stringify(state, null, 2)}</pre>
