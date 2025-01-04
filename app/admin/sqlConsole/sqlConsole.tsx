@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import ViewSQLResult from "./components/viewSQLResult/viewSQLResult";
 
 interface values4sql {
   sql: string;
@@ -9,7 +10,7 @@ interface values4sql {
 
 export default function SQLConsole() {
   const { register, handleSubmit } = useForm<values4sql>();
-  const [state, setState] = useState();
+  const [state, setState] = useState<{ result: any | undefined }>();
   const [isOpen, setIsOpen] = useState(false);
 
   const switchButton = (
@@ -51,7 +52,27 @@ export default function SQLConsole() {
       {/* вывод */}
       <div className="mt-2">
         <div className="shadow p-2">
-          <pre>{JSON.stringify(state, null, 2)}</pre>
+          {(() => {
+            if (!state) return <>введите запрос</>;
+            if (!state.result?.length)
+              return (
+                <>
+                  <strong>err #kfsdf8</strong>
+                  <pre>{JSON.stringify(state, null, 2)}</pre>
+                </>
+              );
+
+            if (state.result)
+              return (
+                <>
+                  <ViewSQLResult SQLResult={state.result} />
+                  {/* <pre>{JSON.stringify(["state", state.result], null, 2)}</pre> */}
+                </>
+              );
+            return (
+              <pre>{JSON.stringify({ err: "#kdsa83", state }, null, 2)}</pre>
+            );
+          })()}
         </div>
       </div>
     </>
