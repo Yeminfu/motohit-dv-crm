@@ -5,6 +5,7 @@ import Classes from "./components/Classes/Classes";
 import Procedures from "./components/procedures/procedures";
 import ConfigThree from "./components/configThree/configThree";
 import CreateConfig from "./components/createConfig/createConfig";
+import ScalarFunctions from "./components/scalarFunctions/scalarFunctions";
 
 export default async function Page() {
   return (
@@ -27,6 +28,15 @@ export default async function Page() {
             </div>
             <div className="card-body">
               <Procedures />
+            </div>
+          </div>
+
+          <div className="card">
+            <div className="card-header">
+              <h3>Скалярные функции</h3>
+            </div>
+            <div className="card-body">
+              <ScalarFunctions />
             </div>
           </div>
 
