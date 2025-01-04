@@ -9,7 +9,7 @@ export default async function Page(params: { params: { id: string } }) {
 
   return (
     <>
-      <AuthedLayout title={`Процедура ${procedure.Procedure}`}>
+      <AuthedLayout title={`Процедура ${procedure.name}`}>
         <>
           {/* <pre>{JSON.stringify(procedure, null, 2)}</pre>
           <pre>{procedure["Create Procedure"]}</pre> */}

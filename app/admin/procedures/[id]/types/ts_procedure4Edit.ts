@@ -1,4 +1,7 @@
 export default interface ts_procedure4Edit {
-  Procedure: string;
-  "Create Procedure": string;
+  id: number;
+  name: string;
+  SQLString: string;
+  title: string;
+  idConfig: string;
 }

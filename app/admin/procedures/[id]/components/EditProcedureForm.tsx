@@ -19,7 +19,7 @@ export default function EditProcedureForm(props: ts_procedure4Edit) {
           </div>
           <div>
             <input
-              {...register("Procedure")}
+              {...register("name")}
               className="form-control "
               autoComplete="off"
             />
@@ -31,7 +31,7 @@ export default function EditProcedureForm(props: ts_procedure4Edit) {
           </div>
           <div>
             <textarea
-              {...register("Create Procedure")}
+              {...register("SQLString")}
               className="form-control w-100"
               autoComplete="off"
               rows={20}

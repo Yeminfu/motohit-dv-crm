@@ -4,6 +4,7 @@ import { useState } from "react";
 import ts_configWithChildren from "../../types/ts_configWithChildren";
 import { toast } from "react-toastify";
 import ClassesInConfig from "../classesInConfig/classesInConfig";
+import BootstrapFolder from "#icons/bootstrap-folder.tsx";
 
 export default function RecursiveView(props: {
   config: ts_configWithChildren;
@@ -18,7 +19,7 @@ export default function RecursiveView(props: {
               toast("открываем конфигу");
             }}
           >
-            Conf: {props.config.name} #{props.config.id}
+            <BootstrapFolder /> {props.config.id} {props.config.name}
           </strong>
           <div className="ms-2" onClick={() => setIsOpen(!isOpen)}>
             развернуть
