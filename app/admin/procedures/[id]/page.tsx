@@ -11,8 +11,6 @@ export default async function Page(params: { params: { id: string } }) {
     <>
       <AuthedLayout title={`Процедура ${procedure.name}`}>
         <>
-          {/* <pre>{JSON.stringify(procedure, null, 2)}</pre>
-          <pre>{procedure["Create Procedure"]}</pre> */}
           <div className="card">
             <div className="card-header">Редактирование процедуры</div>
             <div className="card-body">

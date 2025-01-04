@@ -10,8 +10,22 @@ interface values4sql {
 export default function SQLConsole() {
   const { register, handleSubmit } = useForm<values4sql>();
   const [state, setState] = useState();
+  const [isOpen, setIsOpen] = useState(false);
+
+  const switchButton = (
+    <button
+      className="btn btn-sm btn-outline-dark"
+      onClick={() => setIsOpen(!isOpen)}
+    >
+      консоль
+    </button>
+  );
+
+  if (!isOpen) return switchButton;
+
   return (
     <>
+      {switchButton}
       <form
         onSubmit={handleSubmit(async (values) => {
           const res = await onSubmit(values);

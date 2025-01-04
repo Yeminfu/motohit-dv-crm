@@ -55,4 +55,5 @@ async function onSubmit(values: ts_procedure4Edit) {
     toast.error(res.error.code);
     return;
   }
+  toast.info(<>{JSON.stringify(res, null, 2)}</>);
 }

@@ -1,5 +1,5 @@
 export default interface ts_procedure4create {
-  procedureName: string;
+  name: string;
   title: string;
   SQLString: string;
 }
