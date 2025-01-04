@@ -1,6 +1,6 @@
 "use client";
 
-import ts_procedure4create from "#app/admin/config/types/ts_procedure4create.ts";
+import ts_scalarFunction4create from "#app/admin/config/types/ts_scalarFunction4create.ts";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
@@ -16,7 +16,7 @@ export default function Create() {
           }}
           className="btn btn-outline-dark"
         >
-          Create procedure
+          Create scalar function
         </button>
       </>
     );
@@ -31,10 +31,11 @@ export default function Create() {
 }
 
 function Form() {
-  const { register, handleSubmit } = useForm<ts_procedure4create>({
+  // return null;
+  const { register, handleSubmit } = useForm<ts_scalarFunction4create>({
     defaultValues: {
       SQLString,
-      // "name": props.searchParams.name,
+      name: "scalarFunctionName",
     },
   });
   return (
@@ -84,13 +85,13 @@ function Form() {
   );
 }
 
-async function onSubmit(values: ts_procedure4create) {
+async function onSubmit(values: ts_scalarFunction4create) {
   const _class = {
     procedureName: values.name,
     title: values.title,
     SQLString: values.SQLString,
   };
-  const res: any = await fetch("/admin/api/procedures/create", {
+  const res: any = await fetch("/admin/api/scalarFunctions/create", {
     method: "post",
     body: JSON.stringify(_class),
   }).then((x) => x.json());
@@ -103,14 +104,10 @@ async function onSubmit(values: ts_procedure4create) {
 }
 
 const SQLString = `
-  create procedure procedureName (
-    in value varchar(250)
-  ) 
+  create function scalarFunctionName (num int)
+  returns int
+  deterministic
   begin
-    set @value = value;
-    set @sql = concat('select " ', @value,'"');
-    prepare stmt from @sql;
-    execute stmt;
-    deallocate prepare stmt;
+    return num * num;
   end
 `;
