@@ -31,12 +31,12 @@ export default function Create() {
 }
 
 function Form() {
-  // return null;
   const { register, handleSubmit } = useForm<ts_scalarFunction4create>({
     defaultValues: {
       SQLString,
       name: "scalarFunctionName",
-      title: "Описание",
+      title: "Заголовок",
+      description: "Описание функции",
       idConfig: 1,
     },
   });
@@ -60,6 +60,16 @@ function Form() {
               <td>
                 <input
                   {...register("title", { required: true })}
+                  className="form-control w-auto"
+                  autoComplete="off"
+                />
+              </td>
+            </tr>
+            <tr>
+              <th>Описание</th>
+              <td>
+                <input
+                  {...register("description", { required: true })}
                   className="form-control w-auto"
                   autoComplete="off"
                 />

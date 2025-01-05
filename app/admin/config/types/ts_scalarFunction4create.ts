@@ -3,4 +3,5 @@ export default interface ts_scalarFunction4create {
   title: string;
   SQLString: string;
   idConfig: number;
+  description: string;
 }
