@@ -1,5 +1,6 @@
 "use client";
 
+import ts_class4create from "#app/admin/config/types/ts_class4create.ts";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
@@ -29,15 +30,15 @@ export default function CreateClassButton() {
   );
 }
 
-interface ts_formValues {
-  className: string;
-  title: string;
-  description: string;
-  idConfig: number;
-}
+// interface ts_class4create {
+//   className: string;
+//   title: string;
+//   description: string;
+//   idConfig: number;
+// }
 
 function Form() {
-  const { register, handleSubmit } = useForm<ts_formValues>({
+  const { register, handleSubmit } = useForm<ts_class4create>({
     defaultValues: {
       // "name": props.searchParams.name,
     },
@@ -97,7 +98,7 @@ function Form() {
   );
 }
 
-async function onSubmit(values: ts_formValues) {
+async function onSubmit(values: ts_class4create) {
   const res: any = await fetch("/admin/api/classes/create", {
     method: "post",
     body: JSON.stringify(values),
