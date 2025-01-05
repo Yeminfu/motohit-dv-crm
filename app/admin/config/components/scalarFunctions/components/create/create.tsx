@@ -44,7 +44,7 @@ function Form() {
         <table className="bable w-auto">
           <tbody>
             <tr>
-              <th>Название процедуры (лат.)</th>
+              <th>Название скалярки (лат.)</th>
               <td>
                 <input
                   {...register("name")}
