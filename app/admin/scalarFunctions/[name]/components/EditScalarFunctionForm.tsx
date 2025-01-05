@@ -71,7 +71,7 @@ export default function EditScalarFunctionForm(props: ts_scalarFunction4Edit) {
 }
 
 async function onSubmit(values: ts_scalarFunction4Edit) {
-  const res: any = await fetch("/admin/api/procedures/edit", {
+  const res: any = await fetch("/admin/api/scalarFunctions/edit", {
     method: "post",
     body: JSON.stringify(values),
   }).then((x) => x.json());

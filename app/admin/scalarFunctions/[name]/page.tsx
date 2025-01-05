@@ -9,7 +9,7 @@ export default async function Page(params: { params: { name: string } }) {
 
   return (
     <>
-      <AuthedLayout title={`Скалярная функция ${"procedure.name"}`}>
+      <AuthedLayout title={`Скалярная функция ${scalarFunction.name}`}>
         <>
           <div className="card">
             <div className="card-header">Редактирование процедуры</div>
