@@ -32,6 +32,8 @@ export default function CreateClassButton() {
 interface ts_formValues {
   className: string;
   title: string;
+  description: string;
+  idConfig: number;
 }
 
 function Form() {
@@ -49,7 +51,7 @@ function Form() {
               <th>Название класса (лат.)</th>
               <td>
                 <input
-                  {...register("className")}
+                  {...register("className", { required: true })}
                   className="form-control w-auto"
                   autoComplete="off"
                 />
@@ -59,7 +61,27 @@ function Form() {
               <th>Заголовок</th>
               <td>
                 <input
-                  {...register("title")}
+                  {...register("title", { required: true })}
+                  className="form-control w-auto"
+                  autoComplete="off"
+                />
+              </td>
+            </tr>
+            <tr>
+              <th>Описание</th>
+              <td>
+                <input
+                  {...register("description", { required: true })}
+                  className="form-control w-auto"
+                  autoComplete="off"
+                />
+              </td>
+            </tr>
+            <tr>
+              <th>idConfig</th>
+              <td>
+                <input
+                  {...register("idConfig", { required: true })}
                   className="form-control w-auto"
                   autoComplete="off"
                 />
@@ -76,13 +98,9 @@ function Form() {
 }
 
 async function onSubmit(values: ts_formValues) {
-  const _class = {
-    className: values.className,
-    title: values.title,
-  };
   const res: any = await fetch("/admin/api/classes/create", {
     method: "post",
-    body: JSON.stringify(_class),
+    body: JSON.stringify(values),
   }).then((x) => x.json());
 
   if (res.error) {
