@@ -36,6 +36,8 @@ function Form() {
     defaultValues: {
       SQLString,
       name: "scalarFunctionName",
+      title: "Описание",
+      idConfig: 1,
     },
   });
   return (
@@ -47,7 +49,7 @@ function Form() {
               <th>Название скалярки (лат.)</th>
               <td>
                 <input
-                  {...register("name")}
+                  {...register("name", { required: true })}
                   className="form-control w-auto"
                   autoComplete="off"
                 />
@@ -57,7 +59,7 @@ function Form() {
               <th>Заголовок</th>
               <td>
                 <input
-                  {...register("title")}
+                  {...register("title", { required: true })}
                   className="form-control w-auto"
                   autoComplete="off"
                 />
@@ -68,10 +70,20 @@ function Form() {
               <td>
                 <textarea
                   rows={20}
-                  {...register("SQLString")}
+                  {...register("SQLString", { required: true })}
                   className="form-control w-auto"
                   autoComplete="off"
                   style={{ width: "1000px" }}
+                />
+              </td>
+            </tr>
+            <tr>
+              <th>idConfig</th>
+              <td>
+                <input
+                  {...register("idConfig", { required: true })}
+                  className="form-control w-auto"
+                  autoComplete="off"
                 />
               </td>
             </tr>
@@ -86,14 +98,9 @@ function Form() {
 }
 
 async function onSubmit(values: ts_scalarFunction4create) {
-  const _class = {
-    procedureName: values.name,
-    title: values.title,
-    SQLString: values.SQLString,
-  };
   const res: any = await fetch("/admin/api/scalarFunctions/create", {
     method: "post",
-    body: JSON.stringify(_class),
+    body: JSON.stringify(values),
   }).then((x) => x.json());
   if (res.error) {
     toast.error(res.error.code);
