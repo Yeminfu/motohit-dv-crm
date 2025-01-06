@@ -6,6 +6,7 @@ create procedure migrate (
 ) 
 begin
   call createUsersClass(1);
+  call createSys$classesClass(1);
 end $$
 
 DELIMITER ;
