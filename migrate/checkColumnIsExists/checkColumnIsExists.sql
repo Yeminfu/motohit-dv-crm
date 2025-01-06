@@ -1,4 +1,3 @@
-
 drop function if exists checkColumnIsExists;
 
 DELIMITER //

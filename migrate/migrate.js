@@ -35,7 +35,6 @@ for (let index = 0; index < scalarFunctions.length; index++) {
     (err, data) => data
   );
   bigSQL += sql + "\n";
-  // console.log({ module, sql });
 }
 
 const calls = procedures.map((module) => `call ${module}(1);`);
