@@ -1,6 +1,6 @@
 drop procedure if exists migrate;
 
-DELIMITER $$
+delimiter $$
 create procedure migrate (
   in value varchar(250)
 )
@@ -10,6 +10,6 @@ begin
   call createSys$proceduresClass(1);
 end $$
 
-DELIMITER ;
+delimiter ;
 
 call migrate(1);
