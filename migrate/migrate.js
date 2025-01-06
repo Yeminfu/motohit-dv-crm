@@ -1,6 +1,6 @@
 const fs = require("fs");
 
-const sqlsQueue = [
+const procedures = [
   "createSys$classesClass",
   "createSys$configClass",
   "createSys$proceduresClass",
@@ -11,10 +11,12 @@ const sqlsQueue = [
   "createTodoTasksClass",
 ];
 
+const scalarFunctions = ["checkColumnIsExists"];
+
 let bigSQL = "";
 
-for (let index = 0; index < sqlsQueue.length; index++) {
-  const module = sqlsQueue[index];
+for (let index = 0; index < procedures.length; index++) {
+  const module = procedures[index];
   const sql = fs.readFileSync(
     __dirname + `/${module}/${module}.sql`,
     "utf-8",
@@ -24,7 +26,19 @@ for (let index = 0; index < sqlsQueue.length; index++) {
   // console.log({ module, sql });
 }
 
-const calls = sqlsQueue.map((module) => `call ${module}(1);`);
+// checkColumnIsExists
+for (let index = 0; index < scalarFunctions.length; index++) {
+  const module = scalarFunctions[index];
+  const sql = fs.readFileSync(
+    __dirname + `/${module}/${module}.sql`,
+    "utf-8",
+    (err, data) => data
+  );
+  bigSQL += sql + "\n";
+  // console.log({ module, sql });
+}
+
+const calls = procedures.map((module) => `call ${module}(1);`);
 
 bigSQL += calls.join("\n");
 
