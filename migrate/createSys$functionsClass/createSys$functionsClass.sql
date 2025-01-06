@@ -19,7 +19,7 @@ begin
       idConfig int not null
   );
 
-  insert into huyomboyom_sys$functions
+  insert into huyomboyom_sys$classes
   (name,title,idConfig)
   values
   ('huyomboyom_sys$functions','Скалярные функции',1);

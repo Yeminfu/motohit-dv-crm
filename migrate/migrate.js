@@ -1,6 +1,11 @@
 const fs = require("fs");
 
-const sqlsQueue = ["createSys$classesClass", "createSys$configClass"];
+const sqlsQueue = [
+  "createSys$classesClass",
+  "createSys$configClass",
+  "createSys$proceduresClass",
+  "clearcreateSys$functionsClass",
+];
 
 let bigSQL = "";
 
@@ -14,5 +19,9 @@ for (let index = 0; index < sqlsQueue.length; index++) {
   bigSQL += sql + "\n";
   // console.log({ module, sql });
 }
+
+const calls = sqlsQueue.map((module) => `call ${module}(1);`);
+
+bigSQL += calls.join("\n");
 
 console.log(bigSQL);
