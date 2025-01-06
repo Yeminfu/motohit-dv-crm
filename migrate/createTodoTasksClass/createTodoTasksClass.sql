@@ -18,15 +18,27 @@ begin
       done boolean not null default 0
   );
 
-  insert ignore into chbfs_sys$classes
-  (name,title,idConfig)
-  values
-  ('chbfs_todoTasks','Задачи',2);
+  set @tasksConfigName = 'todoTasks';
 
   insert ignore into chbfs_sys$config
   (name,title)
   values
-  ('todoTasks','Задачи');
+  (@tasksConfigName,'Задачи');
+
+  set @idTasksConfig = (
+    select 
+      id
+    from chbfs_sys$config
+    where
+      name COLLATE utf8mb4_unicode_ci = @tasksConfigName
+  );
+
+  insert ignore into chbfs_sys$classes
+  (name,title,idConfig)
+  values
+  ('chbfs_todoTasks','Задачи',@idTasksConfig);
+
+
 
 end $$
 DELIMITER ;
