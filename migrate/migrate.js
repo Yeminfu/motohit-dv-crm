@@ -1,23 +1,18 @@
 const fs = require("fs");
 
-const migrate = fs.readFileSync(
-  __dirname + "/migrate.sql",
-  "utf-8",
-  (err, data) => data
-);
+const sqlsQueue = ["createSys$classesClass", "createSys$configClass"];
 
-const createSys$classesClass = fs.readFileSync(
-  __dirname + "/createSys$classesClass/createSys$classesClass.sql",
-  "utf-8",
-  (err, data) => data
-);
+let bigSQL = "";
 
-const createSys$configClass = fs.readFileSync(
-  __dirname + "/createSys$configClass/createSys$configClass.sql",
-  "utf-8",
-  (err, data) => data
-);
+for (let index = 0; index < sqlsQueue.length; index++) {
+  const module = sqlsQueue[index];
+  const sql = fs.readFileSync(
+    __dirname + `/${module}/${module}.sql`,
+    "utf-8",
+    (err, data) => data
+  );
+  bigSQL += sql + "\n";
+  // console.log({ module, sql });
+}
 
-const sqlsQueue = [createSys$classesClass, createSys$configClass, migrate];
-const bigSQL = sqlsQueue.join(";\n");
 console.log(bigSQL);
