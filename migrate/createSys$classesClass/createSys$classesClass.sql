@@ -19,21 +19,8 @@ begin
       idConfig int not null
   );
 
-  /*
-  drop table huyomboyom_users;
-  */
 
 end $$
 DELIMITER ;
 
 --call createSys$classesClass(1)
-
-
--- set @count
-
--- SELECT @count:=COUNT(*) 
--- FROM information_schema.COLUMNS 
--- WHERE TABLE_NAME = 'chbfs_users' 
--- AND COLUMN_NAME = 'id';
-
--- select @count 
