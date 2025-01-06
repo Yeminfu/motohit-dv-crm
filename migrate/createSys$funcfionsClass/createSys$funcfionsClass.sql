@@ -27,5 +27,3 @@ begin
 
 end $$
 DELIMITER ;
-
---call createSys$functionsClass(1)

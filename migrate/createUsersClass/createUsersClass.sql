@@ -20,21 +20,5 @@ begin
       is_boss int not null
   );
 
-  /*
-  drop table huyomboyom_users;
-  */
-
 end $$
 DELIMITER ;
-
---call createUsersClass(1)
-
-
--- set @count
-
--- SELECT @count:=COUNT(*) 
--- FROM information_schema.COLUMNS 
--- WHERE TABLE_NAME = 'chbfs_users' 
--- AND COLUMN_NAME = 'id';
-
--- select @count 
