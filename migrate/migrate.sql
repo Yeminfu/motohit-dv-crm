@@ -7,7 +7,7 @@ create procedure migrate (
 begin
   call createSys$classesClass(1);
   call createSys$configClass(1);
-  -- call createUsersClass(1);
+  call createSys$proceduresClass(1);
 end $$
 
 DELIMITER ;
