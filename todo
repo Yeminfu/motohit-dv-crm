@@ -9,7 +9,7 @@
 в миграции
 /******************
 -должны быть базовые таблицы
-  -chbfs_users
+  +-chbfs_users
   -chbfs_tokens
   -chbfs_todoTasks
   +-chbfs_sys$scalarFunctions

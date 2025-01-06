@@ -6,6 +6,7 @@ const sqlsQueue = [
   "createSys$proceduresClass",
   "createSys$functionsClass",
   "createUsersClass",
+  "createTokensClass",
 ];
 
 let bigSQL = "";
