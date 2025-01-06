@@ -19,6 +19,11 @@ begin
       idConfig int not null
   );
 
+  insert into huyomboyom_sys$classes
+  (name,title,idConfig)
+  values
+  ('huyomboyom_sys$classes','Базовые классы',1);
+
 
 end $$
 DELIMITER ;
