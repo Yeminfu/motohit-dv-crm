@@ -1,4 +1,5 @@
 import dbWorker from "#db/dbWorker2.ts";
+import getViews from "./utils/getViews";
 
 export default async function Views4classes() {
   const views = await getViews();
@@ -8,8 +9,4 @@ export default async function Views4classes() {
       <pre>{JSON.stringify(views)}</pre>
     </>
   );
-}
-
-async function getViews() {
-  return dbWorker(`select * from chbfs_sys$views`, []);
 }
