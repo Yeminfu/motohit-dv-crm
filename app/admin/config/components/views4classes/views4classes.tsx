@@ -1,11 +1,11 @@
-import dbWorker from "#db/dbWorker2.ts";
+import Create from "./components/create";
 import getViews from "./utils/getViews";
 
 export default async function Views4classes() {
   const views = await getViews();
   return (
     <>
-      Views4classes
+      <Create />
       <pre>{JSON.stringify(views)}</pre>
     </>
   );
