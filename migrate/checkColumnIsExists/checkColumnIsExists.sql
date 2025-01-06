@@ -4,21 +4,21 @@ drop function if exists checkColumnIsExists;
 DELIMITER //
 
 CREATE FUNCTION checkColumnIsExists(tableName varchar(250), colName varchar(250))
-RETURNS INT
-DETERMINISTIC
-BEGIN
-    SET @count = 0;
-    SET @tableName = tableName;
-    SET @colName = colName;
+returns boolean
+deterministic
+begin
+    set @count = 0;
+    set @tableName = tableName;
+    set @colName = colName;
 
-    SELECT count(1) 
-    INTO @count
-    FROM information_schema.COLUMNS 
+    select count(1) 
+    into @count
+    from information_schema.COLUMNS 
     where
     TABLE_NAME = @tableName
     and COLUMN_NAME = @colName;
 
-    return @count;
+    return @count > 0;
 END //
 
 DELIMITER ;
