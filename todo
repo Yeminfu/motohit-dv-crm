@@ -11,8 +11,8 @@
 -должны быть базовые таблицы
   -chbfs_users
   -chbfs_tokens
-  -chbfs_sys$scalarFunctions
   -chbfs_todoTasks
+  -chbfs_sys$scalarFunctions
   -chbfs_sys$config
   -chbfs_sys$classes
   -chbfs_sys$procedures
@@ -20,6 +20,8 @@
 -в таблицах
 
 ******************/
+
+создать создатель views
 
 создать оставшиеся создаватели классов
 добавить проверку колонок в них
