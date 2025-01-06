@@ -2,3 +2,21 @@
   сделать вьюху для класса todoTasks
     сделать функционал создания вьюх
     сделать компонент вьюх на странице config
+
+
+сделать процедуру накатывания миграции
+
+в миграции
+/******************
+-должны быть базовые таблицы
+  -chbfs_users
+  -chbfs_tokens
+  -chbfs_sys$scalarFunctions
+  -chbfs_todoTasks
+  -chbfs_sys$config
+  -chbfs_sys$classes
+  -chbfs_sys$procedures
+
+-в таблицах
+
+******************/
