@@ -9,13 +9,14 @@
 в миграции
 /******************
 -должны быть базовые таблицы
-  +-chbfs_users
-  -chbfs_tokens
-  -chbfs_todoTasks
-  +-chbfs_sys$scalarFunctions
-  +-chbfs_sys$config
   +-chbfs_sys$classes
+  +-chbfs_sys$config
   +-chbfs_sys$procedures
+  +-chbfs_sys$scalarFunctions
+  -chbfs_sys$views
+  +-chbfs_users
+  +-chbfs_tokens
+  +-chbfs_todoTasks
 
 -в таблицах
 
@@ -23,7 +24,7 @@
 
 создать создатель views
 
-создать оставшиеся создаватели классов
++создать оставшиеся создаватели классов
 добавить проверку колонок в них
 добавить проверку ключей
 добавить проверку индексов
