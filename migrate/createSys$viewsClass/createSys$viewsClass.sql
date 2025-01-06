@@ -15,7 +15,7 @@ begin
       title varchar(250) not null,
       SQLString text not null,
       description text,
-      idConfig int
+      idClass int
   );
 
   insert ignore into chbfs_sys$classes
