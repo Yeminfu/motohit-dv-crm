@@ -20,5 +20,18 @@ begin
   values
   ('huyomboyom_sys$dataTypes','Типы данных для колонок',1);
 
+
+  insert ignore into huyomboyom_sys$dataTypes
+  (name,lengthIsRequired)
+  values
+  ('int', 0)
+  ,('bigint', 0)
+  ,('varchar', 1)
+  ,('text', 0)
+  ,('datetime', 0)
+  ,('json', 0);
+
+
+
 end $$
 DELIMITER ;
