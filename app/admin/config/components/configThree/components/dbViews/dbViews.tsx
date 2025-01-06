@@ -1,7 +1,8 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import CreateView4Class from "./components/createView4Class/createView4Class";
 
 export default function DBViews(props: { idClass: number }) {
+  const [viewsState, setViewsState] = useState();
   useEffect(() => {
     (async () => {
       const views = await getViews(props.idClass);
@@ -10,6 +11,7 @@ export default function DBViews(props: { idClass: number }) {
   }, []);
   return (
     <>
+      <pre>{JSON.stringify(["viewsState", viewsState], null, 2)}</pre>
       <CreateView4Class idClass={props.idClass} />
     </>
   );
@@ -22,4 +24,5 @@ async function getViews(idClass: number) {
   });
   const body = await res.json();
   console.log("body", body);
+  return body;
 }
