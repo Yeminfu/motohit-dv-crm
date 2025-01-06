@@ -6,6 +6,7 @@ import Procedures from "./components/procedures/procedures";
 import ConfigThree from "./components/configThree/configThree";
 import CreateConfig from "./components/createConfig/createConfig";
 import ScalarFunctions from "./components/scalarFunctions/scalarFunctions";
+import Views4classes from "./components/views4classes/views4classes";
 
 export default async function Page() {
   return (
@@ -46,6 +47,15 @@ export default async function Page() {
             </div>
             <div className="card-body">
               <Classes />
+            </div>
+          </div>
+
+          <div className="card">
+            <div className="card-header">
+              <h3>Представления (views)</h3>
+            </div>
+            <div className="card-body">
+              <Views4classes />
             </div>
           </div>
 
