@@ -8,8 +8,6 @@ begin
 
   set @value = value;
 
-  drop table if exists huyomboyom_sys$functions;
-
   create table if not exists huyomboyom_sys$functions (
       id int auto_increment primary key,
       created_date datetime default current_timestamp,
@@ -19,7 +17,7 @@ begin
       idConfig int not null
   );
 
-  insert into huyomboyom_sys$classes
+  insert ignore into huyomboyom_sys$classes
   (name,title,idConfig)
   values
   ('huyomboyom_sys$functions','Скалярные функции',1);

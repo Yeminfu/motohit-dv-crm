@@ -18,12 +18,12 @@ begin
       done boolean not null default 0
   );
 
-  insert into huyomboyom_sys$classes
+  insert ignore into huyomboyom_sys$classes
   (name,title,idConfig)
   values
   ('huyomboyom_todoTasks','Задачи',2);
 
-  insert into huyomboyom_sys$config
+  insert ignore into huyomboyom_sys$config
   (name,title)
   values
   ('todoTasks','Задачи');

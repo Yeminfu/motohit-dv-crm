@@ -8,8 +8,6 @@ begin
 
   set @value = value;
 
-  drop table if exists huyomboyom_users;
-
   create table if not exists huyomboyom_users (
       id int auto_increment primary key,
       created_date datetime default current_timestamp,
@@ -20,12 +18,12 @@ begin
       is_boss int not null
   );
 
-  insert into huyomboyom_sys$classes
+  insert ignore into huyomboyom_sys$classes
   (name,title,idConfig)
   values
   ('huyomboyom_users','Пользователи',2);
 
-  insert into huyomboyom_sys$config
+  insert ignore into huyomboyom_sys$config
   (name,title)
   values
   ('users','Пользователи');
