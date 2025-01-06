@@ -4,7 +4,8 @@ const sqlsQueue = [
   "createSys$classesClass",
   "createSys$configClass",
   "createSys$proceduresClass",
-  "clearcreateSys$functionsClass",
+  "createSys$functionsClass",
+  "createUsersClass",
 ];
 
 let bigSQL = "";

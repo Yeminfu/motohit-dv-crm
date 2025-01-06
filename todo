@@ -12,10 +12,10 @@
   -chbfs_users
   -chbfs_tokens
   -chbfs_todoTasks
-  -chbfs_sys$scalarFunctions
-  -chbfs_sys$config
-  -chbfs_sys$classes
-  -chbfs_sys$procedures
+  +-chbfs_sys$scalarFunctions
+  +-chbfs_sys$config
+  +-chbfs_sys$classes
+  +-chbfs_sys$procedures
 
 -в таблицах
 

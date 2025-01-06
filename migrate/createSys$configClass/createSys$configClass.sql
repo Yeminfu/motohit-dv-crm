@@ -27,7 +27,7 @@ begin
   insert into huyomboyom_sys$config
   (name,title)
   values
-  ('huyomboyom_sys$config','Базовая конфигурация');
+  ('system','Базовая конфигурация');
 
 end $$
 DELIMITER ;

@@ -20,5 +20,15 @@ begin
       is_boss int not null
   );
 
+  insert into huyomboyom_sys$classes
+  (name,title,idConfig)
+  values
+  ('huyomboyom_users','Пользователи',2);
+
+  insert into huyomboyom_sys$config
+  (name,title)
+  values
+  ('users','Пользователи');
+
 end $$
 DELIMITER ;
