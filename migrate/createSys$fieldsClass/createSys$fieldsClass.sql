@@ -48,33 +48,5 @@ begin
   drop table fieldsStrings;
 
 
-/*
-
-
-  
-  INSERT INTO users (id, name, email)
-  VALUES (1, 'Иван', 'ivan@example.com')
-  ON DUPLICATE KEY UPDATE
-  name = VALUES(name), email = VALUES(email);
-*/
-
-
-
-
-
-
-/*
-  if checkColumnIsExists('huyomboyom_sys$fields','id') <> 1 
-   then
-     ALTER TABLE huyomboyom_sys$fields
-     ADD COLUMN id int auto_increment primary key;
-  end if;
-
-  if checkColumnIsExists('huyomboyom_sys$fields','created_date') <> 1 
-   then
-     ALTER TABLE huyomboyom_sys$fields
-     ADD COLUMN created_date datetime default current_timestamp;
-  end if;
-*/
 end $$
 DELIMITER ;
