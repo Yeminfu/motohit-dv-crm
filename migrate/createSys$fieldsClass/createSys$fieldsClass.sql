@@ -25,18 +25,12 @@ begin
 
 
  
-
-
-
-
-
-
-/*
   drop table if exists fieldsStrings;
   CREATE TABLE fieldsStrings (
     fieldName varchar(255) not null,
     params varchar(255) not null
   );
+
   INSERT INTO fieldsStrings (fieldName, params) VALUES 
 
     ('id','int auto_increment primary key'),
@@ -47,16 +41,14 @@ begin
     ('idConfig','int not null');
 
   select 
-    -- concat(
-    --   '',
-    --   fieldName,
-    --   params
-    -- ),1
     '' as command
     ,fieldName
     ,params
   from fieldsStrings;
   drop table fieldsStrings;
+
+
+/*
 
 
   
