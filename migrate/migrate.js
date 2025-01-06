@@ -9,6 +9,7 @@ const procedures = [
   "createUsersClass",
   "createTokensClass",
   "createTodoTasksClass",
+  "createSys$fieldsClass",
 ];
 
 const scalarFunctions = ["checkColumnIsExists"];
