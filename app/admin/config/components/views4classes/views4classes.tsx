@@ -24,7 +24,7 @@ export default async function Views4classes() {
                 {views.map((view) => (
                   <tr key={view.name} title={JSON.stringify(view, null, 2)}>
                     <td>
-                      <Link href={`/admin/scalarFunctions/${view.name}`}>
+                      <Link href={`/admin/views/${view.name}`}>
                         {view.name}
                       </Link>
                     </td>
