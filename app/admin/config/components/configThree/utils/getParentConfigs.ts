@@ -4,7 +4,7 @@ import ts_configFromDb from "../types/ts_configFromDb";
 export default async function getParentConfigs(): Promise<ts_configFromDb[]> {
   const res = await dbWorker(
     `
-      select * from chbfs_config where idParent is null
+      select * from chbfs_sys$config where idParent is null
     `,
     []
   );

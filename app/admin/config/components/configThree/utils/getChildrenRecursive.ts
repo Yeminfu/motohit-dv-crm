@@ -7,7 +7,7 @@ export default async function getChildrenRecursive(
 ): Promise<ts_configWithChildren[]> {
   const res = await dbWorker(
     `
-      select * from chbfs_config where idParent = ?
+      select * from chbfs_sys$config where idParent = ?
     `,
     [idParent]
   );
