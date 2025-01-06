@@ -8,7 +8,7 @@ begin
 
   set @value = value;
 
-  create table if not exists huyomboyom_sys$functions (
+  create table if not exists chbfs_sys$functions (
       id int auto_increment primary key,
       created_date datetime default current_timestamp,
       name varchar(250) not null unique,
@@ -17,10 +17,10 @@ begin
       idConfig int not null
   );
 
-  insert ignore into huyomboyom_sys$classes
+  insert ignore into chbfs_sys$classes
   (name,title,idConfig)
   values
-  ('huyomboyom_sys$functions','Скалярные функции',1);
+  ('chbfs_sys$functions','Скалярные функции',1);
 
 
 end $$

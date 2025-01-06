@@ -8,7 +8,7 @@ begin
 
   set @value = value;
 
-  create table if not exists huyomboyom_sys$procedures (
+  create table if not exists chbfs_sys$procedures (
       id int auto_increment primary key,
       created_date datetime default current_timestamp,
       name varchar(250) not null unique,
@@ -18,10 +18,10 @@ begin
       idConfig int
   );
 
-  insert ignore into huyomboyom_sys$classes
+  insert ignore into chbfs_sys$classes
   (name,title,idConfig)
   values
-  ('huyomboyom_sys$procedures','Процедуры',1);
+  ('chbfs_sys$procedures','Процедуры',1);
 
 end $$
 DELIMITER ;

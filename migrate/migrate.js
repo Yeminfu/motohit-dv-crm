@@ -1,9 +1,9 @@
 const fs = require("fs");
 
 const procedures = [
+  "createSys$classesClass",
   "createSys$dataTypesClass",
   "createSys$fieldsClass",
-  "createSys$classesClass",
   "createSys$configClass",
   "createSys$proceduresClass",
   "createSys$functionsClass",

@@ -8,7 +8,7 @@ begin
 
   set @value = value;
 
-  create table if not exists huyomboyom_sys$config (
+  create table if not exists chbfs_sys$config (
       id int auto_increment primary key,
       created_date datetime default current_timestamp,
       name varchar(250) not null unique,
@@ -17,12 +17,12 @@ begin
       idParent int
   );
 
-  insert ignore into huyomboyom_sys$classes
+  insert ignore into chbfs_sys$classes
   (name,title,idConfig)
   values
-  ('huyomboyom_sys$config','Базовая конфигурация',1);
+  ('chbfs_sys$config','Базовая конфигурация',1);
 
-  insert ignore into huyomboyom_sys$config
+  insert ignore into chbfs_sys$config
   (name,title)
   values
   ('system','Базовая конфигурация');

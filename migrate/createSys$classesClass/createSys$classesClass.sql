@@ -8,7 +8,7 @@ begin
 
   set @value = value;
 
-  create table if not exists huyomboyom_sys$classes (
+  create table if not exists chbfs_sys$classes (
       id int auto_increment primary key,
       created_date datetime default current_timestamp,
       name varchar(250) not null unique,
@@ -17,10 +17,10 @@ begin
       idConfig int not null
   );
 
-  insert ignore into huyomboyom_sys$classes
+  insert ignore into chbfs_sys$classes
   (name,title,idConfig)
   values
-  ('huyomboyom_sys$classes','Базовые классы',1);
+  ('chbfs_sys$classes','Базовые классы',1);
 
 
  
@@ -71,15 +71,15 @@ begin
 
 
 /*
-  if checkColumnIsExists('huyomboyom_sys$classes','id') <> 1 
+  if checkColumnIsExists('chbfs_sys$classes','id') <> 1 
    then
-     ALTER TABLE huyomboyom_sys$classes
+     ALTER TABLE chbfs_sys$classes
      ADD COLUMN id int auto_increment primary key;
   end if;
 
-  if checkColumnIsExists('huyomboyom_sys$classes','created_date') <> 1 
+  if checkColumnIsExists('chbfs_sys$classes','created_date') <> 1 
    then
-     ALTER TABLE huyomboyom_sys$classes
+     ALTER TABLE chbfs_sys$classes
      ADD COLUMN created_date datetime default current_timestamp;
   end if;
 */
