@@ -1,6 +1,7 @@
 const fs = require("fs");
 
 const procedures = [
+  "createSys$fieldsClass",
   "createSys$classesClass",
   "createSys$configClass",
   "createSys$proceduresClass",
@@ -9,7 +10,6 @@ const procedures = [
   "createUsersClass",
   "createTokensClass",
   "createTodoTasksClass",
-  "createSys$fieldsClass",
 ];
 
 const scalarFunctions = ["checkColumnIsExists"];
