@@ -12,7 +12,7 @@ export default async function Page(params: { params: { name: string } }) {
       <AuthedLayout title={`Скалярная функция ${scalarFunction.name}`}>
         <>
           <div className="card">
-            <div className="card-header">Редактирование процедуры</div>
+            <div className="card-header">Редактирование скалярки</div>
             <div className="card-body">
               <EditScalarFunctionForm {...scalarFunction} />
             </div>
