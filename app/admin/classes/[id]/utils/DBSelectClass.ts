@@ -1,20 +1,14 @@
+import ts_classFromDB from "#app/admin/config/types/ts_classFromDB.js";
 import dbWorker from "#db/dbWorker2.ts";
 
-export default async function DBSelectClass(idClass: number): Promise<
-  | {
-      id: number;
-      className: string;
-      title: string | null;
-      description: string | null;
-      idParent: string | null;
-    }
-  | undefined
-> {
+export default async function DBSelectClass(
+  idClass: number
+): Promise<ts_classFromDB | undefined> {
   const res = await dbWorker(
     `
       select
         id,
-        className,
+        name,
         title,
         description,
         idConfig

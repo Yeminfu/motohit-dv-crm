@@ -11,10 +11,10 @@ export default async function Page(params: { params: { id: string } }) {
 
   if (!_class) return <>Ошибка #s9djakg</>;
 
-  const columns = await getColumnsByTableName(_class.className);
+  const columns = await getColumnsByTableName(_class.name);
 
   return (
-    <AuthedLayout title={`Класс #${params.params.id} ${_class.className}`}>
+    <AuthedLayout title={`Класс #${params.params.id} ${_class.name}`}>
       <>
         <div className="card">
           <div className="card-header">
@@ -54,7 +54,7 @@ export default async function Page(params: { params: { id: string } }) {
                           <pre>{JSON.stringify(column, null, 2)}</pre>
                         </HiddeableBox>
                         <DeleteField
-                          className={_class.className}
+                          className={_class.name}
                           columnName={column.COLUMN_NAME}
                         />
                       </div>
@@ -68,7 +68,7 @@ export default async function Page(params: { params: { id: string } }) {
         <div className="card">
           <div className="card-header">Создать новую колонку</div>
           <div className="card-body">
-            <CreateNewField className={_class.className} />
+            <CreateNewField className={_class.name} />
           </div>
         </div>
       </>
