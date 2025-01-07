@@ -12,10 +12,13 @@ export default function ViewOutput(props: ts_view4edit) {
   return (
     <>
       <div className="card">
-        <div className="card-header">Вывод данных для</div>
-        <div className="card-body"></div>
+        <div className="card-header">
+          <strong>Вывод данных</strong>
+        </div>
+        <div className="card-body">
+          <ConsoleForm sql={sql} />
+        </div>
       </div>
-      <ConsoleForm sql={sql} />
     </>
   );
 }
