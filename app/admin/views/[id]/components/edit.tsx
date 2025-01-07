@@ -66,7 +66,6 @@ export default function Edit(props: ts_view4edit) {
           <button className="btn btn-dark btn-sm">Сохранить</button>
         </div>
       </form>
-      <pre>{JSON.stringify(props, null, 2)}</pre>
     </>
   );
 }
