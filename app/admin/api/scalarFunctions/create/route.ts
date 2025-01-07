@@ -11,20 +11,21 @@ export async function POST(request: NextRequest) {
 async function DBCreateScalarFunction(props: ts_scalarFunction4create) {
   return dbWorker(
     `
-    ${props.SQLString};
-    insert into chbfs_sys$scalarFunctions
-    (
-      name,
-      title,
-      description,
-      SQLString,
-      idConfig
-    )
-    values
-    (
-      ?,?,?,?,?
-    )
-  `,
+      ${props.SQLString};
+
+      insert into chbfs_sys$scalarFunctions
+      (
+        name,
+        title,
+        description,
+        SQLString,
+        idConfig
+      )
+      values
+      (
+        ?,?,?,?,?
+      )
+    `,
     [
       props.name,
       props.title,
