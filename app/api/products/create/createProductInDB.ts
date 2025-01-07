@@ -8,9 +8,9 @@ export async function createProductInDB(product: ProductOnCreate) {
       (
           name, 
           slug, 
-          idCategory, 
-          purchase_price, 
-          idCostPriceType, 
+          idCategory,
+          purchase_price,
+          idCostPriceType,
           costPriceValue,
           code,
           color
