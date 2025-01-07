@@ -12,14 +12,16 @@ export default function ConsoleForm(props: { sql: string }) {
     },
   });
   const [state, setState] = useState<{ result: any | undefined }>();
-  const [isOpen, setIsOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   return (
     <>
       <form
         onSubmit={handleSubmit(async (values) => {
+          setLoading(true);
           const res = await onSubmit(values);
           setState(res);
+          setLoading(false);
         })}
       >
         <>
@@ -38,6 +40,8 @@ export default function ConsoleForm(props: { sql: string }) {
       <div className="mt-2">
         <div className="shadow p-2">
           {(() => {
+            if (loading) return <>Загрузка</>;
+
             if (!state) return <>введите запрос</>;
             if (!state.result?.length)
               return (
@@ -51,7 +55,6 @@ export default function ConsoleForm(props: { sql: string }) {
               return (
                 <>
                   <ViewSQLResult SQLResult={state.result} />
-                  {/* <pre>{JSON.stringify(["state", state.result], null, 2)}</pre> */}
                 </>
               );
             return (

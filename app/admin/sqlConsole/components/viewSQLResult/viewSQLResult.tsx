@@ -61,8 +61,8 @@ function ViewTable(props: { SQLResult: ArrayOfUnknownObjects }) {
             })}
           </tbody>
         </table>
-        {String(keys)}
-        <pre>{JSON.stringify({ props }, null, 2)}</pre>
+        {/* {String(keys)}
+        <pre>{JSON.stringify({ props }, null, 2)}</pre> */}
       </>
     );
   } catch (error) {

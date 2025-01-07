@@ -6,8 +6,8 @@ export default function ViewOutput(props: ts_view4edit) {
     select
      *
     from ${props.name}
-    limit 100
     order by id desc
+    limit 100
   `;
   return (
     <>
