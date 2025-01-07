@@ -5,9 +5,9 @@ export default function ViewSQLResult(props: { SQLResult: any }) {
 
   return (
     <>
-      err #kdf94k
+      {/* err #kdf94k */}
       <ViewTable SQLResult={props.SQLResult} />;
-      <pre>{JSON.stringify(props, null, 2)}</pre>
+      {/* <pre>{JSON.stringify(props, null, 2)}</pre> */}
     </>
   );
 }
