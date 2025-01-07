@@ -8,8 +8,6 @@ begin
 
   set @value = value;
 
-  drop table if exists chbfs_todoTasks;
-
   create table if not exists chbfs_todoTasks (
       id int auto_increment primary key,
       created_date datetime default current_timestamp,

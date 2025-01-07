@@ -39,7 +39,10 @@ for (let index = 0; index < scalarFunctions.length; index++) {
   bigSQL += sql + "\n";
 }
 
-const calls = procedures.map((module) => `call ${module}(1);`);
+const calls = procedures.map(
+  (module) => `call ${module}(1);
+drop procedure if exists ${module};`
+);
 
 bigSQL += calls.join("\n");
 
