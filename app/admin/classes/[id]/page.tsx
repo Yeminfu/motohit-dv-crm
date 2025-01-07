@@ -3,6 +3,7 @@ import AuthedLayout from "#utils/authedLayout.tsx";
 import DBSelectClass from "./utils/DBSelectClass";
 import CreateNewField from "./components/createNewField/createNewField";
 import RenderFields from "./components/renderFields/renderFields";
+import Views from "./components/views/views";
 
 export default async function Page(params: { params: { id: string } }) {
   const _class = await DBSelectClass(Number(params.params.id));
@@ -28,6 +29,8 @@ export default async function Page(params: { params: { id: string } }) {
             <CreateNewField className={_class.name} />
           </div>
         </div>
+
+        <Views idClass={_class.id} />
       </>
     </AuthedLayout>
   );
