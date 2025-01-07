@@ -38,9 +38,9 @@ export default function ClassesInConfig(props: { idConfig: number }) {
               {classFromDB.name}
             </Link>
           </div>
-          <div className="card-body">
+          {/* <div className="card-body">
             <DBViews idClass={classFromDB.id} />
-          </div>
+          </div> */}
         </div>
       ))}
 
