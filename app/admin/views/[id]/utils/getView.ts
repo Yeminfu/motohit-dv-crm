@@ -2,7 +2,7 @@ import dbWorker from "#db/dbWorker2.ts";
 import ts_view4edit from "../../types/ts_view4edit";
 
 export default async function getView(
-  procedureName: string
+  viewName: string
 ): Promise<ts_view4edit | undefined> {
   const result = await dbWorker(
     `
@@ -16,7 +16,7 @@ export default async function getView(
         idClass
       from chbfs_sys$views
       where
-        name = '${procedureName}'
+        name = '${viewName}'
     `,
     []
   );

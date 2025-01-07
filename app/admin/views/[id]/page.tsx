@@ -1,5 +1,6 @@
 import AuthedLayout from "#utils/authedLayout.tsx";
 import Edit from "./components/edit";
+import ViewOutput from "./components/viewOutput/viewOutput";
 import getView from "./utils/getView";
 
 export default async function Page(params: { params: { id: string } }) {
@@ -10,7 +11,12 @@ export default async function Page(params: { params: { id: string } }) {
       <AuthedLayout title="Представление (view)">
         {(() => {
           if (!view) return <>err #kdsk3m</>;
-          return <Edit {...view} />;
+          return (
+            <>
+              <Edit {...view} />
+              <ViewOutput {...view} />
+            </>
+          );
         })()}
       </AuthedLayout>
     </>
