@@ -43,7 +43,7 @@ function Form() {
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <table className="bable w-auto">
+        <table className="table w-auto">
           <tbody>
             <tr>
               <th>Название скалярки (лат.)</th>

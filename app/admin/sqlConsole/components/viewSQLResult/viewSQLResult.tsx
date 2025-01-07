@@ -1,10 +1,18 @@
 export default function ViewSQLResult(props: { SQLResult: any }) {
   if (props.SQLResult.find((el: any) => Array.isArray(el))) {
-    return <pre>{JSON.stringify(props, null, 2)}</pre>;
+    const arr = props.SQLResult.find((el: any) => Array.isArray(el));
+    return (
+      <>
+        <div>type 1</div>
+        <ViewTable SQLResult={arr} />;
+        {/* <pre>{JSON.stringify(props, null, 2)}</pre>; */}
+      </>
+    );
   }
 
   return (
     <>
+      <div>type 2</div>
       {/* err #kdf94k */}
       <ViewTable SQLResult={props.SQLResult} />;
       {/* <pre>{JSON.stringify(props, null, 2)}</pre> */}
@@ -61,8 +69,8 @@ function ViewTable(props: { SQLResult: ArrayOfUnknownObjects }) {
             })}
           </tbody>
         </table>
-        {/* {String(keys)}
-        <pre>{JSON.stringify({ props }, null, 2)}</pre> */}
+        {/* {String(keys)} */}
+        <pre>{JSON.stringify({ props }, null, 2)}</pre>
       </>
     );
   } catch (error) {
