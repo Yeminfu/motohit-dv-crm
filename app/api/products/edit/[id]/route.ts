@@ -5,7 +5,7 @@ import addHistoryEntry from "@/utils/history/addHistoryEntry";
 import updateProductMainData from "./utils/updateProductMainData";
 import editProductAttributes from "./utils/editProductAttributes/editProductAttributes";
 import editRetailPrices from "./utils/editRetailPrices/editRetailPrices";
-import editStock from "./utils/editStock/editStock";
+import editStock from "./utils/editStock";
 import { ts_imageFromDB } from "#types/products/ts_imageFromDB.ts";
 import editOldImages from "./utils/editOldImages/editOldImages";
 import createNewImages from "./utils/createNewImages/createNewImages";
