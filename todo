@@ -1,1 +1,11 @@
-сделать хранимку создающую товары
+сделать ключ уникальности в attrProdRElation
+idProduct, idAttributeValue
+
+
+
+ALTER TABLE your_table_name
+ADD CONSTRAINT unique_key_name UNIQUE (column1, column2);
+
+
+сделать класс "ключи"
+сделать функционал создания ключей

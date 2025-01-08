@@ -4,18 +4,7 @@ import ts_keyFromDB from "../types/ts_keyFromDB";
 export default async function getDBKeys(): Promise<ts_keyFromDB[]> {
   return dbWorker(
     `
-      select
-        TABLE_NAME,
-        COLUMN_NAME,
-        CONSTRAINT_NAME,
-        REFERENCED_TABLE_NAME,
-        REFERENCED_COLUMN_NAME
-        --  
-      from information_schema.KEY_COLUMN_USAGE 
-      where
-        TABLE_SCHEMA = 'motohit_dv_crm'
-        and COLUMN_NAME like 'id%'
-        and COLUMN_NAME <> 'id';
+      select * from chbfs_sys$keys
     `,
     []
   );
