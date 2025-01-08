@@ -27,21 +27,45 @@ export async function POST(req: NextRequest) {
 
   const productMainData = JSON.parse(data.get("productMainData"));
 
-  let idProduct = Number();
+  const updMainDataRes = await createProductMainData(productMainData);
 
-  try {
-    const updMainDataRes = await createProductMainData(productMainData);
+  let idProduct: number = (() => {
+    if (!updMainDataRes) {
+      console.error("err #kdf8");
+      return 0;
+    }
+    if (!updMainDataRes.length) {
+      console.error("err #kdds84");
+      return 0;
+    }
+    if (!updMainDataRes[1]) {
+      console.error("err #dkd93");
+      return 0;
+    }
+    if (!updMainDataRes[1][0]) {
+      console.error("err #d93j2j");
+      return 0;
+    }
+    if (!updMainDataRes[1][0].idProduct) {
+      console.error("err #d93j2j");
+      return 0;
+    }
 
-    if (updMainDataRes.insertId) idProduct = updMainDataRes.insertId;
+    if (updMainDataRes[1][0].idProduct)
+      return Number(updMainDataRes[1][0].idProduct);
 
-    await addHistoryEntry("createProduct", {
-      productMainData,
-      updMainDataRes,
-    });
-  } catch (error) {
-    console.error("err #mfn5c", error);
+    console.error("err #kfsdf84");
+    return 0;
+  })();
+
+  if (!idProduct) {
     return NextResponse.json({ success: false });
   }
+
+  await addHistoryEntry("createProduct", {
+    productMainData,
+    updMainDataRes,
+  });
 
   const retail_price: RetailPriceFromDB[] = JSON.parse(
     data.get("retail_price")
