@@ -1,8 +1,8 @@
+import ts_product4create from "#types/products/ts_product4create.ts";
 import dbWorker from "@/db/dbWorker";
-import { ProductOnCreate } from "@/types/products/prodyctType";
 import slugify from "slugify";
 
-export async function createProductInDB(product: ProductOnCreate) {
+export async function createProductInDB(product: ts_product4create) {
   const res = await dbWorker(
     `insert into ${process.env.TABLE_PREFIX}_products 
       (
