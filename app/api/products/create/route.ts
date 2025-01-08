@@ -49,7 +49,6 @@ export async function POST(req: NextRequest) {
   await createRetailPrices(idProduct, retail_price);
 
   const stock: StockFromDBType[] = JSON.parse(data.get("stock"));
-  // const stockRes =
   await insertStock({
     stock,
     session,
@@ -57,12 +56,10 @@ export async function POST(req: NextRequest) {
   });
 
   const attributes = JSON.parse(data.get("attributes"));
-  // const createAttributesRes =
   await createAttributes(idProduct, attributes, user.id);
 
   const images = data.getAll("images");
 
-  // const createImagesRes =
   await createImages(idProduct, images);
 
   return NextResponse.json({ success: true });
