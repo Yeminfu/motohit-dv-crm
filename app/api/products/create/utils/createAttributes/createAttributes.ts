@@ -6,22 +6,15 @@ export default async function createAttributes(
   idProduct: number,
   attributes: ts_attributesFromClient[],
   idUser: number
-): Promise<ResultSetHeader> {
-  const sql = `
-    insert into ${process.env.TABLE_PREFIX}_attr_prod_relation
-    (
-      idAttributeValue,
-      idProduct,
-      created_by
-    )
-    values
-      ${attributes.map(() => "(?,?,?)")}
-  `;
+): Promise<ResultSetHeader[]> {
+  const results = [];
 
-  const values = attributes
-    .map((v) => [v.idAttributeValue, idProduct, idUser])
-    .flat();
+  for (let index = 0; index < attributes.length; index++) {
+    const v = attributes[index];
+    const sql = `call createAttrProdRelation(?,?,?)`;
+    const res = await dbWorker(sql, [v.idAttributeValue, idProduct, idUser]);
+    results.push(res);
+  }
 
-  const res = await dbWorker(sql, values);
-  return res;
+  return results;
 }
