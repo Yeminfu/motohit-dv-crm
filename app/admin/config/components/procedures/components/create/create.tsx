@@ -50,7 +50,7 @@ function Form() {
           <div>
             <input
               {...register("name", { required: true })}
-              className="form-control w-auto"
+              className="form-control"
               autoComplete="off"
             />
           </div>
@@ -62,7 +62,7 @@ function Form() {
           <div>
             <input
               {...register("title", { required: true })}
-              className="form-control w-auto"
+              className="form-control"
               autoComplete="off"
             />
           </div>
@@ -75,7 +75,7 @@ function Form() {
             <textarea
               rows={20}
               {...register("SQLString", { required: true })}
-              className="form-control w-auto"
+              className="form-control"
               autoComplete="off"
               style={{ width: "1000px" }}
             />
@@ -88,7 +88,7 @@ function Form() {
           <div>
             <input
               {...register("idConfig", { required: true })}
-              className="form-control w-auto"
+              className="form-control"
               autoComplete="off"
             />
           </div>
