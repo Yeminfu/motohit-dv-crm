@@ -3,30 +3,16 @@ import dbWorker from "@/db/dbWorker";
 import slugify from "slugify";
 
 export async function createProductInDB(product: ts_product4create) {
-  const res = await dbWorker(
-    `insert into ${process.env.TABLE_PREFIX}_products 
-      (
-          name, 
-          slug, 
-          idCategory,
-          purchase_price,
-          idCostPriceType,
-          costPriceValue,
-          code,
-          color
-      )
-      values (?,?, ?, ?, ?, ?, ?, ?)`,
-    [
-      product.name.trim(),
-      slugify(product.name.trim()),
-      product.idCategory,
-      product.purchase_price,
-      product.cost_price.type,
-      product.cost_price.value,
-      product.code,
-      product.color,
-    ]
-  )
+  const res = await dbWorker(`createProduct(?,?, ?, ?, ?, ?, ?, ?)`, [
+    product.name.trim(),
+    slugify(product.name.trim()),
+    product.idCategory,
+    product.purchase_price,
+    product.cost_price.type,
+    product.cost_price.value,
+    product.code,
+    product.color,
+  ])
     .then((x: any) => {
       return x;
     })
