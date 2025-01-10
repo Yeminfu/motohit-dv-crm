@@ -43,62 +43,68 @@ function Form() {
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <table className="table w-auto">
-          <tbody>
-            <tr>
-              <th>Название скалярки (лат.)</th>
-              <td>
-                <input
-                  {...register("name", { required: true })}
-                  className="form-control w-auto"
-                  autoComplete="off"
-                />
-              </td>
-            </tr>
-            <tr>
-              <th>Заголовок</th>
-              <td>
-                <input
-                  {...register("title", { required: true })}
-                  className="form-control w-auto"
-                  autoComplete="off"
-                />
-              </td>
-            </tr>
-            <tr>
-              <th>Описание</th>
-              <td>
-                <input
-                  {...register("description", { required: true })}
-                  className="form-control w-auto"
-                  autoComplete="off"
-                />
-              </td>
-            </tr>
-            <tr>
-              <th>SQLString</th>
-              <td>
-                <textarea
-                  rows={20}
-                  {...register("SQLString", { required: true })}
-                  className="form-control w-auto"
-                  autoComplete="off"
-                  style={{ width: "1000px" }}
-                />
-              </td>
-            </tr>
-            <tr>
-              <th>idConfig</th>
-              <td>
-                <input
-                  {...register("idConfig", { required: true })}
-                  className="form-control w-auto"
-                  autoComplete="off"
-                />
-              </td>
-            </tr>
-          </tbody>
-        </table>
+        <div className="mt-2">
+          <div>
+            <strong>Название ключа (лат.)</strong>
+          </div>
+          <div>
+            <input
+              {...register("name", { required: true })}
+              className="form-control"
+              autoComplete="off"
+            />
+          </div>
+        </div>
+        <div className="mt-2">
+          <div>
+            <strong>Заголовок</strong>
+          </div>
+          <div>
+            <input
+              {...register("title", { required: true })}
+              className="form-control"
+              autoComplete="off"
+            />
+          </div>
+        </div>
+        <div className="mt-2">
+          <div>
+            <strong>Описание</strong>
+          </div>
+          <div>
+            <input
+              {...register("description", { required: true })}
+              className="form-control"
+              autoComplete="off"
+            />
+          </div>
+        </div>
+        <div className="mt-2">
+          <div>
+            <strong>SQLString</strong>
+          </div>
+          <div>
+            <textarea
+              rows={20}
+              {...register("SQLString", { required: true })}
+              className="form-control"
+              autoComplete="off"
+              style={{ width: "1000px" }}
+            />
+          </div>
+        </div>
+        <div className="mt-2">
+          <div>
+            <strong>idConfig</strong>
+          </div>
+          <div>
+            <input
+              {...register("idConfig", { required: true })}
+              className="form-control"
+              autoComplete="off"
+            />
+          </div>
+        </div>
         <div className="mt-2">
           <button className="btn btn-dark btn-sm">Сохранить</button>
         </div>
