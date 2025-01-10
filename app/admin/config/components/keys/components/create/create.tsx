@@ -85,7 +85,7 @@ function Form() {
           </div>
           <div>
             <textarea
-              rows={20}
+              rows={4}
               {...register("SQLString", { required: true })}
               className="form-control"
               autoComplete="off"
