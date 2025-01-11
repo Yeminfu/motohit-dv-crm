@@ -35,7 +35,7 @@ export default function CreateConfig() {
               <th>Описание</th>
               <td>
                 <textarea
-                  {...register("description", { required: true })}
+                  {...register("description")}
                   className="form-control w-auto"
                   autoComplete="off"
                 />

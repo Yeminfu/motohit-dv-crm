@@ -1,12 +1,8 @@
-сделать ключ уникальности в attrProdRElation
-idProduct, idAttributeValue
++проверить дерево конфигурации
 
-
-
-ALTER TABLE your_table_name
-ADD CONSTRAINT unique_key_name UNIQUE (column1, column2);
-
-
-+сделать класс "ключи"
-+сделать функционал создания ключей
-+сделать функционал редактирования ключей
+сделать управление процедурами
+  сделать проведуру, создающую конфигурацию
+  в Дерево конфигурации
+    после отпрвки формы в /admin/config 
+      в app/admin/api/configuration/create/route.ts
+        
