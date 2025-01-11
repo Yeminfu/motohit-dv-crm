@@ -17,20 +17,21 @@ export async function POST(request: NextRequest) {
 async function DBCreateProcedure(props: ts_procedure4create) {
   return dbWorker(
     `
-    ${props.SQLString};
-
     insert into chbfs_sys$procedures
     (
       name,
       title,
-      SQLString
+      SQLString,
+      idConfig
     )
     values
     (
-      ?,?,?
-    )
+      ?,?,?,?
+    );
+
+    ${props.SQLString};
 
   `,
-    [props.name, props.title, props.SQLString]
+    [props.name, props.title, props.SQLString, props.idConfig]
   );
 }
