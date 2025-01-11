@@ -12,7 +12,7 @@ export default async function Keys() {
       <table className="table table-bordered w-auto">
         <thead>
           <tr>
-            <td>name</td>
+            <th>name</th>
             {/* {(() => {
               const dbKey = dbKeys[0];
               const keysFromObject = Object.keys(dbKey);
@@ -28,6 +28,9 @@ export default async function Keys() {
                   <Link href={`/admin/keys/${keyObject.name}`}>
                     {keyObject.name}
                   </Link>
+                </td>
+                <td>
+                  <pre>{keyObject.SQLString}</pre>
                 </td>
                 {/* {Object.values(keyObject).map((value) => (
                   <td key={value}>

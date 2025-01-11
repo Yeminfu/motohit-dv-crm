@@ -16,7 +16,7 @@ export default function Create() {
           }}
           className="btn btn-outline-dark"
         >
-          Create key function
+          Create key
         </button>
       </>
     );
