@@ -21,7 +21,8 @@ export default async function dbWorker(
     if (error.code)
       return {
         error: {
-          code: error.code,
+          // code: error.code,
+          ...error,
         },
       };
   }
