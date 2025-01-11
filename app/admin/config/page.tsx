@@ -7,6 +7,7 @@ import ConfigThree from "./components/configThree/configThree";
 import CreateConfig from "./components/createConfig/createConfig";
 import ScalarFunctions from "./components/scalarFunctions/scalarFunctions";
 import Views4classes from "./components/views4classes/views4classes";
+import Contrains from "./components/contrains/contrains";
 
 export default async function Page() {
   return (
@@ -74,6 +75,15 @@ export default async function Page() {
             </div>
             <div className="card-body">
               <Keys />
+            </div>
+          </div>
+
+          <div className="card">
+            <div className="card-header">
+              <h3>Ограничение</h3>
+            </div>
+            <div className="card-body">
+              <Contrains />
             </div>
           </div>
         </>

@@ -1,10 +1,16 @@
-export default function ViewSQLResult(props: { SQLResult: any }) {
+export default function ViewSQLResult(props: {
+  SQLResult: any;
+  disableJSONStringify?: boolean;
+}) {
   if (props.SQLResult.find((el: any) => Array.isArray(el))) {
     const arr = props.SQLResult.find((el: any) => Array.isArray(el));
     return (
       <>
         <div>type 1</div>
         <ViewTable SQLResult={arr} />;
+        {!props.disableJSONStringify && (
+          <pre>{JSON.stringify({ props }, null, 2)}</pre>
+        )}
         {/* <pre>{JSON.stringify(props, null, 2)}</pre>; */}
       </>
     );
@@ -70,7 +76,6 @@ function ViewTable(props: { SQLResult: ArrayOfUnknownObjects }) {
           </tbody>
         </table>
         {/* {String(keys)} */}
-        <pre>{JSON.stringify({ props }, null, 2)}</pre>
       </>
     );
   } catch (error) {
