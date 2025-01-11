@@ -23,8 +23,6 @@ async function editKey(key: ts_keyFromDB) {
     drop index ${key.name}; 
 
     ${key.SQLString};
-
-
   `;
   const res = await dbWorker(sql, [
     key.name,
