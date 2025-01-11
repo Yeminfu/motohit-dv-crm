@@ -57,7 +57,7 @@ function Form() {
         </div>
         <div className="mt-2">
           <div>
-            <strong>Название ключа (лат.)</strong>
+            <strong>Название таблицы</strong>
           </div>
           <div>
             <input
@@ -131,7 +131,9 @@ async function onSubmit(values: ts_keys4create) {
     body: JSON.stringify(values),
   }).then((x) => x.json());
   if (res.error) {
-    toast.error(res.error.code);
+    // alert(JSONl)
+    alert(JSON.stringify({ err: res }, null, 2));
+    // toast.error(res.error.code);
     return;
   }
 
