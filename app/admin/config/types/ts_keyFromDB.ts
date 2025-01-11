@@ -5,4 +5,5 @@ export default interface ts_keyFromDB {
   description: string;
   idConfig: number;
   title: string;
+  tableName: string;
 }

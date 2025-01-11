@@ -25,6 +25,18 @@ export default function Edit(props: ts_keyFromDB) {
             />
           </div>
         </div>
+        <div>
+          <div>
+            <strong>Таблица</strong>
+          </div>
+          <div>
+            <input
+              {...register("tableName")}
+              className="form-control "
+              autoComplete="off"
+            />
+          </div>
+        </div>
         <div className="mt-2">
           <div>
             <strong>Определение</strong>
