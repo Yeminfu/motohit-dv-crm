@@ -57,6 +57,18 @@ function Form() {
         </div>
         <div className="mt-2">
           <div>
+            <strong>Название ключа (лат.)</strong>
+          </div>
+          <div>
+            <input
+              {...register("tableName", { required: true })}
+              className="form-control"
+              autoComplete="off"
+            />
+          </div>
+        </div>
+        <div className="mt-2">
+          <div>
             <strong>Заголовок</strong>
           </div>
           <div>

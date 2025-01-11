@@ -4,4 +4,5 @@ export default interface ts_keys4create {
   SQLString: string;
   idConfig: number;
   description: string;
+  tableName: string;
 }
