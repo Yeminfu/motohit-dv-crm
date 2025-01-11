@@ -54,7 +54,7 @@ export async function POST(req: NextRequest) {
     if (updMainDataRes[1][0].idProduct)
       return Number(updMainDataRes[1][0].idProduct);
 
-    console.error("err #kfsdf84");
+    console.error("err #kfs0вл3df84");
     return 0;
   })();
 

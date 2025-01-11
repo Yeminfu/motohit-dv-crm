@@ -46,7 +46,7 @@ export default function ConsoleForm(props: { sql: string }) {
             if (!state.result?.length)
               return (
                 <>
-                  <strong>err #kfsdf8</strong>
+                  <strong>err #kfsыоыdf8</strong>
                   <pre>{JSON.stringify(state, null, 2)}</pre>
                 </>
               );
