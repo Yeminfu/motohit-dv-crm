@@ -5,7 +5,7 @@ import deleteClassFromDB from "./utils/deleteClassFromDB";
 export async function POST(request: NextRequest) {
   const jsonFromRequest: ts_class4delete = await request.json();
 
-  const res = await deleteClassFromDB(jsonFromRequest.className);
+  const res = await deleteClassFromDB(jsonFromRequest.name);
 
   return NextResponse.json(res);
 }
