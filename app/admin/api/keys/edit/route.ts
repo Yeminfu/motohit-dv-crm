@@ -10,8 +10,29 @@ export async function POST(request: NextRequest) {
 
 async function editKey(key: ts_keyFromDB) {
   const sql = `
-    alter table 
+    update chbfs_sys$keys
+      set
+      name = ?,
+      SQLString = ?,
+      description = ?,
+      title = ?,
+      tableName = ?
+    where id = ?;
+    
+    alter table ${key.tableName}
+    drop index ${key.name}; 
+
+    ${key.SQLString};
+
+
   `;
-  const res = await dbWorker(sql, []);
+  const res = await dbWorker(sql, [
+    key.name,
+    key.SQLString,
+    key.description,
+    key.title,
+    key.tableName,
+    key.id,
+  ]);
   return res;
 }
