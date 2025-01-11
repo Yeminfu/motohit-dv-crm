@@ -72,7 +72,7 @@ function Form() {
               <th>Описание</th>
               <td>
                 <input
-                  {...register("description", { required: true })}
+                  {...register("description")}
                   className="form-control w-auto"
                   autoComplete="off"
                 />
