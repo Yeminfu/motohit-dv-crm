@@ -11,9 +11,13 @@ export default async function Contrains() {
           <div className="mb-4">
             <div className="card shadow">
               <div className="card-header">
-                <strong> {tableObj.Tables_in_motohit_dv_crm}</strong>
+                Table: <strong> {tableObj.Tables_in_motohit_dv_crm}</strong>
               </div>
-              <ContrainsInTable tableName={tableObj.Tables_in_motohit_dv_crm} />
+              <div className="card-body">
+                <ContrainsInTable
+                  tableName={tableObj.Tables_in_motohit_dv_crm}
+                />
+              </div>
             </div>
           </div>
         </Fragment>

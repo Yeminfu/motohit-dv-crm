@@ -11,16 +11,20 @@ export default async function ContrainsInTable(props: { tableName: string }) {
     <>
       {contrains.result.map((contrain, i: number) => (
         <Fragment key={i}>
-          <div className="card">
-            <div className="card-header">
-              CONSTRAINT_NAME: {contrain.CONSTRAINT_NAME}
+          <div className="mt-3">
+            <div className="card shadow">
+              <div className="card-header">
+                CONSTRAINT_NAME: {contrain.CONSTRAINT_NAME}
+              </div>
+              <div className="card-body">
+                <pre>{JSON.stringify({ contrain }, null, 2)}</pre>
+                <Columns
+                  tableName={contrain.TABLE_NAME}
+                  contrainName={contrain.CONSTRAINT_NAME}
+                />
+              </div>
             </div>
           </div>
-          <pre>{JSON.stringify({ contrain }, null, 2)}</pre>
-          <Columns
-            tableName={contrain.TABLE_NAME}
-            contrainName={contrain.CONSTRAINT_NAME}
-          />
         </Fragment>
       ))}
     </>
