@@ -1,8 +1,8 @@
-import dbWorker from "#db/dbWorker.ts";
 import { RetailPriceFromDB } from "#types/products/retailPriceFromDB.js";
 import { ResultSetHeader } from "mysql2";
 
 export default async function createRetailPrices(
+  connection: any,
   idProduct: number,
   retail_price: RetailPriceFromDB[]
 ): Promise<ResultSetHeader[]> {
@@ -11,7 +11,7 @@ export default async function createRetailPrices(
   for (let index = 0; index < retail_price.length; index++) {
     const v = retail_price[index];
     const sql = `call createProductRetailPrice(?,?,?,?)`;
-    const result = await dbWorker(sql, [
+    const result = await connection.query(sql, [
       v.idPriceType,
       v.priceValue,
       idProduct,

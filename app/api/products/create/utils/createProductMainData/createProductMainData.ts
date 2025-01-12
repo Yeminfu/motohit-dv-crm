@@ -1,10 +1,10 @@
-import dbWorker from "#db/dbWorker.ts";
 import slugify from "slugify";
 
 export default async function createProductMainData(
+  connection: any,
   productData: any
 ): Promise<any> {
-  const res = await dbWorker(
+  const res = await connection.query(
     `
     call createProduct(?, ?, ?, ?, ?, ?, ?, ?, ?, @idProduct);
     select @idProduct as idProduct;
@@ -20,6 +20,7 @@ export default async function createProductMainData(
       productData.code,
       productData.color,
     ]
-  );
+  )
+    .then((x: any) => x[0][1][0].idProduct);
   return res;
 }
