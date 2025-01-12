@@ -5,6 +5,7 @@ import createNewRelation from "./createNewRelation";
 import ts_attributesFromClient from "./ts_attributesFromClient";
 
 export default async function editProductAttributes(
+  connection: any,
   idProduct: number,
   attributes: ts_attributesFromClient[]
 ) {
@@ -30,7 +31,8 @@ export default async function editProductAttributes(
     (x) => typeof x === "number"
   );
 
-  const deleteResult = await removeRedundantRelations(idProduct, [
+
+  const deleteResult = await removeRedundantRelations(connection, idProduct, [
     ...relationsNumbersOnly,
     //массив не должен быть пустой, на всякий случай добавляем 0
     0,
@@ -47,6 +49,7 @@ export default async function editProductAttributes(
     if (oldRelation) {
       //изменяем существующие связи
       const result = await updateAttrProdRelation(
+        connection,
         Number(newAttribute.idAttributeValue),
         oldRelation.id
       );
@@ -58,5 +61,5 @@ export default async function editProductAttributes(
     }
   }
 
-  const createRelationResult = await createNewRelation(idProduct, attributes);
+  const createRelationResult = await createNewRelation(connection, idProduct, attributes);
 }

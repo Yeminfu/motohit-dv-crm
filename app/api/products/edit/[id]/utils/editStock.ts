@@ -1,7 +1,7 @@
-import dbWorker from "#db/dbWorker2.ts";
 import StockFromDBType from "#types/products/stockFromDB.ts";
 
 export default async function editStock(props: {
+  connection: any,
   stock: StockFromDBType[];
   session: number;
   idProduct: number;
@@ -10,7 +10,7 @@ export default async function editStock(props: {
 
   for (let index = 0; index < props.stock.length; index++) {
     const v = props.stock[index];
-    const res = await dbWorker(`call updateStockItem(?,?,?)`, [
+    const res = await props.connection.query(`call updateStockItem(?,?,?)`, [
       props.idProduct,
       v.idShop,
       v.count,

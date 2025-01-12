@@ -1,11 +1,11 @@
-import dbWorker from "@/db/dbWorker";
 import { ProductFromDB } from "@/types/products/prodyctType";
 
 export default async function updateProductMainData(
+  connection: any,
   productData: ProductFromDB,
   idProduct: number
 ) {
-  const res = await dbWorker(`call editProduct(?,?,?,?,?,?,?,?,?)`, [
+  const res = await connection.query(`call editProduct(?,?,?,?,?,?,?,?,?)`, [
     idProduct,
     productData.name,
     productData.note,

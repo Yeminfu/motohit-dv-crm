@@ -2,6 +2,7 @@ import dbWorker from "#db/dbWorker.ts";
 import { ResultSetHeader } from "mysql2";
 
 export default async function deleteImages(
+  connection: any,
   idProduct: number,
   ids: number[]
 ): Promise<ResultSetHeader> {
@@ -14,6 +15,6 @@ export default async function deleteImages(
         ${idsArray.map(() => "?")}
       )
   `;
-  const res = await dbWorker(sql, [idProduct, ...idsArray]);
+  const res = await connection.query(sql, [idProduct, ...idsArray]);
   return res;
 }

@@ -2,6 +2,7 @@ import dbWorker from "#db/dbWorker.ts";
 import { ResultSetHeader } from "mysql2";
 
 export default async function updateAttrProdRelation(
+  connection: any,
   idAttributeValue: number,
   idRelation: number
 ) {
@@ -13,7 +14,7 @@ export default async function updateAttrProdRelation(
       id = ?
   `;
 
-  const res: ResultSetHeader = await dbWorker(sql, [
+  const res: ResultSetHeader = await connection.query(sql, [
     idAttributeValue,
     idRelation,
   ]);

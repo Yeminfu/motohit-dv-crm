@@ -2,6 +2,7 @@ import { ResultSetHeader } from "mysql2";
 import saveImage from "#utils/products/saveImage/saveImage.ts";
 
 export default async function createNewImages(
+  connection: any,
   idProduct: number,
   images: File[]
 ): Promise<(ResultSetHeader | undefined)[]> {
@@ -11,7 +12,7 @@ export default async function createNewImages(
 
   return await Promise.all(
     images.map(async (file) => {
-      return await saveImage(file, idProduct);
+      return await saveImage(connection, file, idProduct);
     })
   );
 }

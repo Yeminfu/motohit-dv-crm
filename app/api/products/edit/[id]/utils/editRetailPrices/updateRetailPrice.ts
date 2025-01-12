@@ -1,11 +1,10 @@
-import dbConnection from "@/db/connect";
 import { RetailPriceFromDB } from "@/types/products/retailPriceFromDB";
 
 export default async function updateRetailPrice(
+  connection: any,
   retailPriceObj: RetailPriceFromDB
 ) {
-  const connection = await dbConnection();
-  const updateRes = await connection
+  await connection
     .query(`call updateRetailPrice(?,?,?,?,?)`, [
       retailPriceObj.idProduct,
       retailPriceObj.idShop,
@@ -13,10 +12,5 @@ export default async function updateRetailPrice(
       retailPriceObj.priceValue,
       retailPriceObj.idRecord,
     ])
-    .then(([x]: any) => {
-      return x;
-    })
-    .catch((x) => x);
-  await connection.end();
-  return updateRes;
+
 }
