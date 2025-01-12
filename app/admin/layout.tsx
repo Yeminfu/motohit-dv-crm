@@ -1,5 +1,5 @@
 import Navbar from "./Navbar";
-import SQLConsole from "./sqlConsole/sqlConsole";
+import SQLConsole from "./components/sqlConsole/sqlConsole";
 
 export default function Layout(props: { children: any }) {
   return (
@@ -11,7 +11,12 @@ export default function Layout(props: { children: any }) {
             <h3>Консоль</h3>
           </div>
           <div className="card-body">
-            <SQLConsole />
+            <div className="d-flex justify-content-between align-items-top">
+              <div>
+                <SQLConsole />
+              </div>
+              <button className="btn">asd</button>
+            </div>
           </div>
         </div>
         {props.children}
