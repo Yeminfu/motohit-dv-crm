@@ -11,7 +11,7 @@ export default async function getClasses(): Promise<
 > {
   return dbWorker(
     `
-      select * from chbfs_sys$classes
+      select * from chbfs_sys$classes order by name
     `,
     []
   );
