@@ -16,19 +16,21 @@ async function DBCreateKey(props: ts_keys4create) {
     (
       name,
       title,
+      tableName,
       description,
       SQLString,
       idConfig
     )
     values
     (
-      ?,?,?,?,?
+      ?,?,?,?,?,?
     );
     ${props.SQLString};
   `,
     [
       props.name,
       props.title,
+      props.tableName,
       props.description,
       props.SQLString,
       props.idConfig,
