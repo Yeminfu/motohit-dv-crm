@@ -7,10 +7,15 @@ export default async function Columns(props: {
   const columns = await getColumns(props.tableName, props.contrainName);
   return (
     <>
-      <ul>
+      Колонки:
+      <ul className="list-group">
         {columns.result?.map((column) => (
-          <li key={column.COLUMN_NAME} title={JSON.stringify(column, null, 2)}>
-            {column.COLUMN_NAME}
+          <li
+            className="list-group-item"
+            key={column.COLUMN_NAME}
+            title={JSON.stringify(column, null, 2)}
+          >
+            COLUMN_NAME: <strong> {column.COLUMN_NAME}</strong>
           </li>
         ))}
       </ul>

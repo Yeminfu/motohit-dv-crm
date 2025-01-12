@@ -14,10 +14,13 @@ export default async function ContrainsInTable(props: { tableName: string }) {
           <div className="mt-3">
             <div className="card shadow">
               <div className="card-header">
-                CONSTRAINT_NAME: {contrain.CONSTRAINT_NAME}
+                CONSTRAINT_NAME: <strong> {contrain.CONSTRAINT_NAME}</strong>
               </div>
               <div className="card-body">
-                <pre>{JSON.stringify({ contrain }, null, 2)}</pre>
+                <div>
+                  CONSTRAINT_TYPE: <strong>{contrain.CONSTRAINT_TYPE}</strong>
+                </div>
+                {/* <pre>{JSON.stringify({ contrain }, null, 2)}</pre> */}
                 <Columns
                   tableName={contrain.TABLE_NAME}
                   contrainName={contrain.CONSTRAINT_NAME}
