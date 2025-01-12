@@ -13,11 +13,7 @@ export default async function Contrains() {
               <div className="card-header">
                 <strong> {tableObj.Tables_in_motohit_dv_crm}</strong>
               </div>
-              <div className="card-body">
-                <ContrainsInTable
-                  tableName={tableObj.Tables_in_motohit_dv_crm}
-                />
-              </div>
+              <ContrainsInTable tableName={tableObj.Tables_in_motohit_dv_crm} />
             </div>
           </div>
         </Fragment>
