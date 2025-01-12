@@ -7,11 +7,10 @@ export default function ViewSQLResult(props: {
     return (
       <>
         <div>type 1</div>
-        <ViewTable SQLResult={arr} />;
+        <ViewTable SQLResult={arr} />
         {!props.disableJSONStringify && (
           <pre>{JSON.stringify({ props }, null, 2)}</pre>
         )}
-        {/* <pre>{JSON.stringify(props, null, 2)}</pre>; */}
       </>
     );
   }
@@ -20,7 +19,7 @@ export default function ViewSQLResult(props: {
     <>
       <div>type 2</div>
       {/* err #kdf94k */}
-      <ViewTable SQLResult={props.SQLResult} />;
+      <ViewTable SQLResult={props.SQLResult} />
       {/* <pre>{JSON.stringify(props, null, 2)}</pre> */}
     </>
   );
@@ -34,6 +33,7 @@ type ArrayOfUnknownObjects = UnknownFields[];
 
 function ViewTable(props: { SQLResult: ArrayOfUnknownObjects }) {
   const [firstObject] = props.SQLResult;
+  if (!firstObject) return JSON.stringify({ props });
   const keys = Object.keys(firstObject);
 
   try {
