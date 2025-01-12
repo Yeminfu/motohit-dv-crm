@@ -11,11 +11,15 @@ export default async function Contrains() {
     <>
       {tables.map((tableObj) => (
         <Fragment>
-          <div className="card">
-            <div className="card-header">
-              {tableObj.Tables_in_motohit_dv_crm}
+          <div className="mb-4">
+            <div className="card shadow">
+              <div className="card-header">
+                <strong> {tableObj.Tables_in_motohit_dv_crm}</strong>
+              </div>
+              <div className="card-body">
+                {tableObj.Tables_in_motohit_dv_crm}
+              </div>
             </div>
-            <div className="card-body">{tableObj.Tables_in_motohit_dv_crm}</div>
           </div>
         </Fragment>
       ))}
