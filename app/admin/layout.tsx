@@ -1,4 +1,5 @@
 import Navbar from "./Navbar";
+import DownloadSQLDump from "./components/downloadSQLDump/downloadSQLDump";
 import SQLConsole from "./components/sqlConsole/sqlConsole";
 
 export default function Layout(props: { children: any }) {
@@ -15,7 +16,7 @@ export default function Layout(props: { children: any }) {
               <div>
                 <SQLConsole />
               </div>
-              <button className="btn">asd</button>
+              <DownloadSQLDump />
             </div>
           </div>
         </div>
