@@ -1,22 +1,23 @@
-import dbWorker from "#db/dbWorker.ts";
 import { ResultSetHeader } from "mysql2";
 
 export default async function updateAttrProdRelation(
   connection: any,
+  idProduct: number,
   idAttributeValue: number,
-  idRelation: number
 ) {
   const sql = `
-    update chbfs_attr_prod_relation
-    set
-      idAttributeValue = ?
-    where
-      id = ?
+    set @idProduct = ?;
+    set @idAttributeValue = ?;
+    INSERT INTO chbfs_attr_prod_relation (idProduct, idAttributeValue, created_by)
+    VALUES (@idProduct, @idAttributeValue, 1)
+    ON DUPLICATE KEY UPDATE
+      idProduct = @idProduct, 
+      idAttributeValue = @idAttributeValue;
   `;
 
   const res: ResultSetHeader = await connection.query(sql, [
-    idAttributeValue,
-    idRelation,
+    idProduct,
+    idAttributeValue
   ]);
   return res;
 }

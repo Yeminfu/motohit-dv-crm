@@ -1,7 +1,6 @@
 import getAttributeRelation from "./getAttributeRelation";
 import updateAttrProdRelation from "../updateAttrProdRelation";
 import removeRedundantRelations from "./removeRedundantRelations";
-import createNewRelation from "./createNewRelation";
 import ts_attributesFromClient from "./ts_attributesFromClient";
 
 export default async function editProductAttributes(
@@ -9,8 +8,6 @@ export default async function editProductAttributes(
   idProduct: number,
   attributes: ts_attributesFromClient[]
 ) {
-  const errors = [];
-
   if (!attributes.length) return;
 
   /**
@@ -32,7 +29,7 @@ export default async function editProductAttributes(
   );
 
 
-  const deleteResult = await removeRedundantRelations(connection, idProduct, [
+  await removeRedundantRelations(connection, idProduct, [
     ...relationsNumbersOnly,
     //массив не должен быть пустой, на всякий случай добавляем 0
     0,
@@ -41,25 +38,11 @@ export default async function editProductAttributes(
   for (let index = 0; index < attributes.length; index++) {
     const newAttribute = attributes[index];
 
-    const oldRelation = await getAttributeRelation(
+    await updateAttrProdRelation(
+      connection,
       idProduct,
-      Number(newAttribute.idAttribute)
+      Number(newAttribute.idAttributeValue),
     );
-
-    if (oldRelation) {
-      //изменяем существующие связи
-      const result = await updateAttrProdRelation(
-        connection,
-        Number(newAttribute.idAttributeValue),
-        oldRelation.id
-      );
-      if (result.affectedRows !== 1) {
-        errors.push({ newAttribute, oldRelation, result });
-      }
-    } else {
-      //создаем новые связи
-    }
   }
 
-  const createRelationResult = await createNewRelation(connection, idProduct, attributes);
 }

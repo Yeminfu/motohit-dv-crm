@@ -54,12 +54,12 @@ export async function POST(req: any, params: { params: { id: any } }) {
 
     const newImages = data.getAll("newImages");
     await createNewImages(connection, Number(params.params.id), newImages);
-
+    await connection.commit();
     return NextResponse.json({ result: true })
 
   } catch (error) {
     console.error("fatal error #mfn5c", error);
-    await connection.rollback();
+
     await connection.end()
     return NextResponse.json({ error: error });
   }

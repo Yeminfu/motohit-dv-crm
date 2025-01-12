@@ -52,10 +52,10 @@ export default async function onSubmit(formValues: any): Promise<any> {
       throw new Error(`Ошибка: ${response.status}`);
     }
     const data = await response.json();
-    if (data.success) {
+    if (data.result) {
       toast.success("Данные товара изменены");
     } else {
-      alert("Ошибка #94j \n" + JSON.stringify(data.errors, null, 2));
+      alert("Ошибка #94j \n" + JSON.stringify(data, null, 2));
     }
   } catch (error) {
     alert("Ошибка #d03nbd");
