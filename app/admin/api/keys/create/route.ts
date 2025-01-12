@@ -26,6 +26,12 @@ async function DBCreateKey(props: ts_keys4create) {
     );
     ${props.SQLString};
   `,
-    [props.name, props.title, props.description, props.SQLString]
+    [
+      props.name,
+      props.title,
+      props.description,
+      props.SQLString,
+      props.idConfig,
+    ]
   );
 }
