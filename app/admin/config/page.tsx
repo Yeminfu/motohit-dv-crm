@@ -80,7 +80,7 @@ export default async function Page() {
 
           <div className="card">
             <div className="card-header">
-              <h3>Ограничение</h3>
+              <h3>Ограничения</h3>
             </div>
             <div className="card-body">
               <Contrains />

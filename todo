@@ -2,3 +2,22 @@
   
 сделать роллбек, если хоть одно действие в создании товара вызвало ошибку
 синхронизировать на сайте с crm
+
+сделать структуру данных в ограничениях (contrains)
+  таблицы:[
+    {
+      table:string
+      contrains:[
+        {
+          CONSTRAINT_NAME: string
+          CONSTRAINT_TYPE: string
+          columns: [
+            {
+              COLUMN_NAME: string
+            }
+          ]
+        }
+      ]
+    }
+  ]
+  
