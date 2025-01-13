@@ -13,6 +13,7 @@ export default async function onSubmit(formValues: any): Promise<any> {
     idCostPriceType: formValues.cost_price.type,
     costPriceValue: formValues.cost_price.value,
     color: formValues.color,
+    description: formValues.description,
     code: formValues.code,
     isArchived: true,
   };

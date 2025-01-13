@@ -12,6 +12,7 @@ export default interface ts_EDitProductFields {
   stock: any;
   note: string;
   idCategory: string;
+  description: string;
   attributes: {
     idAttribute: string;
     idAttributeValue: string;

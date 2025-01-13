@@ -14,6 +14,7 @@ import ts_EDitProductFields from "./types/ts_EDitProductFields";
 import CostPrice from "./fields/costPrice/costPrice";
 import Categories from "./fields/categories/categories";
 import Images from "./fields/Images/images";
+import TextEditor from "#tools/text-editor/TextEditor.tsx";
 
 export default function EditProductForm(props: {
   product: ProductsFull;
@@ -38,7 +39,7 @@ export default function EditProductForm(props: {
     },
   });
 
-  const { register, handleSubmit, reset, watch, control } = methods;
+  const { register, handleSubmit, reset, watch, control, setValue } = methods;
 
   const { fields: retailPriceFields, append: appendRetailPrice }: any =
     useFieldArray<any>({
@@ -189,9 +190,13 @@ export default function EditProductForm(props: {
 
           <div className="mt-3">
             <h3>Описание</h3>
-            <div
-              dangerouslySetInnerHTML={{ __html: props.product.description }}
-            ></div>
+
+            <TextEditor
+              description={props.product.description}
+              updateDescription={(html: string) => {
+                setValue("description", html);
+              }}
+            />
           </div>
 
           <div className="mt-4">
