@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 import dayjs from 'dayjs';
 import createDump from './utils/createDump';
 import readTextFromFile from './utils/readTextFromFile';
+import deleteFileAsync from './utils/deleteFileAsync';
 
 export async function GET() {
 
@@ -14,6 +15,8 @@ export async function GET() {
   if (!success) return NextResponse.json({ success });
 
   const dumpStr = readTextFromFile(dumpFilePath);
+
+  deleteFileAsync(dumpFilePath);
 
   return new Response(dumpStr, {
     status: 200,
