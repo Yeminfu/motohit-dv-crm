@@ -37,8 +37,9 @@ async function DBUpdateSQLString(props: ts_scalarFunction4Edit) {
       title = ?,
       description = ?,
       idConfig = ?
+    where id = ?
     `,
-    [props.SQLString, props.title, props.description, props.idConfig]
+    [props.SQLString, props.title, props.description, props.idConfig, props.id]
   );
 }
 
