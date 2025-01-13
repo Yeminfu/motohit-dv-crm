@@ -10,6 +10,7 @@ import Stock from "./fields/stock/stock";
 import Attributes from "./fields/attributes/attributes";
 import Images from "./fields/images/images";
 import onSubmit from "./utils/onSubmit";
+import TextEditor from "#tools/text-editor/TextEditor.tsx";
 
 export default function CreateProductForm(props: {
   closeFn: any;
@@ -24,7 +25,7 @@ export default function CreateProductForm(props: {
     },
   });
 
-  const { register, handleSubmit, reset, control } = methods;
+  const { register, handleSubmit, reset, control, setValue } = methods;
 
   const { fields: retailPriceFields, append: appendRetailPrice }: any =
     useFieldArray<any>({
@@ -145,8 +146,20 @@ export default function CreateProductForm(props: {
           </div>
 
           <div className="mt-3">
-            <h5>Изображение</h5>
+            <h5>Изображения</h5>
             <Images />
+          </div>
+
+          <div className="mt-3">
+            <h5>Описание товара</h5>
+            <div>
+              <TextEditor
+                description={""}
+                updateDescription={(html: string) => {
+                  setValue("description", html);
+                }}
+              />
+            </div>
           </div>
 
           <div className="mt-4">
