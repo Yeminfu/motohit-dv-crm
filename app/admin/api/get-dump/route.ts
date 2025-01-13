@@ -1,10 +1,8 @@
-// import { headers } from 'next/headers'
-
 import path from 'path';
-
 import { NextResponse } from "next/server";
 import dayjs from 'dayjs';
 import createDump from './utils/createDump';
+import readTextFromFile from './utils/readTextFromFile';
 
 export async function GET() {
 
@@ -15,7 +13,9 @@ export async function GET() {
   const success = await createDump(dumpFilePath);
   if (!success) return NextResponse.json({ success });
 
-  return new Response('Hello, Next.js!', {
+  const dumpStr = readTextFromFile(dumpFilePath);
+
+  return new Response(dumpStr, {
     status: 200,
     headers: {
       'Content-Type': 'text/plain',
