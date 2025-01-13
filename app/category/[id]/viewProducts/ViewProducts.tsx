@@ -49,7 +49,6 @@ export default function ViewProducts(props: {
             <th>Заметки</th>
             <th>Код</th>
             <th>Интернет цена</th>
-
             {props.shops.map((shop) => (
               <th key={shop.id + "a"} className="text-nowrap">
                 Р.Ц. {shop.shopName}
