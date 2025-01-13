@@ -29,6 +29,7 @@ export default function EditProductForm(props: {
       name: props.product.name,
       color: props.product.color,
       code: props.product.code,
+      description: props.product.description,
       purchase_price: String(props.product.purchase_price),
       cost_price: {
         type: String(props.product.idCostPriceType),
@@ -39,7 +40,8 @@ export default function EditProductForm(props: {
     },
   });
 
-  const { register, handleSubmit, reset, watch, control, setValue } = methods;
+  const { register, handleSubmit, reset, watch, control, setValue, getValues } =
+    methods;
 
   const { fields: retailPriceFields, append: appendRetailPrice }: any =
     useFieldArray<any>({
@@ -192,7 +194,7 @@ export default function EditProductForm(props: {
             <h3>Описание</h3>
 
             <TextEditor
-              description={props.product.description}
+              description={getValues("description")}
               updateDescription={(html: string) => {
                 setValue("description", html);
               }}

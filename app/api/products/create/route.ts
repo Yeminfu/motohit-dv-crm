@@ -63,8 +63,6 @@ export async function POST(req: NextRequest) {
   } catch (error) {
     console.error("err #sdf94j", error);
     await connection.rollback();
-    console.log('rollback');
-
     await connection.end();
     return NextResponse.json({ error: error })
   }
