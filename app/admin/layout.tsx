@@ -13,10 +13,12 @@ export default function Layout(props: { children: any }) {
           </div>
           <div className="card-body">
             <div className="d-flex justify-content-between align-items-top">
-              <div>
+              <div className="flex-grow-1">
                 <SQLConsole />
               </div>
-              <DownloadSQLDump />
+              <div>
+                <DownloadSQLDump />
+              </div>
             </div>
           </div>
         </div>

@@ -6,7 +6,7 @@ export default function DownloadSQLDump() {
   return (
     <>
       <Link
-        className="btn btn-outline-dark"
+        className="btn btn-sm btn-outline-dark"
         href="/admin/api/get-dump"
         target="_blank"
       >
