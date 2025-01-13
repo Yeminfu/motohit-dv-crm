@@ -5,7 +5,7 @@ export default async function updateProductMainData(
   productData: ProductFromDB,
   idProduct: number
 ) {
-  const res = await connection.query(`call editProduct(?,?,?,?,?,?,?,?,?)`, [
+  const res = await connection.query(`call editProduct(?,?,?,?,?,?,?,?,?,?)`, [
     idProduct,
     productData.name,
     productData.note,
@@ -15,6 +15,7 @@ export default async function updateProductMainData(
     productData.purchase_price,
     productData.color,
     productData.code,
+    productData.description,
   ]);
   return res;
 }
