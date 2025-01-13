@@ -6,7 +6,7 @@ export default async function createProductMainData(
 ): Promise<any> {
   const res = await connection.query(
     `
-    call createProduct(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, @idProduct);
+    call createProduct(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, @idProduct);
     select @idProduct as idProduct;
   `,
     [
@@ -20,6 +20,7 @@ export default async function createProductMainData(
       productData.code,
       productData.color,
       productData.description,
+      productData.internetPrice,
     ]
   )
     .then((x: any) => x[0][1][0].idProduct);
