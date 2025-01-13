@@ -19,7 +19,6 @@ export default function OldImages(props: { idProduct: number }) {
     getImages(props.idProduct).then((imagesFromAPI) => {
       for (let index = 0; index < imagesFromAPI.length; index++) {
         const imgObj = imagesFromAPI[index];
-        console.log("imgObj", imgObj);
         appendOldImage(imgObj);
       }
     });
