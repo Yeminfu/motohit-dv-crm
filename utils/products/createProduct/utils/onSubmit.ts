@@ -11,6 +11,7 @@ export default async function onSubmit(formValues: any) {
     purchase_price: formValues.purchase_price,
     idCostPriceType: formValues.cost_price.type,
     costPriceValue: formValues.cost_price.value,
+    internetPrice: formValues.internetPrice,
     color: formValues.color,
     code: formValues.code,
     isArchived: true,

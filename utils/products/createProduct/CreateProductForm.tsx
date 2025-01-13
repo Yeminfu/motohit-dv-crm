@@ -119,6 +119,20 @@ export default function CreateProductForm(props: {
             <CostPrice priceTypes={props.priceTypes} />
           </div>
 
+          <div className="mb-2">
+            <div>
+              <b>Интернет цена</b>
+            </div>
+            <input
+              {...register("internetPrice", {
+                required: true,
+                pattern: /^-?\d*(\.\d+)?$/i,
+              })}
+              className="form-control"
+              autoComplete="off"
+            />
+          </div>
+
           <div className="mt-3">
             <h5>Розн. цена</h5>
             <RetailPrices
