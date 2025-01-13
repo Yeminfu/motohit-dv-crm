@@ -1,3 +1,10 @@
 синхронизировать на сайте с crm
 
 сделать историю всех изменений товаров
+
+
+SELECT TABLE_NAME, TABLE_COLLATION
+FROM information_schema.TABLES
+WHERE
+ (TABLE_SCHEMA = 'motohit_dv_crm' AND TABLE_NAME = 'chbfs_products')
+ or (TABLE_SCHEMA = 'motohit_dv' AND TABLE_NAME = 'products');

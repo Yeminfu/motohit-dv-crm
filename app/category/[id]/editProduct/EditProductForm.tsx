@@ -187,6 +187,13 @@ export default function EditProductForm(props: {
             <Images idProduct={props.product.id} />
           </div>
 
+          <div className="mt-3">
+            <h3>Описание</h3>
+            <div
+              dangerouslySetInnerHTML={{ __html: props.product.description }}
+            ></div>
+          </div>
+
           <div className="mt-4">
             <div className="d-flex">
               <button className="btn btn-sm btn-primary">Сохранить</button>

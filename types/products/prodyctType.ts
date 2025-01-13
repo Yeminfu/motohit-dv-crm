@@ -11,6 +11,7 @@ export interface ProductFromDB {
   costPriceValue: number;
   color: string;
   code: string;
+  description: string
   isArchived: boolean;
 }
 
