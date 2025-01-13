@@ -6,6 +6,7 @@ export default interface ts_product4create {
   code: string;
   color: string;
   cost_price: { type: number; value: number };
+  internetPrice: string;
   note: string;
   purchase_price: number;
   retail_price: RetailPriceFromDB[];
