@@ -37,6 +37,7 @@ export default function EditProductForm(props: {
       },
       note: String(props.product.note),
       idCategory: String(props.product.idCategory),
+      internetPrice: String(props.product.internetPrice),
     },
   });
 
