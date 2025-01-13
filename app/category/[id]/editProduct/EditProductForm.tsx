@@ -151,6 +151,15 @@ export default function EditProductForm(props: {
           </div>
 
           <div className="mt-3">
+            <h5>Интернет цена</h5>
+            <input
+              {...register("internetPrice", { required: true })}
+              className="form-control"
+              autoComplete="off"
+            />
+          </div>
+
+          <div className="mt-3">
             <h5>Розн. цена</h5>
             <RetailPrices
               retailPriceFields={retailPriceFields}
