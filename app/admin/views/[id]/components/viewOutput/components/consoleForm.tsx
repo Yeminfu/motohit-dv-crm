@@ -1,6 +1,6 @@
 "use client";
 
-import ViewSQLResult from "#app/admin/components/sqlConsole/components/viewSQLResult/viewSQLResult.jsx";
+import ViewSQLResult from "#app/admin/components/sqlConsole/components/viewSQLResult/viewSQLResult.tsx";
 // import onSubmit from "#app/products/create/form/onSubmit.js";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
