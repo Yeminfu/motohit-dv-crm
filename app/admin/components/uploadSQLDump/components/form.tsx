@@ -1,4 +1,5 @@
 import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 
 export default function Form() {
   const { register, handleSubmit } = useForm<any>({
@@ -23,15 +24,22 @@ export default function Form() {
 }
 
 async function onSubmit(values: any) {
-  console.log("values", values);
+  const formData = new FormData();
+  formData.append("file", values.file[0]); // Добавляем файл в FormData
 
-  // const res: any = await fetch("/admin/api/classes/create", {
-  //   method: "post",
-  //   body: JSON.stringify(values),
-  // }).then((x) => x.json());
+  try {
+    const response = await fetch("/admin/api/uploadDump", {
+      method: "POST",
+      body: formData,
+    });
 
-  // if (res.error) {
-  //   toast.error(res.error.code);
-  //   return;
-  // }
+    if (!response.ok) {
+      throw new Error("Ошибка при загрузке файла");
+    }
+
+    const result = await response.json();
+    toast.success("Файл успешно загружен:");
+  } catch (error) {
+    console.error("Ошибка:", error);
+  }
 }
