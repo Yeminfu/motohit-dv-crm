@@ -1,6 +1,7 @@
 import Navbar from "./Navbar";
 import DownloadSQLDump from "./components/downloadSQLDump/downloadSQLDump";
 import SQLConsole from "./components/sqlConsole/sqlConsole";
+import UploadSQLDump from "./components/uploadSQLDump/uploadSQLDump";
 
 export default function Layout(props: { children: any }) {
   return (
@@ -17,7 +18,9 @@ export default function Layout(props: { children: any }) {
                 <SQLConsole />
               </div>
               <div>
+                <div className="d-flex"></div>
                 <DownloadSQLDump />
+                <UploadSQLDump />
               </div>
             </div>
           </div>
