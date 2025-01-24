@@ -66,7 +66,11 @@ function ViewTable(props: { SQLResult: ArrayOfUnknownObjects }) {
                   {values.map((value) => (
                     <td key={value}>
                       <div style={{ maxHeight: "100px", overflowY: "scroll" }}>
-                        {value}
+                        {(() => {
+                          if (typeof value === "object")
+                            return <pre>{JSON.stringify(value, null, 2)}</pre>;
+                          return value;
+                        })()}
                       </div>
                     </td>
                   ))}
