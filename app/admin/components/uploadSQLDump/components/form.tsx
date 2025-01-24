@@ -38,8 +38,14 @@ async function onSubmit(values: any) {
     }
 
     const result = await response.json();
-    toast.success("Файл успешно загружен:");
+    console.log(result);
+
+    if (result.success) {
+      toast.success("Дамп загружен");
+    } else {
+      alert("Ошибка #jdf94jldl");
+    }
   } catch (error) {
-    console.error("Ошибка:", error);
+    alert("Ошибка: #kfsdkf0\n" + JSON.stringify(error, null, 2));
   }
 }
