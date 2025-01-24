@@ -18,9 +18,14 @@ export default function Layout(props: { children: any }) {
                 <SQLConsole />
               </div>
               <div>
-                <div className="d-flex"></div>
-                <DownloadSQLDump />
-                <UploadSQLDump />
+                <div className="d-flex fles-nowrap">
+                  <div>
+                    <DownloadSQLDump />
+                  </div>
+                  <div>
+                    <UploadSQLDump />
+                  </div>
+                </div>
               </div>
             </div>
           </div>

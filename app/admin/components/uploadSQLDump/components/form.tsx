@@ -1,15 +1,24 @@
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
 export default function Form() {
+  const [loading, setLoading] = useState(false);
   const { register, handleSubmit } = useForm<any>({
     defaultValues: {
       // "name": props.searchParams.name,
     },
   });
+  if (loading) return <>Загрузка...</>;
   return (
     <>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form
+        onSubmit={handleSubmit(async (values) => {
+          setLoading(true);
+          await onSubmit(values);
+          setLoading(false);
+        })}
+      >
         <input
           type="file"
           id="file"
