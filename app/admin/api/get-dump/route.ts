@@ -5,6 +5,9 @@ import createDump from './utils/createDump';
 import readTextFromFile from './utils/readTextFromFile';
 import deleteFileAsync from './utils/deleteFileAsync';
 
+export const dynamic = 'force-dynamic';
+export const fetchCache = 'force-no-store';
+
 export async function GET() {
 
   const now = dayjs().format('DD_MM_YYYY_HH_mm_ss');

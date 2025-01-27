@@ -5,7 +5,7 @@ const dbPassword = process.env.DB_PASSWORD;
 const dbName = process.env.DB_NAME;
 
 export default async function createDump(dumpFilePath: string): Promise<boolean> {
-  const dumpCommand = `mysqldump -u ${dbUser} -p${dbPassword} ${dbName} > ${dumpFilePath}`;
+  const dumpCommand = `mysqldump -u ${dbUser} -p${dbPassword} ${dbName} --routines > ${dumpFilePath}`;
   const success: boolean = await new Promise(r => {
     exec(dumpCommand, (error, stdout, stderr) => {
       console.log({ error, stdout, stderr });
