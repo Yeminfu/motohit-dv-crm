@@ -1,10 +1,19 @@
 import { PriceTypesFromDBInterface } from "#types/products/priceTypesFromDBInterface.ts";
+import { useEffect } from "react";
 import { useFormContext } from "react-hook-form";
 
 export default function CostPrice(props: {
   priceTypes: PriceTypesFromDBInterface[];
 }) {
-  const { register } = useFormContext();
+  const { register, reset } = useFormContext();
+
+  useEffect(() => {
+    reset({
+      cost_price: {
+        type: "3",
+      },
+    });
+  }, []);
 
   return (
     <div className="row">
