@@ -1,5 +1,6 @@
 import { PriceTypesFromDBInterface } from "#types/products/priceTypesFromDBInterface.js";
 import { useFormContext } from "react-hook-form";
+import PriceTypeSelect from "./components/priceTypeSelect";
 
 export default function RetailPrices(props: {
   retailPriceFields: any;
@@ -24,7 +25,11 @@ export default function RetailPrices(props: {
                 <tr key={index}>
                   <td>{props.retailPriceFields[index].shopName}</td>
                   <td>
-                    <select
+                    <PriceTypeSelect
+                      fieldName={`retail_price[${index}].idPriceType`}
+                      priceTypes={props.priceTypes}
+                    />
+                    {/* <select
                       {...(() => {
                         return register(
                           //@ts-ignore
@@ -43,7 +48,7 @@ export default function RetailPrices(props: {
                           {priceType.priceType}
                         </option>
                       ))}
-                    </select>
+                    </select> */}
                   </td>
                   <td>
                     <input
