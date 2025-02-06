@@ -27,7 +27,7 @@ export default function EditProductForm(props: {
     defaultValues: {
       idProduct: props.product.id,
       name: props.product.name,
-      color: props.product.color,
+      color: props.product.color || "black",
       code: props.product.code,
       description: props.product.description,
       purchase_price: String(props.product.purchase_price || ""),
