@@ -45,7 +45,15 @@ export default function ViewProducts(props: {
         // return <div className="mt-2">Воспользуйтесь поиском</div>;
         return (
           <table className="table table-bordered table-striped">
-            <thead>
+            <thead
+              style={{
+                background: "#eee",
+                position: "sticky" /* Делаем заголовки липкими */,
+                top: 0 /* Устанавливаем верхнюю границу */,
+                backgroundColor: "white" /* Фон заголовка */,
+                zIndex: 1 /* Убедитесь, что заголовок выше других элементов */,
+              }}
+            >
               <tr>
                 <th>ID</th>
                 <th>Фото</th>
