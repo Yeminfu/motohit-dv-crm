@@ -21,7 +21,7 @@ export async function POST(req: NextRequest) {
 
   const user = await getUserByToken(authToken);
 
-  if (!user) return NextResponse.json({ success: false });
+  if (!user) return NextResponse.json({ success: false, error: 'Ошибка авторизации' });
 
   const data: any = await req.formData();
 
