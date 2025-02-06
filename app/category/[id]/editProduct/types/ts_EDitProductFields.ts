@@ -1,5 +1,5 @@
 export default interface ts_EDitProductFields {
-  idProduct: number;
+  idProduct: string;
   name: string;
   color: string;
   code: string;

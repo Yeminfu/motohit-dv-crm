@@ -25,7 +25,7 @@ export default function EditProductForm(props: {
 }) {
   const methods = useForm<ts_EDitProductFields>({
     defaultValues: {
-      idProduct: props.product.id,
+      idProduct: String(props.product.id),
       name: props.product.name,
       color: props.product.color || "black",
       code: props.product.code,
@@ -99,6 +99,10 @@ export default function EditProductForm(props: {
           })}
         >
           <div className="row">
+            <input
+              {...register("idProduct", { required: true })}
+              style={{ display: "none" }}
+            />
             <div className="col">
               <div className="mb-2">
                 <div>
