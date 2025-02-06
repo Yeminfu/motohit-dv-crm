@@ -2,6 +2,7 @@ import dbWorker from "@/db/dbWorker";
 import ts_attributesFromClient from "./ts_attributesFromClient";
 
 export default async function createNewRelation(
+  connection: any,
   idProduct: number,
   attributes: ts_attributesFromClient[]
 ) {
@@ -16,7 +17,7 @@ export default async function createNewRelation(
       ${attributes.map(() => `(?,?,?)`).join(",\n      ")}
   `;
 
-  const res = await dbWorker(
+  const res = await connection.query(
     sql,
     attributes.map((el) => [1, el.idAttributeValue, idProduct]).flat()
   );

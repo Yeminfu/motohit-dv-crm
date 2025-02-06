@@ -4,6 +4,7 @@ export default interface ts_EDitProductFields {
   color: string;
   code: string;
   purchase_price: string;
+  internetPrice: string
   cost_price: {
     value: string;
     type: string;
@@ -12,6 +13,7 @@ export default interface ts_EDitProductFields {
   stock: any;
   note: string;
   idCategory: string;
+  description: string;
   attributes: {
     idAttribute: string;
     idAttributeValue: string;

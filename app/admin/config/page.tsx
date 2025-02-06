@@ -5,6 +5,9 @@ import Classes from "./components/Classes/Classes";
 import Procedures from "./components/procedures/procedures";
 import ConfigThree from "./components/configThree/configThree";
 import CreateConfig from "./components/createConfig/createConfig";
+import ScalarFunctions from "./components/scalarFunctions/scalarFunctions";
+import Views4classes from "./components/views4classes/views4classes";
+import Contrains from "./components/contrains/contrains";
 
 export default async function Page() {
   return (
@@ -32,10 +35,28 @@ export default async function Page() {
 
           <div className="card">
             <div className="card-header">
+              <h3>Скалярные функции</h3>
+            </div>
+            <div className="card-body">
+              <ScalarFunctions />
+            </div>
+          </div>
+
+          <div className="card">
+            <div className="card-header">
               <h3>Классы</h3>
             </div>
             <div className="card-body">
               <Classes />
+            </div>
+          </div>
+
+          <div className="card">
+            <div className="card-header">
+              <h3>Представления (views)</h3>
+            </div>
+            <div className="card-body">
+              <Views4classes />
             </div>
           </div>
 
@@ -54,6 +75,15 @@ export default async function Page() {
             </div>
             <div className="card-body">
               <Keys />
+            </div>
+          </div>
+
+          <div className="card">
+            <div className="card-header">
+              <h3>Ограничения</h3>
+            </div>
+            <div className="card-body">
+              <Contrains />
             </div>
           </div>
         </>

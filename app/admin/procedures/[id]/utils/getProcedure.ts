@@ -32,7 +32,7 @@ export default async function getProcedure(
   const procedure = result.result[0];
 
   if (!procedure) {
-    console.error("err #o83hnm");
+    console.error("err #o83hndsm");
     return;
   }
 

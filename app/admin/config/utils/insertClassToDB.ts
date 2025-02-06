@@ -5,9 +5,11 @@ export default async function insertClassToDB(_class: ts_class4create) {
   const res = await dbWorker2(
     `call createClass(
       ?,
-      @val
+      ?,
+      ?,
+      ?
   )`,
-    [_class.className]
+    [_class.className, _class.title, _class.description, _class.idConfig]
   );
 
   return res;

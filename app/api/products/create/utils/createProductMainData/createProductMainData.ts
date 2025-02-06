@@ -1,48 +1,28 @@
-import dbWorker from "#db/dbWorker.ts";
-import { ResultSetHeader } from "mysql2";
 import slugify from "slugify";
 
 export default async function createProductMainData(
+  connection: any,
   productData: any
-): Promise<ResultSetHeader> {
-  const res = await dbWorker(
+): Promise<any> {
+  const res = await connection.query(
     `
-      insert into ${process.env.TABLE_PREFIX}_products
-      (
-        name,
-        slug,
-        note,
-        idCostPriceType,
-        idCategory,
-        costPriceValue,
-        purchase_price,
-        color,
-        code
-      )
-      values
-      (
-        ?,
-        ?,
-        ?,
-        ?,
-        ?,
-        ?,
-        ?,
-        ?,
-        ?
-      )
-    `,
+    call createProduct(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, @idProduct);
+    select @idProduct as idProduct;
+  `,
     [
+      productData.idCategory,
       productData.name,
       slugify(productData.name.trim()),
       productData.note,
       productData.idCostPriceType,
-      productData.idCategory,
       productData.costPriceValue,
       productData.purchase_price,
-      productData.color,
       productData.code,
+      productData.color,
+      productData.description,
+      productData.internetPrice,
     ]
-  );
+  )
+    .then((x: any) => x[0][1][0].idProduct);
   return res;
 }

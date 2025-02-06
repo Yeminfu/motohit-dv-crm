@@ -4,7 +4,7 @@ import fs from "fs";
 
 const imagesFolder: string = String(process.env.IMAGES_FOLDER);
 
-export default async function saveImage(file: File, idProduct: number) {
+export default async function saveImage(connection: any, file: File, idProduct: number) {
   const dateNow = Date.now();
 
   const filename = slugify(
@@ -18,7 +18,7 @@ export default async function saveImage(file: File, idProduct: number) {
   if (!savedToFs) {
     return;
   }
-  return await insertImageToDB(filename, idProduct);
+  return await insertImageToDB(connection, filename, idProduct);
 }
 
 function saveImageToFS(filePath: string, buffer: ArrayBuffer) {

@@ -1,6 +1,5 @@
-import dbWorker from "#db/dbWorker.ts";
-
 export default async function removeRedundantRelations(
+  connection: any,
   idProduct: number,
   requiredRelations: number[]
 ) {
@@ -12,6 +11,6 @@ export default async function removeRedundantRelations(
         ${requiredRelations.map((_) => "?")}
       )
   `;
-  const result = await dbWorker(sql, [idProduct, ...requiredRelations]);
+  const result = await connection.query(sql, [idProduct, ...requiredRelations]);
   return result;
 }

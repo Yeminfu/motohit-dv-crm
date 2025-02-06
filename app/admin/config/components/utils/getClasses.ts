@@ -3,7 +3,7 @@ import dbWorker from "#db/dbWorker.ts";
 export default async function getClasses(): Promise<
   {
     id: number;
-    className: string;
+    name: string;
     title: string;
     description: string;
     idParent: number | null;
@@ -11,7 +11,7 @@ export default async function getClasses(): Promise<
 > {
   return dbWorker(
     `
-      select * from chbfs_sys$classes
+      select * from chbfs_sys$classes order by name
     `,
     []
   );

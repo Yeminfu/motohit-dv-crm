@@ -48,6 +48,7 @@ export default function ViewProducts(props: {
             <th>Наименование</th>
             <th>Заметки</th>
             <th>Код</th>
+            <th>Интернет цена</th>
             {props.shops.map((shop) => (
               <th key={shop.id + "a"} className="text-nowrap">
                 Р.Ц. {shop.shopName}
@@ -118,6 +119,7 @@ export default function ViewProducts(props: {
               </td>
               <td>{product.note}</td>
               <td>{product.code}</td>
+              <td>{product.internetPrice}</td>
               <>
                 {product.retailPrices.map((retailPriceObj, i) => {
                   const costPrice = createPriceWithMarkup(

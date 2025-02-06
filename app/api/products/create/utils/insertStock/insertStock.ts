@@ -1,26 +1,17 @@
-import dbWorker from "@/db/dbWorker";
 import StockFromDBType from "@/types/products/stockFromDB";
 
 export default async function insertStock(props: {
+  connection: any
   stock: StockFromDBType[];
   session: number;
   idProduct: number;
 }) {
-  const sql = `
-  insert into ${process.env.TABLE_PREFIX}_stock
-  (
-    idProduct,
-    idShop,
-    count
-  )
-  values
-    ${props.stock.map(() => "(?,?,?)")}
-  `;
-
-  const values = props.stock
-    .map((v) => [props.idProduct, v.idShop, v.count])
-    .flat();
-
-  const res = await dbWorker(sql, values);
-  return res;
+  const results = [];
+  for (let index = 0; index < props.stock.length; index++) {
+    const v = props.stock[index];
+    const sql = `call createProductStockItem(?,?,?)`;
+    const res = await props.connection.query(sql, [props.idProduct, v.idShop, v.count]);
+    results.push(res);
+  }
+  return results;
 }

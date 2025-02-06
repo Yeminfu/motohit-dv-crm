@@ -1,9 +1,9 @@
-import ts_procedure4create from "#app/admin/config/types/ts_procedure4create.js";
+import ts_procedure4Edit from "#app/admin/procedures/[id]/types/ts_procedure4Edit.ts";
 import dbWorker from "#db/dbWorker2.ts";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {
-  const procedure: ts_procedure4create = await request.json();
+  const procedure: ts_procedure4Edit = await request.json();
 
   const dropRes = await DBDropProcedure(procedure);
 
@@ -27,23 +27,24 @@ export async function POST(request: NextRequest) {
   return NextResponse.json(createRes);
 }
 
-async function DBUpdateSQLString(props: ts_procedure4create) {
+async function DBUpdateSQLString(props: ts_procedure4Edit) {
   return dbWorker(
     `
   update chbfs_sys$procedures
   set
     SQLString = ?
-  
+  where
+    id = ?
   `,
-    [props.SQLString]
+    [props.SQLString, props.id]
   );
 }
 
-async function DBCreateProcedure(props: ts_procedure4create) {
+async function DBCreateProcedure(props: ts_procedure4Edit) {
   return dbWorker(props.SQLString, []);
 }
 
-async function DBDropProcedure(props: ts_procedure4create) {
+async function DBDropProcedure(props: ts_procedure4Edit) {
   const sql = `drop procedure if exists ${props.name}`;
   return dbWorker(sql, []);
 }

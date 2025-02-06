@@ -11,6 +11,7 @@ export default async function onSubmit(formValues: any) {
     purchase_price: formValues.purchase_price,
     idCostPriceType: formValues.cost_price.type,
     costPriceValue: formValues.cost_price.value,
+    internetPrice: formValues.internetPrice,
     color: formValues.color,
     code: formValues.code,
     isArchived: true,
@@ -48,10 +49,10 @@ export default async function onSubmit(formValues: any) {
       throw new Error(`Ошибка: ${response.status}`);
     }
     const data = await response.json();
-    if (data.success) {
+    if (data?.result?.idProduct) {
       toast.success("Товар сохранен");
     } else {
-      alert("Ошибка #dkas93 \n" + JSON.stringify(data.errors, null, 2));
+      alert("Ошибка #dkas93 \n" + JSON.stringify(data, null, 2));
     }
   } catch (error) {
     alert("Ошибка #ssjj3");

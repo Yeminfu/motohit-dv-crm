@@ -22,13 +22,11 @@ export default async function Classes() {
             <tr key={_class.id}>
               <td> {_class.id}</td>
               <td>
-                <Link href={`/admin/classes/` + _class.id}>
-                  {_class.className}
-                </Link>
+                <Link href={`/admin/classes/` + _class.id}>{_class.name}</Link>
               </td>
               <td>{JSON.stringify(_class)}</td>
               <td>
-                <Delete className={_class.className} />
+                <Delete name={_class.name} />
               </td>
             </tr>
           ))}

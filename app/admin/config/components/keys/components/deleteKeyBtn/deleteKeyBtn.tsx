@@ -10,8 +10,8 @@ export default function DeleteKeyBtn(props: { keyObject: ts_keyFromDB }) {
         className="btn btn-outline-dark"
         onClick={() => {
           onClick({
-            table: props.keyObject.TABLE_NAME,
-            column: props.keyObject.CONSTRAINT_NAME,
+            table: props.keyObject.tableName,
+            column: props.keyObject.name,
           });
         }}
       >

@@ -21,9 +21,11 @@ export default async function Procedures() {
               </td>
               <td>{dayjs(procedure.Created).format("DD-MM-YYYY")}</td>
               <td>{procedure.Comment}</td>
-              <td>
-                <pre>{procedure["Create Procedure"]}</pre>
-              </td>
+              {/* <td>
+                <div style={{}}>
+                  <pre>{procedure["Create Procedure"]}</pre>
+                </div>
+              </td> */}
             </tr>
           ))}
         </tbody>

@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
 import fs from "fs";
-import addHistoryEntry from "@/utils/history/addHistoryEntry";
 import createProductMainData from "./utils/createProductMainData/createProductMainData";
 import { RetailPriceFromDB } from "#types/products/retailPriceFromDB.js";
 import createRetailPrices from "./utils/createRetailPrices/createRetailPrices";
@@ -9,6 +8,7 @@ import insertStock from "./utils/insertStock/insertStock";
 import createAttributes from "./utils/createAttributes/createAttributes";
 import getUserByToken from "#utils/users/getUserByToken.ts";
 import createImages from "./utils/createImages/createImages";
+import dbConnection from "#db/connect.ts";
 
 const imagesFolder: string = String(process.env.IMAGES_FOLDER);
 fs.mkdirSync(imagesFolder, { recursive: true });
@@ -27,43 +27,43 @@ export async function POST(req: NextRequest) {
 
   const productMainData = JSON.parse(data.get("productMainData"));
 
-  let idProduct = Number();
+  const connection = await dbConnection();
 
   try {
-    const updMainDataRes = await createProductMainData(productMainData);
 
-    if (updMainDataRes.insertId) idProduct = updMainDataRes.insertId;
+    await connection.beginTransaction();
 
-    await addHistoryEntry("createProduct", {
-      productMainData,
-      updMainDataRes,
+    const idProduct: number = await createProductMainData(
+      connection,
+      productMainData
+    );
+
+    const retail_price: RetailPriceFromDB[] = JSON.parse(
+      data.get("retail_price")
+    );
+    await createRetailPrices(connection, idProduct, retail_price);
+
+    const stock: StockFromDBType[] = JSON.parse(data.get("stock"));
+    await insertStock({
+      connection,
+      stock,
+      session,
+      idProduct,
     });
+
+    const attributes = JSON.parse(data.get("attributes"));
+    await createAttributes(connection, idProduct, attributes, user.id);
+
+    const images = data.getAll("images");
+    await createImages(connection, idProduct, images);
+
+    await connection.commit();
+    await connection.end();
+    return NextResponse.json({ result: { idProduct } })
   } catch (error) {
-    console.error("err #mfn5c", error);
-    return NextResponse.json({ success: false });
+    console.error("err #sdf94j", error);
+    await connection.rollback();
+    await connection.end();
+    return NextResponse.json({ error: error })
   }
-
-  const retail_price: RetailPriceFromDB[] = JSON.parse(
-    data.get("retail_price")
-  );
-  await createRetailPrices(idProduct, retail_price);
-
-  const stock: StockFromDBType[] = JSON.parse(data.get("stock"));
-  // const stockRes =
-  await insertStock({
-    stock,
-    session,
-    idProduct,
-  });
-
-  const attributes = JSON.parse(data.get("attributes"));
-  // const createAttributesRes =
-  await createAttributes(idProduct, attributes, user.id);
-
-  const images = data.getAll("images");
-
-  // const createImagesRes =
-  await createImages(idProduct, images);
-
-  return NextResponse.json({ success: true });
 }

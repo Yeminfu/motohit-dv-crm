@@ -3,13 +3,14 @@ import dbWorker from "#db/dbWorker2.ts";
 
 export default async function insertInDB(data: ts_config4create) {
   const sql = `
-    insert into chbfs_config
-    (name, description, idParent)
+    insert into chbfs_sys$config
+    (name, title, description, idParent)
     values
-    (?, ?, ?)
+    (?, ?, ?, ?)
   `;
   const res = await dbWorker(sql, [
     data.name,
+    data.title,
     data.description,
     data.idParent || null,
   ]);

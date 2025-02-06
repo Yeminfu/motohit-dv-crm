@@ -3,7 +3,9 @@ import AuthedLayout from "@/utils/authedLayout";
 import getCategoriesWithIerarchy from "@/utils/side-menu/getCategoriesWithIerarchy";
 import Link from "next/link";
 import GlobalSearch from "./global-search/globalSearch";
-import ts_categoryFilter from "#types/ts_categoryFilter.js";
+import ts_categoryFilter from "#types/ts_categoryFilter.ts";
+import { getCategoryById } from "#utils/getCategoryById.ts";
+import dbWorker from "#db/dbWorker2.ts";
 
 export default async function Home(params: {
   searchParams: ts_categoryFilter;
@@ -42,12 +44,14 @@ export default async function Home(params: {
   );
 }
 
-function CategoryItem(props: { category: ts_categoriesWithIerarchy }) {
+async function CategoryItem(props: { category: ts_categoriesWithIerarchy }) {
   const children = props.category.children
     ? props.category.children?.map((child) => (
         <CategoryItem category={child} key={child.id} />
       ))
     : null;
+
+  const isInShop = await checkCategoryIsInShop(props.category.id);
 
   return (
     <>
@@ -56,10 +60,27 @@ function CategoryItem(props: { category: ts_categoriesWithIerarchy }) {
           className="btn btn-outline-dark d-block text-start mb-1"
           href={`/category/${props.category.id}`}
         >
-          {props.category.category_name}
+          {props.category.category_name} (
+          {String(isInShop.category_name === props.category.category_name)})
         </Link>
         {children}
       </div>
     </>
   );
+}
+
+async function checkCategoryIsInShop(idCategory: number) {
+  const categoryFromCRM = await getCategoryById(String(idCategory));
+
+  const sql = `
+    select * from motohit_dv.categories where id = ?
+  `;
+
+  const categoryFromShop = await dbWorker(sql, [idCategory]).then((x) =>
+    x.result?.pop()
+  );
+
+  return categoryFromShop;
+
+  // console.log({ idCategory, categoryFromCRM, categoryFromShop });
 }

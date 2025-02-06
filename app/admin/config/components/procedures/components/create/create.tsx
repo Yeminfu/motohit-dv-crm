@@ -34,48 +34,66 @@ function Form() {
   const { register, handleSubmit } = useForm<ts_procedure4create>({
     defaultValues: {
       SQLString,
-      // "name": props.searchParams.name,
+      name: "prodedureName",
+      title: "Процедура для важных дел",
+      idConfig: 1,
     },
   });
+
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <table className="bable w-auto">
-          <tbody>
-            <tr>
-              <th>Название процедуры (лат.)</th>
-              <td>
-                <input
-                  {...register("procedureName")}
-                  className="form-control w-auto"
-                  autoComplete="off"
-                />
-              </td>
-            </tr>
-            <tr>
-              <th>Заголовок</th>
-              <td>
-                <input
-                  {...register("title")}
-                  className="form-control w-auto"
-                  autoComplete="off"
-                />
-              </td>
-            </tr>
-            <tr>
-              <th>SQLString</th>
-              <td>
-                <textarea
-                  rows={20}
-                  {...register("SQLString")}
-                  className="form-control w-auto"
-                  autoComplete="off"
-                  style={{ width: "1000px" }}
-                />
-              </td>
-            </tr>
-          </tbody>
-        </table>
+        <div className="mt-2">
+          <div>
+            <strong>Название процедуры (лат.)</strong>
+          </div>
+          <div>
+            <input
+              {...register("name", { required: true })}
+              className="form-control"
+              autoComplete="off"
+            />
+          </div>
+        </div>
+        <div className="mt-2">
+          <div>
+            <strong>Заголовок</strong>
+          </div>
+          <div>
+            <input
+              {...register("title", { required: true })}
+              className="form-control"
+              autoComplete="off"
+            />
+          </div>
+        </div>
+        <div className="mt-2">
+          <div>
+            <strong>SQLString</strong>
+          </div>
+          <div>
+            <textarea
+              rows={20}
+              {...register("SQLString", { required: true })}
+              className="form-control"
+              autoComplete="off"
+              style={{ width: "1000px" }}
+            />
+          </div>
+        </div>
+        <div className="mt-2">
+          <div>
+            <strong>idConfig</strong>
+          </div>
+          <div>
+            <input
+              {...register("idConfig", { required: true })}
+              className="form-control"
+              autoComplete="off"
+            />
+          </div>
+        </div>
+
         <div className="mt-2">
           <button className="btn btn-dark btn-sm">Сохранить</button>
         </div>
@@ -85,14 +103,9 @@ function Form() {
 }
 
 async function onSubmit(values: ts_procedure4create) {
-  const _class = {
-    procedureName: values.procedureName,
-    title: values.title,
-    SQLString: values.SQLString,
-  };
   const res: any = await fetch("/admin/api/procedures/create", {
     method: "post",
-    body: JSON.stringify(_class),
+    body: JSON.stringify(values),
   }).then((x) => x.json());
   if (res.error) {
     toast.error(res.error.code);

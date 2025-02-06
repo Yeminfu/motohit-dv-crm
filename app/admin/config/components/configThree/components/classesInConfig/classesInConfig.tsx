@@ -22,7 +22,7 @@ export default function ClassesInConfig(props: { idConfig: number }) {
   return (
     <>
       {classes.map((classFromDB) => (
-        <div className="card">
+        <div className="card" key={classFromDB.id}>
           <div
             className="card-header"
             onClick={() => {
@@ -35,12 +35,12 @@ export default function ClassesInConfig(props: { idConfig: number }) {
               rel="noopener noreferrer"
               target="_blank"
             >
-              {classFromDB.className}
+              {classFromDB.name}
             </Link>
           </div>
-          <div className="card-body">
+          {/* <div className="card-body">
             <DBViews idClass={classFromDB.id} />
-          </div>
+          </div> */}
         </div>
       ))}
 
@@ -69,7 +69,7 @@ async function getClassesByIdConfig(
 
 interface ts_classFromDB {
   id: number;
-  className: string;
+  name: string;
   title: string | null;
   description: string | null;
   idConfig: number;

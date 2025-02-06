@@ -15,7 +15,17 @@ export default function CreateConfig() {
               <th>Название конфигурации</th>
               <td>
                 <input
-                  {...register("name")}
+                  {...register("name", { required: true })}
+                  className="form-control w-auto"
+                  autoComplete="off"
+                />
+              </td>
+            </tr>
+            <tr>
+              <th>Заголовок</th>
+              <td>
+                <input
+                  {...register("title", { required: true })}
                   className="form-control w-auto"
                   autoComplete="off"
                 />
@@ -25,7 +35,7 @@ export default function CreateConfig() {
               <th>Описание</th>
               <td>
                 <textarea
-                  {...register("description", { required: true })}
+                  {...register("description")}
                   className="form-control w-auto"
                   autoComplete="off"
                 />

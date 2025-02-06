@@ -1,5 +1,7 @@
 import Navbar from "./Navbar";
-import SQLConsole from "./sqlConsole/sqlConsole";
+import DownloadSQLDump from "./components/downloadSQLDump/downloadSQLDump";
+import SQLConsole from "./components/sqlConsole/sqlConsole";
+import UploadSQLDump from "./components/uploadSQLDump/uploadSQLDump";
 
 export default function Layout(props: { children: any }) {
   return (
@@ -11,7 +13,21 @@ export default function Layout(props: { children: any }) {
             <h3>Консоль</h3>
           </div>
           <div className="card-body">
-            <SQLConsole />
+            <div className="d-flex justify-content-between align-items-top">
+              <div className="flex-grow-1">
+                <SQLConsole />
+              </div>
+              <div>
+                <div className="d-flex fles-nowrap">
+                  <div>
+                    <DownloadSQLDump />
+                  </div>
+                  <div>
+                    <UploadSQLDump />
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
         {props.children}

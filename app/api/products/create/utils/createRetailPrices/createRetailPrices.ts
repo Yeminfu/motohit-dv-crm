@@ -1,27 +1,24 @@
-import dbWorker from "#db/dbWorker.ts";
 import { RetailPriceFromDB } from "#types/products/retailPriceFromDB.js";
 import { ResultSetHeader } from "mysql2";
 
 export default async function createRetailPrices(
+  connection: any,
   idProduct: number,
   retail_price: RetailPriceFromDB[]
-): Promise<ResultSetHeader> {
-  const sql = `
-  insert into ${process.env.TABLE_PREFIX}_retail_prices
-  (
-    idPriceType,
-    priceValue,
-    idProduct,
-    idShop
-  )
-  values
-    ${retail_price.map(() => "(?,?,?,?)")}
-  `;
+): Promise<ResultSetHeader[]> {
+  const results = [];
 
-  const values = retail_price
-    .map((v) => [v.idPriceType, v.priceValue, idProduct, v.idShop])
-    .flat();
+  for (let index = 0; index < retail_price.length; index++) {
+    const v = retail_price[index];
+    const sql = `call createProductRetailPrice(?,?,?,?)`;
+    const result = await connection.query(sql, [
+      v.idPriceType,
+      v.priceValue,
+      idProduct,
+      v.idShop,
+    ]);
+    results.push(result);
+  }
 
-  const res = await dbWorker(sql, values);
-  return res;
+  return results;
 }

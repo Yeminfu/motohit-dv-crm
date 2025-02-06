@@ -14,6 +14,7 @@ import ts_EDitProductFields from "./types/ts_EDitProductFields";
 import CostPrice from "./fields/costPrice/costPrice";
 import Categories from "./fields/categories/categories";
 import Images from "./fields/Images/images";
+import TextEditor from "#tools/text-editor/TextEditor.tsx";
 
 export default function EditProductForm(props: {
   product: ProductsFull;
@@ -28,6 +29,7 @@ export default function EditProductForm(props: {
       name: props.product.name,
       color: props.product.color,
       code: props.product.code,
+      description: props.product.description,
       purchase_price: String(props.product.purchase_price),
       cost_price: {
         type: String(props.product.idCostPriceType),
@@ -35,10 +37,12 @@ export default function EditProductForm(props: {
       },
       note: String(props.product.note),
       idCategory: String(props.product.idCategory),
+      internetPrice: String(props.product.internetPrice),
     },
   });
 
-  const { register, handleSubmit, reset, watch, control } = methods;
+  const { register, handleSubmit, reset, watch, control, setValue, getValues } =
+    methods;
 
   const { fields: retailPriceFields, append: appendRetailPrice }: any =
     useFieldArray<any>({
@@ -148,6 +152,15 @@ export default function EditProductForm(props: {
           </div>
 
           <div className="mt-3">
+            <h5>Интернет цена</h5>
+            <input
+              {...register("internetPrice", { required: true })}
+              className="form-control"
+              autoComplete="off"
+            />
+          </div>
+
+          <div className="mt-3">
             <h5>Розн. цена</h5>
             <RetailPrices
               retailPriceFields={retailPriceFields}
@@ -185,6 +198,17 @@ export default function EditProductForm(props: {
           <div className="mt-3">
             <h5>Изображения</h5>
             <Images idProduct={props.product.id} />
+          </div>
+
+          <div className="mt-3">
+            <h3>Описание</h3>
+
+            <TextEditor
+              description={getValues("description")}
+              updateDescription={(html: string) => {
+                setValue("description", html);
+              }}
+            />
           </div>
 
           <div className="mt-4">
