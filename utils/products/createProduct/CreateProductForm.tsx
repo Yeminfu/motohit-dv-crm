@@ -65,6 +65,10 @@ export default function CreateProductForm(props: {
           })}
         >
           <div className="row">
+            <input
+              {...register("idCategory", { required: true })}
+              className="d-none"
+            />
             <div className="col">
               <div className="mb-2">
                 <div>
