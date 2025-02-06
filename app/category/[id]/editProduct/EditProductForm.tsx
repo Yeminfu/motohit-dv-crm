@@ -30,14 +30,14 @@ export default function EditProductForm(props: {
       color: props.product.color,
       code: props.product.code,
       description: props.product.description,
-      purchase_price: String(props.product.purchase_price),
+      purchase_price: String(props.product.purchase_price || ""),
       cost_price: {
-        type: String(props.product.idCostPriceType),
-        value: String(props.product.costPriceValue),
+        type: String(props.product.idCostPriceType || ""),
+        value: String(props.product.costPriceValue || ""),
       },
-      note: String(props.product.note),
+      note: String(props.product.note || ""),
       idCategory: String(props.product.idCategory),
-      internetPrice: String(props.product.internetPrice),
+      internetPrice: String(props.product.internetPrice || ""),
     },
   });
 
