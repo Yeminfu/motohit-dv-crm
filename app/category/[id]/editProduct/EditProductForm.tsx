@@ -180,7 +180,7 @@ export default function EditProductForm(props: {
           <div className="mt-3">
             <h5>Заметки</h5>
             <textarea
-              {...register("note", { required: true })}
+              {...register("note")}
               className="form-control"
               autoComplete="off"
             />
