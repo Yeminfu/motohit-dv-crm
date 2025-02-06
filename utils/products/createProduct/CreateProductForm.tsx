@@ -22,6 +22,7 @@ export default function CreateProductForm(props: {
   const methods = useForm<any>({
     defaultValues: {
       idCategory: props.idCategory,
+      color: "black",
     },
   });
 
