@@ -92,7 +92,7 @@ export default function CreateProductForm(props: {
                   <b>Код товара</b>
                 </div>
                 <input
-                  {...register("code", { required: true })}
+                  {...register("code")}
                   className="form-control"
                   autoComplete="off"
                 />
