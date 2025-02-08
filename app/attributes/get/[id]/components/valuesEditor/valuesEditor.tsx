@@ -5,24 +5,30 @@ export default async function ValuesEditor(props: {
 }) {
   return (
     <>
-      <table className="table table-bordered mt-2">
+      <table className="table table-bordered w-auto mt-2">
         <thead>
           <tr>
-            <th>id значения</th>
-            <th>id атрибута</th>
-            <th>значение</th>
+            <th>id</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
           {props.attributeValues.map((attributeValue) => (
             <tr key={attributeValue.id}>
               <td>{attributeValue.id}</td>
-              <td>{attributeValue.idAttribute}</td>
+              {/* <td>{attributeValue.idAttribute}</td> */}
               <td>{attributeValue.value_name}</td>
+              <td>
+                <WorkPanel></WorkPanel>
+              </td>
             </tr>
           ))}
         </tbody>
       </table>
     </>
   );
+}
+
+function WorkPanel() {
+  return <>WorkPanel</>;
 }
