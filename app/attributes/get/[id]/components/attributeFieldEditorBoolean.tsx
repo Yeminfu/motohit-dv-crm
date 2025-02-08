@@ -1,43 +1,42 @@
 "use client";
 
-import { useForm } from "react-hook-form";
-import { toast } from "react-toastify";
+import { Controller, useForm } from "react-hook-form";
 import ts_booleanField from "./types/ts_booleanField";
-import onSubmit from "./utils/onSubmit";
+import updateFieldValue from "./utils/updateFieldValue";
 
 export default function AttributeFieldEditor(props: ts_booleanField) {
-  const { register, handleSubmit } = useForm<{ value: string }>({
+  const { control } = useForm<{ value: string }>({
     defaultValues: {
       value: String(props.attributeInitValue),
     },
   });
   return (
     <>
-      <form
-        onSubmit={handleSubmit(async (x) => {
-          // const { success, error } =
-          await onSubmit(props.idAttribute, Boolean(x.value));
-          // if (success) {
-          //   toast.success("Товар создан");
-          //   // reset();
-          // } else {
-          //   toast.error(error);
-          // }
-        })}
-      >
-        <select
-          {...register(`value`, {
-            required: true,
-          })}
-          className="form-select"
-        >
-          <>
-            <option value={"0"}>нет</option>
-            <option value={"1"}>да</option>
-          </>
-        </select>
+      <form>
+        <Controller
+          name="value"
+          control={control}
+          defaultValue=""
+          render={({ field }) => (
+            <select
+              {...field}
+              onChange={async (e) => {
+                field.onChange(e);
+                await updateFieldValue(
+                  props.idAttribute,
+                  Boolean(Number(e.target.value))
+                );
+              }}
+              className="form-select"
+            >
+              <>
+                <option value={"1"}>да</option>
+                <option value={"0"}>нет</option>
+              </>
+            </select>
+          )}
+        />
       </form>
-      <pre>{JSON.stringify(props, null, 2)}</pre>
     </>
   );
 }
