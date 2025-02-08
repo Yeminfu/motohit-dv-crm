@@ -3,6 +3,7 @@ import getAttributeById from "./utils/getAttributeById";
 import AttributeFieldEditor from "./components/attributeFieldEditorBoolean";
 import getAttributeValues from "#app/attributes/category/[id]/utils/getAttributeValues.ts";
 import ValuesEditor from "./components/valuesEditor/valuesEditor";
+import Link from "next/link";
 
 export default async function Page(a: { params: { id: string } }) {
   const attribute = await getAttributeById(Number(a.params.id));
@@ -23,7 +24,11 @@ export default async function Page(a: { params: { id: string } }) {
           </tr>
           <tr>
             <th>категория</th>
-            <td>{attribute.attribute_name}</td>
+            <td>
+              <Link href={`/attributes/category/` + attribute.idCategory}>
+                {attribute.category_name}
+              </Link>
+            </td>
           </tr>
           <tr>
             <th>виден в фильтре</th>
