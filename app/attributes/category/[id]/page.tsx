@@ -3,6 +3,7 @@ import getAttributes from "../../utils/getAttributes";
 import getCategory from "./getCategory";
 import dbWorker from "@/db/dbWorker";
 import Link from "next/link";
+import ViewAttributeValues from "./components/viewAttributeValues";
 
 export default async function Page(a: { params: { id: string } }) {
   const category = await getCategory(Number(a.params.id));
@@ -28,7 +29,7 @@ export default async function Page(a: { params: { id: string } }) {
             <th>Виден в фильтре</th>
             <th>Открыт в фильтре</th>
             <th>Главный</th>
-            {/* <th>Значения</th> */}
+            <th>Значения</th>
           </tr>
         </thead>
         <tbody>
@@ -51,17 +52,9 @@ export default async function Page(a: { params: { id: string } }) {
               <td>
                 {attribute.is_main} <EditField />
               </td>
-              {/* <td>
-                <table className="table">
-                  <tbody>
-                    {attribute.values.map((attributeValue) => (
-                      <tr key={attributeValue.id}>
-                        <td>{attributeValue.value_name}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </td> */}
+              <td>
+                <ViewAttributeValues attributeValues={attribute.values} />
+              </td>
             </tr>
           ))}
         </tbody>
