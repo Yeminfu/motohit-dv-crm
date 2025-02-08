@@ -25,7 +25,7 @@ export default async function Page(a: { params: { id: string } }) {
             <th>view_in_filter</th>
             <td>
               <AttributeFieldEditor
-                idAttribute={attribute.idCategory}
+                idAttribute={attribute.id}
                 fieldName="view_in_filter"
                 attributeInitValue={attribute.view_in_filter}
               />

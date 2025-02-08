@@ -3,6 +3,7 @@
 import { Controller, useForm } from "react-hook-form";
 import ts_booleanField from "./types/ts_booleanField";
 import updateFieldValue from "./utils/updateFieldValue";
+import { toast } from "react-toastify";
 
 export default function AttributeFieldEditor(props: ts_booleanField) {
   const { control } = useForm<{ value: string }>({
@@ -22,7 +23,12 @@ export default function AttributeFieldEditor(props: ts_booleanField) {
               {...field}
               onChange={async (e) => {
                 field.onChange(e);
-                await updateFieldValue(props);
+                const res = await updateFieldValue({
+                  idAttribute: props.idAttribute,
+                  fieldName: props.fieldName,
+                  attributeInitValue: Number(e.target.value),
+                });
+                toast.success(JSON.stringify(res));
               }}
               className="form-select"
             >
