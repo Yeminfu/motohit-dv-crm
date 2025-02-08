@@ -24,6 +24,7 @@ export default function AttributeFieldEditor(props: ts_booleanField) {
                 field.onChange(e);
                 await updateFieldValue(
                   props.idAttribute,
+                  props.fieldName,
                   Boolean(Number(e.target.value))
                 );
               }}

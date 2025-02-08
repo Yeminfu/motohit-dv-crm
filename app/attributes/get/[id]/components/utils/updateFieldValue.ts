@@ -1,6 +1,7 @@
-export default async function updateFieldValue(idAttribute: number, value: boolean) {
+export default async function updateFieldValue(idAttribute: number, fieldName: string, value: boolean) {
   console.log('updateFieldValue', {
     idAttribute,
-    value
+    value,
+    fieldName
   });
 }
