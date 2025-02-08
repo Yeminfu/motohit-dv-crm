@@ -22,7 +22,7 @@ export default async function Page(a: { params: { id: string } }) {
             <td>{attribute.attribute_name}</td>
           </tr>
           <tr>
-            <th>view_in_filter</th>
+            <th>виден в фильтре</th>
             <td>
               <AttributeFieldEditor
                 idAttribute={attribute.id}
@@ -32,12 +32,24 @@ export default async function Page(a: { params: { id: string } }) {
             </td>
           </tr>
           <tr>
-            <th>isOpenInFilter</th>
-            <td>{attribute.isOpenInFilter}</td>
+            <th>раскрыт в фильтре</th>
+            <td>
+              <AttributeFieldEditor
+                idAttribute={attribute.id}
+                fieldName="isOpenInFilter"
+                attributeInitValue={attribute.isOpenInFilter}
+              />
+            </td>
           </tr>
           <tr>
-            <th>is_main</th>
-            <td>{attribute.is_main}</td>
+            <th>главный</th>
+            <td>
+              <AttributeFieldEditor
+                idAttribute={attribute.id}
+                fieldName="is_main"
+                attributeInitValue={attribute.is_main}
+              />
+            </td>
           </tr>
         </tbody>
       </table>
