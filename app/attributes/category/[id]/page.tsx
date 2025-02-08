@@ -2,6 +2,7 @@ import AuthedLayout from "@/utils/authedLayout";
 import getAttributes from "../../utils/getAttributes";
 import getCategory from "./getCategory";
 import dbWorker from "@/db/dbWorker";
+import Link from "next/link";
 
 export default async function Page(a: { params: { id: string } }) {
   const category = await getCategory(Number(a.params.id));
@@ -27,13 +28,17 @@ export default async function Page(a: { params: { id: string } }) {
             <th>Виден в фильтре</th>
             <th>Открыт в фильтре</th>
             <th>Главный</th>
-            <th>Значения</th>
+            {/* <th>Значения</th> */}
           </tr>
         </thead>
         <tbody>
           {attributesWithValues.map((attribute) => (
             <tr key={attribute.id}>
-              <td> {attribute.id} </td>
+              <td>
+                <Link href={`/attributes/get/${attribute.id}`}>
+                  {attribute.id}
+                </Link>
+              </td>
               <td>
                 {attribute.attribute_name} <EditField />
               </td>
@@ -46,7 +51,7 @@ export default async function Page(a: { params: { id: string } }) {
               <td>
                 {attribute.is_main} <EditField />
               </td>
-              <td>
+              {/* <td>
                 <table className="table">
                   <tbody>
                     {attribute.values.map((attributeValue) => (
@@ -56,7 +61,7 @@ export default async function Page(a: { params: { id: string } }) {
                     ))}
                   </tbody>
                 </table>
-              </td>
+              </td> */}
             </tr>
           ))}
         </tbody>
