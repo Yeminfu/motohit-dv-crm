@@ -1,5 +1,6 @@
 import AuthedLayout from "@/utils/authedLayout";
 import getAttributeById from "./utils/getAttributeById";
+import AttributeFieldEditor from "./components/attributeFieldEditorBoolean";
 
 export default async function Page(a: { params: { id: string } }) {
   const attribute = await getAttributeById(Number(a.params.id));
@@ -22,7 +23,12 @@ export default async function Page(a: { params: { id: string } }) {
           </tr>
           <tr>
             <th>view_in_filter</th>
-            <td>{attribute.view_in_filter}</td>
+            <td>
+              <AttributeFieldEditor
+                idAttribute={attribute.idCategory}
+                attributeInitValue={attribute.view_in_filter}
+              />
+            </td>
           </tr>
           <tr>
             <th>isOpenInFilter</th>
