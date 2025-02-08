@@ -1,5 +1,5 @@
 import AuthedLayout from "@/utils/authedLayout";
-import getAttributes from "./getAttributes";
+import getAttributes from "../../utils/getAttributes";
 import getCategory from "./getCategory";
 import dbWorker from "@/db/dbWorker";
 
