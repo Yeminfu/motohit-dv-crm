@@ -1,9 +1,9 @@
 import AuthedLayout from "@/utils/authedLayout";
 import getAttributes from "../../utils/getAttributes";
 import getCategory from "./getCategory";
-import dbWorker from "@/db/dbWorker";
 import Link from "next/link";
 import ViewAttributeValues from "./components/viewAttributeValues";
+import getAttributeValues from "./utils/getAttributeValues";
 
 export default async function Page(a: { params: { id: string } }) {
   const category = await getCategory(Number(a.params.id));
@@ -53,27 +53,4 @@ export default async function Page(a: { params: { id: string } }) {
       </table>
     </AuthedLayout>
   );
-}
-
-async function getAttributeValues(
-  idAttribute: number
-): Promise<ts_attributeValue[]> {
-  return dbWorker(
-    `
-      select
-        *
-      from ${process.env.TABLE_PREFIX}_attributes_values
-      where
-        idAttribute = ?
-    `,
-    [idAttribute]
-  );
-}
-
-interface ts_attributeValue {
-  id: number;
-  value_name: string;
-  created_date: Date;
-  created_by: number;
-  idAttribute: number;
 }
