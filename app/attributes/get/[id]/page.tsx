@@ -1,6 +1,8 @@
 import AuthedLayout from "@/utils/authedLayout";
 import getAttributeById from "./utils/getAttributeById";
 import AttributeFieldEditor from "./components/attributeFieldEditorBoolean";
+import getAttributeValues from "#app/attributes/category/[id]/utils/getAttributeValues.ts";
+import ValuesEditor from "./components/valuesEditor/valuesEditor";
 
 export default async function Page(a: { params: { id: string } }) {
   const attribute = await getAttributeById(Number(a.params.id));
@@ -8,6 +10,8 @@ export default async function Page(a: { params: { id: string } }) {
   if (!attribute) {
     return <>не найден атрибут</>;
   }
+
+  const values = await getAttributeValues(attribute.id);
 
   return (
     <AuthedLayout title={`Атрибут: ${attribute.attribute_name}`}>
@@ -53,8 +57,8 @@ export default async function Page(a: { params: { id: string } }) {
           </tr>
         </tbody>
       </table>
-      Атрибут № {a.params.id}
-      <pre>{JSON.stringify(attribute, null, 2)}</pre>
+      <h3>Значения атрибута</h3>
+      <ValuesEditor attributeValues={values} />
     </AuthedLayout>
   );
 }
