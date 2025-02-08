@@ -22,11 +22,7 @@ export default function AttributeFieldEditor(props: ts_booleanField) {
               {...field}
               onChange={async (e) => {
                 field.onChange(e);
-                await updateFieldValue(
-                  props.idAttribute,
-                  props.fieldName,
-                  Boolean(Number(e.target.value))
-                );
+                await updateFieldValue(props);
               }}
               className="form-select"
             >
