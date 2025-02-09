@@ -3,7 +3,6 @@ import CreatorAttribute4Category from "./components/creatorAttribute4Category/cr
 export default async function Panel(props: { idCategory: number }) {
   return (
     <>
-      панель управления атрибутами категории 2
       <CreatorAttribute4Category {...props} />
     </>
   );
