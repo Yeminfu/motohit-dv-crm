@@ -1,7 +1,7 @@
 import { AttributeWithValues } from "./attributes"
 
 export type CategoryFromDBInterface = {
-    id?: number
+    id: number
     slug: string
     category_name: string
     description: string
