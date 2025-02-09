@@ -1,4 +1,5 @@
 import ts_attributeValue from "#types/attributes/ts_attributeValue.js";
+import WorkPanel from "./components/WorkPanel/WorkPanel";
 
 export default async function ValuesEditor(props: {
   attributeValues: ts_attributeValue[];
@@ -9,17 +10,16 @@ export default async function ValuesEditor(props: {
         <thead>
           <tr>
             <th>id</th>
-            <th></th>
+            <th>Значение</th>
           </tr>
         </thead>
         <tbody>
           {props.attributeValues.map((attributeValue) => (
             <tr key={attributeValue.id}>
               <td>{attributeValue.id}</td>
-              {/* <td>{attributeValue.idAttribute}</td> */}
               <td>{attributeValue.value_name}</td>
               <td>
-                <WorkPanel></WorkPanel>
+                <WorkPanel attributeValue={attributeValue} />
               </td>
             </tr>
           ))}
@@ -27,8 +27,4 @@ export default async function ValuesEditor(props: {
       </table>
     </>
   );
-}
-
-function WorkPanel() {
-  return <>WorkPanel</>;
 }
