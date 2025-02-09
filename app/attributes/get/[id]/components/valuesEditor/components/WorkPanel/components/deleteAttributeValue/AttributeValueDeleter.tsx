@@ -3,7 +3,7 @@
 import ts_attributeValue from "#types/attributes/ts_attributeValue.ts";
 import { useState } from "react";
 
-export default function DeleteAttributeValue(props: {
+export default function AttributeValueDeleter(props: {
   attributeValue: ts_attributeValue;
 }) {
   const ATTENTION_TEXT = "attention";

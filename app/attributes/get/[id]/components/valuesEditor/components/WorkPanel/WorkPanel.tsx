@@ -1,12 +1,12 @@
 import ts_attributeValue from "#types/attributes/ts_attributeValue.ts";
-import DeleteAttributeValue from "./components/deleteAttributeValue/deleteAttributeValue";
+import AttributeValueDeleter from "./components/deleteAttributeValue/AttributeValueDeleter";
 
 export default function WorkPanel(props: {
   attributeValue: ts_attributeValue;
 }) {
   return (
     <>
-      <DeleteAttributeValue attributeValue={props.attributeValue} />
+      <AttributeValueDeleter attributeValue={props.attributeValue} />
     </>
   );
 }
