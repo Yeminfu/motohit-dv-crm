@@ -2,6 +2,7 @@
 
 import ts_attributeValue from "#types/attributes/ts_attributeValue.ts";
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 export default function AttributeValueDeleter(props: {
   attributeValue: ts_attributeValue;
@@ -21,7 +22,6 @@ export default function AttributeValueDeleter(props: {
         >
           удалить свойство
         </button>
-        {/* <pre>{JSON.stringiefy(props.attributeValue)}</pre> */}
       </>
     );
 
@@ -37,10 +37,8 @@ export default function AttributeValueDeleter(props: {
         >
           удалить
         </button>
-        {/* <pre>{JSON.stringify(props.atteributeValue)}</pre> */}
       </>
     );
-  // return <>ts_attributeValue</>;
 }
 
 async function deleteAttributeValue(idAttribute: number) {
@@ -48,25 +46,32 @@ async function deleteAttributeValue(idAttribute: number) {
   try {
     const response = await fetch(
       `/api/attributesValues/dropValue/` + idAttribute,
-      {
-        method: "post",
-        // body: JSON.stringify({ idAttribute }),
-      }
+      { method: "post" }
     );
     if (!response.ok) {
+      alert(JSON.stringify(response, null, 2));
       throw new Error(`Ошибка HTTP: ${response.status}`);
     }
     const data = await response.json();
     console.log("data", data);
 
     if (data.error) {
-      alert("Ошибка: #d9dk3h: " + data.error?.code);
+      alert("Ошибка: #d9dkjk3h: " + JSON.stringify(data, null, 2));
       return;
     }
 
-    if (data.result) {
-      // toast.success("Колонка сохранена");
-      return;
+    if (data[0].affectedRows) {
+      toast("Значение атрибута изменено");
+      setTimeout(() => {
+        location.reload();
+      }, 1000);
+    } else {
+      alert(
+        JSON.stringify({
+          error: "error #kfsdf94",
+          data,
+        })
+      );
     }
   } catch (error: any) {
     alert("err #d9sj3nb");
