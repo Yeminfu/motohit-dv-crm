@@ -12,7 +12,7 @@ export default function CreatorAttribute4Category(props: {
     <>
       <form
         onSubmit={handleSubmit(async (values) => {
-          const res = await onSubmit(values);
+          const res = await onSubmit(values.attribute_name, props.idCategory);
           console.log("res", res);
         })}
       >
