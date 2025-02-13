@@ -4,7 +4,7 @@ import getCategory from "./getCategory";
 import Link from "next/link";
 import ViewAttributeValues from "./components/viewAttributeValues";
 import getAttributeValues from "./utils/getAttributeValues";
-import Panel from "./components/panel/panel";
+import CreatorAttribute4Category from "./components/creatorAttribute4Category/creatorAttribute4Category";
 
 export default async function Page(a: { params: { id: string } }) {
   const category = await getCategory(Number(a.params.id));
@@ -23,9 +23,15 @@ export default async function Page(a: { params: { id: string } }) {
   return (
     <AuthedLayout title={"Атрибуты категории: " + category.category_name}>
       <div className="card">
-        <div className="card-header">
-          <Panel idCategory={category.id} />
+        <div className="card-header">Создать атрибут</div>
+        <div className="card-body">
+          <CreatorAttribute4Category idCategory={category.id} />{" "}
         </div>
+      </div>
+      <div className="my-4" />
+
+      <div className="card">
+        <div className="card-header">Список атрибутов категории</div>
         <div className="card-body">
           <table className="table table-bordered table-striped">
             <thead>
