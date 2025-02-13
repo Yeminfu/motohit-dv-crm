@@ -20,7 +20,7 @@ export default function AttributeValueDeleter(props: {
           }}
           className="btn btn-sm btn-danger"
         >
-          удалить свойство
+          удалить значение атрибута
         </button>
       </>
     );
