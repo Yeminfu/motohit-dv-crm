@@ -2,21 +2,17 @@
 
 import { useForm } from "react-hook-form";
 import ts_inputs from "./types/ts_inputs";
+import onSubmit from "./utils/onSubmit";
 
 export default function AttributeValueCreator(props: { idAttribute: number }) {
-  const { register, handleSubmit } = useForm<ts_inputs>();
+  const { register, handleSubmit } = useForm<ts_inputs>({
+    defaultValues: {
+      idAttribute: String(props.idAttribute),
+    },
+  });
   return (
     <>
-      <form
-        onSubmit={handleSubmit(async (values) => {
-          alert();
-          // const res = await onSubmit({
-          //   idAttribute: props.idAttribute,
-          //   value_name: values.value_name,
-          // });
-          // console.log("res", res);
-        })}
-      >
+      <form onSubmit={handleSubmit(onSubmit)}>
         <input
           {...register("idAttribute", { required: true })}
           className="d-none"
@@ -37,5 +33,4 @@ export default function AttributeValueCreator(props: { idAttribute: number }) {
       </form>
     </>
   );
-  return <pre>{JSON.stringify(props, null, 2)}</pre>;
 }

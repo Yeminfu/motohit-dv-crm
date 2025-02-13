@@ -1,4 +1,4 @@
 export default interface ts_inputs {
-  idAttribute: number,
+  idAttribute: string,
   value_name: string
 }

@@ -9,17 +9,13 @@ export default async function onSubmit(data: ts_inputs) {
     .then(
       response => {
         if (response.ok) {
-          return response.json()
+          return response.json();
         } else {
           throw new Error(response.statusText);
         }
       }
     ).then(data => {
-      if (data.success) {
-        toast.success("Значение атрибута создано");
-      } else {
-        toast.error("Что-то пошло не так #dls84hs " + data.error);
-      }
+      alert(JSON.stringify(data, null, 2));
     })
     .catch(error => {
       toast.error("Что-то пошло не так #8dj32m");

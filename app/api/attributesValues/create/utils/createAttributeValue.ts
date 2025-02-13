@@ -1,0 +1,20 @@
+import dbWorker from "@/db/dbWorker2";
+import ts_inputs from "@/app/attributes/get/[id]/components/attributeValueCreator/types/ts_inputs";
+
+export default async function createAttributeValue(props: ts_inputs) {
+  const sql = `
+    insert into chbfs_attributes_values
+    (
+      idAttribute,
+      value_name
+    )
+    values
+    (
+      ?,?
+    );
+    select last_insert_id();
+  `;
+
+  const res = await dbWorker(sql, [props.idAttribute, props.value_name]);
+  return res;
+}
