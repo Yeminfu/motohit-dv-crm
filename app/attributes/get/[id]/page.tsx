@@ -71,18 +71,19 @@ export default async function Page(params: { params: { id: string } }) {
       <div className="my-4" />
       <div className="card">
         <div className="card-header">
-          <>Значения атрибута</>
-        </div>
-        <div className="card-body">
-          <ValuesEditor attributeValues={values} />
-        </div>
-      </div>
-      <div className="card">
-        <div className="card-header">
           <strong>Создать значение атрибута</strong>
         </div>
         <div className="card-body">
           <AttributeValueCreator idAttribute={attribute.id} />
+        </div>
+      </div>
+      <div className="my-4" />
+      <div className="card">
+        <div className="card-header">
+          <>Значения атрибута</>
+        </div>
+        <div className="card-body">
+          <ValuesEditor attributeValues={values} />
         </div>
       </div>
     </AuthedLayout>
