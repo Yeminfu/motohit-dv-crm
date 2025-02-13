@@ -6,8 +6,8 @@ import ValuesEditor from "./components/valuesEditor/valuesEditor";
 import Link from "next/link";
 import AttributeValueCreator from "./components/attributeValueCreator/attributeValueCreator";
 
-export default async function Page(a: { params: { id: string } }) {
-  const attribute = await getAttributeById(Number(a.params.id));
+export default async function Page(params: { params: { id: string } }) {
+  const attribute = await getAttributeById(Number(params.params.id));
 
   if (!attribute) {
     return <>не найден атрибут</>;
@@ -24,7 +24,7 @@ export default async function Page(a: { params: { id: string } }) {
             <tbody>
               <tr>
                 <th>id</th>
-                <td>{a.params.id}</td>
+                <td>{params.params.id}</td>
               </tr>
               <tr>
                 <th>категория</th>
