@@ -15,7 +15,19 @@ export default async function onSubmit(data: ts_inputs) {
         }
       }
     ).then(data => {
-      alert(JSON.stringify(data, null, 2));
+      if (!data.result) {
+        alert(JSON.stringify(data, null, 2));
+        return;
+      }
+
+      if (data.result.insertId) {
+        toast.success("Значение атрибута создано");
+        setTimeout(() => {
+          location.reload()
+        }, 500);
+        return;
+      }
+      alert("Error #jsdfsd94");
     })
     .catch(error => {
       toast.error("Что-то пошло не так #8dj32m");

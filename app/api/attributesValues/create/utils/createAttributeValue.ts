@@ -13,7 +13,6 @@ export default async function createAttributeValue(props: ts_inputs, created_by:
     (
       ?,?,?
     );
-    select last_insert_id();
   `;
 
   const res = await dbWorker(sql, [props.idAttribute, props.value_name, created_by]);
