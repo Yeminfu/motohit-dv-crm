@@ -4,6 +4,7 @@ import AttributeFieldEditor from "./components/attributeFieldEditorBoolean";
 import getAttributeValues from "#app/attributes/category/[id]/utils/getAttributeValues.ts";
 import ValuesEditor from "./components/valuesEditor/valuesEditor";
 import Link from "next/link";
+import AttributeValueCreator from "./components/attributeValueCreator/attributeValueCreator";
 
 export default async function Page(a: { params: { id: string } }) {
   const attribute = await getAttributeById(Number(a.params.id));
@@ -64,6 +65,14 @@ export default async function Page(a: { params: { id: string } }) {
       </table>
       <h3>Значения атрибута</h3>
       <ValuesEditor attributeValues={values} />
+      <div className="card">
+        <div className="card-header">
+          <strong>Создать значение атрибута</strong>
+        </div>
+        <div className="card-body">
+          <AttributeValueCreator idAttribute={attribute.id} />
+        </div>
+      </div>
     </AuthedLayout>
   );
 }
