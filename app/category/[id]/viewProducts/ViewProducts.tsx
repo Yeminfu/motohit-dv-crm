@@ -18,6 +18,7 @@ import SendProductToArchive from "./SendProductToArchive";
 import Link from "next/link";
 import { CategoryFromDBInterface } from "@/types/categories/categories";
 import Image from "next/image";
+import UpdateIndexNumber from "./components/UpdateIndexNumber";
 // import tsAttributeWithValues from "@/types/attributes/ts_attributesWithValues";
 
 export default function ViewProducts(props: {
@@ -75,13 +76,15 @@ export default function ViewProducts(props: {
               </>
             )}
             <th></th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
-          {props.productsFull.map((product) => (
+          {props.productsFull.map((product, indexFromProductsList) => (
             <tr key={product.id}>
               <td>
-                <Link href={`/products/view/${product.id}`}>{product.id}</Link>
+                <Link href={`/products/view/${product.id}`}>{product.id}</Link>{" "}
+                product.indexNumber {product.indexNumber}
               </td>
               <td>
                 {(() => {
@@ -216,6 +219,14 @@ export default function ViewProducts(props: {
                     productName={product.name}
                   />
                 </div>
+              </td>
+              <td>
+                <UpdateIndexNumber
+                  idProduct={product.id}
+                  indexNumber={product.indexNumber}
+                  prevProduct={props.productsFull[indexFromProductsList - 1]}
+                  nextProduct={props.productsFull[indexFromProductsList + 1]}
+                />
               </td>
             </tr>
           ))}

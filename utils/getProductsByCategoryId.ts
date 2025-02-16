@@ -7,7 +7,6 @@ export default async function getProductsByCategoryId(
   searchParams: ts_categoryFilter
 ): Promise<ProductFromDB[]> {
 
-
   const sqlParams: [string, any] = searchParams.name ? [
     `select * from ${process.env.TABLE_PREFIX}_products 
     where 
@@ -18,10 +17,12 @@ export default async function getProductsByCategoryId(
           name like ?
           or code = ?
         )
+        limit 1
+    order by indexNumber desc
     `,
     [idCategory, `%${searchParams.name}%`, searchParams.name]
   ] : [
-    `select * from ${process.env.TABLE_PREFIX}_products where idCategory = ? and isArchived = 0 `,
+    `select * from ${process.env.TABLE_PREFIX}_products where idCategory = ? and isArchived = 0 order by indexNumber desc`,
     [idCategory]
   ];
 
