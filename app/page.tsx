@@ -4,8 +4,6 @@ import getCategoriesWithIerarchy from "@/utils/side-menu/getCategoriesWithIerarc
 import Link from "next/link";
 import GlobalSearch from "./global-search/globalSearch";
 import ts_categoryFilter from "#types/ts_categoryFilter.ts";
-import { getCategoryById } from "#utils/getCategoryById.ts";
-import dbWorker from "#db/dbWorker2.ts";
 
 export default async function Home(params: {
   searchParams: ts_categoryFilter;
@@ -52,8 +50,6 @@ async function CategoryItem(props: { category: ts_categoriesWithIerarchy }) {
       ))
     : null;
 
-  const isInShop = await checkCategoryIsInShop(props.category.id);
-
   return (
     <>
       <div style={{ marginLeft: "10px" }}>
@@ -67,20 +63,4 @@ async function CategoryItem(props: { category: ts_categoriesWithIerarchy }) {
       </div>
     </>
   );
-}
-
-async function checkCategoryIsInShop(idCategory: number) {
-  const categoryFromCRM = await getCategoryById(String(idCategory));
-
-  const sql = `
-    select * from motohit_dv.categories where id = ?
-  `;
-
-  const categoryFromShop = await dbWorker(sql, [idCategory]).then((x) =>
-    x.result?.pop()
-  );
-
-  return categoryFromShop;
-
-  // console.log({ idCategory, categoryFromCRM, categoryFromShop });
 }
