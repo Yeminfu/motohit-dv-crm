@@ -11,6 +11,7 @@ import getAttributes from "#app/attributes/utils/getAttributes.ts";
 import getAttributevalues from "@/app/attributes/category/[id]/getAttributevalues";
 import tsAttributeWithValues from "@/types/attributes/ts_attributesWithValues";
 import getAllCategoriesWithProducts from "@/tools/db/getAllCategoriesWithProducts";
+import CreateProduct from "@/utils/products/createProduct/createProduct";
 
 export default async function Page(params: {
   params: { id: string };
@@ -68,15 +69,22 @@ export default async function Page(params: {
               );
             }
             return (
-              <ProductsList
-                idCategory={Number(idCategory)}
-                priceTypes={priceTypes}
-                shops={shops}
-                productsFull={productsFull}
-                searchParams={params.searchParams}
-                attributesWithValues={attributesWithValues}
-                categories={categories}
-              />
+              <>
+                <CreateProduct
+                  idCategory={Number(idCategory)}
+                  priceTypes={priceTypes}
+                  shops={shops}
+                  attributesWithValues={attributesWithValues}
+                />
+                <ProductsList
+                  idCategory={Number(idCategory)}
+                  priceTypes={priceTypes}
+                  shops={shops}
+                  productsFull={productsFull}
+                  searchParams={params.searchParams}
+                  categories={categories}
+                />
+              </>
             );
           })()}
         </>

@@ -1,6 +1,5 @@
 "use client";
 
-import CreateProduct from "@/utils/products/createProduct/createProduct";
 import { PriceTypesFromDBInterface } from "@/types/products/priceTypesFromDBInterface";
 import { ShopFromDB } from "@/types/shops/shopFromDBType";
 import { ProductsFull } from "@/types/products/prodyctType";
@@ -8,7 +7,6 @@ import { useEffect, useState } from "react";
 import ts_categoryFilter from "@/types/ts_categoryFilter";
 import getProducts from "../utils/getProducts";
 import ViewProducts from "../viewProducts/ViewProducts";
-import tsAttributeWithValues from "@/types/attributes/ts_attributesWithValues";
 import { CategoryFromDBInterface } from "@/types/categories/categories";
 
 export default function ProductsList(props: {
@@ -17,7 +15,6 @@ export default function ProductsList(props: {
   shops: ShopFromDB[];
   productsFull: ProductsFull[];
   searchParams: ts_categoryFilter;
-  attributesWithValues: tsAttributeWithValues[];
   categories: CategoryFromDBInterface[];
 }) {
   const [stateProducts, setProducts] = useState<ProductsFull[]>(
@@ -56,12 +53,6 @@ export default function ProductsList(props: {
 
   return (
     <>
-      <CreateProduct
-        idCategory={props.idCategory}
-        priceTypes={props.priceTypes}
-        shops={props.shops}
-        attributesWithValues={props.attributesWithValues}
-      />
       <ViewProducts
         productsFull={stateProducts}
         shops={props.shops}
