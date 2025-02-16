@@ -18,7 +18,7 @@ import SendProductToArchive from "./SendProductToArchive";
 import Link from "next/link";
 import { CategoryFromDBInterface } from "@/types/categories/categories";
 import Image from "next/image";
-import UpdateIndexNumber from "./components/UpdateIndexNumber";
+import UpdateIndexNumber from "./components/updateIndexNumber/updateIndexNumber";
 // import tsAttributeWithValues from "@/types/attributes/ts_attributesWithValues";
 
 export default function ViewProducts(props: {
