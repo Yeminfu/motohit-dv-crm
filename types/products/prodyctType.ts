@@ -13,7 +13,8 @@ export interface ProductFromDB {
   code: string;
   description: string
   isArchived: boolean;
-  internetPrice: number
+  internetPrice: number;
+  indexNumber: number;
 }
 
 export interface ts_attributeToCreate {
