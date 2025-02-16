@@ -7,7 +7,7 @@ import ts_categoryFilter from "@/types/ts_categoryFilter";
 import ProductsList from "./views/ProductsList";
 import Link from "next/link";
 import getCategoryChildren from "./getCategoryChildren";
-import getAttributes from "@/app/attributes/category/[id]/getAttributes";
+import getAttributes from "#app/attributes/utils/getAttributes.ts";
 import getAttributevalues from "@/app/attributes/category/[id]/getAttributevalues";
 import tsAttributeWithValues from "@/types/attributes/ts_attributesWithValues";
 import getAllCategoriesWithProducts from "@/tools/db/getAllCategoriesWithProducts";

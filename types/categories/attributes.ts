@@ -4,6 +4,8 @@ export interface AttributeType { // FIXME DEPRECATED
     view_in_filter: 1 | 0
     isOpenInFilter: 1 | 0
     is_main: 1 | 0
+    category_name: string
+    idCategory: number
 }
 
 export interface AttributeValueInterface {

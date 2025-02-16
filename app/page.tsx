@@ -24,6 +24,7 @@ export default async function Home(params: {
               <GlobalSearch searchParams={params.searchParams} />
             </div>
           </div>
+
           <div className="mt-2">
             <div className="card">
               <div className="card-header">
@@ -60,8 +61,7 @@ async function CategoryItem(props: { category: ts_categoriesWithIerarchy }) {
           className="btn btn-outline-dark d-block text-start mb-1"
           href={`/category/${props.category.id}`}
         >
-          {props.category.category_name} (
-          {String(isInShop.category_name === props.category.category_name)})
+          {props.category.category_name}
         </Link>
         {children}
       </div>
