@@ -17,6 +17,7 @@ export default async function onSubmit(formValues: any): Promise<any> {
     description: formValues.description,
     code: formValues.code,
     isArchived: true,
+    indexNumber: formValues.indexNumber
   };
   formData.append("mainProductFields", JSON.stringify(mainProductFields));
 
