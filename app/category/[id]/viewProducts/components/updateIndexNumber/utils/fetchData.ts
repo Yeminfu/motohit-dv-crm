@@ -26,6 +26,8 @@ export default async function updateIndexNumber(
 
     if (data.result) {
       location.reload()
+    } else {
+      alert(JSON.stringify(data, null, 2))
     }
 
   } catch (error) {
