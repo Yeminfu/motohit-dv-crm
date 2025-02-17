@@ -84,7 +84,6 @@ export default function ViewProducts(props: {
             <tr key={product.id}>
               <td>
                 <Link href={`/products/view/${product.id}`}>{product.id}</Link>{" "}
-                product.indexNumber {product.indexNumber}
               </td>
               <td>
                 {(() => {
