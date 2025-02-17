@@ -1,5 +1,5 @@
 import { ProductsFull } from "@/types/products/prodyctType";
-import updateIndexNumber from "./utils/updateIndexNumber";
+import fetchData from "./utils/fetchData";
 
 export default function UpdateIndexNumber(props: {
   idProduct: number;
@@ -7,8 +7,8 @@ export default function UpdateIndexNumber(props: {
   prevProduct: ProductsFull;
   nextProduct: ProductsFull;
 }) {
-  const up = () => updateIndexNumber(props.idProduct, props.prevProduct.id);
-  const down = () => updateIndexNumber(props.idProduct, props.nextProduct.id);
+  const up = () => fetchData(props.idProduct, props.prevProduct.id);
+  const down = () => fetchData(props.idProduct, props.nextProduct.id);
 
   return (
     <>

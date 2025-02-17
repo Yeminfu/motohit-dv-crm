@@ -19,7 +19,14 @@ export default async function updateIndexNumber(
     }
 
     const data = await response.json();
-    console.log('Полученные данные:', data);
+    // console.log('Полученные данные:', );
+    console.log(JSON.stringify(data, null, 2));
+
+    console.log('data', data);
+
+    if (data.result) {
+      location.reload()
+    }
 
   } catch (error) {
     toast.error('Ошибка #jsdf942');
