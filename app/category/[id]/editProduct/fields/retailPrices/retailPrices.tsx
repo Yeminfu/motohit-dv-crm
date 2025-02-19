@@ -29,26 +29,6 @@ export default function RetailPrices(props: {
                       fieldName={`retail_price[${index}].idPriceType`}
                       priceTypes={props.priceTypes}
                     />
-                    {/* <select
-                      {...(() => {
-                        return register(
-                          //@ts-ignore
-                          `retail_price[${index}].idPriceType`,
-                          {
-                            required: true,
-                          }
-                        );
-                      })()}
-                      className="form-select"
-                      autoComplete="off"
-                    >
-                      <option value="">-</option>
-                      {props.priceTypes.map((priceType) => (
-                        <option value={priceType.id} key={priceType.id}>
-                          {priceType.priceType}
-                        </option>
-                      ))}
-                    </select> */}
                   </td>
                   <td>
                     <input
