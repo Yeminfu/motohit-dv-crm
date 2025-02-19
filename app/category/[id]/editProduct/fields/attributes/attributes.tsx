@@ -35,12 +35,17 @@ export default function Attributes(props: {
         ) {
           const attributeWithValue = attributeWithValuesAndDefaultValue[index];
 
-          appendAttribute({
-            idAttribute: String(attributeWithValue.id),
-            idAttributeValue: String(
-              attributeWithValue.idDefaultAttributeValue
-            ),
-          });
+          appendAttribute(
+            {
+              idAttribute: String(attributeWithValue.id),
+              idAttributeValue: String(
+                attributeWithValue.idDefaultAttributeValue
+              ),
+            },
+            {
+              shouldFocus: false,
+            }
+          );
         }
       })();
     }
