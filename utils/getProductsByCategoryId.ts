@@ -8,17 +8,18 @@ export default async function getProductsByCategoryId(
 ): Promise<ProductFromDB[]> {
 
   const sqlParams: [string, any] = searchParams.name ? [
-    `select * from ${process.env.TABLE_PREFIX}_products 
-    where 
-      idCategory = ?
-      and isArchived = 0
-      and
-        (
-          name like ?
-          or code = ?
-        )
-        limit 1
-    order by indexNumber desc
+    `
+      select * from ${process.env.TABLE_PREFIX}_products 
+      where 
+        idCategory = ?
+        and isArchived = 0
+        and
+          (
+            name like ?
+            or code = ?
+          )
+      order by indexNumber desc
+      limit 1
     `,
     [idCategory, `%${searchParams.name}%`, searchParams.name]
   ] : [
