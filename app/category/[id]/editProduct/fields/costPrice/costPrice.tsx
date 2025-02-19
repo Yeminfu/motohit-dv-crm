@@ -4,15 +4,17 @@ import { useFormContext } from "react-hook-form";
 
 export default function CostPrice(props: {
   priceTypes: PriceTypesFromDBInterface[];
+  defaultType: number | undefined;
 }) {
   const { register, reset } = useFormContext();
 
   useEffect(() => {
-    reset({
-      cost_price: {
-        type: "3",
-      },
-    });
+    if (!props.defaultType)
+      reset({
+        cost_price: {
+          type: "3",
+        },
+      });
   }, []);
 
   return (

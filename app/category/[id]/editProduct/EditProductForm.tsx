@@ -152,7 +152,10 @@ export default function EditProductForm(props: {
 
           <div className="mt-3">
             <h5>Себестоимость</h5>
-            <CostPrice priceTypes={props.priceTypes} />
+            <CostPrice
+              priceTypes={props.priceTypes}
+              defaultType={props.product.idCostPriceType}
+            />
           </div>
 
           <div className="mt-3">
