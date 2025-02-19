@@ -6,9 +6,10 @@ export default function PriceTypeSelect(props: {
   fieldName: string;
   priceTypes: PriceTypesFromDBInterface[];
 }) {
-  const { register, setValue } = useFormContext();
+  const { register, setValue, getValues } = useFormContext();
   useEffect(() => {
-    setValue(props.fieldName, "3");
+    const value = getValues(props.fieldName);
+    if (!value) setValue(props.fieldName, "3");
   }, []);
   return (
     <>
