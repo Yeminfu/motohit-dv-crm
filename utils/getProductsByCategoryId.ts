@@ -19,7 +19,6 @@ export default async function getProductsByCategoryId(
             or code = ?
           )
       order by indexNumber desc
-      limit 1
     `,
     [idCategory, `%${searchParams.name}%`, searchParams.name]
   ] : [
