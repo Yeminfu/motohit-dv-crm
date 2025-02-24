@@ -9,15 +9,32 @@ import { ts_imageFromDB } from "#types/products/ts_imageFromDB.ts";
 import editOldImages from "./utils/editOldImages/editOldImages";
 import createNewImages from "./utils/createNewImages/createNewImages";
 import dbConnection from "#db/connect.ts";
+import getUserByToken from "#utils/users/getUserByToken.ts";
 
-export async function POST(req: any, params: { params: { id: any } }) {
+export async function POST(request: any, params: { params: { id: any } }) {
   const session = Date.now();
 
-  const data: any = await req.formData();
+  const data: any = await request.formData();
 
   const mainProductFields = JSON.parse(data.get("mainProductFields"));
 
   const connection = await dbConnection();
+
+
+  const { cookies } = request;
+  const authToken = String(cookies.get("auth")?.value);
+  if (!authToken) {
+    return NextResponse.json({
+      error: "#mf84j"
+    })
+  }
+
+  const user = await getUserByToken(authToken);
+  if (!user) {
+    return NextResponse.json({
+      error: "#fl5m38"
+    })
+  }
 
 
   try {
@@ -40,6 +57,7 @@ export async function POST(req: any, params: { params: { id: any } }) {
       stock,
       session,
       idProduct: params.params.id,
+      updatedBy: user.id
     });
 
     const attributes = JSON.parse(data.get("attributes"));
