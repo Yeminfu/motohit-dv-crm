@@ -49,6 +49,7 @@ export async function POST(req: NextRequest) {
       stock,
       session,
       idProduct,
+      createdBy: user.id
     });
 
     const attributes = JSON.parse(data.get("attributes"));

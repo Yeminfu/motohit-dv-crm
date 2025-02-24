@@ -5,12 +5,13 @@ export default async function insertStock(props: {
   stock: StockFromDBType[];
   session: number;
   idProduct: number;
+  createdBy: number
 }) {
   const results = [];
   for (let index = 0; index < props.stock.length; index++) {
     const v = props.stock[index];
-    const sql = `call createProductStockItem(?,?,?)`;
-    const res = await props.connection.query(sql, [props.idProduct, v.idShop, v.count]);
+    const sql = `call createProductStockItem(?,?,?,?)`;
+    const res = await props.connection.query(sql, [props.idProduct, v.idShop, v.count, props.createdBy]);
     results.push(res);
   }
   return results;
