@@ -43,62 +43,62 @@ function Form() {
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <table className="table w-auto">
-          <tbody>
-            <tr>
-              <th>Название скалярки (лат.)</th>
-              <td>
-                <input
-                  {...register("name", { required: true })}
-                  className="form-control w-auto"
-                  autoComplete="off"
-                />
-              </td>
-            </tr>
-            <tr>
-              <th>Заголовок</th>
-              <td>
-                <input
-                  {...register("title", { required: true })}
-                  className="form-control w-auto"
-                  autoComplete="off"
-                />
-              </td>
-            </tr>
-            <tr>
-              <th>Описание</th>
-              <td>
-                <input
-                  {...register("description", { required: true })}
-                  className="form-control w-auto"
-                  autoComplete="off"
-                />
-              </td>
-            </tr>
-            <tr>
-              <th>SQLString</th>
-              <td>
-                <textarea
-                  rows={20}
-                  {...register("SQLString", { required: true })}
-                  className="form-control w-auto"
-                  autoComplete="off"
-                  style={{ width: "1000px" }}
-                />
-              </td>
-            </tr>
-            <tr>
-              <th>idConfig</th>
-              <td>
-                <input
-                  {...register("idConfig", { required: true })}
-                  className="form-control w-auto"
-                  autoComplete="off"
-                />
-              </td>
-            </tr>
-          </tbody>
-        </table>
+        <div>
+          <h4>Заголовок</h4>
+          <div>
+            <input
+              {...register("title", { required: true })}
+              className="form-control"
+              autoComplete="off"
+            />
+          </div>
+        </div>
+        <div>
+          <h4>Название функции</h4>
+          <div>
+            <input
+              {...register("name", { required: true })}
+              className="form-control"
+              autoComplete="off"
+            />
+          </div>
+        </div>
+
+        <div>
+          <h4>Описание</h4>
+          <div>
+            <input
+              {...register("description", { required: true })}
+              className="form-control "
+              autoComplete="off"
+            />
+          </div>
+        </div>
+
+        <div>
+          <h4>SQLString</h4>
+          <div>
+            <textarea
+              rows={20}
+              {...register("SQLString", { required: true })}
+              className="form-control"
+              autoComplete="off"
+              style={{ width: "1000px" }}
+            />
+          </div>
+        </div>
+
+        <div>
+          <h4>idConfig</h4>
+          <div>
+            <input
+              {...register("idConfig", { required: true })}
+              className="form-control w-auto"
+              autoComplete="off"
+            />
+          </div>
+        </div>
+
         <div className="mt-2">
           <button className="btn btn-dark btn-sm">Сохранить</button>
         </div>
@@ -120,11 +120,10 @@ async function onSubmit(values: ts_scalarFunction4create) {
   alert(JSON.stringify(res, null, 2));
 }
 
-const SQLString = `
-  create function scalarFunctionName (num int)
-  returns int
-  deterministic
-  begin
-    return num * num;
-  end
+const SQLString = `create function scalarFunctionName (num int)
+returns int
+deterministic
+begin
+  return num * num;
+end
 `;
