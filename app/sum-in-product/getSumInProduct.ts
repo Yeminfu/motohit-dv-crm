@@ -14,20 +14,14 @@ export default async function getSumInProduct(): Promise<(
   ]
 ) | undefined> {
   const sql = `
-    select
-      c.category_name as category_name,
-      replace(
-        format(
-          sum(p.purchase_price),
-          0
-        ),
-        ',',
-        ' '
-      ) as sum
-    from chbfs_categories c
-    inner join chbfs_products p on p.idCategory = c.id
-    group by c.id
-    order by sum(p.purchase_price) desc;
+
+  select
+    c.category_name,
+    getSumInCategoryProducts(c.id) as sum
+  from chbfs_categories c
+  where 
+    getSumInCategoryProducts(c.id) > 0
+  order by getSumInCategoryProducts(c.id) desc;
 
     select 
       replace(
