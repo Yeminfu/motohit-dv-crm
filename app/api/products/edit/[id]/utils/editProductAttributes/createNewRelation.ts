@@ -17,10 +17,10 @@ export default async function createNewRelation(
       ${attributes.map(() => `(?,?,?)`).join(",\n      ")}
   `;
 
-  const res = await connection.query(
+  const res = await dbWorker(
     sql,
     attributes.map((el) => [1, el.idAttributeValue, idProduct]).flat()
-  );
+  ).then(x => x.result);
 
   return res;
 }

@@ -11,6 +11,6 @@ export default async function handleRetailPrices(
     await dbWorker(
       `insert into ${process.env.TABLE_PREFIX}_retail_prices (idPriceType, priceValue, idProduct, idShop) values (?, ?, ?, ?)`,
       [idPriceType, priceValue, idProduct, idShop]
-    );
+    ).then(x => x.result);
   }
 }

@@ -11,6 +11,6 @@ export default async function handleStock(
     await dbWorker(
       `insert into ${process.env.TABLE_PREFIX}_stock (idShop, count, idProduct) values (?, ?, ?)`,
       [idShop, count, idProduct]
-    );
+    ).then(x => x.result);
   }
 }

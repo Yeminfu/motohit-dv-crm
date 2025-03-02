@@ -12,7 +12,7 @@ export async function createProductInDB(product: ts_product4create) {
     product.cost_price.value,
     product.code,
     product.color,
-  ])
+  ]).then(x => x.result)
     .then((x: any) => {
       return x;
     })

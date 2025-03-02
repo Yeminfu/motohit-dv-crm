@@ -22,6 +22,7 @@ async function checkTokenIsValid(token: string) {
     `select * from ${process.env.TABLE_PREFIX}_tokens where token = ? and deadline > NOW() `,
     [token]
   )
+    .then(x => x.result)
     .then((x: any) => {
       if (x.length) return true;
       return false;

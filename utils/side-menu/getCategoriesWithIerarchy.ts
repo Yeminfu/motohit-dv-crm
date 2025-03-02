@@ -10,7 +10,7 @@ export default async function getCategoriesWithIerarchy(): Promise<ts_categories
     idParent is null;`;
 
   //@ts-ignore
-  const parents: ts_categoriesWithIerarchy[] = await dbWorker(parentsSql)
+  const parents: ts_categoriesWithIerarchy[] = await dbWorker(parentsSql).then(x => x.result);
 
   const build = await Promise.all(
     parents.map(async parent => {

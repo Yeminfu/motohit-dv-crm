@@ -18,6 +18,7 @@ export default async function getUserByToken(
     qs,
     [token]
   )
+    .then(x => x.result)
     .then((data: any) => {
       if (!data.length) return null;
       return data.pop();
