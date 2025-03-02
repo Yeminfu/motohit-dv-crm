@@ -22,17 +22,13 @@ export default async function getSumInProduct(): Promise<(
   where 
     getSumInCategoryProducts(c.id) > 0
   order by getSumInCategoryProducts(c.id) desc;
-
-    select 
-      replace(
-          format(
-              sum(p.purchase_price),
-              0
-          ),
-          ',',
-          ' '
-      ) AS total_sum
-    from chbfs_products p;
+  
+  select
+    sum(
+      getSumInCategoryProducts(c.id)
+    ) as total_sum
+  from chbfs_categories c;
+    
   `;
   const res = await dbWorker(sql, []);
   if (res.result) {
