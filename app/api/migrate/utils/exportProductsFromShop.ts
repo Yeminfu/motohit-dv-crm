@@ -1,4 +1,4 @@
-import dbWorker from "@/db/dbWorker";
+import dbWorker from "@/db/dbWorker2";
 
 export default async function exportProductsFromShop() {
   const productsFromShop = await getProductsFromShop();
@@ -18,12 +18,13 @@ export default async function exportProductsFromShop() {
             idProductFromShop = ? 
         `,
       [productFromShop.id]
-    );
+    ).then(x => x.result);
 
     if (matchRes.length) {
       const match = matchRes.pop();
 
       if (match) {
+        //@ts-ignore
         const [productFromOldCRM]: {
           purchase_price: string; //'47000'
           cost_value: string; //'1.1'
@@ -172,6 +173,6 @@ async function getProductsFromShop() {
     from motohit_dv.products
   `,
     []
-  );
+  ).then(x => x.result);
   return productsFromShop;
 }

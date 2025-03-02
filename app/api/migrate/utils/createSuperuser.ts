@@ -1,4 +1,4 @@
-import dbWorker from "@/db/dbWorker";
+import dbWorker from "@/db/dbWorker2";
 
 const { TABLE_PREFIX } = process.env;
 

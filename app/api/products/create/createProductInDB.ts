@@ -1,5 +1,5 @@
 import ts_product4create from "#types/products/ts_product4create.ts";
-import dbWorker from "@/db/dbWorker";
+import dbWorker from "@/db/dbWorker2";
 import slugify from "slugify";
 
 export async function createProductInDB(product: ts_product4create) {

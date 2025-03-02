@@ -1,4 +1,4 @@
-import dbWorker from "@/db/dbWorker"
+import dbWorker from "@/db/dbWorker2"
 import { ts_categoriesWithIerarchy } from "@/types/categories/ts_categoriesWithIerarchy";
 
 export default async function getCategoriesWithIerarchy(): Promise<ts_categoriesWithIerarchy[]> {
@@ -32,7 +32,8 @@ async function getChildren(idParent: number): Promise<ts_categoriesWithIerarchy[
   where
     idParent = ?
 `;
-  const children: ts_categoriesWithIerarchy[] = await dbWorker(childrenSql, [idParent]);
+  const children: ts_categoriesWithIerarchy[] = await dbWorker(childrenSql, [idParent])
+    .then(x => x.result);
 
   const build = await Promise.all(
     children.map(async category => {

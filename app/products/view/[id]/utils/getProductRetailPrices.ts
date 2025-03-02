@@ -1,15 +1,15 @@
-import dbWorker from "@/db/dbWorker"
+import dbWorker from "@/db/dbWorker2"
 
 export default async function getProductRetailPrices(idProduct: number): Promise<{
-    id: number
-    created_date: Date
-    idPriceType: number
-    priceValue: number
-    idProduct: number
-    idShop: number
-    shopName: string
+  id: number
+  created_date: Date
+  idPriceType: number
+  priceValue: number
+  idProduct: number
+  idShop: number
+  shopName: string
 }[]> {
-    return await dbWorker(`
+  return await dbWorker(`
       select
         prices.*,
         shops.shopName
@@ -18,5 +18,5 @@ export default async function getProductRetailPrices(idProduct: number): Promise
         on 
           shops.id = prices.idShop
       where idProduct = ?
-    `, [idProduct])
+    `, [idProduct]).then(x => x.result)
 }

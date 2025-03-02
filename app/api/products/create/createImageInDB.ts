@@ -1,4 +1,4 @@
-import dbWorker from "@/db/dbWorker";
+import dbWorker from "@/db/dbWorker2";
 
 export default async function createImageInDB(
   imageName: string,

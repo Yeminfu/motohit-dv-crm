@@ -1,4 +1,4 @@
-import dbWorker from "@/db/dbWorker";
+import dbWorker from "@/db/dbWorker2";
 import ts_attributesFromClient from "./ts_attributesFromClient";
 
 export default async function createNewRelation(

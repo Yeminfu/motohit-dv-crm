@@ -1,4 +1,4 @@
-import dbWorker from "@/db/dbWorker";
+import dbWorker from "@/db/dbWorker2";
 import { ts_categoryType } from "@/types/categories/categoryType";
 
 export default async function getAllCategories(): Promise<ts_categoryType[]> {
@@ -7,6 +7,6 @@ export default async function getAllCategories(): Promise<ts_categoryType[]> {
             id,
             category_name 
         from ${process.env.TABLE_PREFIX}_categories`, [])
-    .then((x: any) => x);
+    .then(x => x.result);
   return categories;
 }

@@ -1,4 +1,4 @@
-import dbWorker from "@/db/dbWorker";
+import dbWorker from "@/db/dbWorker2";
 import { CategoryFromDBInterface } from "@/types/categories/categories";
 
 export default async function getCategoryChildren(idCategory: number): Promise<CategoryFromDBInterface[]> {
@@ -10,6 +10,6 @@ export default async function getCategoryChildren(idCategory: number): Promise<C
         [
             idCategory
         ]
-    );
+    ).then(x => x.result);
     return children;
 }

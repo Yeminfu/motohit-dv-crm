@@ -1,4 +1,4 @@
-// import dbWorker from "../edbWorker";
+// import dbWorker from "../edbWorker2";
 
 import dbWorker from "@/db/dbWorker2";
 
@@ -37,7 +37,7 @@ export default async function createAttribute(
     props.view_in_filter,
     props.idCategory,
     props.is_main
-  ]);
+  ]).then(x => x.result);
 
   return result;
 }

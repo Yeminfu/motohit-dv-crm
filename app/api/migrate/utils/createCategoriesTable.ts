@@ -1,4 +1,4 @@
-import dbWorker from "@/db/dbWorker";
+import dbWorker from "@/db/dbWorker2";
 
 const { TABLE_PREFIX } = process.env;
 
@@ -21,7 +21,7 @@ export default async function createCategoriesTable() {
     `,
     []
   )
-    .then((x: any) => {})
+    .then((x: any) => { })
     .catch((z) => {
       console.error("err #f8vck", z);
     });

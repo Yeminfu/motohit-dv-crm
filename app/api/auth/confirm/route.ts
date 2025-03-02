@@ -1,4 +1,4 @@
-import dbWorker from "@/db/dbWorker";
+import dbWorker from "@/db/dbWorker2";
 import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {

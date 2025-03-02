@@ -1,4 +1,4 @@
-import dbWorker from "@/db/dbWorker";
+import dbWorker from "@/db/dbWorker2";
 import { UserType } from "@/types/users/userType";
 
 export default async function getUserByToken(
@@ -15,9 +15,9 @@ export default async function getUserByToken(
   `;
 
   const user = await dbWorker(
-      qs,
-      [token]
-    )
+    qs,
+    [token]
+  )
     .then((data: any) => {
       if (!data.length) return null;
       return data.pop();

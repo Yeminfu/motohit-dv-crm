@@ -1,4 +1,4 @@
-import dbWorker from "@/db/dbWorker";
+import dbWorker from "@/db/dbWorker2";
 
 export default async function exportAttrProdRelationsFromShop() {
   const categoriesFromShop = await dbWorker(
@@ -19,5 +19,5 @@ export default async function exportAttrProdRelationsFromShop() {
       from motohit_dv.attr_prod_relation
   `,
     []
-  ).then((x) => x[0]);
+  ).then(x => x.result).then((x) => x[0]);
 }

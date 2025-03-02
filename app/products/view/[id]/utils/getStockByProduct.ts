@@ -1,13 +1,13 @@
-import dbWorker from "@/db/dbWorker"
+import dbWorker from "@/db/dbWorker2"
 
 export default async function getStockByProduct(idProduct: number): Promise<{
-    id: number
-    shopName: string
-    count: number
-    idProduct: number
-    idShop: number
+  id: number
+  shopName: string
+  count: number
+  idProduct: number
+  idShop: number
 }[]> {
-    return await dbWorker(`
+  return await dbWorker(`
       select
         stock.id,
         stock.idProduct,
@@ -20,5 +20,5 @@ export default async function getStockByProduct(idProduct: number): Promise<{
           shops.id = stock.idShop
       where
         idProduct = ?
-    `, [idProduct])
+    `, [idProduct]).then(x => x.result)
 }

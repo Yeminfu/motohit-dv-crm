@@ -8,7 +8,7 @@ import exportAttrProdRelationsFromShop from "./utils/exportAttrProdRelationsFrom
 import exportProductsImagesFromShop from "./utils/exportProductsImagesFromShop";
 // import exportStockFromOldCRM from "./utils/exportStockFromOldCRM";
 // import exportRetailPricesFromOldCRM from "./utils/exportRetailPricesFromOldCRM";
-import dbWorker from "@/db/dbWorker";
+import dbWorker from "@/db/dbWorker2";
 
 export async function GET() {
   await migrate();
@@ -45,7 +45,7 @@ async function deleteForeignKeys() {
     WHERE 
       REFERENCED_TABLE_SCHEMA = 'motohit_dv_crm';
   `;
-  const foreignKeys = await dbWorker(qs, []);
+  const foreignKeys = await dbWorker(qs, []).then(x => x.result);
 
   for (let index = 0; index < foreignKeys.length; index++) {
     const element = foreignKeys[index];
@@ -65,7 +65,7 @@ async function deleteTables() {
     FROM information_schema.tables
     WHERE table_schema = 'motohit_dv_crm';
   `;
-  const tables = await dbWorker(qs, []);
+  const tables = await dbWorker(qs, []).then(x => x.result);
 
   // TABLE_NAME
   for (let index = 0; index < tables.length; index++) {

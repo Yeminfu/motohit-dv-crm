@@ -1,5 +1,5 @@
 import AuthedLayout from "@/utils/authedLayout";
-import dbWorker from "@/db/dbWorker";
+import dbWorker from "@/db/dbWorker2";
 import ts_productMatch from "./ts_productMatch";
 import Client from "./client";
 import CreateProduct from "@/utils/products/createProduct/createProduct";
@@ -46,6 +46,6 @@ async function getMatches(): Promise<ts_productMatch[]> {
     productsFromMapping.isValid = 1
   `,
     []
-  );
+  ).then((x) => x.result);
   return matches;
 }

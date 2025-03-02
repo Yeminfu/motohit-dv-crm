@@ -1,19 +1,26 @@
-import Link from "next/link"
-import dbWorker from "@/db/dbWorker";
+import Link from "next/link";
+import dbWorker from "@/db/dbWorker2";
 import { ts_categoryType } from "../categories/categoryType";
 
 export default async function Attributes() {
-  const attributes = await getCategories()
-  return <>
-    <div className="list-group">
-      <div className="list-group-item list-group-item-action list-group-item-dark active">Выберите категорию</div>
-      {attributes.map(attribute => <Link href={`/attributes/category/${attribute.id}`} className="list-group-item list-group-item-action">
-        <>
-          {attribute.category_name}
-        </>
-      </Link>)}
-    </div>
-  </>
+  const attributes = await getCategories();
+  return (
+    <>
+      <div className="list-group">
+        <div className="list-group-item list-group-item-action list-group-item-dark active">
+          Выберите категорию
+        </div>
+        {attributes.map((attribute) => (
+          <Link
+            href={`/attributes/category/${attribute.id}`}
+            className="list-group-item list-group-item-action"
+          >
+            <>{attribute.category_name}</>
+          </Link>
+        ))}
+      </div>
+    </>
+  );
 }
 
 async function getCategories(): Promise<ts_categoryType[]> {
@@ -31,7 +38,8 @@ async function getCategories(): Promise<ts_categoryType[]> {
           idParent is not null
       )
   `;
-  const categories: ts_categoryType[] = await dbWorker(qs, [])
-    .then((x: any) => x);
+  const categories: ts_categoryType[] = await dbWorker(qs, []).then(
+    (x) => x.result
+  );
   return categories;
 }
