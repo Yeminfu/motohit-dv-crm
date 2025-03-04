@@ -7,11 +7,11 @@ export default async function dbConnection() {
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME,
-    connectionLimit: 2,
+    connectionLimit: 200,
     maxIdle: 0,
     idleTimeout: 0,
     enableKeepAlive: false,
     waitForConnections: true,
-    queueLimit: 0,
+    queueLimit: 100,
   });
 }
