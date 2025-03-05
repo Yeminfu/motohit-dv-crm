@@ -5,6 +5,7 @@ export default async function updateStock(
     update chbfs_stock s
     set
       s.count = s.count - ?
+      ,s.updateSource = 'sale'
     where
       s.idProduct = ?
       and s.idShop = ?
