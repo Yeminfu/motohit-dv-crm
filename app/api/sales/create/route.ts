@@ -1,9 +1,8 @@
 import { t_CreateSaleResponseData } from "@/types/sales/t_CreateSaleResponseData";
 import getUserByToken from "@/utils/users/getUserByToken";
 import { NextRequest, NextResponse } from "next/server";
-import { createSale } from "./createSale";
-import updateStock from "./updateStock";
-import addHistoryEntry from "@/utils/history/addHistoryEntry";
+import dbConnection from "@/db/connect";
+import updateStock from "./utils/updateStock";
 
 export async function POST(request: NextRequest) {
   const data: t_CreateSaleResponseData = await request.json();
@@ -18,26 +17,22 @@ export async function POST(request: NextRequest) {
       error: "Нет прав",
     });
 
-  const updateRes = await updateStock(data);
+  const connection = await dbConnection();
 
-  if (updateRes?.code === "ER_WARN_DATA_OUT_OF_RANGE") {
-    return NextResponse.json({
-      success: false,
-      error: "Вы пытаетесь списать больше, чем есть на складе",
-    });
+
+  try {
+
+    await connection.beginTransaction();
+
+    await updateStock(connection, Number(data.idProduct), Number(data.idShop), Number(data.count))
+
+    await connection.commit();
+    await connection.end();
+    return NextResponse.json({ success: true })
+  } catch (error) {
+    console.error("err #d0d3k4u", error);
+    await connection.rollback();
+    await connection.end();
+    return NextResponse.json({ error: error })
   }
-
-  const createSaleRes = await createSale(data, user.id);
-
-  if (!createSaleRes.insertId)
-    return NextResponse.json({
-      success: false,
-      error: "Плохая ошибка #fsd9",
-    });
-
-  await addHistoryEntry("createSale", data);
-
-  return NextResponse.json({
-    success: true,
-  });
 }

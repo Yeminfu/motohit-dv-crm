@@ -202,7 +202,8 @@ async function onSubmit(values: t_CreateSaleResponseData, reset: () => void) {
         toast.success("Продажа проведена");
         reset();
       } else {
-        toast.error("Ошибка #fsd8: " + x.error);
+        alert(JSON.stringify(x, null, 2));
+        // toast.error("Ошибка #fsd8: " + x.error);
       }
     })
     .catch((error) => {
