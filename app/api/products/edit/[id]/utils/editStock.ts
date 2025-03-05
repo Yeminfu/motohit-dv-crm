@@ -12,7 +12,7 @@ export default async function editStock(props: {
 
   for (let index = 0; index < props.stock.length; index++) {
     const v = props.stock[index];
-    const res = await props.connection.query(`call updateStockItem(?,?,?,?)`, [
+    const res = await props.connection.query(`call updateStockItem(?,?,?,?,'editProduct')`, [
       props.idProduct,
       v.idShop,
       v.count,
