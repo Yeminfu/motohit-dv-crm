@@ -1,4 +1,4 @@
-import dbWorker from "@/db/dbWorker";
+import dbWorker from "@/db/dbWorker2";
 
 export default async function createImageInDB(
   imageName: string,
@@ -8,6 +8,7 @@ export default async function createImageInDB(
     `insert into ${process.env.TABLE_PREFIX}_products_images (name, idProduct) values (?, ?)`,
     [imageName, idProduct]
   )
+    .then(x => x.result)
     .then((x: any) => {
       return x;
     })

@@ -1,4 +1,4 @@
-import dbWorker from "@/db/dbWorker";
+import dbWorker from "@/db/dbWorker2";
 import ts_attributeValue from "@/types/attributes/ts_attributeValue";
 
 export default async function getAttributevalues(idAttribute: number): Promise<ts_attributeValue[]> {
@@ -8,5 +8,5 @@ export default async function getAttributevalues(idAttribute: number): Promise<t
       from ${process.env.TABLE_PREFIX}_attributes_values
       where
         idAttribute = ?
-    `, [idAttribute])
+    `, [idAttribute]).then(x => x.result)
 }

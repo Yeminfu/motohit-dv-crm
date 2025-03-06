@@ -1,4 +1,4 @@
-import dbWorker from "@/db/dbWorker";
+import dbWorker from "@/db/dbWorker2";
 import ts_productAttributes from "@/types/products/ts_productAttributes";
 
 export default async function getProductAttributes(
@@ -22,5 +22,5 @@ export default async function getProductAttributes(
         relation.idProduct = ?
     `,
     [idProduct]
-  );
+  ).then(x => x.result);
 }

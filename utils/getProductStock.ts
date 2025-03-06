@@ -1,6 +1,6 @@
 import { StockFromDBInterface } from "@/types/products/prodyctType";
 import getShops from "./getShops";
-import dbWorker from "@/db/dbWorker";
+import dbWorker from "@/db/dbWorker2";
 
 
 export default async function getProductStock(idProduct: any): Promise<(StockFromDBInterface | null)[]> {
@@ -17,7 +17,8 @@ export default async function getProductStock(idProduct: any): Promise<(StockFro
         where
           idProduct = ?
           and idShop = ?
-      `, [idProduct, shop.id]);
+      `, [idProduct, shop.id])
+        .then(x => x.result);
 
       if (!stockItem) return null;
 

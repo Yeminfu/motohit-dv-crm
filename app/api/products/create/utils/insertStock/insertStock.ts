@@ -10,7 +10,7 @@ export default async function insertStock(props: {
   const results = [];
   for (let index = 0; index < props.stock.length; index++) {
     const v = props.stock[index];
-    const sql = `call createProductStockItem(?,?,?,?)`;
+    const sql = `call createProductStockItem(?,?,?,?,'createProduct')`;
     const res = await props.connection.query(sql, [props.idProduct, v.idShop, v.count, props.createdBy]);
     results.push(res);
   }

@@ -1,5 +1,5 @@
 import ts_product4create from "#types/products/ts_product4create.ts";
-import dbWorker from "@/db/dbWorker";
+import dbWorker from "@/db/dbWorker2";
 
 export default async function handleRetailPrices(
   retailPrices: ts_product4create["retail_price"],
@@ -11,6 +11,6 @@ export default async function handleRetailPrices(
     await dbWorker(
       `insert into ${process.env.TABLE_PREFIX}_retail_prices (idPriceType, priceValue, idProduct, idShop) values (?, ?, ?, ?)`,
       [idPriceType, priceValue, idProduct, idShop]
-    );
+    ).then(x => x.result);
   }
 }

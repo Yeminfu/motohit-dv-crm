@@ -1,4 +1,4 @@
-import dbWorker from "@/db/dbWorker";
+import dbWorker from "@/db/dbWorker2";
 import { NextResponse } from "next/server";
 
 export async function POST(_: any, b: { params: { id: string } }) {
@@ -9,7 +9,7 @@ export async function POST(_: any, b: { params: { id: string } }) {
       isValid = 1
     where
       id = ?
-    `, [id]);
+    `, [id]).then(x => x.result);
 
   return NextResponse.json({
     ...mapping

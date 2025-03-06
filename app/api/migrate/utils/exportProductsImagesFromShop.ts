@@ -1,4 +1,4 @@
-import dbWorker from "@/db/dbWorker";
+import dbWorker from "@/db/dbWorker2";
 
 export default async function exportProductsImagesFromShop() {
   const categoriesFromShop = await dbWorker(
@@ -23,5 +23,5 @@ export default async function exportProductsImagesFromShop() {
       group by name;
   `,
     []
-  ).then((x) => x[0]);
+  ).then(x => x.result).then((x) => x[0]);
 }

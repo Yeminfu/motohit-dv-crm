@@ -1,4 +1,4 @@
-import dbWorker from "@/db/dbWorker";
+import dbWorker from "@/db/dbWorker2";
 import { AttributeType } from "../categories/attributes";
 
 export default async function getAllAttributes(): Promise<AttributeType[]> {
@@ -9,6 +9,6 @@ export default async function getAllAttributes(): Promise<AttributeType[]> {
       from ${process.env.TABLE_PREFIX}_attributes
       `,
         []
-    );
+    ).then(x => x.result);
     return attributes;
 }

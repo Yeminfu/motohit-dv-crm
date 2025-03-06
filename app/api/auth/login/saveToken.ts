@@ -1,4 +1,4 @@
-import dbWorker from "@/db/dbWorker";
+import dbWorker from "@/db/dbWorker2";
 
 export default async function saveToken(
   idUser: number,
@@ -8,5 +8,5 @@ export default async function saveToken(
   await dbWorker(
     `insert into ${process.env.TABLE_PREFIX}_tokens (idUser, token, confirmCode, deadline) values (?, ?, ?, (CURRENT_TIMESTAMP + INTERVAL 1 DAY))`,
     [idUser, token, confirmCode]
-  );
+  ).then(x => x.result);
 }

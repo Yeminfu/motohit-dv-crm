@@ -1,4 +1,4 @@
-import dbWorker from "@/db/dbWorker";
+import dbWorker from "@/db/dbWorker2";
 import { ProductFromDB } from "@/types/products/prodyctType";
 import ts_categoryFilter from "@/types/ts_categoryFilter";
 
@@ -28,6 +28,6 @@ export default async function getProductsByCategoryId(
 
   const products = await dbWorker(
     sqlParams[0], sqlParams[1]
-  )
+  ).then(x => x.result);
   return products;
 }

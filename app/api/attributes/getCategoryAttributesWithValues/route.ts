@@ -1,4 +1,4 @@
-import dbWorker from "@/db/dbWorker";
+import dbWorker from "@/db/dbWorker2";
 import ts_attributeValue from "@/types/attributes/ts_attributeValue";
 import ts_AttributeWithValues from "@/types/attributes/ts_attributesWithValues";
 import { AttributeType } from "@/types/categories/attributes";
@@ -39,7 +39,7 @@ async function getAttributes(idCategory: number): Promise<AttributeType[]> {
         idCategory = ?
     `,
     [idCategory]
-  );
+  ).then(r => r.result);
 }
 
 async function getAttributeValues(
@@ -54,5 +54,5 @@ async function getAttributeValues(
         idAttribute = ?
     `,
     [idAttribute]
-  );
+  ).then(x => x.result);
 }

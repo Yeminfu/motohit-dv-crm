@@ -1,4 +1,4 @@
-import dbWorker from "@/db/dbWorker";
+import dbWorker from "@/db/dbWorker2";
 import { NextResponse } from "next/server";
 
 export async function POST(request: Request) {
@@ -19,6 +19,7 @@ async function getToken(confirmCode: number) {
     `select token from ${process.env.TABLE_PREFIX}_tokens where confirmCode = ?`,
     [confirmCode]
   )
+    .then(x => x.result)
     .then((x: any) => {
       if (x.length) return x.pop().token;
       return null;

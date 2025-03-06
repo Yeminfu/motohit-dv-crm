@@ -1,32 +1,40 @@
-import getAllCategories from "@/utils/getAllCategories";
-import getProductsFull from "@/utils/getProductsFull";
-import createPriceWithMarkup from "@/utils/prices/createPriceWithMarkup";
-import getProductTotalInStock from "./getProductTotalInStock";
+import dbWorker from "#db/dbWorker2.ts";
 
-export default async function getSumInProduct() {
-    const categories = await getAllCategories();
+export default async function getSumInProduct(): Promise<(
+  [
+    (
+      {
+        category_name: string,
+        sum: string
+      }[]
+    ),
+    {
+      total_sum: string
+    }[]
+  ]
+) | undefined> {
+  const sql = `
 
-    const sumInCategories = await Promise.all(
-        categories.map(async category => {
-            const products = await getProductsFull(Number(category.id), {});
+  select
+    c.category_name,
+    getSumInCategoryProducts(c.id) as sum
+  from chbfs_categories c
+  where 
+    getSumInCategoryProducts(c.id) > 0
+  order by getSumInCategoryProducts(c.id) desc;
+  
+  select
+    sum(
+      getSumInCategoryProducts(c.id)
+    ) as total_sum
+  from chbfs_categories c;
+    
+  `;
+  const res = await dbWorker(sql, []);
+  if (res.result) {
+    return res.result;
+  }
 
-            const sumInProducts = await Promise.all(products.map(async product => {
-                const stockSum = await getProductTotalInStock(product.id);
-                const costPrice = createPriceWithMarkup(product.purchase_price, product.idCostPriceType, product.costPriceValue)
-                const sumInProduct = stockSum * costPrice;
-                return sumInProduct;
-            }))
-                .then((x) => {
-                    if (x.length) return x.reduce((a, b) => (a + b));
-                    return 0; //в категории нет товаров reduce вызывает ошибку
-                });
+  console.log('error #$kfsdf04', res);
 
-            return {
-                categoryName: category.category_name,
-                sumInProducts
-            }
-        })
-    )
-
-    return sumInCategories;
 }

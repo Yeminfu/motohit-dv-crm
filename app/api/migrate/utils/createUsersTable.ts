@@ -1,4 +1,4 @@
-import dbWorker from "@/db/dbWorker";
+import dbWorker from "@/db/dbWorker2";
 
 const { TABLE_PREFIX } = process.env;
 
@@ -19,7 +19,7 @@ export default async function createUsersTable() {
   `;
 
   await dbWorker(qs, [])
-    .then((x: any) => {})
+    .then((x: any) => { })
     .catch((z: any) => {
       console.error("createUsersTable", z);
     });

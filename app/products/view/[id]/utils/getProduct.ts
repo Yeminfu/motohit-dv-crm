@@ -1,4 +1,4 @@
-import dbWorker from "@/db/dbWorker";
+import dbWorker from "@/db/dbWorker2";
 import ts_fullProduct from "@/types/products/ts_fullProduct";
 
 type ts_localType = Pick<ts_fullProduct,
@@ -22,5 +22,5 @@ export default async function getProduct(idProduct: number): Promise<ts_localTyp
       isArchived
     from chbfs_products
     where id = ?
-  `, [idProduct]).then(x => x[0])
+  `, [idProduct]).then(x => x.result).then(x => x[0])
 }

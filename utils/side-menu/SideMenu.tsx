@@ -94,14 +94,20 @@ export default async function SideMenu() {
                 Годовой отчет
               </Link>
               {user?.is_boss ? (
-                <li className="list-group-item">
+                <>
                   <Link
                     className="btn btn-dark d-block text-start mb-1"
                     href={`/sum-in-product`}
                   >
                     Сумма в товаре
                   </Link>
-                </li>
+                  <Link
+                    className="btn btn-dark d-block text-start mb-1"
+                    href={`/history?limit=100`}
+                  >
+                    История
+                  </Link>
+                </>
               ) : null}
             </>
           </Card>
