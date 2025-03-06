@@ -17,7 +17,9 @@ async function createField(params: ts_column4create) {
 
   const sql = `
     alter table ${params.className}
-    add column ${params.column.COLUMN_NAME} ${type};
+    add column ${params.column.COLUMN_NAME}
+    ${type}
+    ${(Number(params.column.IS_NULLABLE) === 1) ? 'null' : 'not null'};
   `;
   return await dbWorker(sql, []);
 }
