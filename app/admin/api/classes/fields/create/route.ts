@@ -15,11 +15,19 @@ async function createField(params: ts_column4create) {
     return params.column.DATA_TYPE;
   })();
 
+  const defaultType = (() => {
+    const v = params.column.COLUMN_DEFAULT;
+    if (typeof v == 'undefined') return '';
+    if (/^-?\d+$/.test(v)) return 'default ' + v;
+    if (typeof v == 'string') return "default '" + v + "'";
+  })();
+
   const sql = `
     alter table ${params.className}
     add column ${params.column.COLUMN_NAME}
     ${type}
-    ${(Number(params.column.IS_NULLABLE) === 1) ? 'null' : 'not null'};
+    ${defaultType}/*2*/
+    ${(Number(params.column.IS_NULLABLE) === 1) ? 'null' : 'not null'}/*1*/
   `;
   return await dbWorker(sql, []);
 }
