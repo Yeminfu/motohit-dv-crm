@@ -5,6 +5,8 @@ import ts_configWithChildren from "../../types/ts_configWithChildren";
 import { toast } from "react-toastify";
 import ClassesInConfig from "../classesInConfig/classesInConfig";
 import BootstrapFolder from "#icons/bootstrap-folder.tsx";
+import Procedures from "./utils/procedures";
+// import Procedures from "../procedures/procedures";
 
 export default function RecursiveView(props: {
   config: ts_configWithChildren;
@@ -32,7 +34,23 @@ export default function RecursiveView(props: {
           {props.config.children.map((config) => (
             <RecursiveView config={config} key={config.id} />
           ))}
-          <ClassesInConfig idConfig={props.config.id} />
+          <div className="card">
+            <div className="card-header">
+              <strong>Классы</strong>
+            </div>
+            <div className="card-body">
+              <ClassesInConfig idConfig={props.config.id} />
+            </div>
+          </div>
+          <div className="card">
+            <div className="card-header mt-2">
+              <strong>Процедуры</strong>
+            </div>
+            <div className="card-body">
+              {/* <ClassesInConfig idConfig={props.config.id} /> */}
+              <Procedures idConfig={props.config.id} />
+            </div>
+          </div>
         </div>
       )}
     </div>

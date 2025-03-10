@@ -29,7 +29,6 @@ export default function ClassesInConfig(props: { idConfig: number }) {
               toast("Открываем класс");
             }}
           >
-            Класс{" "}
             <Link
               href={`/admin/classes/${classFromDB.id}`}
               rel="noopener noreferrer"
