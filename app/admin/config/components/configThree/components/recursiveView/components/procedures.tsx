@@ -53,13 +53,32 @@ export default function Procedures(props: { idConfig: number }) {
                 <td>{procedure.name}</td>
                 <td>{procedure.title}</td>
                 <td>
-                  <pre>{procedure.SQLString}</pre>
+                  <StringWrapper string={procedure.SQLString} />
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
       )}
+    </>
+  );
+}
+
+function StringWrapper(props: { string: string }) {
+  const [open, setOpen] = useState(false);
+  const maxHeight = open ? "auto" : "100px";
+  const switcIsOpen = () => setOpen(!open);
+  return (
+    <>
+      <button onClick={switcIsOpen}>switch {maxHeight}</button>
+      <div
+        style={{
+          maxHeight: maxHeight,
+          overflow: "scroll",
+        }}
+      >
+        <pre>{props.string}</pre>
+      </div>
     </>
   );
 }
