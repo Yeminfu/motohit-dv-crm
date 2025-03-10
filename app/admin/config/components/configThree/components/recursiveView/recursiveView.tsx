@@ -5,8 +5,7 @@ import ts_configWithChildren from "../../types/ts_configWithChildren";
 import { toast } from "react-toastify";
 import ClassesInConfig from "../classesInConfig/classesInConfig";
 import BootstrapFolder from "#icons/bootstrap-folder.tsx";
-import Procedures from "./utils/procedures";
-// import Procedures from "../procedures/procedures";
+import Procedures from "./components/procedures";
 
 export default function RecursiveView(props: {
   config: ts_configWithChildren;
