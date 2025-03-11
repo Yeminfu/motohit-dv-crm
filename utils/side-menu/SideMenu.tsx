@@ -83,32 +83,32 @@ export default async function SideMenu() {
 
       <div className="mt-4"></div>
       {(() => {
-        if (!user?.is_boss) return null;
+        if (!user) return null;
         return (
           <Card title="Отчеты">
             <>
-              <Link
-                className="btn btn-dark d-block text-start mb-1"
-                href={`/sales-report`}
-              >
-                Годовой отчет
-              </Link>
-              {user?.is_boss ? (
+              {user.is_boss && (
                 <>
+                  <Link
+                    className="btn btn-dark d-block text-start mb-1"
+                    href={`/sales-report`}
+                  >
+                    Годовой отчет
+                  </Link>
                   <Link
                     className="btn btn-dark d-block text-start mb-1"
                     href={`/sum-in-product`}
                   >
                     Сумма в товаре
                   </Link>
-                  <Link
-                    className="btn btn-dark d-block text-start mb-1"
-                    href={`/history?limit=100`}
-                  >
-                    История
-                  </Link>
                 </>
-              ) : null}
+              )}
+              <Link
+                className="btn btn-dark d-block text-start mb-1"
+                href={`/history?limit=100`}
+              >
+                История
+              </Link>
             </>
           </Card>
         );
