@@ -19,12 +19,11 @@ export async function POST(request: NextRequest) {
 
   const connection = await dbConnection();
 
-
   try {
 
     await connection.beginTransaction();
 
-    await updateStock(connection, Number(data.idProduct), Number(data.idShop), Number(data.count))
+    await updateStock(connection, Number(data.idProduct), Number(data.idShop), Number(data.count), user.id)
 
     await connection.commit();
     await connection.end();

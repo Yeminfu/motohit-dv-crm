@@ -1,14 +1,19 @@
 export default async function updateStock(
-  connection: any, idProduct: number, idShop: number, count: number
+  connection: any, idProduct: number, idShop: number, count: number, idUser: number
 ) {
   const sql = `
-    update chbfs_stock s
-    set
-      s.count = s.count - ?
-      ,s.updateSource = 'sale'
-    where
-      s.idProduct = ?
-      and s.idShop = ?
+    set @idProduct = ?;
+    set @idShop = ?;
+    set @count = ?;
+    set @idUser = ?;
+
+    call updateStockItem (
+      @idProduct,
+      @idShop,
+      @count,
+      @idUser,
+      'sale'
+    ) 
   `;
-  await connection.query(sql, [count, idProduct, idShop]);
+  return await connection.query(sql, [idProduct, idShop, count, idUser]);
 }
