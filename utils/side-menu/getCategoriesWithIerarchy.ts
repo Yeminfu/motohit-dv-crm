@@ -3,11 +3,14 @@ import { ts_categoriesWithIerarchy } from "@/types/categories/ts_categoriesWithI
 
 export default async function getCategoriesWithIerarchy(): Promise<ts_categoriesWithIerarchy[]> {
 
-  const parentsSql = `select
-    *
-  from ${process.env.TABLE_PREFIX}_categories
-  where
-    idParent is null;`;
+  const parentsSql = `
+    select
+      *
+    from ${process.env.TABLE_PREFIX}_categories
+    where
+      idParent is null
+      and is_active = 1
+  `;
 
   //@ts-ignore
   const parents: ts_categoriesWithIerarchy[] = await dbWorker(parentsSql).then(x => x.result);
@@ -31,6 +34,7 @@ async function getChildren(idParent: number): Promise<ts_categoriesWithIerarchy[
   from ${process.env.TABLE_PREFIX}_categories
   where
     idParent = ?
+    and is_active = 1
 `;
   const children: ts_categoriesWithIerarchy[] = await dbWorker(childrenSql, [idParent])
     .then(x => x.result);
