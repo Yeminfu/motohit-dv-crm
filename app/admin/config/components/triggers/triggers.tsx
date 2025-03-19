@@ -5,7 +5,7 @@ export default async function Triggers() {
   return <>
     <table className="table table-bordered w-auto">
       <tbody>
-        {triggers.map(trigger => <tr>
+        {triggers.map(trigger => <tr key={trigger.TRIGGER_NAME}>
           <th>{trigger.TRIGGER_NAME}</th>
           <th>{trigger.EVENT_MANIPULATION}</th>
           <th>{trigger.EVENT_OBJECT_TABLE}</th>
