@@ -2,6 +2,7 @@ import { t_CreateSaleResponseData } from "@/types/sales/t_CreateSaleResponseData
 import getUserByToken from "@/utils/users/getUserByToken";
 import { NextRequest, NextResponse } from "next/server";
 import dbConnection from "@/db/connect";
+import createSaleInDB from "./utils/createSaleInDB";
 
 export async function POST(request: NextRequest) {
   const data: t_CreateSaleResponseData = await request.json();
@@ -22,7 +23,7 @@ export async function POST(request: NextRequest) {
 
     await connection.beginTransaction();
 
-    await createSale(
+    await createSaleInDB(
       connection,
       Number(data.idProduct),
       Number(data.idShop),
@@ -40,26 +41,4 @@ export async function POST(request: NextRequest) {
     await connection.end();
     return NextResponse.json({ error: error })
   }
-}
-
-async function createSale(
-  connection: any, idProduct: number, idShop: number, count: number, saleSum: number, idUser: number
-) {
-  const sql = `
-    set @idProduct = ?;
-    set @idShop = ?;
-    set @count = ?;
-    set @saleSum = ?;
-    set @idUser = ?;
-
-    call createSale (
-      @idProduct,
-      @idShop,
-      @count,
-      @saleSum,
-      @idUser
-    ) 
-  `;
-  return await connection.query(sql, [idProduct, idShop, count, saleSum, idUser]);
-
 }
