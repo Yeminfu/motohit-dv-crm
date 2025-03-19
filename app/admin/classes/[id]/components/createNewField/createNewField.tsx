@@ -1,6 +1,6 @@
 "use client";
 
-import ts_column4create from "#app/admin/classes/types/ts_column4create.ts";
+import ts_column4create from "@/app/admin/classes/types/ts_column4create";
 import { Fragment } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";

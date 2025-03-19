@@ -1,11 +1,11 @@
-import AuthedLayout from "#utils/authedLayout.tsx";
+import AuthedLayout from "@/utils/authedLayout";
 import EditProcedureForm from "./components/EditProcedureForm";
 import getProcedure from "./utils/getProcedure";
 
 export default async function Page(params: { params: { id: string } }) {
   const procedure = await getProcedure(params.params.id);
 
-  if (!procedure) return "Ошибка #kasd93n";
+  if (!procedure) return "Ошибка #kasd93n: не найдена процедура";
 
   return (
     <>

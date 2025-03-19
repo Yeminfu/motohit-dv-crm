@@ -1,4 +1,4 @@
-import AuthedLayout from "#utils/authedLayout.tsx";
+import AuthedLayout from "@/utils/authedLayout";
 import Tables from "./components/tables/tables";
 import Keys from "./components/keys/keys";
 import Classes from "./components/Classes/Classes";
@@ -8,6 +8,7 @@ import CreateConfig from "./components/createConfig/createConfig";
 import ScalarFunctions from "./components/scalarFunctions/scalarFunctions";
 import Views4classes from "./components/views4classes/views4classes";
 import Contrains from "./components/contrains/contrains";
+import Procedures2_0 from "./components/procedures2_0/procedures2_0";
 
 export default async function Page() {
   return (
@@ -30,6 +31,15 @@ export default async function Page() {
             </div>
             <div className="card-body">
               <Procedures />
+            </div>
+          </div>
+
+          <div className="card">
+            <div className="card-header">
+              <h3>Процедуры 2.0</h3>
+            </div>
+            <div className="card-body">
+              <Procedures2_0 />
             </div>
           </div>
 
