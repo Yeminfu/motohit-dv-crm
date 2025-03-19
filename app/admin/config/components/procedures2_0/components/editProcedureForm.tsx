@@ -4,11 +4,12 @@ import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
 export default function EditProcedureForm(props: {
-  name: string, body: string
+  name: string, body: string, header: string
 }) {
-  const { register, handleSubmit } = useForm<{ name: string, body: string }>({
+  const { register, handleSubmit } = useForm<{ name: string, body: string, header: string }>({
     defaultValues: {
       name: props.name,
+      header: props.header,
       body: props.body,
     },
   });
@@ -24,15 +25,31 @@ export default function EditProcedureForm(props: {
         className="form-control w-auto d-none"
         autoComplete="off"
       />
-      <textarea
-        {...register("body", { required: true })}
-        className="form-control"
-        style={{
-          width: 1000,
-          minHeight: 300
-        }}
-        autoComplete="off"
-      />
+      <div className="card">
+        <div className="card-header">
+          <textarea
+            {...register("header", { required: true })}
+            className="form-control"
+            style={{
+              width: 1000,
+              minHeight: 150
+            }}
+            autoComplete="off"
+          />
+        </div>
+        <div className="card-body">
+          <textarea
+            {...register("body", { required: true })}
+            className="form-control"
+            style={{
+              width: 1000,
+              minHeight: 300
+            }}
+            autoComplete="off"
+          />
+
+        </div>
+      </div>
 
       <div className="mt-2">
         <button className="btn btn-dark btn-sm">Сохранить</button>
@@ -44,7 +61,7 @@ export default function EditProcedureForm(props: {
 }
 
 
-async function onSubmit(values: { name: string, body: string }) {
+async function onSubmit(values: { name: string, body: string, header: string }) {
   try {
     const response = await fetch(`/admin/api/procedures2_0/edit`, {
       method: "post",
