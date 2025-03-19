@@ -82,6 +82,7 @@ async function getHistory(
       left join chbfs_shops sh on sh.id = json_extract(h.data, '$.idShop')
     where
       h.action = 'chbfs_stock'
+      and json_extract(h.data, '$.oldValue') <> json_extract(h.data, '$.newValue')
       order by h.id desc
     limit ${searchParams.limit}
   `;

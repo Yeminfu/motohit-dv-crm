@@ -9,6 +9,7 @@ import ScalarFunctions from "./components/scalarFunctions/scalarFunctions";
 import Views4classes from "./components/views4classes/views4classes";
 import Contrains from "./components/contrains/contrains";
 import Procedures2_0 from "./components/procedures2_0/procedures2_0";
+import Triggers from "./components/triggers/triggers";
 
 export default async function Page() {
   return (
@@ -40,6 +41,15 @@ export default async function Page() {
             </div>
             <div className="card-body">
               <Procedures2_0 />
+            </div>
+          </div>
+
+          <div className="card">
+            <div className="card-header">
+              <h3>Триггеры</h3>
+            </div>
+            <div className="card-body">
+              <Triggers />
             </div>
           </div>
 
