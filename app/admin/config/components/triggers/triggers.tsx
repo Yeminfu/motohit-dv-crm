@@ -9,6 +9,7 @@ export default async function Triggers() {
           <th>{trigger.TRIGGER_NAME}</th>
           <th>{trigger.EVENT_MANIPULATION}</th>
           <th>{trigger.EVENT_OBJECT_TABLE}</th>
+          <th>{trigger.ACTION_TIMING}</th>
           <th><pre>{trigger.ACTION_STATEMENT}</pre></th>
         </tr>)}
       </tbody>
@@ -21,13 +22,15 @@ async function getTriggers(): Promise<{
   EVENT_MANIPULATION: string,
   EVENT_OBJECT_TABLE: string,
   ACTION_STATEMENT: string,
+  ACTION_TIMING: string,
 }[]> {
   const sql = `
   SELECT 
     TRIGGER_NAME, 
     EVENT_MANIPULATION, 
     EVENT_OBJECT_TABLE, 
-    ACTION_STATEMENT 
+    ACTION_STATEMENT,
+    ACTION_TIMING
   FROM 
       INFORMATION_SCHEMA.TRIGGERS 
   WHERE 
