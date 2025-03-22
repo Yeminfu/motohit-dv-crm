@@ -18,7 +18,6 @@ export default async function Page(a: { searchParams: { page: string } }) {
             border: "1px solid"
           }}>
             <tr>
-              <th></th>
               <th>товар</th>
               <th>закупочная цена</th>
               <th>тип себестоимости</th>
@@ -27,17 +26,15 @@ export default async function Page(a: { searchParams: { page: string } }) {
             </tr>
           </thead>
           <tbody>
-            {products.map((product, index) => <tr key={product.idProduct1}>
-              <td>
-                {index}
-              </td>
+            {products.map((product) => <tr key={product.idProduct1}>
+
               <td>
                 <pre style={{ border: "auto" }}>1) <>{JSON.stringify(product.productName1)}</> ({product.idProduct1})</pre>
                 <pre style={{ border: "auto" }}>2) <>{JSON.stringify(product.productName2)}</> ({product.idProduct2})</pre>
               </td>
               <td>
-                <pre style={{ border: "auto" }}>{product.purchase_price1}</pre>
-                <pre style={{ border: "auto" }}>{product.purchase_price2}</pre>
+                <pre style={{ border: "auto" }}>{JSON.stringify(product.purchase_price1)}</pre>
+                <pre style={{ border: "auto" }}>{JSON.stringify(product.purchase_price2)}</pre>
               </td>
               <td>
                 <pre style={{ border: "auto" }}>{JSON.stringify(product.idCostPriceType1)}</pre>
