@@ -26,8 +26,7 @@ export default async function getProducts(page: number): Promise<undefined | ts_
     from chbfs_products as p1
       inner join chbfs_products as p2
         on
-          REGEXP_REPLACE(p2.name, '[^a-zA-Zа-яА-Я0-9]', '') = REGEXP_REPLACE(p1.name, '[^a-zA-Zа-яА-Я0-9]', '')
-          and REGEXP_REPLACE(p2.name, '[^a-zA-Zа-яА-Я0-9]', '') = REGEXP_REPLACE(p1.name, '[^a-zA-Zа-яА-Я0-9]', '')
+          p2.clearname = p1.clearname
           and p2.id <> p1.id
     limit ${perPage}
     offset ${offset}
