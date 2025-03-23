@@ -24,7 +24,7 @@ export default async function getProducts(page: number): Promise<undefined | ts_
       ,p2.costPriceValue as costPriceValue2
       ,p2.internetPrice as internetPrice2
     from chbfs_products as p1
-      left join chbfs_products as p2
+      inner join chbfs_products as p2
         on
           REGEXP_REPLACE(p2.name, '[^a-zA-Zа-яА-Я0-9]', '') = REGEXP_REPLACE(p1.name, '[^a-zA-Zа-яА-Я0-9]', '')
           and REGEXP_REPLACE(p2.name, '[^a-zA-Zа-яА-Я0-9]', '') = REGEXP_REPLACE(p1.name, '[^a-zA-Zа-яА-Я0-9]', '')
