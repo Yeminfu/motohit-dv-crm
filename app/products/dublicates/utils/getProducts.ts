@@ -8,7 +8,7 @@ export default async function getProducts(page: number): Promise<undefined | ts_
     select distinct
       ${perPage} as perPage,
       ${page} as page,
-      ${offset} as page,
+      ${offset} as offset,
       p1.id as idProduct1
       ,p1.name as productName1
       ,p1.description as description1

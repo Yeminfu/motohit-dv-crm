@@ -23,6 +23,7 @@ export default async function Page(a: { searchParams: { page: string } }) {
               <th>тип себестоимости</th>
               <th>значение себестоимости</th>
               <th>описание</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
@@ -49,6 +50,13 @@ export default async function Page(a: { searchParams: { page: string } }) {
                   <div className="text-nowrap">{product.description1}</div>
                   <div className="text-nowrap">{product.description2}</div>
                 </div>
+              </td>
+              <td >
+                {JSON.stringify({
+                  page: product.page,
+                  perPage: product.perPage,
+                  offset: product.offset,
+                })}
               </td>
             </tr>)}
           </tbody>

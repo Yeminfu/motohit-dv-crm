@@ -12,4 +12,8 @@ export default interface ts_dublicate {
   idCostPriceType2: number,
   costPriceValue2: number,
   description2: string,
+
+  perPage: number,
+  page: number,
+  offset: number,
 }
