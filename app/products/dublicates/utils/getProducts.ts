@@ -6,6 +6,9 @@ export default async function getProducts(page: number): Promise<undefined | ts_
   const offset = perPage * page;
   const sql = `
     select distinct
+      ${perPage} as perPage,
+      ${page} as page,
+      ${offset} as page,
       p1.id as idProduct1
       ,p1.name as productName1
       ,p1.description as description1
