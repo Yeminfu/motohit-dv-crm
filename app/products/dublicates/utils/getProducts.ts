@@ -17,6 +17,7 @@ export default async function getProducts(page: number): Promise<undefined | ts_
       ,p1.idCostPriceType as idCostPriceType1
       ,p1.costPriceValue as costPriceValue1
       ,p1.internetPrice as internetPrice1
+      ,p1.isArchived as isArchived1
 
       ,p2.id as idProduct2
       ,p2.name as productName2
@@ -26,6 +27,7 @@ export default async function getProducts(page: number): Promise<undefined | ts_
       ,p2.idCostPriceType as idCostPriceType2
       ,p2.costPriceValue as costPriceValue2
       ,p2.internetPrice as internetPrice2
+      ,p2.isArchived as isArchived2
     from chbfs_products as p1
       inner join chbfs_products as p2
         on

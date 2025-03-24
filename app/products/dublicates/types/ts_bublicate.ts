@@ -5,6 +5,7 @@ export default interface ts_dublicate {
   idCostPriceType1: number,
   costPriceValue1: number,
   description1: string,
+  isArchived1: boolean,
 
   idProduct2: number,
   productName2: string,
@@ -12,6 +13,7 @@ export default interface ts_dublicate {
   idCostPriceType2: number,
   costPriceValue2: number,
   description2: string,
+  isArchived2: boolean,
 
   perPage: number,
   page: number,

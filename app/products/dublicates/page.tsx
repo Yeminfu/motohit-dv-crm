@@ -1,5 +1,6 @@
 import AuthedLayout from "@/utils/authedLayout";
 import getProducts from "./utils/getProducts";
+import { EditIsActive } from "./components/editIsActive";
 
 export default async function Page(a: { searchParams: { page: string } }) {
 
@@ -19,6 +20,7 @@ export default async function Page(a: { searchParams: { page: string } }) {
           }}>
             <tr>
               <th>товар</th>
+              <th>в архиве</th>
               <th>закупочная цена</th>
               <th>тип себестоимости</th>
               <th>значение себестоимости</th>
@@ -32,6 +34,14 @@ export default async function Page(a: { searchParams: { page: string } }) {
               <td>
                 <pre style={{ border: "auto" }}>1) <>{JSON.stringify(product.productName1)}</> ({product.idProduct1})</pre>
                 <pre style={{ border: "auto" }}>2) <>{JSON.stringify(product.productName2)}</> ({product.idProduct2})</pre>
+              </td>
+              <td>
+                <div>
+                  <EditIsActive idProduct={product.idProduct1} isArchived={product.isArchived1} />
+                </div>
+                <div>
+                  <EditIsActive idProduct={product.idProduct2} isArchived={product.isArchived2} />
+                </div>
               </td>
               <td>
                 <pre style={{ border: "auto" }}>{JSON.stringify(product.purchase_price1)}</pre>
