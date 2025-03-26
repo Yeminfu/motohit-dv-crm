@@ -1,14 +1,14 @@
 import dbWorker from "@/db/dbWorker2";
-// import dbConnection from "@/db/connect";
 import AuthedLayout from "@/utils/authedLayout";
-// import dayjs from "dayjs";
+
+const defaultLimit = 1000;
 
 export default async function Page(pageProps: {
   searchParams: ts_searchParams;
 }) {
   // const { limit } = pageProps.searchParams;
 
-  const history = await getHistory(pageProps.searchParams);
+  const history = await getHistory(pageProps.searchParams, defaultLimit);
   return (
     <>
       <AuthedLayout title="История">
@@ -26,8 +26,8 @@ export default async function Page(pageProps: {
                       <th>id</th>
                       <th>дата</th>
                       <th>пользователь</th>
-                      <th>товар</th>
                       <th>магазин</th>
+                      <th>товар</th>
                       <th>старое значение</th>
                       <th>новое значение</th>
                     </tr>
@@ -54,7 +54,7 @@ export default async function Page(pageProps: {
             );
           })()}
 
-          <pre>{JSON.stringify(history, null, 2)}</pre>
+          {/* <pre>{JSON.stringify(history, null, 2)}</pre> */}
         </>
       </AuthedLayout>
     </>
@@ -62,9 +62,12 @@ export default async function Page(pageProps: {
 }
 
 async function getHistory(
-  searchParams: ts_searchParams
+  searchParams: ts_searchParams,
+  defaultLimit: number
 ): Promise<ts_historyInDB[] | undefined> {
   console.log({ searchParams });
+
+  const limit = searchParams.limit || defaultLimit;
 
   const sql = `
     select
@@ -84,17 +87,11 @@ async function getHistory(
       h.action = 'chbfs_stock'
       and json_extract(h.data, '$.oldValue') <> json_extract(h.data, '$.newValue')
       order by h.id desc
-    limit ${searchParams.limit}
+    limit ${limit}
   `;
 
   const res = await dbWorker(sql, []);
-  // const res: any = await connection.query().then(([x]: any) =>
-  //   x.map((x: any) => ({
-  //     ...x,
-  //     data: typeof x.data === "object" ? x : JSON.parse(x.data),
-  //   }))
-  // );
-  // await connection.end();
+
   if (!res.result) {
     return;
   }
