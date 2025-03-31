@@ -105,7 +105,7 @@ export default async function SideMenu() {
               )}
               <Link
                 className="btn btn-dark d-block text-start mb-1"
-                href={`/history?limit=100`}
+                href={`/history?limit=1000`}
               >
                 История
               </Link>
