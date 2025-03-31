@@ -39,7 +39,7 @@ function ViewTable(props: { SQLResult: ArrayOfUnknownObjects }) {
   try {
     return (
       <>
-        <table className="table table-striped table-bordered">
+        <table className="table table-striped table-bordered w-auto">
           <thead
             style={{
               background: "#eee",

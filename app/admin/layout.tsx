@@ -14,9 +14,9 @@ export default function Layout(props: { children: any }) {
           </div>
           <div className="card-body">
             <div className="d-flex justify-content-between align-items-top">
-              <div className="flex-grow-1">
+              {/* <div className="flex-grow-1">
                 <SQLConsole />
-              </div>
+              </div> */}
               <div>
                 <div className="d-flex fles-nowrap">
                   <div>
@@ -28,6 +28,7 @@ export default function Layout(props: { children: any }) {
                 </div>
               </div>
             </div>
+            <div className="my-2"><SQLConsole /></div>
           </div>
         </div>
         {props.children}

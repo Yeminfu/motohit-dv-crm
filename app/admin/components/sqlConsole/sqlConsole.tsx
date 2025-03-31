@@ -27,7 +27,9 @@ export default function SQLConsole() {
   return (
     <>
       {/* switchButton */}
-      {switchButton}
+      <div className="mb-2">
+        {switchButton}
+      </div>
 
       {/* форма */}
       <form
