@@ -34,7 +34,7 @@ export default async function Page(params: { searchParams: ts_searchParams }) {
         </thead>
         <tbody>
           {sales.map((sale, i) => <tr key={i}>
-            {Object.values(sale).map(value => <td>{value}</td>)}
+            {Object.values(sale).map((value, i1) => <td key={i1}>{value}</td>)}
           </tr>)}
         </tbody>
       </table>
