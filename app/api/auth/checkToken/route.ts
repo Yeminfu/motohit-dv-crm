@@ -19,7 +19,14 @@ export async function POST(request: Request) {
 
 async function checkTokenIsValid(token: string) {
   const isValid = await dbWorker(
-    `select * from ${process.env.TABLE_PREFIX}_tokens where token = ? and deadline > NOW() `,
+    `
+      select
+        *
+      from ${process.env.TABLE_PREFIX}_tokens T
+        inner join chbfs_users as U on U.id = T.idUser and U.is_active = 1
+      where
+        T.token = ?
+      and T.deadline > NOW() `,
     [token]
   )
     .then(x => x.result)

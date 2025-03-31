@@ -12,6 +12,7 @@ export default async function getUserByToken(
       join ${process.env.TABLE_PREFIX}_users U on U.id = T.idUser
     where
       T.token = ?
+      and U.is_active = 1
   `;
 
   const user = await dbWorker(
