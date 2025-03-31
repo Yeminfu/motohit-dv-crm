@@ -1,85 +1,115 @@
 import dbConnection from "@/db/connect";
 import AuthedLayout from "@/utils/authedLayout";
-import getAllCategories from "@/utils/getAllCategories";
-import getShops from "@/utils/getShops";
-import dayjs from "dayjs";
-import ts_reportItem from "./ts_reportItem";
-import Client from "./client";
+// import getAllCategories from "@/utils/getAllCategories";
+// import getShops from "@/utils/getShops";
+// import dayjs from "dayjs";
+// import ts_reportItem from "./ts_reportItem";
+// import Client from "./client";
 import ts_searchParams from "./ts_searchParams";
 
 export default async function Page(params: { searchParams: ts_searchParams }) {
-  const categories = await getAllCategories();
+  // const categories = await getAllCategories();
 
-  const year = params.searchParams.year || dayjs().format('YYYY');
-  const idCategory = params.searchParams.category || categories[0]?.id;
+  // const year = params.searchParams.year || dayjs().format('YYYY');
+  // const idCategory = params.searchParams.category || categories[0]?.id;
 
-  if (!idCategory) return <>Такой страницы не существует</>
+  // if (!idCategory) return <>Такой страницы не существует</>
 
-  const reportData = await getYearReportData(
-    Number(year),
-    idCategory,
-  );
-  const shops = await getShops();
+  // const reportData = await getYearReportData(
+  //   Number(year),
+  //   idCategory,
+  // );
+  // const shops = await getShops();
+  const sales = await getSales();
+
   return <AuthedLayout title="Годовой отчет">
     <>
-      <Client shops={shops} report={reportData} categories={categories} searchParams={params.searchParams} />
+      <table className="table table-bordered table-striped w-auto">
+        <thead>
+          <tr>
+            {Object.keys(sales[0]).map((value, i) => <th key={i}>
+              {value}
+            </th>)}
+          </tr>
+        </thead>
+        <tbody>
+          {sales.map((sale, i) => <tr key={i}>
+            {Object.values(sale).map(value => <td>{value}</td>)}
+          </tr>)}
+        </tbody>
+      </table>
+      {/* <Client shops={shops} report={reportData} categories={categories} searchParams={params.searchParams} /> */}
     </>
   </AuthedLayout>
 }
 
-async function getYearReportData(year: number, idCategory: number): Promise<ts_reportItem[]> {
-  const soldProducts = await getSoldProductsPerYear(year, idCategory);
-  const shops = await getShops();
+// async function getYearReportData(year: number, idCategory: number): Promise<ts_reportItem[]> {
+//   const soldProducts = await getSoldProductsPerYear(year, idCategory);
+//   const shops = await getShops();
 
-  const data = await Promise.all(soldProducts.map(async product => {
-    const salesPerShops = await Promise.all(shops.map(async shop => {
-      const sales = await getSales(product.idProduct, shop.id, year);
-      return {
-        idshop: shop.id,
-        ...sales
-      }
-    }));
-    return {
-      ...product,
-      sales: salesPerShops
-    };
-  }));
+//   const data = await Promise.all(soldProducts.map(async product => {
+//     const salesPerShops = await Promise.all(shops.map(async shop => {
+//       const sales = await getSales(product.idProduct, shop.id, year);
+//       return {
+//         idshop: shop.id,
+//         ...sales
+//       }
+//     }));
+//     return {
+//       ...product,
+//       sales: salesPerShops
+//     };
+//   }));
 
-  return data;
-}
+//   return data;
+// }
 
 
-async function getSoldProductsPerYear(year: number, idCategory: number): Promise<{ idProduct: number, productName: string }[]> {
-  const connection = await dbConnection();
-  const res = await connection.query(`
-    select
-      distinct S.idProduct, P.name as productName
-    from ${process.env.TABLE_PREFIX}_sales S
-      join ${process.env.TABLE_PREFIX}_products P on P.id = S.idProduct
-    where 
-      year(S.created_date) = ? 
-      and P.idCategory = ?
-       
-    `, [year, idCategory])
-    .then(([x]: any) => x);
-  await connection.end();
-  return res;
-}
+// async function getSoldProductsPerYear(year: number, idCategory: number): Promise<{ idProduct: number, productName: string }[]> {
+//   const connection = await dbConnection();
+//   const res = await connection.query(`
+//     select
+//       distinct S.idProduct, P.name as productName
+//     from ${process.env.TABLE_PREFIX}_sales S
+//       join ${process.env.TABLE_PREFIX}_products P on P.id = S.idProduct
+//     where 
+//       year(S.created_date) = ? 
+//       and P.idCategory = ?
 
-async function getSales(idProduct: number, idShop: number, year: number): Promise<{ count: number, sum: number }> {
+//     `, [year, idCategory])
+//     .then(([x]: any) => x);
+//   await connection.end();
+//   return res;
+// }
+
+async function getSales(): Promise<{ год: number, месяц: number, категория: string, магазин: string, количество: number }[]> {
   const connection = await dbConnection();
   const qs = `
-  select
-    sum(count) as count,
-    sum(sum) as sum
-  from ${process.env.TABLE_PREFIX}_sales S
-  where 
-    year(S.created_date) = ? 
-    and S.idProduct = ?
-    and S.idShop = ?
+    select distinct
+      year(S.created_date) as год
+      ,month(S.created_date) as месяц
+      ,C.category_name as категория
+      /*,P.idCategory idКатегории*/
+      /*,S.idShop*/
+      ,Sh.shopName as магазин
+      ,sum(S.count) AS количество
+      ,sum(S.sum) AS сумма
+    from chbfs_sales S
+      inner join chbfs_shops Sh on Sh.id = S.idShop
+        inner join chbfs_products P on P.id = S.idProduct
+          inner join chbfs_categories C on C.id = P.idCategory
+    group by
+      year(S.created_date)
+      ,month(S.created_date)
+      ,C.category_name
+      /*,P.idCategory*/
+      ,S.idShop
+      ,Sh.shopName
+    order by год desc, месяц desc, магазин, категория;
   `;
-  const res = await connection.query(qs, [year, idProduct, idShop])
-    .then(([x]: any) => x.pop());
+  const res = await connection.query(qs)
+    .then(([x]: any) => x)
+  // .then(x => x[0]);
   await connection.end();
   return res;
 }
