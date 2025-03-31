@@ -6,7 +6,7 @@ export interface UserType {
     // meta?: EmployeeMeta[]
     // leads?: any[]
     // is_manager: boolean | 1 | 0
-    // is_active: boolean | 1 | 0
+    is_active: boolean;
     is_boss: boolean | 1 | 0
 }
 
