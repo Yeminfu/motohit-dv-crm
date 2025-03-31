@@ -5,11 +5,12 @@ export default async function getUserByTg(
   tgUsername: string
 ): Promise<UserType | null> {
   const connection = await dbConnection();
+  const sql = `
+    select
+      *
+    from ${process.env.TABLE_PREFIX}_users where telegram_username = ? and is_active = 1`;
   const user = await connection
-    .query(
-      `SELECT * FROM ${process.env.TABLE_PREFIX}_users WHERE telegram_username = ? AND is_active = 1`,
-      [tgUsername]
-    )
+    .query(sql, [tgUsername])
     .then(([data]: any) => {
       if (!data.length) return null;
       return data.pop();
