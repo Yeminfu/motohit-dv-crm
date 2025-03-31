@@ -85,9 +85,22 @@ export default async function Page(params: { searchParams: ts_searchParams }) {
 async function getSales(): Promise<{ год: number, месяц: number, категория: string, магазин: string, количество: number }[]> {
   const connection = await dbConnection();
   const qs = `
-    select distinct
+   select distinct
       year(S.created_date) as год
-      ,month(S.created_date) as месяц
+      ,case  
+        when month(S.created_date) = 1 THEN 'Январь'
+        when month(S.created_date) = 2 THEN 'Февраль'
+        when month(S.created_date) = 3 THEN 'Март'
+        when month(S.created_date) = 4 THEN 'Апрель'
+        when month(S.created_date) = 5 THEN 'Май'
+        when month(S.created_date) = 6 THEN 'Июнь'
+        when month(S.created_date) = 7 THEN 'Июль'
+        when month(S.created_date) = 8 THEN 'Август'
+        when month(S.created_date) = 9 THEN 'Сентябрь'
+        when month(S.created_date) = 10 THEN 'Октябрь'
+        when month(S.created_date) = 11 THEN 'Ноябрь'
+        when month(S.created_date) = 12 THEN 'Декабрь'
+      END as месяц
       ,C.category_name as категория
       /*,P.idCategory idКатегории*/
       /*,S.idShop*/
@@ -100,7 +113,7 @@ async function getSales(): Promise<{ год: number, месяц: number, кат�
           inner join chbfs_categories C on C.id = P.idCategory
     group by
       year(S.created_date)
-      ,month(S.created_date)
+      ,месяц
       ,C.category_name
       /*,P.idCategory*/
       ,S.idShop
