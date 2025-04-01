@@ -27,7 +27,13 @@ console.log(token);
 
   const res = await getSales(connection);
 
-  console.log(res);
+  // console.log(res);
+
+
+  if (!res.length) {
+    sendMessage(Number(process.env.BOSS_CHAT_ID), "Сегодня не было продаж", String(token))
+    return;
+  }
 
 
   const csvRows = [];
@@ -45,7 +51,7 @@ console.log(token);
   // console.log('csvRows', csvRows.join('\n'));
 
 
-  createAndSendCSV(5050441344, res);
+  createAndSendCSV(Number(process.env.BOSS_CHAT_ID), res);
 
 
   // const json = JSON.stringify(res, null, 2);
@@ -132,7 +138,7 @@ async function createAndSendCSV(chatId: number, data: any) {
   const filePath = 'output.csv';
 
   // Записываем CSV в файл
-  fs.writeFileSync(filePath, csvString);
+  fs.writeFileSync(filePath, csvString, "utf-8");
 
   // Отправляем файл пользователю Telegram
   // const token = 'YOUR_TELEGRAM_BOT_TOKEN'; // Замените на ваш токен
