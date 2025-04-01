@@ -85,7 +85,7 @@ export default async function Page(params: { searchParams: ts_searchParams }) {
 async function getSales(): Promise<{ год: number, месяц: number, категория: string, магазин: string, количество: number }[]> {
   const connection = await dbConnection();
   const qs = `
-   select distinct
+    select distinct
       year(S.created_date) as год
       ,case  
         when month(S.created_date) = 1 THEN 'Январь'
@@ -101,7 +101,7 @@ async function getSales(): Promise<{ год: number, месяц: number, кат�
         when month(S.created_date) = 11 THEN 'Ноябрь'
         when month(S.created_date) = 12 THEN 'Декабрь'
       END as месяц
-      ,C.category_name as категория
+      ,P.name as товар
       /*,P.idCategory idКатегории*/
       /*,S.idShop*/
       ,Sh.shopName as магазин
@@ -114,11 +114,11 @@ async function getSales(): Promise<{ год: number, месяц: number, кат�
     group by
       year(S.created_date)
       ,месяц
-      ,C.category_name
+      ,P.name 
       /*,P.idCategory*/
       ,S.idShop
       ,Sh.shopName
-    order by год desc, месяц desc, магазин, категория;
+    order by год desc, month(S.created_date) desc, магазин, товар;
   `;
   const res = await connection.query(qs)
     .then(([x]: any) => x)
