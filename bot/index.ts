@@ -8,8 +8,6 @@ console.log(token);
 
 
 (async () => {
-
-
   const connection = await mysql.createConnection({
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
@@ -21,7 +19,7 @@ console.log(token);
 
   const json = JSON.stringify(res);
 
-  sendMessage(5050441344, 'zzz', String(token))
+  sendMessage(5050441344, json, String(token))
 
   console.log(res);
 

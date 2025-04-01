@@ -1,6 +1,8 @@
 
 export default async function sendMessage(chatId: number, message: string, token: string) {
   const url = `https://api.telegram.org/bot${token}/sendMessage`;
+  console.log(url);
+
   try {
     const response = await fetch(url, {
       method: 'POST',
