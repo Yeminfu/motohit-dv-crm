@@ -17,7 +17,7 @@ console.log(token);
 
   const res = await getSales(connection);
 
-  const json = JSON.stringify(res);
+  const json = JSON.stringify(res, null, 2);
 
   sendMessage(5050441344, json, String(token))
 
