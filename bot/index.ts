@@ -17,11 +17,29 @@ console.log(token);
 
   const res = await getSales(connection);
 
-  const json = JSON.stringify(res, null, 2);
-
-  sendMessage(5050441344, json, String(token))
-
   console.log(res);
+
+
+  const csvRows = [];
+  const headers = Object.keys(res[0]);
+  csvRows.push(headers.join(',')); // Добавляем заголовки
+
+  for (const row of res) {
+    const values = headers.map(header => {
+      const escaped = ('' + row[header]).replace(/"/g, '\\"'); // Экранируем кавычки
+      return `"${escaped}"`; // Оборачиваем значения в кавычки
+    });
+    csvRows.push(values.join(','));
+  }
+
+  console.log('csvRows', csvRows.join('\n'));
+
+
+  // const json = JSON.stringify(res, null, 2);
+
+  // sendMessage(5050441344, json, String(token))
+
+  // console.log(res);
 
 
   await connection.end();
@@ -49,28 +67,10 @@ console.log(token);
 
 
 
-async function getSales(connection: any): Promise<{ год: number, месяц: number, товар: string, магазин: string, 'к-во': number }[]> {
+async function getSales(connection: any) {
   // const connection = await dbConnection();
   const qs = `
-    select
-      P.name as товар
-      /*,P.idCategory idКатегории*/
-      /*,S.idShop*/
-      ,Sh.shopName as магазин
-      ,sum(S.count) AS 'к-во'
-      ,sum(S.sum) AS сумма
-    from chbfs_sales S
-      inner join chbfs_shops Sh on Sh.id = S.idShop
-        inner join chbfs_products P on P.id = S.idProduct
-          inner join chbfs_categories C on C.id = P.idCategory
-    where S.created_date >= CURDATE()
-      
-    group by
-      P.name 
-      /*,P.idCategory*/
-      ,S.idShop
-      ,Sh.shopName
-    order by магазин, товар;
+    select * from chbfs_users
   `;
   const res = await connection.query(qs)
     .then(([x]: any) => x)
