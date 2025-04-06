@@ -1,7 +1,10 @@
+//@ts-nocheck
 import mysql from 'mysql2/promise';
 import 'dotenv/config';
 import sendMessage from './src/telegramApi/sendMessage/sendMessage';
 import fs from "fs";
+import xlsx from 'node-xlsx';
+
 
 console.log('hello');
 const token = process.env.TOKEN;
@@ -10,13 +13,13 @@ console.log(token);
 
 // Пример использования функции
 // const sampleData = [
-//   { name: 'Alice', age: 30, city: 'New York' },
-//   { name: 'Bob', age: 25, city: 'Los Angeles' }
+//   { name: 'Зюзя', age: 30, city: 'New York' },
+//   { name: 'Жужа', age: 25, city: 'Los Angeles' }
 // ];
 
 // // Замените 'CHAT_ID' на ID чата, куда хотите отправить файл
 // createAndSendCSV(5050441344, sampleData);
-
+// process.exit();
 (async () => {
   const connection = await mysql.createConnection({
     host: process.env.DB_HOST,
@@ -29,56 +32,16 @@ console.log(token);
 
   // console.log(res);
 
+  // createAndSendCSV(5050441344, sampleData);
 
   if (!res.length) {
     sendMessage(Number(process.env.BOSS_CHAT_ID), "Сегодня не было продаж", String(token))
     return;
   }
 
-
-  const csvRows = [];
-  const headers = Object.keys(res[0]);
-  csvRows.push(headers.join(',')); // Добавляем заголовки
-
-  for (const row of res) {
-    const values = headers.map(header => {
-      const escaped = ('' + row[header]).replace(/"/g, '\\"'); // Экранируем кавычки
-      return `"${escaped}"`; // Оборачиваем значения в кавычки
-    });
-    csvRows.push(values.join(','));
-  }
-
-  // console.log('csvRows', csvRows.join('\n'));
-
-
   createAndSendCSV(Number(process.env.BOSS_CHAT_ID), res);
 
-
-  // const json = JSON.stringify(res, null, 2);
-
-  // sendMessage(5050441344, json, String(token))
-
-  // console.log(res);
-
-
   await connection.end();
-  return;
-
-  try {
-    // Выполнение запроса
-    const [rows, fields] = await connection.execute('show tables');
-    // sendMessage(5050441344, "manamana", String(token))
-
-    // return;
-    // Вывод результатовq
-    console.log(rows);
-  } catch (error) {
-    console.error('Ошибка при выполнении запроса:', error);
-  } finally {
-    // Закрытие подключения
-    await connection.end();
-  }
-
 })()
 // /home/zuacer/Desktop/work/motohit/crm-mif-bot/build/index.js
 
@@ -100,19 +63,18 @@ async function getSales(connection: any) {
       inner join chbfs_shops Sh on Sh.id = S.idShop
         inner join chbfs_products P on P.id = S.idProduct
           inner join chbfs_categories C on C.id = P.idCategory
-    where S.created_date >= CURDATE()
+    /*where S.created_date >= CURDATE()*/
       
     group by
       P.name 
       /*,P.idCategory*/
       ,S.idShop
       ,Sh.shopName
-    order by магазин, товар;
+    order by магазин, товар
+    limit 100;
   `;
   const res = await connection.query(qs)
     .then(([x]: any) => x)
-  // .then(x => x[0]);
-  // await connection.end();
   return res;
 }
 
@@ -121,35 +83,25 @@ async function getSales(connection: any) {
 
 
 async function createAndSendCSV(chatId: number, data: any) {
-  // Создаем CSV строку
-  const csvRows = [];
-  const headers = Object.keys(data[0]);
-  csvRows.push(headers.join(',')); // Добавляем заголовки
 
-  for (const row of data) {
-    const values = headers.map(header => {
-      const escaped = ('' + row[header]).replace(/"/g, '\\"'); // Экранируем кавычки
-      return `"${escaped}"`; // Оборачиваем значения в кавычки
-    });
-    csvRows.push(values.join(','));
-  }
+  const arr = [
+    Object.keys(data[0]),
+    ...data.map(Object.values)
+  ]
 
-  const csvString = csvRows.join('\n');
-  const filePath = 'output.csv';
+  console.log(data, arr);
 
-  // Записываем CSV в файл
-  fs.writeFileSync(filePath, csvString, "utf-8");
+  const sheetOptions = { '!cols': [{ wch: 6 }, { wch: 7 }, { wch: 10 }, { wch: 20 }] };
 
-  // Отправляем файл пользователю Telegram
-  // const token = 'YOUR_TELEGRAM_BOT_TOKEN'; // Замените на ваш токен
+  var buffer = xlsx.build([{ name: 'mySheetName', data: arr }], { sheetOptions }); // Returns a buffer
+
+  const filePath = 'output.xlsx';
+
+  fs.writeFileSync(filePath, buffer, { encoding: "utf8" });
+
+
   const url = `https://api.telegram.org/bot${token}/sendDocument`;
 
-  const formData = new FormData();
-  formData.append('chat_id', String(chatId));
-
-  // new Blob([data]), 'file.txt')
-
-  // fs.creaeteReadStream(fileePath)
 
   const readStream = fs.createReadStream(filePath);
   let chunks: any = [];
@@ -159,11 +111,36 @@ async function createAndSendCSV(chatId: number, data: any) {
     chunks.push(chunk);
   });
 
-  readStream.on('end', () => {
+  readStream.on('end', async () => {
     // Объединение всех частей в один Buffer
+
+
+    const formData = new FormData();
+
+    formData.append('chat_id', String(chatId));
+
     const buffer = Buffer.concat(chunks);
     console.log('Buffer успешно создан:', buffer);
+    // formData.append('document', fs.createReadStream(filePath));
+    formData.append('document', new Blob([buffer]), 'file.xlsx');
 
+    try {
+      const response = await fetch(url, {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (!response.ok) {
+        const data = await response.json();
+        console.log({ data });
+
+        throw new Error(`Ошибка при отправке файла: ${response.body}`);
+      }
+
+      console.log('Файл успешно отправлен!');
+    } catch (error) {
+      console.error('Ошибка:', error);
+    }
     // Теперь вы можете использовать buffer как аналог Blob
   });
 
@@ -172,24 +149,6 @@ async function createAndSendCSV(chatId: number, data: any) {
     console.error('Ошибка при чтении файла:', error);
   });
 
-  formData.append('document', new Blob([csvString]), 'file.csv');
 
-  try {
-    const response = await fetch(url, {
-      method: 'POST',
-      body: formData
-    });
-
-    if (!response.ok) {
-      const data = await response.json();
-      console.log({ data });
-
-      throw new Error(`Ошибка при отправке файла: ${response.body}`);
-    }
-
-    console.log('Файл успешно отправлен!');
-  } catch (error) {
-    console.error('Ошибка:', error);
-  }
 }
 
