@@ -10,7 +10,7 @@ import Stock from "./fields/stock/stock";
 import Attributes from "./fields/attributes/attributes";
 import Images from "./fields/images/images";
 import onSubmit from "./utils/onSubmit";
-import TextEditor from "#tools/text-editor/TextEditor.tsx";
+import TextEditor from "@/tools/text-editor/TextEditor";
 
 export default function CreateProductForm(props: {
   closeFn: any;
