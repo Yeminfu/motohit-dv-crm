@@ -2,25 +2,25 @@ export default async function getSales(connection: any) {
   // const connection = await dbConnection();
   const qs = `
     select
-      P.name as товар
-      /*,P.idCategory idКатегории*/
-      /*,S.idShop*/
-      ,Sh.shopName as магазин
-      ,sum(S.count) AS 'к-во'
-      ,sum(S.sum) AS сумма
-    from chbfs_sales S
-      inner join chbfs_shops Sh on Sh.id = S.idShop
-        inner join chbfs_products P on P.id = S.idProduct
-          inner join chbfs_categories C on C.id = P.idCategory
-    /*where S.created_date >= CURDATE()*/
-      
-    group by
-      P.name 
-      /*,P.idCategory*/
-      ,S.idShop
-      ,Sh.shopName
-    order by магазин, товар
-    limit 100;
+      P.id AS id,
+      P.name AS товар,
+      C.category_name AS категория,
+      getSalesSumPerProductAndShopToday(P.id,1) AS 'сумма бир',
+      getSalesCountPerProductAndShopToday(P.id,1) AS 'к-во бир',
+      getSalesSumPerProductAndShopToday(P.id,2) AS 'сумма хаб',
+      getSalesCountPerProductAndShopToday(P.id,2) AS 'к-во хаб',
+      getSalesSumPerProductAndShopToday(P.id,3) AS 'сумма блг',
+      getSalesSumPerProductAndShopToday(P.id,3) AS 'к-во блг' 
+    from (chbfs_products P 
+    join chbfs_categories C on((C.id = P.idCategory))) 
+    where 
+      (
+        (
+          getSalesSumPerProductAndShopToday(P.id,1)
+          + getSalesSumPerProductAndShopToday(P.id,2)
+          + getSalesSumPerProductAndShopToday(P.id,3)
+        ) > 0) 
+    order by C.id
   `;
   const res = await connection.query(qs)
     .then(([x]: any) => x)

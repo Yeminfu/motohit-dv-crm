@@ -20,10 +20,10 @@ export default async function sendReportSalesPerDay() {
 
   if (!res.length) {
     sendMessage(Number(process.env.BOSS_CHAT_ID), "Сегодня не было продаж", String(token))
-    return;
+  } else {
+    createAndSendXls(Number(process.env.BOSS_CHAT_ID), String(token), res);
   }
 
-  createAndSendXls(Number(process.env.BOSS_CHAT_ID), String(token), res);
 
   await connection.end();
 }
