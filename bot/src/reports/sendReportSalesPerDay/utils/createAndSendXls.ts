@@ -1,7 +1,11 @@
 import fs from "fs";
 import xlsx from 'node-xlsx';
+import dayjs from 'dayjs';
 
 export default async function createAndSendXls(chatId: number, token: string, data: any) {
+  const today = dayjs().format("DD-MM-YYYY");
+
+  const fileName = `sales-${today}.xlsx`
 
   const arr = [
     Object.keys(data[0]),
@@ -15,15 +19,15 @@ export default async function createAndSendXls(chatId: number, token: string, da
   //@ts-ignore
   var buffer = xlsx.build([{ name: 'mySheetName', data: arr }], { sheetOptions }); // Returns a buffer
 
-  const filePath = 'output.xlsx';
+  // const filePath = 'output.xlsx';
 
-  fs.writeFileSync(filePath, buffer, { encoding: "utf8" });
+  fs.writeFileSync(fileName, buffer, { encoding: "utf8" });
 
 
   const url = `https://api.telegram.org/bot${token}/sendDocument`;
 
 
-  const readStream = fs.createReadStream(filePath);
+  const readStream = fs.createReadStream(fileName);
   let chunks: any = [];
 
   // Сбор данных в Buffer
@@ -42,7 +46,10 @@ export default async function createAndSendXls(chatId: number, token: string, da
     const buffer = Buffer.concat(chunks);
     console.log('Buffer успешно создан:', buffer);
     // formData.append('document', fs.createReadStream(filePath));
-    formData.append('document', new Blob([buffer]), 'file.xlsx');
+
+
+
+    formData.append('document', new Blob([buffer]), fileName);
 
     try {
       const response = await fetch(url, {

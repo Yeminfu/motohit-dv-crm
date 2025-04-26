@@ -6,7 +6,6 @@ import fs from "fs";
 import xlsx from 'node-xlsx';
 import sendReportSalesPerDay from './src/reports/sendReportSalesPerDay/sendReportSalesPerDay';
 
-
 console.log('hello');
 const token = process.env.TOKEN;
 console.log(token);
