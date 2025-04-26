@@ -38,8 +38,10 @@ export default async function sendReportStock() {
 
   if (!res.length) {
     sendMessage(Number(process.env.BOSS_CHAT_ID), "Ошибка формирования отчета о складе", String(token))
+    sendMessage(Number(process.env.SU_CHAT_ID), "Ошибка формирования отчета о складе", String(token))
   } else {
     createAndSendXls(Number(process.env.BOSS_CHAT_ID), String(token), res);
+    createAndSendXls(Number(process.env.SU_CHAT_ID), String(token), res);
   }
 
   await appendToLog(connection);
