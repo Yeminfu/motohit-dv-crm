@@ -10,4 +10,10 @@ console.log('hello');
 const token = process.env.TOKEN;
 console.log(token);
 
-sendReportSalesPerDay();
+
+setInterval(() => {
+  console.log('привет');
+
+  // sendReportSalesPerDay();
+
+}, 1000);
