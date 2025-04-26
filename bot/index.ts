@@ -6,16 +6,27 @@ import fs from "fs";
 import xlsx from 'node-xlsx';
 import sendReportSalesPerDay from './src/reports/sendReportSalesPerDay/sendReportSalesPerDay';
 import dayjs from 'dayjs';
-
+import sendReportStock from './src/reports/sendReportStock/sendReportSalesPerDay';
 
 console.log('hello');
 const token = process.env.TOKEN;
 console.log(token);
 
-setInterval(() => {
+(async function rec() {
   const nowHour = dayjs().format('HH');
   console.log(nowHour);
-  if (nowHour === '16') {
-    sendReportSalesPerDay();
+  if (nowHour === '22') {
+    await sendReportSalesPerDay();
+    await sendReportStock();
   }
-}, 1000);
+
+
+  await new Promise(r => {
+    setTimeout(() => {
+      r(1)
+    }, 1000);
+  });
+  await rec();
+  console.log('done');
+
+})();
