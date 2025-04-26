@@ -13,7 +13,7 @@ export default async function createAndSendXls(chatId: number, token: string, da
     ...data.map(Object.values)
   ];
 
-  console.log(data, arr);
+  // console.log(data, arr);
 
   const sheetOptions = { '!cols': [{ wch: 6 }, { wch: 7 }, { wch: 10 }, { wch: 20 }] };
 
@@ -60,7 +60,7 @@ export default async function createAndSendXls(chatId: number, token: string, da
 
       if (!response.ok) {
         const data = await response.json();
-        console.log({ data });
+        // console.log({ data });
 
         throw new Error(`Ошибка при отправке файла: ${response.body}`);
       }

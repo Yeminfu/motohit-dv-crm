@@ -10,6 +10,6 @@ export default function deleteFile(filePath: string) {
       }
     });
   } else {
-    console.log('Файл не существует.');
+    console.log('Файл не существует.' + filePath);
   }
 }

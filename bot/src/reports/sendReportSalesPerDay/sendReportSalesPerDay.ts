@@ -22,13 +22,13 @@ export default async function sendReportSalesPerDay() {
     password: process.env.DB_PASSWORD,
   });
 
-  const todayWasSended = await checkTodayWasSended(connection);
-  console.log({ todayWasSended });
+  // const todayWasSended = await checkTodayWasSended();
+  // console.log({ todayWasSended });
 
-  if (todayWasSended) {
-    await connection.end();
-    return
-  }
+  // if (todayWasSended) {
+  //   await connection.end();
+  //   return
+  // }
 
   const res = await getSales(connection);
 

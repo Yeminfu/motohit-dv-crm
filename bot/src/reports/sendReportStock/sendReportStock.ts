@@ -3,7 +3,6 @@ import mysql from 'mysql2/promise';
 
 import sendMessage from "../../telegramApi/sendMessage/sendMessage";
 import 'dotenv/config';
-import checkTodayWasSended from "./utils/checkTodayWasSended";
 import appendToLog from "./utils/appendToLog";
 import getStock from "./utils/getStock";
 import createAndSendXls from "./utils/createAndSendXls";
@@ -26,13 +25,6 @@ export default async function sendReportStock() {
     password: process.env.DB_PASSWORD,
   });
 
-  const todayWasSended = await checkTodayWasSended(connection);
-  // console.log({ todayWasSended });
-
-  if (todayWasSended) {
-    await connection.end();
-    return
-  }
 
   const res = await getStock(connection);
 
@@ -40,8 +32,8 @@ export default async function sendReportStock() {
     sendMessage(Number(process.env.BOSS_CHAT_ID), "Ошибка формирования отчета о складе", String(token))
     sendMessage(Number(process.env.SU_CHAT_ID), "Ошибка формирования отчета о складе", String(token))
   } else {
-    createAndSendXls(Number(process.env.BOSS_CHAT_ID), String(token), res);
-    createAndSendXls(Number(process.env.SU_CHAT_ID), String(token), res);
+    await createAndSendXls(Number(process.env.BOSS_CHAT_ID), String(token), res);
+    await createAndSendXls(Number(process.env.SU_CHAT_ID), String(token), res);
   }
 
   await appendToLog(connection);
