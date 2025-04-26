@@ -24,16 +24,5 @@ export default async function sendReportSalesPerDay() {
     createAndSendXls(Number(process.env.BOSS_CHAT_ID), String(token), res);
   }
 
-
   await connection.end();
 }
-
-
-
-
-
-
-
-
-
-
