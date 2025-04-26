@@ -5,16 +5,30 @@ import sendMessage from "../../telegramApi/sendMessage/sendMessage";
 import 'dotenv/config';
 import getSales from "./utils/getSales";
 import createAndSendXls from "./utils/createAndSendXls";
+import checkTodayWasSended from "./utils/checkTodayWasSended";
+import appendToLog from "./utils/appendToLog";
 
 const token = process.env.TOKEN;
 
 export default async function sendReportSalesPerDay() {
+  console.log('sendReportSalesPerDay');
+
+  // return;
+
   const connection = await mysql.createConnection({
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
     database: process.env.DB_NAME,
     password: process.env.DB_PASSWORD,
   });
+
+  const todayWasSended = await checkTodayWasSended(connection);
+  console.log({ todayWasSended });
+
+  if (todayWasSended) {
+    await connection.end();
+    return
+  }
 
   const res = await getSales(connection);
 
@@ -24,5 +38,9 @@ export default async function sendReportSalesPerDay() {
     createAndSendXls(Number(process.env.BOSS_CHAT_ID), String(token), res);
   }
 
+  await appendToLog(connection);
+
   await connection.end();
 }
+
+

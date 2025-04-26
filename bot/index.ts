@@ -12,8 +12,7 @@ console.log(token);
 
 
 setInterval(() => {
-  console.log('привет');
 
-  // sendReportSalesPerDay();
+  sendReportSalesPerDay();
 
-}, 1000);
+}, 5000);
