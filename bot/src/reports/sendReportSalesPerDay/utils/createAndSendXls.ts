@@ -1,6 +1,7 @@
 import fs from "fs";
 import xlsx from 'node-xlsx';
 import dayjs from 'dayjs';
+import deleteFile from "./deleteFile";
 
 export default async function createAndSendXls(chatId: number, token: string, data: any) {
   const today = dayjs().format("DD-MM-YYYY");
@@ -10,7 +11,7 @@ export default async function createAndSendXls(chatId: number, token: string, da
   const arr = [
     Object.keys(data[0]),
     ...data.map(Object.values)
-  ]
+  ];
 
   console.log(data, arr);
 
@@ -68,6 +69,9 @@ export default async function createAndSendXls(chatId: number, token: string, da
     } catch (error) {
       console.error('Ошибка:', error);
     }
+
+    deleteFile(fileName);
+
     // Теперь вы можете использовать buffer как аналог Blob
   });
 
