@@ -33,7 +33,7 @@ console.log(token);
     await sendReportSalesPerDay();
   }
 
-  if (stockReportWasSended) {
+  if (!stockReportWasSended) {
     await sendReportStock();
   }
   await new Promise(r => {

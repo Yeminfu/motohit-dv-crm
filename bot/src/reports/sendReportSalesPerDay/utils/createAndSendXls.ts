@@ -6,7 +6,7 @@ import deleteFile from "./deleteFile";
 export default async function createAndSendXls(chatId: number, token: string, data: any) {
   const today = dayjs().format("DD-MM-YYYY");
 
-  const fileName = `sales-${today}.xlsx`
+  const fileName = process.env.PATH_TO_FILES + `sales-${today}.xlsx`
 
   const arr = [
     Object.keys(data[0]),
