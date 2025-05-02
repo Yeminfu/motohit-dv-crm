@@ -6,13 +6,19 @@ import 'dotenv/config';
 import getSales from "./utils/getSales";
 import createAndSendXls from "./utils/createAndSendXls";
 import appendToLog from "./utils/appendToLog";
+import dayjs from "dayjs";
+import createXls from "../sendReportStock/utils/createXls";
+import sendXls from "../sendReportStock/utils/sendXls";
+import deleteFile from "./utils/deleteFile";
 
 const token = process.env.TOKEN;
 
 export default async function sendReportSalesPerDay() {
   console.log('sendReportSalesPerDay');
 
-  // return;
+  const today = dayjs().format("DD-MM-YYYY");
+
+  const pathToFile = process.env.PATH_TO_FILES + `/sales-${today}.xlsx`;
 
   const connection = await mysql.createConnection({
     host: process.env.DB_HOST,
@@ -21,24 +27,37 @@ export default async function sendReportSalesPerDay() {
     password: process.env.DB_PASSWORD,
   });
 
-  // const todayWasSended = await checkTodayWasSended();
-  // console.log({ todayWasSended });
+  const salesFromDb = await getSales(connection);
 
-  // if (todayWasSended) {
-  //   await connection.end();
-  //   return
-  // }
-
-  const res = await getSales(connection);
-
-  if (!res.length) {
-    // sendMessage(Number(process.env.BOSS_CHAT_ID), "Сегодня не было продаж", String(token))
+  if (!salesFromDb.length) {
     const success = await sendMessage(Number(process.env.SU_CHAT_ID), "Сегодня не было продаж", String(token));
+    await sendMessage(Number(process.env.BOSS_CHAT_ID), "Сегодня не было продаж", String(token));
     if (success) await appendToLog(connection);;
   } else {
-    // createAndSendXls(Number(process.env.BOSS_CHAT_ID), String(token), res);
-    const success = await createAndSendXls(Number(process.env.SU_CHAT_ID), String(token), res);
-    if (success) await appendToLog(connection);;
+    const xlsBuffer = await createXls(pathToFile, salesFromDb);
+    if (!xlsBuffer) {
+      // sendMessage(Number(process.env.SU_CHAT_ID), "Ошибка формирования отчета о складе", String(token))
+      console.log('ошибка создания xls файла');
+      await connection.end();
+      return;
+    }
+
+    const success =
+      await sendXls(Number(process.env.BOSS_CHAT_ID), pathToFile, xlsBuffer, String(token))
+    await sendXls(Number(process.env.SU_CHAT_ID), pathToFile, xlsBuffer, String(token))
+
+    if (success) {
+      console.log('файл успешно отправлен');
+      await appendToLog(connection);
+    } else {
+      console.log('ошибка отправки файла');
+    }
+
+
+    deleteFile(pathToFile);
+
+    console.log({ xlsBuffer });
+
   }
 
   await connection.end();

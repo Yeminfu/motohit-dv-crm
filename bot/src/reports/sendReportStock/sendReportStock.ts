@@ -43,7 +43,8 @@ export default async function sendReportStock() {
     }
 
     const success =
-      await sendXls(Number(process.env.SU_CHAT_ID), pathToFile, xlsBuffer, String(token))
+      await sendXls(Number(process.env.BOSS_CHAT_ID), pathToFile, xlsBuffer, String(token))
+    await sendXls(Number(process.env.SU_CHAT_ID), pathToFile, xlsBuffer, String(token))
 
     if (success) {
       console.log('файл успешно отправлен');
@@ -52,7 +53,6 @@ export default async function sendReportStock() {
       console.log('ошибка отправки файла');
     }
 
-    // await sendXls(Number(process.env.BOSS_CHAT_ID), pathToFile, xlsBuffer, String(token))
 
     deleteFile(pathToFile);
     // await createAndSendXls(Number(process.env.BOSS_CHAT_ID), String(token), stockFromDb);
