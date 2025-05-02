@@ -3,7 +3,8 @@ import xlsx from 'node-xlsx';
 import dayjs from 'dayjs';
 import deleteFile from "./deleteFile";
 
-export default async function createAndSendXls(chatId: number, token: string, data: any) {
+export default async function createAndSendXls(chatId: number, token: string, data: any)
+  : Promise<boolean> {
   const today = dayjs().format("DD-MM-YYYY");
 
   const fileName = process.env.PATH_TO_FILES + `sales-${today}.xlsx`
@@ -62,6 +63,8 @@ export default async function createAndSendXls(chatId: number, token: string, da
         const data = await response.json();
         // console.log({ data });
 
+        if (data.ok) return true;
+
         throw new Error(`Ошибка при отправке файла: ${response.body}`);
       }
 
@@ -80,6 +83,7 @@ export default async function createAndSendXls(chatId: number, token: string, da
     console.error('Ошибка при чтении файла:', error);
   });
 
+  return false;
 
 }
 

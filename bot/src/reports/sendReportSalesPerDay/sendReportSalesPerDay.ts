@@ -32,16 +32,14 @@ export default async function sendReportSalesPerDay() {
   const res = await getSales(connection);
 
   if (!res.length) {
-    sendMessage(Number(process.env.BOSS_CHAT_ID), "Сегодня не было продаж", String(token))
-    sendMessage(Number(process.env.SU_CHAT_ID), "Сегодня не было продаж", String(token))
+    // sendMessage(Number(process.env.BOSS_CHAT_ID), "Сегодня не было продаж", String(token))
+    const success = await sendMessage(Number(process.env.SU_CHAT_ID), "Сегодня не было продаж", String(token));
+    if (success) await appendToLog(connection);;
   } else {
-    createAndSendXls(Number(process.env.BOSS_CHAT_ID), String(token), res);
-    createAndSendXls(Number(process.env.SU_CHAT_ID), String(token), res);
+    // createAndSendXls(Number(process.env.BOSS_CHAT_ID), String(token), res);
+    const success = await createAndSendXls(Number(process.env.SU_CHAT_ID), String(token), res);
+    if (success) await appendToLog(connection);;
   }
-
-  await appendToLog(connection);
 
   await connection.end();
 }
-
-

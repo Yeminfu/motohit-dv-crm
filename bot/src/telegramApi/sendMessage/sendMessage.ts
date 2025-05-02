@@ -1,5 +1,5 @@
 
-export default async function sendMessage(chatId: number, message: string, token: string) {
+export default async function sendMessage(chatId: number, message: string, token: string): Promise<boolean> {
   const url = `https://api.telegram.org/bot${token}/sendMessage`;
   console.log(url);
 
@@ -21,8 +21,10 @@ export default async function sendMessage(chatId: number, message: string, token
     }
 
     const data = await response.json();
+    if (data.ok) return true;
     console.log('Сообщение отправлено:', data);
   } catch (error) {
     console.error('Ошибка при отправке сообщения:', error);
   }
+  return false;
 }
