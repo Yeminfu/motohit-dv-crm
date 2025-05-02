@@ -24,9 +24,7 @@ export default async function createAndSendXls(chatId: number, token: string, da
 
   fs.writeFileSync(fileName, buffer, { encoding: "utf8" });
 
-
   const url = `https://api.telegram.org/bot${token}/sendDocument`;
-
 
   const readStream = fs.createReadStream(fileName);
   let chunks: any = [];
@@ -38,7 +36,6 @@ export default async function createAndSendXls(chatId: number, token: string, da
 
   readStream.on('end', async () => {
     // Объединение всех частей в один Buffer
-
 
     const formData = new FormData();
 

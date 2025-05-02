@@ -1,22 +1,23 @@
 import "../../db/connect";
+import dayjs from 'dayjs';
 import mysql from 'mysql2/promise';
 
 import sendMessage from "../../telegramApi/sendMessage/sendMessage";
 import 'dotenv/config';
 import appendToLog from "./utils/appendToLog";
+import createXls from "./utils/createXls";
+import deleteFile from "./utils/deleteFile";
 import getStock from "./utils/getStock";
-import createAndSendXls from "./utils/createAndSendXls";
-// import getSales from "./utils/getSales";
-// import createAndSendXls from "./utils/createAndSendXls";
-// import checkTodayWasSended from "./utils/checkTodayWasSended";
-// import appendToLog from "./utils/appendToLog";
+import sendXls from "./utils/sendXls";
 
 const token = process.env.TOKEN;
 
 export default async function sendReportStock() {
-  console.log('sendReportStock');
+  console.log('sendReportStock begin');
 
-  // return;
+  const today = dayjs().format("DD-MM-YYYY");
+
+  const pathToFile = process.env.PATH_TO_FILES + `/stock-${today}.xlsx`;
 
   const connection = await mysql.createConnection({
     host: process.env.DB_HOST,
@@ -25,20 +26,41 @@ export default async function sendReportStock() {
     password: process.env.DB_PASSWORD,
   });
 
+  const stockFromDb = await getStock(connection);
 
-  const res = await getStock(connection);
-
-  if (!res.length) {
-    sendMessage(Number(process.env.BOSS_CHAT_ID), "Ошибка формирования отчета о складе", String(token))
-    sendMessage(Number(process.env.SU_CHAT_ID), "Ошибка формирования отчета о складе", String(token))
+  if (!stockFromDb.length) {
+    console.log('нет данных по складу');
+    await sendMessage(Number(process.env.BOSS_CHAT_ID), "Ошибка формирования отчета о складе", String(token))
+    await sendMessage(Number(process.env.SU_CHAT_ID), "Ошибка формирования отчета о складе", String(token))
   } else {
-    await createAndSendXls(Number(process.env.BOSS_CHAT_ID), String(token), res);
-    await createAndSendXls(Number(process.env.SU_CHAT_ID), String(token), res);
+    console.log('есть данные по складу');
+    const xlsBuffer = await createXls(pathToFile, stockFromDb);
+    if (!xlsBuffer) {
+      // sendMessage(Number(process.env.SU_CHAT_ID), "Ошибка формирования отчета о складе", String(token))
+      console.log('ошибка создания xls файла');
+      await connection.end();
+      return;
+    }
+
+    const success =
+      await sendXls(Number(process.env.SU_CHAT_ID), pathToFile, xlsBuffer, String(token))
+
+    if (success) {
+      console.log('файл успешно отправлен');
+      await appendToLog(connection);
+    } else {
+      console.log('ошибка отправки файла');
+    }
+
+    // await sendXls(Number(process.env.BOSS_CHAT_ID), pathToFile, xlsBuffer, String(token))
+
+    deleteFile(pathToFile);
+    // await createAndSendXls(Number(process.env.BOSS_CHAT_ID), String(token), stockFromDb);
+    // await createAndSendXls(Number(process.env.SU_CHAT_ID), String(token), stockFromDb);
   }
 
-  await appendToLog(connection);
-
   await connection.end();
+  console.log('sendReportStock end');
 }
 
 

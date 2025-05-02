@@ -30,19 +30,20 @@ console.log(token);
   // console.log(stockReportWasSended);
 
   if (!(lastSalesReport && nowHour == dayjs(lastSalesReport.createdAt).format('HH'))) {
-    await sendReportSalesPerDay();
+    // await sendReportSalesPerDay();
   }
 
   if (!(lastStockReport && nowHour == dayjs(lastStockReport.createdAt).format('HH'))) {
     await sendReportStock();
   }
 
-  await new Promise(r => {
-    setTimeout(() => {
-      r(1)
-    }, 1000);
-  });
-  await rec();
+  // await new Promise(r => {
+  //   setTimeout(() => {
+  //     r(1)
+  //   }, 1000);
+  // });
+  // await rec();
+
   console.log('done');
   // checkTodayWasSended
 
