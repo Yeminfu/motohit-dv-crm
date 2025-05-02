@@ -7,8 +7,8 @@ import xlsx from 'node-xlsx';
 import sendReportSalesPerDay from './src/reports/sendReportSalesPerDay/sendReportSalesPerDay';
 import dayjs from 'dayjs';
 import sendReportStock from './src/reports/sendReportStock/sendReportStock';
-import checkTodayWasSendedSalesReport from './src/reports/sendReportSalesPerDay/utils/checkTodayWasSended';
-import checkTodayWasSendedStockReport from './src/reports/sendReportStock/utils/checkTodayWasSended';
+import getLastSalesReport from './src/reports/sendReportSalesPerDay/utils/getLastSalesReport';
+import getLastStockReport from './src/reports/sendReportStock/utils/getLastStockReport';
 
 console.log('hello');
 const token = process.env.TOKEN;
@@ -18,24 +18,25 @@ console.log(token);
   const nowHour = dayjs().format('HH');
   console.log(nowHour);
 
-  if (nowHour !== '22') {
-    return;
-  }
+  // if (nowHour !== '22') {
+  //   return;
+  // }
 
-  const salesReortWasSended = await checkTodayWasSendedSalesReport();
-  // console.log(salesReortWasSended);
+  const lastSalesReport = await getLastSalesReport();
 
+  // console.log(!(lastSalesReport && nowHour == dayjs(lastSalesReport.createdAt).format('HH')));
 
-  const stockReportWasSended = await checkTodayWasSendedStockReport();
+  const lastStockReport = await getLastStockReport();
   // console.log(stockReportWasSended);
 
-  if (!salesReortWasSended) {
+  if (!(lastSalesReport && nowHour == dayjs(lastSalesReport.createdAt).format('HH'))) {
     await sendReportSalesPerDay();
   }
 
-  if (!stockReportWasSended) {
+  if (!(lastStockReport && nowHour == dayjs(lastStockReport.createdAt).format('HH'))) {
     await sendReportStock();
   }
+
   await new Promise(r => {
     setTimeout(() => {
       r(1)

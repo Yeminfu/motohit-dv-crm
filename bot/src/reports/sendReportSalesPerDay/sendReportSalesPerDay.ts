@@ -5,7 +5,6 @@ import sendMessage from "../../telegramApi/sendMessage/sendMessage";
 import 'dotenv/config';
 import getSales from "./utils/getSales";
 import createAndSendXls from "./utils/createAndSendXls";
-import checkTodayWasSended from "./utils/checkTodayWasSended";
 import appendToLog from "./utils/appendToLog";
 
 const token = process.env.TOKEN;
