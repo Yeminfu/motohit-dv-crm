@@ -16,9 +16,13 @@ console.log(token);
 
 (async function rec() {
   const nowHour = dayjs().format('HH');
-  // console.log(nowHour, process.env.REPORTS_LOG_CHECK_HOUR);
+  console.log(nowHour, process.env.REPORTS_LOG_CHECK_HOUR);
 
   if (nowHour !== process.env.REPORTS_LOG_CHECK_HOUR) {
+    await new Promise(r => {
+      r(1)
+    })
+    await rec();
     return;
   }
 
