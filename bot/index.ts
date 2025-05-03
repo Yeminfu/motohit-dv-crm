@@ -16,11 +16,11 @@ console.log(token);
 
 (async function rec() {
   const nowHour = dayjs().format('HH');
-  console.log(nowHour, process.env.REPORTS_LOG_CHECK_HOUR);
+  // console.log(nowHour, process.env.REPORTS_LOG_CHECK_HOUR);
 
-  // if (nowHour !== process.env.REPORTS_LOG_CHECK_HOUR) {
-  //   return;
-  // }
+  if (nowHour !== process.env.REPORTS_LOG_CHECK_HOUR) {
+    return;
+  }
 
   const lastSalesReport = await getLastSalesReport();
 
