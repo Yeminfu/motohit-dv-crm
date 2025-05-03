@@ -16,9 +16,9 @@ console.log(token);
 
 (async function rec() {
   const nowHour = dayjs().format('HH');
-  console.log(nowHour);
+  console.log(nowHour, process.env.REPORTS_LOG_CHECK_HOUR);
 
-  // if (nowHour !== '22') {
+  // if (nowHour !== process.env.REPORTS_LOG_CHECK_HOUR) {
   //   return;
   // }
 
