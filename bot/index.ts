@@ -24,16 +24,13 @@ console.log(token);
 
   const lastSalesReport = await getLastSalesReport();
 
-  // console.log(!(lastSalesReport && nowHour == dayjs(lastSalesReport.createdAt).format('HH')));
-
   const lastStockReport = await getLastStockReport();
-  // console.log(stockReportWasSended);
 
-  if (!(lastSalesReport && nowHour == dayjs(lastSalesReport.createdAt).format('HH'))) {
+  if (!(lastSalesReport && nowHour == lastSalesReport.time)) {
     await sendReportSalesPerDay();
   }
 
-  if (!(lastStockReport && nowHour == dayjs(lastStockReport.createdAt).format('HH'))) {
+  if (!(lastStockReport && nowHour == lastStockReport.time)) {
     await sendReportStock();
   }
 
