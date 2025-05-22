@@ -97,6 +97,12 @@ export default async function SideMenu() {
                   </Link>
                   <Link
                     className="btn btn-dark d-block text-start mb-1"
+                    href={`/sales-per-day`}
+                  >
+                    Продажи за день
+                  </Link>
+                  <Link
+                    className="btn btn-dark d-block text-start mb-1"
                     href={`/sum-in-product`}
                   >
                     Сумма в товаре

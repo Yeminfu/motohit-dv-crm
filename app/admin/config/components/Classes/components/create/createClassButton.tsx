@@ -1,6 +1,6 @@
 "use client";
 
-import ts_class4create from "#app/admin/config/types/ts_class4create.ts";
+import ts_class4create from "@/app/admin/config/types/ts_class4create";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
@@ -46,7 +46,7 @@ function Form() {
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <table className="bable w-auto">
+        <table className="table w-auto">
           <tbody>
             <tr>
               <th>Название класса (лат.)</th>

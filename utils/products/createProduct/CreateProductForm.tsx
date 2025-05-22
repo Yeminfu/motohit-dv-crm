@@ -10,7 +10,7 @@ import Stock from "./fields/stock/stock";
 import Attributes from "./fields/attributes/attributes";
 import Images from "./fields/images/images";
 import onSubmit from "./utils/onSubmit";
-import TextEditor from "#tools/text-editor/TextEditor.tsx";
+import TextEditor from "@/tools/text-editor/TextEditor";
 
 export default function CreateProductForm(props: {
   closeFn: any;
@@ -21,12 +21,12 @@ export default function CreateProductForm(props: {
 }) {
   const methods = useForm<any>({
     defaultValues: {
-      idCategory: props.idCategory,
+      idCategory: String(props.idCategory),
       color: "black",
     },
   });
 
-  const { register, handleSubmit, reset, control, setValue } = methods;
+  const { register, handleSubmit, reset, control, setValue, formState: { errors }, getValues } = methods;
 
   const { fields: retailPriceFields, append: appendRetailPrice }: any =
     useFieldArray<any>({
@@ -57,18 +57,28 @@ export default function CreateProductForm(props: {
 
   return (
     <>
+
+      {/* <pre>{JSON.stringify(errors,null,2)}</pre> */}
       <FormProvider {...methods}>
         <form
           onSubmit={handleSubmit(async (x) => {
+
             await onSubmit(x);
+
             // reset();
           })}
         >
           <div className="row">
             <input
               {...register("idCategory", { required: true })}
-              className="d-none"
+              placeholder=""
+              className="form-control d-none"
+              autoComplete="off"
             />
+            {/* <input
+              {...register("idCategory", { required: true })}
+              // className="d-none"
+            /> */}
             <div className="col">
               <div className="mb-2">
                 <div>
@@ -183,7 +193,19 @@ export default function CreateProductForm(props: {
 
           <div className="mt-4">
             <div className="d-flex">
-              <button className="btn btn-sm btn-primary">Сохранить</button>
+              <button
+                onClick={(e => {
+                  if (Object.keys(errors).length > 0) {
+                    const errorMessages = Object.keys(errors)
+                      .map((key) => `${key}: ${errors[key]?.message || 'Ошибка в поле'}`)
+                      .join('\n');
+                    alert(`Ошибки в форме:\n${errorMessages}`);
+                  } else {
+                    // onSubmitHandler(data);
+                  }
+                  return e;
+                })}
+                className="btn btn-sm btn-primary">Сохранить</button>
               <div
                 className="btn btn-sm btn-danger ms-2"
                 onClick={() => {
