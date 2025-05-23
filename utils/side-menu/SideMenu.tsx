@@ -42,6 +42,12 @@ export default async function SideMenu() {
             >
               Конфигурация
             </Link>
+            <Link
+              className="btn btn-dark d-block text-start mb-1"
+              href={`/admin/groups`}
+            >
+              Группы
+            </Link>
           </>
         </Card>
       )}
