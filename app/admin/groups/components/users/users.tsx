@@ -3,7 +3,6 @@ import getUsers from "./utils/getUsers"
 export default async function Users(props: {
   idGroup: number
 }) {
-
   const users = await getUsers(props.idGroup);
   if (!users) return <>error #ksdf95</>
   return <>
@@ -15,5 +14,6 @@ export default async function Users(props: {
         </tr>)}
       </tbody>
     </table>
+
   </>
 }
