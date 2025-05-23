@@ -1,5 +1,6 @@
 import AuthedLayout from "@/utils/authedLayout";
 import getGroups from "./utils/getGroups";
+import Users from "./components/users";
 
 export default async function Page() {
   const groups = await getGroups();
@@ -18,6 +19,9 @@ export default async function Page() {
           {groups.map(g => <tr key={g.id}>
             <td>{g.id}</td>
             <td>{g.name}</td>
+            <td>
+              <Users idGroup={g.id} />
+            </td>
           </tr>)}
         </tbody>
       </table>

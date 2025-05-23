@@ -1,7 +1,7 @@
 import dbWorker from "@/db/dbWorker2";
 
 export default async function getGroups(): Promise<({
-  id: string,
+  id: number,
   name: string
 }[]) | null> {
   const sql = `
