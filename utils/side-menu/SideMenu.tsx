@@ -5,16 +5,29 @@ import { cookies } from "next/headers";
 import getUserByToken from "../users/getUserByToken";
 import getCategoriesWithIerarchy from "./getCategoriesWithIerarchy";
 import Card from "./Card";
+import getUsersByGroupName from "@/utils/users/getUsersByGroupName";
 
 export default async function SideMenu() {
   const authToken = String(cookies().get("auth")?.value);
   const user = await getUserByToken(authToken);
+
+  if (!user) return <>Error #fsdf0</>
+
   const categories = await getAllCategories();
 
+  const users = await getUsersByGroupName('su');
+
+  const isSU = users.find(x => x.id === user.id)
+
+  // if (isSU) { return <>isSU: {JSON.stringify(isSU)}</> }
+
+  // if (1) return <pre>{JSON.stringify({ users }, null, 2)}</pre>;
+
   const categoriesWithIerarchy = await getCategoriesWithIerarchy();
+
   return (
     <>
-      {user?.id === 1 && (
+      {isSU && (
         <Card title="Админ">
           <>
             <Link
@@ -130,3 +143,4 @@ export default async function SideMenu() {
     </>
   );
 }
+
