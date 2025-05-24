@@ -15,6 +15,7 @@ export default async function Page() {
   if (!user) return <>error #asdasd94-</>
 
   const groups = await getGroups();
+
   return <AuthedLayout title="Groups">
     {(() => {
       if (!groups) return <>err #kfsdf49mm9</>

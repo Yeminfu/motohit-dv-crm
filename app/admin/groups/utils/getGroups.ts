@@ -9,6 +9,8 @@ export default async function getGroups(): Promise<({
       id,
       name
     from chbfs_sys$groups
+    where
+      id > 1
   `;
   const query = await dbWorker(sql, []);
   if (query.error) {
