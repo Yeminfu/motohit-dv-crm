@@ -44,7 +44,7 @@ export default async function Page() {
           </tbody>
         </table>
         <div className="mt-4">
-          <CreateUserForm shops={shops} />
+          <CreateUserForm />
         </div>
       </>
     </AuthedLayout>
