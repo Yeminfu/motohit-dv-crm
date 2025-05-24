@@ -1,4 +1,5 @@
 // import AppendUserForm from "../appendUserForm/appendUserForm";
+import DeleteUserFromGroup from "./components/deleteUserFromGroup";
 import getUsers from "./utils/getUsers"
 
 export default async function Users(props: {
@@ -12,7 +13,9 @@ export default async function Users(props: {
         {users.map(u => <tr key={u.id}>
           <td>{u.id}</td>
           <td>{u.name}</td>
-          {/* <td><AppendUserForm idGroup={props.idGroup} /></td> */}
+          <td>
+            <DeleteUserFromGroup idUser={u.id} idGroup={props.idGroup} />
+          </td>
         </tr>)}
       </tbody>
     </table>
