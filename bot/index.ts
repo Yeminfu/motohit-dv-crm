@@ -15,37 +15,49 @@ const token = process.env.TOKEN;
 console.log(token);
 
 (async function rec() {
-  const nowHour = dayjs().format('HH');
-  console.log(nowHour, process.env.REPORTS_LOG_CHECK_HOUR);
+  console.clear();
+  const now = dayjs();//.format('HH');
+  console.log(now, process.env.REPORTS_LOG_CHECK_HOUR);
 
-  if (nowHour !== process.env.REPORTS_LOG_CHECK_HOUR) {
+  if (now.format('HH') !== process.env.REPORTS_LOG_CHECK_HOUR) {
+    console.log('wrong time');
     await new Promise(r => {
-      r(1)
-    })
+      setTimeout(() => {
+        r(1)
+      }, 1000);
+    });
     await rec();
     return;
   }
 
+  console.log('good time');
+
   const lastSalesReport = await getLastSalesReport();
+  console.log('lastSalesReport', lastSalesReport);
+  // return;
 
   const lastStockReport = await getLastStockReport();
 
-  if (!(lastSalesReport && nowHour == lastSalesReport.time)) {
+  if (!(lastSalesReport && now.format('DD.MM.YYYY HH') == lastSalesReport.time)) {
+    console.log('отправляем отчет о продажах');
     await sendReportSalesPerDay();
   }
 
-  if (!(lastStockReport && nowHour == lastStockReport.time)) {
+  if (!(lastStockReport && now.format('DD.MM.YYYY HH') == lastStockReport.time)) {
     await sendReportStock();
+    console.log('отправляем отчет о складе');
   }
+
+  console.log('пауза');
 
   await new Promise(r => {
     setTimeout(() => {
       r(1)
-    }, 10000);
+    }, 1000);
   });
-  await rec();
 
   console.log('done');
+  await rec();
   // checkTodayWasSended
 
 })();
