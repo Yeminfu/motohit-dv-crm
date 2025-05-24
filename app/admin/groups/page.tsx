@@ -14,7 +14,6 @@ export default async function Page() {
 
   if (!user) return <>error #asdasd94-</>
 
-
   const groups = await getGroups();
   return <AuthedLayout title="Groups">
     {(() => {
@@ -41,10 +40,8 @@ export default async function Page() {
         </table>
         {(async () => {
           const isInGroup = await checkUserIsInGroup(user.id, 'su');
-          console.log('isInGroupisInGroup', isInGroup);
-
+          if (isInGroup) return <CreateGroupForm />
         })()}
-        <CreateGroupForm />
       </>
     })()}
   </AuthedLayout>
