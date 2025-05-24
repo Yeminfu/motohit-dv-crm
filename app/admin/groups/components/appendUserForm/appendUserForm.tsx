@@ -1,6 +1,6 @@
 "use client"
 import { useEffect, useState } from "react";
-import { toast } from "react-toastify";
+import appendUserFn from "./utils/appendUserFn";
 
 export default function AppendUserForm(props: {
   idGroup: number
@@ -36,7 +36,7 @@ export default function AppendUserForm(props: {
           className="btn btn-outline-dark btn-sm d-block w-auto"
           onClick={async () => {
             setLoading(true);
-            await appendUser(props.idGroup, x.id);
+            await appendUserFn(props.idGroup, x.id);
             setLoading(false)
           }}
         >
@@ -48,32 +48,3 @@ export default function AppendUserForm(props: {
   </>
 }
 
-async function appendUser(idGroup: number, idUser: number) {
-  console.log({
-    idGroup,
-    idUser
-  });
-
-  // const { idUser } = values;
-  fetch("/admin/api/groups/append-user", {
-    method: "post",
-    body: JSON.stringify({
-      idGroup,
-      idUser
-    }),
-  })
-    .then((x) => x.json())
-    .then((x) => {
-      if (x.result) {
-        toast.success('Пользователь добавлен в группу');
-        setTimeout(() => {
-          location.reload();
-        }, 1000);
-        return;
-      }
-      alert(JSON.stringify(x, null, 2))
-    })
-    .catch((err) => {
-      toast.error("Плохая ошибка #kdkadn5");
-    });
-}
