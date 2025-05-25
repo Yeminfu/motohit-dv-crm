@@ -17,6 +17,8 @@ export default async function SideMenu() {
 
   const users = await getUsersByGroupName('su');
 
+  const isAdmin = await getUsersByGroupName('admin').then(x => x.find(x => x.id === user.id));
+
   const isSU = users.find(x => x.id === user.id)
 
   // if (isSU) { return <>isSU: {JSON.stringify(isSU)}</> }
@@ -27,21 +29,21 @@ export default async function SideMenu() {
 
   return (
     <>
-      {isSU && (
+      {isAdmin && (
         <Card title="Админ">
           <>
-            <Link
+            {isSU && <><Link
               className="btn btn-dark d-block text-start mb-1"
               href={`/admin`}
             >
               Админ
             </Link>
-            <Link
-              className="btn btn-dark d-block text-start mb-1"
-              href={`/admin/config`}
-            >
-              Конфигурация
-            </Link>
+              <Link
+                className="btn btn-dark d-block text-start mb-1"
+                href={`/admin/config`}
+              >
+                Конфигурация
+              </Link></>}
             <Link
               className="btn btn-dark d-block text-start mb-1"
               href={`/admin/groups`}
