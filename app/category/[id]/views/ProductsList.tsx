@@ -19,6 +19,7 @@ export default function ProductsList(props: {
   searchParams: ts_categoryFilter;
   attributesWithValues: tsAttributeWithValues[];
   categories: CategoryFromDBInterface[];
+  canEditStock: boolean
 }) {
   const [stateProducts, setProducts] = useState<ProductsFull[]>(
     props.productsFull
@@ -68,6 +69,7 @@ export default function ProductsList(props: {
         priceTypes={props.priceTypes}
         searchParams={props.searchParams}
         categories={props.categories}
+        canEditStock={props.canEditStock}
       />
     </>
   );

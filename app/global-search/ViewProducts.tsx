@@ -9,10 +9,10 @@ import ts_categoryFilter from "@/types/ts_categoryFilter";
 import Link from "next/link";
 import { CategoryFromDBInterface } from "@/types/categories/categories";
 import Image from "next/image";
-import getCostPriceNumFromObj from "#app/category/[id]/viewProducts/getCostPriceNumFromObj.ts";
-import EditProduct from "#app/category/[id]/editProduct/EditProduct.tsx";
-import SaleForm from "#app/category/[id]/viewProducts/SaleForm.tsx";
-import SendProductToArchive from "#app/category/[id]/viewProducts/SendProductToArchive.tsx";
+import getCostPriceNumFromObj from "@/app/category/[id]/viewProducts/getCostPriceNumFromObj";
+import EditProduct from "@/app/category/[id]/editProduct/EditProduct";
+import SaleForm from "@/app/category/[id]/viewProducts/SaleForm";
+import SendProductToArchive from "@/app/category/[id]/viewProducts/SendProductToArchive";
 import Filter from "./filter";
 
 export default function ViewProducts(props: {
@@ -21,6 +21,7 @@ export default function ViewProducts(props: {
   priceTypes: PriceTypesFromDBInterface[];
   searchParams: ts_categoryFilter;
   categories: CategoryFromDBInterface[];
+  canEditStock: boolean
 }) {
   const [viewAll, setViewAll] = useState(false);
   return (
@@ -206,6 +207,7 @@ export default function ViewProducts(props: {
                         priceTypes={props.priceTypes}
                         shops={props.shops}
                         categories={props.categories}
+                        canEditStock={props.canEditStock}
                       />
                       <SendProductToArchive
                         idProduct={product.id}

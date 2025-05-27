@@ -14,7 +14,7 @@ import ts_EDitProductFields from "./types/ts_EDitProductFields";
 import CostPrice from "./fields/costPrice/costPrice";
 import Categories from "./fields/categories/categories";
 import Images from "./fields/Images/images";
-import TextEditor from "#tools/text-editor/TextEditor.tsx";
+import TextEditor from "@/tools/text-editor/TextEditor";
 
 export default function EditProductForm(props: {
   product: ProductsFull;
@@ -22,6 +22,7 @@ export default function EditProductForm(props: {
   closeFn: any;
   shops: ShopFromDB[];
   categories: CategoryFromDBInterface[];
+  canEditStock: boolean
 }) {
   const methods = useForm<ts_EDitProductFields>({
     defaultValues: {
@@ -175,7 +176,7 @@ export default function EditProductForm(props: {
             />
           </div>
 
-          <div className="mt-3">
+          <div className={`mt-3 ${props.canEditStock ? '' : 'd-none'}`}>
             <h5>Склад</h5>
             <Stock stockFields={stockFields} />
           </div>

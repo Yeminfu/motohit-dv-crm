@@ -12,6 +12,7 @@ export default function EditProduct(props: {
   priceTypes: PriceTypesFromDBInterface[];
   shops: ShopFromDB[];
   categories: CategoryFromDBInterface[];
+  canEditStock: boolean
 }) {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -46,6 +47,7 @@ export default function EditProduct(props: {
                     priceTypes={props.priceTypes}
                     shops={props.shops}
                     categories={props.categories}
+                    canEditStock={props.canEditStock}
                   />
                 </div>
               );

@@ -3,14 +3,26 @@ import AuthedLayout from "@/utils/authedLayout";
 import getCategoriesWithIerarchy from "@/utils/side-menu/getCategoriesWithIerarchy";
 import Link from "next/link";
 import GlobalSearch from "./global-search/globalSearch";
-import ts_categoryFilter from "#types/ts_categoryFilter.ts";
-import { getCategoryById } from "#utils/getCategoryById.ts";
-import dbWorker from "#db/dbWorker2.ts";
+import ts_categoryFilter from "@/types/ts_categoryFilter";
+import { getCategoryById } from "@/utils/getCategoryById";
+import dbWorker from "@/db/dbWorker2";
+import getUserByToken from "@/utils/users/getUserByToken";
+import { cookies } from "next/headers";
+import checkUserIsInGroup from "@/utils/users/checkUserIsInGroup";
 
 export default async function Home(params: {
   searchParams: ts_categoryFilter;
 }) {
+
+  const authToken = String(cookies().get("auth")?.value);
+  const user = await getUserByToken(authToken);
+
+  if (!user) return <>error #d943j-</>
+
   const categoriesWithIerarchy = await getCategoriesWithIerarchy();
+
+  const canEditStock = await checkUserIsInGroup(user.id, 'canEditStock')
+
 
   return (
     <main>
@@ -21,7 +33,7 @@ export default async function Home(params: {
               <strong>Поиск по всем товарам</strong>
             </div>
             <div className="card-body">
-              <GlobalSearch searchParams={params.searchParams} />
+              <GlobalSearch searchParams={params.searchParams} canEditStock={canEditStock} />
             </div>
           </div>
 
@@ -52,7 +64,6 @@ async function CategoryItem(props: { category: ts_categoriesWithIerarchy }) {
     ))
     : null;
 
-  const isInShop = await checkCategoryIsInShop(props.category.id);
 
   return (
     <>
@@ -67,20 +78,4 @@ async function CategoryItem(props: { category: ts_categoriesWithIerarchy }) {
       </div>
     </>
   );
-}
-
-async function checkCategoryIsInShop(idCategory: number) {
-  const categoryFromCRM = await getCategoryById(String(idCategory));
-
-  const sql = `
-    select * from motohit_dv.categories where id = ?
-  `;
-
-  const categoryFromShop = await dbWorker(sql, [idCategory]).then((x) =>
-    x.result?.pop()
-  );
-
-  return categoryFromShop;
-
-  // console.log({ idCategory, categoryFromCRM, categoryFromShop });
 }

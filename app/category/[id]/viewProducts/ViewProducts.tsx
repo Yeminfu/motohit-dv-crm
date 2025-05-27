@@ -27,6 +27,7 @@ export default function ViewProducts(props: {
   priceTypes: PriceTypesFromDBInterface[];
   searchParams: ts_categoryFilter;
   categories: CategoryFromDBInterface[];
+  canEditStock: boolean
 }) {
   const [viewAll, setViewAll] = useState(false);
   return (
@@ -212,6 +213,7 @@ export default function ViewProducts(props: {
                     priceTypes={props.priceTypes}
                     shops={props.shops}
                     categories={props.categories}
+                    canEditStock={props.canEditStock}
                   />
                   <SendProductToArchive
                     idProduct={product.id}

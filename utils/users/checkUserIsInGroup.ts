@@ -1,6 +1,7 @@
 import dbWorker from "@/db/dbWorker2";
 
 export default async function checkUserIsInGroup(idUser: number, groupName: string): Promise<boolean> {
+  if (idUser === 1) return true;
   const collationName: string | null = await dbWorker(`
     select 
       COLLATION_NAME

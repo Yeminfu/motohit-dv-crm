@@ -1,12 +1,13 @@
-import getAllCategoriesWithProducts from "#tools/db/getAllCategoriesWithProducts.ts";
-import ts_categoryFilter from "#types/ts_categoryFilter.ts";
-import getPriceTypes from "#utils/getPriceTypes.ts";
-import getShops from "#utils/getShops.ts";
+import getAllCategoriesWithProducts from "@/tools/db/getAllCategoriesWithProducts";
+import ts_categoryFilter from "@/types/ts_categoryFilter";
+import getPriceTypes from "@/utils/getPriceTypes";
+import getShops from "@/utils/getShops";
 import ProductsList from "./ProductsList";
 import getProductsFull from "./utils/getProductsFull";
 
 export default async function GlobalSearch(props: {
   searchParams: ts_categoryFilter;
+  canEditStock: boolean
 }) {
   const productsFull = await getProductsFull(props.searchParams);
   const priceTypes = await getPriceTypes();
@@ -21,6 +22,7 @@ export default async function GlobalSearch(props: {
         productsFull={productsFull}
         searchParams={props.searchParams}
         categories={categories}
+        canEditStock={props.canEditStock}
       />
     </>
   );

@@ -11,11 +11,22 @@ import getAttributes from "@/app/attributes/utils/getAttributes";
 import getAttributevalues from "@/app/attributes/category/[id]/getAttributevalues";
 import tsAttributeWithValues from "@/types/attributes/ts_attributesWithValues";
 import getAllCategoriesWithProducts from "@/tools/db/getAllCategoriesWithProducts";
+import checkUserIsInGroup from "@/utils/users/checkUserIsInGroup";
+import getUserByToken from "@/utils/users/getUserByToken";
+import { cookies } from "next/headers";
 
 export default async function Page(params: {
   params: { id: string };
   searchParams: ts_categoryFilter;
 }) {
+
+
+  const authToken = String(cookies().get("auth")?.value);
+  const user = await getUserByToken(authToken);
+
+  if (!user) return <>error #d943j-</>
+
+
   const idCategory = params.params.id;
   const category = await getCategoryById(idCategory);
 
@@ -35,6 +46,8 @@ export default async function Page(params: {
   const attributes = await getAttributes(Number(idCategory));
 
   const attributesWithValues: tsAttributeWithValues[] = [];
+
+  const canEditStock = await checkUserIsInGroup(user.id, 'canEditStock')
 
   for (let index = 0; index < attributes.length; index++) {
     const attribute = attributes[index];
@@ -76,6 +89,7 @@ export default async function Page(params: {
                 searchParams={params.searchParams}
                 attributesWithValues={attributesWithValues}
                 categories={categories}
+                canEditStock={canEditStock}
               />
             );
           })()}
