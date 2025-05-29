@@ -1,4 +1,4 @@
-import ts_product4create from "#types/products/ts_product4create.ts";
+import ts_product4create from "@/types/products/ts_product4create";
 import dbWorker from "@/db/dbWorker2";
 import slugify from "slugify";
 

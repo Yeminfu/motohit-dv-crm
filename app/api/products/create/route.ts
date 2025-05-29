@@ -1,14 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
 import fs from "fs";
 import createProductMainData from "./utils/createProductMainData/createProductMainData";
-import { RetailPriceFromDB } from "#types/products/retailPriceFromDB.js";
+import { RetailPriceFromDB } from "@/types/products/retailPriceFromDB.js";
 import createRetailPrices from "./utils/createRetailPrices/createRetailPrices";
-import StockFromDBType from "#types/products/stockFromDB.ts";
+import StockFromDBType from "@/types/products/stockFromDB";
 import insertStock from "./utils/insertStock/insertStock";
 import createAttributes from "./utils/createAttributes/createAttributes";
-import getUserByToken from "#utils/users/getUserByToken.ts";
+import getUserByToken from "@/utils/users/getUserByToken";
 import createImages from "./utils/createImages/createImages";
-import dbConnection from "#db/connect.ts";
+import dbConnection from "@/db/connect";
 
 const imagesFolder: string = String(process.env.IMAGES_FOLDER);
 fs.mkdirSync(imagesFolder, { recursive: true });
@@ -62,7 +62,7 @@ export async function POST(req: NextRequest) {
     await connection.end();
     return NextResponse.json({ result: { idProduct } })
   } catch (error) {
-    console.error("err #sdf94j", error);
+    console.error("err @/sdf94j", error);
     await connection.rollback();
     await connection.end();
     return NextResponse.json({ error: error })
