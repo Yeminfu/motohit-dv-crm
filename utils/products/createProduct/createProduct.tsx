@@ -5,6 +5,7 @@ import CreateProductForm from "./CreateProductForm";
 import { ShopFromDB } from "@/types/shops/shopFromDBType";
 import { PriceTypesFromDBInterface } from "@/types/products/priceTypesFromDBInterface";
 import tsAttributeWithValues from "@/types/attributes/ts_attributesWithValues";
+import Link from "next/link";
 
 export default function CreateProduct(props: {
   idCategory: number;
@@ -21,6 +22,13 @@ export default function CreateProduct(props: {
       >
         Создать товар
       </button>
+
+      <Link
+        href={`/edit-sort-in-category/${props.idCategory}`}
+        className="btn btn-outline-dark btn-sm"
+      >
+        Сортировка в категории
+      </Link>
 
       <Modal
         isOpen={isOpen}
