@@ -8,7 +8,6 @@ import Client from "./client";
 
 export default async function Page(params: {
   params: { id: string };
-  // searchParams: ts_categoryFilter;
 }) {
 
   const authToken = String(cookies().get("auth")?.value);
@@ -22,23 +21,19 @@ export default async function Page(params: {
 
   const products = await getProducts(Number(idCategory));
 
-  return <>
-    <AuthedLayout title={category.category_name}>
-      <>
-        {/* edit sort */}
-        <Client products={products} />
-      </>
-    </AuthedLayout>
-  </>
+  return <AuthedLayout title={category.category_name}>
+    <Client products={products} />
+  </AuthedLayout>
+
 }
 
 async function getProducts(idCategory: number): Promise<ts_product[]> {
   const products = await dbWorker(
     `
       select
-        products.id,
+        concat(products.id) as id,
         products.name,
-        products.indexNumber,
+        indexNumber,
         (
           select
             images.name
