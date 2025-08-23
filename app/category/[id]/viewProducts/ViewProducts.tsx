@@ -77,7 +77,6 @@ export default function ViewProducts(props: {
               </>
             )}
             <th></th>
-            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -220,14 +219,6 @@ export default function ViewProducts(props: {
                     productName={product.name}
                   />
                 </div>
-              </td>
-              <td>
-                <UpdateIndexNumber
-                  idProduct={product.id}
-                  indexNumber={product.indexNumber}
-                  prevProduct={props.productsFull[indexFromProductsList - 1]}
-                  nextProduct={props.productsFull[indexFromProductsList + 1]}
-                />
               </td>
             </tr>
           ))}
