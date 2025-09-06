@@ -18,11 +18,11 @@ export default async function getProductsByCategoryId(
             name like ?
             or code = ?
           )
-      order by indexNumber desc
+      order by indexNumber
     `,
     [idCategory, `%${searchParams.name}%`, searchParams.name]
   ] : [
-    `select * from ${process.env.TABLE_PREFIX}_products where idCategory = ? and isArchived = 0 order by indexNumber desc`,
+    `select * from ${process.env.TABLE_PREFIX}_products where idCategory = ? and isArchived = 0 order by indexNumber`,
     [idCategory]
   ];
 
