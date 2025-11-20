@@ -178,6 +178,9 @@ export default function ViewProducts(props: {
               <td style={{ whiteSpace: "nowrap" }}>
                 <div className="d-flex">
                   {/* <pre>{JSON.stringify(product, null, 2)}</pre> */}
+                  <div className="d-none">
+                    {JSON.stringify({ zxc: props.viewSaleButton })}
+                  </div>
                   {!props.viewSaleButton ? null : (
                     <SaleForm
                       productFull={product}
