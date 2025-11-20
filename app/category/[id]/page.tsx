@@ -19,13 +19,10 @@ export default async function Page(params: {
   params: { id: string };
   searchParams: ts_categoryFilter;
 }) {
-
-
   const authToken = String(cookies().get("auth")?.value);
   const user = await getUserByToken(authToken);
 
-  if (!user) return <>error #d943j-</>
-
+  if (!user) return <>error #d943j-</>;
 
   const idCategory = params.params.id;
   const category = await getCategoryById(idCategory);
@@ -47,7 +44,9 @@ export default async function Page(params: {
 
   const attributesWithValues: tsAttributeWithValues[] = [];
 
-  const canEditStock = await checkUserIsInGroup(user.id, 'canEditStock')
+  const canEditStock = await checkUserIsInGroup(user.id, "canEditStock");
+
+  const viewSaleButton = await checkUserIsInGroup(user.id, "viewSaleButton");
 
   for (let index = 0; index < attributes.length; index++) {
     const attribute = attributes[index];
@@ -90,6 +89,7 @@ export default async function Page(params: {
                 attributesWithValues={attributesWithValues}
                 categories={categories}
                 canEditStock={canEditStock}
+                viewSaleButton={viewSaleButton}
               />
             );
           })()}

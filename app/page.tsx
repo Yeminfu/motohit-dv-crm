@@ -13,16 +13,15 @@ import checkUserIsInGroup from "@/utils/users/checkUserIsInGroup";
 export default async function Home(params: {
   searchParams: ts_categoryFilter;
 }) {
-
   const authToken = String(cookies().get("auth")?.value);
   const user = await getUserByToken(authToken);
 
-  if (!user) return <>error #d943j-</>
+  if (!user) return <>error #d943j-</>;
 
   const categoriesWithIerarchy = await getCategoriesWithIerarchy();
 
-  const canEditStock = await checkUserIsInGroup(user.id, 'canEditStock')
-
+  const canEditStock = await checkUserIsInGroup(user.id, "canEditStock");
+  const viewSaleButton = await checkUserIsInGroup(user.id, "viewSaleButton");
 
   return (
     <main>
@@ -33,7 +32,11 @@ export default async function Home(params: {
               <strong>Поиск по всем товарам</strong>
             </div>
             <div className="card-body">
-              <GlobalSearch searchParams={params.searchParams} canEditStock={canEditStock} />
+              <GlobalSearch
+                searchParams={params.searchParams}
+                canEditStock={canEditStock}
+                viewSaleButton={viewSaleButton}
+              />
             </div>
           </div>
 
@@ -60,10 +63,9 @@ export default async function Home(params: {
 async function CategoryItem(props: { category: ts_categoriesWithIerarchy }) {
   const children = props.category.children
     ? props.category.children?.map((child) => (
-      <CategoryItem category={child} key={child.id} />
-    ))
+        <CategoryItem category={child} key={child.id} />
+      ))
     : null;
-
 
   return (
     <>

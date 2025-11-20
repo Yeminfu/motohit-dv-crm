@@ -21,7 +21,8 @@ export default function ViewProducts(props: {
   priceTypes: PriceTypesFromDBInterface[];
   searchParams: ts_categoryFilter;
   categories: CategoryFromDBInterface[];
-  canEditStock: boolean
+  canEditStock: boolean;
+  viewSaleButton: boolean;
 }) {
   const [viewAll, setViewAll] = useState(false);
   return (
@@ -179,29 +180,31 @@ export default function ViewProducts(props: {
                   )}
                   <td style={{ whiteSpace: "nowrap" }}>
                     <div className="d-flex">
-                      <SaleForm
-                        productFull={product}
-                        shops={props.shops}
-                        retailPrices={product.retailPrices.map(
-                          (retailPriceObj) => {
-                            const costPrice = createPriceWithMarkup(
-                              product.purchase_price,
-                              retailPriceObj.idCostPriceType,
-                              retailPriceObj.costPriceValue
-                            );
-                            const retailPrice = createPriceWithMarkup(
-                              costPrice,
-                              retailPriceObj.retailPriceType,
-                              retailPriceObj.retailPriceValue
-                            );
+                      {!props.viewSaleButton ? null : (
+                        <SaleForm
+                          productFull={product}
+                          shops={props.shops}
+                          retailPrices={product.retailPrices.map(
+                            (retailPriceObj) => {
+                              const costPrice = createPriceWithMarkup(
+                                product.purchase_price,
+                                retailPriceObj.idCostPriceType,
+                                retailPriceObj.costPriceValue
+                              );
+                              const retailPrice = createPriceWithMarkup(
+                                costPrice,
+                                retailPriceObj.retailPriceType,
+                                retailPriceObj.retailPriceValue
+                              );
 
-                            return {
-                              idShop: retailPriceObj.idShop,
-                              sum: retailPrice,
-                            };
-                          }
-                        )}
-                      />
+                              return {
+                                idShop: retailPriceObj.idShop,
+                                sum: retailPrice,
+                              };
+                            }
+                          )}
+                        />
+                      )}
                       <EditProduct
                         product={product}
                         priceTypes={props.priceTypes}
