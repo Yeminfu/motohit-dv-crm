@@ -7,7 +7,8 @@ import getProductsFull from "./utils/getProductsFull";
 
 export default async function GlobalSearch(props: {
   searchParams: ts_categoryFilter;
-  canEditStock: boolean
+  canEditStock: boolean;
+  viewSaleButton: boolean;
 }) {
   const productsFull = await getProductsFull(props.searchParams);
   const priceTypes = await getPriceTypes();
@@ -23,6 +24,7 @@ export default async function GlobalSearch(props: {
         searchParams={props.searchParams}
         categories={categories}
         canEditStock={props.canEditStock}
+        viewSaleButton={props.viewSaleButton}
       />
     </>
   );
