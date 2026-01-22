@@ -15,6 +15,7 @@ export default async function getProductRetailPrices(
       prd.costPriceValue,
       prc.priceValue as retailPriceValue,
       prc.idPriceType as retailPriceType,
+      prc.markup,
       prc.id as idRetailPrice
     from ${process.env.TABLE_PREFIX}_products prd
       join ${process.env.TABLE_PREFIX}_shops s
