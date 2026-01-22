@@ -68,8 +68,9 @@ export default function EditProductForm(props: {
         shopName: shop.shopName,
         idPriceType: retailPriceObj?.retailPriceType,
         priceValue: retailPriceObj?.retailPriceValue,
+        markup: retailPriceObj?.markup,
       });
-
+      
       const stockObj = props.product.stock.find(
         (stockItem) => stockItem && stockItem.idShop === shop.id
       );
