@@ -95,7 +95,8 @@ export default async function Page(b: { params: { id: number } }) {
                         const retailPrice = createPriceWithMarkup(
                           costPrice,
                           retailPriceItem.idPriceType,
-                          retailPriceItem.priceValue
+                          retailPriceItem.priceValue,
+                          retailPriceItem.markup
                         );
                         return retailPrice;
                       })()}

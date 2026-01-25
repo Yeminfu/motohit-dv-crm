@@ -145,7 +145,8 @@ export default function ViewProducts(props: {
                       const retailPrice = createPriceWithMarkup(
                         costPrice,
                         retailPriceObj.retailPriceType,
-                        retailPriceObj.retailPriceValue
+                        retailPriceObj.retailPriceValue,
+                        retailPriceObj.markup
                       );
                       return (
                         <td key={i}>
@@ -194,7 +195,8 @@ export default function ViewProducts(props: {
                               const retailPrice = createPriceWithMarkup(
                                 costPrice,
                                 retailPriceObj.retailPriceType,
-                                retailPriceObj.retailPriceValue
+                                retailPriceObj.retailPriceValue,
+                                retailPriceObj.markup
                               );
 
                               return {
