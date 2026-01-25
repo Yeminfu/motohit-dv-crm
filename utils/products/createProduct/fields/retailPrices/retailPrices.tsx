@@ -15,6 +15,7 @@ export default function RetailPrices(props: {
             <th></th>
             <th>Тип р.ц.</th>
             <th>Значение р.ц.</th>
+            <th>Доп наценка</th>
           </tr>
         </thead>
         <tbody>
@@ -56,6 +57,22 @@ export default function RetailPrices(props: {
                         return register(
                           //@ts-ignore
                           `retail_price[${index}].priceValue`,
+                          {
+                            required: true,
+                            pattern: /^-?\d*(\.\d+)?$/i,
+                          }
+                        );
+                      })()}
+                      className="form-control"
+                      autoComplete="off"
+                    />
+                  </td>
+                  <td>
+                    <input
+                      {...(() => {
+                        return register(
+                          //@ts-ignore
+                          `retail_price[${index}].markup`,
                           {
                             required: true,
                             pattern: /^-?\d*(\.\d+)?$/i,
