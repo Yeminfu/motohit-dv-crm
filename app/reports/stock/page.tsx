@@ -1,4 +1,4 @@
-import dbWorker from "#db/dbWorker2.js";
+import dbWorker from "@/db/dbWorker2";
 import Link from "next/link";
 
 export default async function Page() {

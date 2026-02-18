@@ -1,5 +1,5 @@
-import dbWorker from "#db/dbWorker2.js";
-import Link from "next/link";
+// import dbWorker from "#db/dbWorker2.js";
+// import Link from "next/link";
 
 export default async function Page(props: any) {
   return (
