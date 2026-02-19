@@ -1,35 +1,17 @@
-// import dbWorker from "#db/dbWorker2.js";
-// import Link from "next/link";
+import AuthedLayout from "@/utils/authedLayout";
+import StockNavigation from "../components/navigation";
+import dbWorker from "@/db/dbWorker2";
 
-export default async function Page(props: any) {
+export default async function Page(props: { params: { idShop: string } }) {
+  const shop = await dbWorker(`select shopName from chbfs_shops where id = ?`, [
+    props.params.idShop,
+  ]).then((x) => x.result.pop().shopName);
+
   return (
     <>
-      <pre>{JSON.stringify(props, null, 2)}</pre>
+      <AuthedLayout title={`Склад ${shop}`}>
+        <StockNavigation />
+      </AuthedLayout>
     </>
   );
-  //   const shops: {
-  //     id: number;
-  //     shopName: string;
-  //   }[] = await dbWorker(
-  //     `
-  //     select
-  //       id,
-  //       shopName
-  //     from chbfs_shops
-  //   `,
-  //     [],
-  //   ).catch((x) => x.result);
-  //   return (
-  //     <>
-  //       {shops.map((shop) => (
-  //         <tr key={shop.id}>
-  //           <td>
-  //             <Link href={`/reports/stock/${shop.id}`}>{shop.shopName}</Link>
-  //           </td>
-  //         </tr>
-  //       ))}
-  //     </>
-  //   );
 }
-
-// idShop;
