@@ -14,10 +14,10 @@ export default async function StockNavigation() {
   `,
     [],
   ).then((x) => x.result);
-
   return (
     <>
       <table>
+        <thead></thead>
         <tbody>
           {shops.map((shop) => (
             <tr key={shop.id}>
