@@ -128,14 +128,15 @@ export default async function SideMenu() {
                   >
                     Сумма в товаре
                   </Link>
-                  <Link
-                    className="btn btn-dark d-block text-start mb-1"
-                    href={`/reports/stock`}
-                  >
-                    Склад
-                  </Link>
+
                 </>
               )}
+              <Link
+                className="btn btn-dark d-block text-start mb-1"
+                href={`/reports/stock`}
+              >
+                Склад
+              </Link>
               <Link
                 className="btn btn-dark d-block text-start mb-1"
                 href={`/history?limit=1000`}
