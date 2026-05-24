@@ -5,12 +5,13 @@ export default async function updateRetailPrice(
   retailPriceObj: RetailPriceFromDB
 ) {
   await connection
-    .query(`call updateRetailPrice(?,?,?,?,?)`, [
+    .query(`call updateRetailPrice(?,?,?,?,?,?)`, [
       retailPriceObj.idProduct,
       retailPriceObj.idShop,
       retailPriceObj.idPriceType,
       retailPriceObj.priceValue,
       retailPriceObj.idRecord,
+      Number(retailPriceObj.markup)
     ])
 
 }

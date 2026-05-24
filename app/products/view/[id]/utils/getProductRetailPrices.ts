@@ -8,6 +8,7 @@ export default async function getProductRetailPrices(idProduct: number): Promise
   idProduct: number
   idShop: number
   shopName: string
+  markup?:number
 }[]> {
   return await dbWorker(`
       select

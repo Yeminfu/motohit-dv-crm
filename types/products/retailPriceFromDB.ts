@@ -7,4 +7,5 @@ export interface RetailPriceFromDB {
   idShop: number;
   shopName: string;
   priceType: string;
+  markup:number;
 }
