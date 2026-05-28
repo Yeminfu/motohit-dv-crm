@@ -13,5 +13,4 @@ export async function GET() {
       and u.id>1;
     `, []).then(x=>x.result);
   return NextResponse.json(codes);
-  return NextResponse.json({ i: 1239 })
 }
