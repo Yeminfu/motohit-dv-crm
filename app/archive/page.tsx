@@ -9,7 +9,7 @@ export default async function Page(props:{
     productName?:string
   }
 }) {
-  const products = await getProductsFromArchive();
+  const products = await getProductsFromArchive(props.searchParams);
   return (
     <>
       <AuthedLayout title="Архив">
@@ -48,17 +48,29 @@ export default async function Page(props:{
   );
 }
 
-async function getProductsFromArchive(): Promise<ProductFromDB[]> {
+async function getProductsFromArchive(props:{
+  productName?:string
+}): Promise<ProductFromDB[]> {
   const connection = await dbConnection();
+  let sql = `select
+        p.*
+      from ${process.env.TABLE_PREFIX}_products p
+      where
+        isArchived = 1`;
+
+  if(props.productName){
+    sql+= ` and name like '%${props.productName}%'`
+  }
+
   const products = await connection
-    .query(
-      `select * from ${process.env.TABLE_PREFIX}_products where isArchived = 1`
-    )
+    .query(sql
+    ,[props.productName])
     .then(([x]: any) => x)
     .catch((err) => {
       console.error("err #fj48", err);
       return [];
     });
+    
   await connection.end();
   return products;
 }

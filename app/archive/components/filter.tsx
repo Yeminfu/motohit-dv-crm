@@ -45,7 +45,6 @@ export default function Filter(props: { searchParams: {
                   autoComplete="off"
                 />
                 <button className="btn btn-dark ms-2 btn-sm">Фильтр</button>
-                <div className="btn btn-outline-danger ms-2 btn-sm d-flex align-items-center">Сброс</div>
               </div>
             </form>
           </div>
