@@ -2,13 +2,21 @@ import dbConnection from "@/db/connect";
 import { ProductFromDB } from "@/types/products/prodyctType";
 import AuthedLayout from "@/utils/authedLayout";
 import ReturnProductFromArchive from "./ReturnProductFromArchive";
+import Filter from "./components/filter";
 
-export default async function Page() {
-  const products = await getProductsFromArchive();
+export default async function Page(props:{
+  searchParams:{
+    productName?:string
+  }
+}) {
+  const products = await getProductsFromArchive(props.searchParams);
   return (
     <>
       <AuthedLayout title="Архив">
         <>
+        <div className="mb-4">
+          <Filter searchParams={props.searchParams}/>
+        </div>
           <table className="table table-striped">
             <thead>
               <tr>
@@ -40,17 +48,29 @@ export default async function Page() {
   );
 }
 
-async function getProductsFromArchive(): Promise<ProductFromDB[]> {
+async function getProductsFromArchive(props:{
+  productName?:string
+}): Promise<ProductFromDB[]> {
   const connection = await dbConnection();
+  let sql = `select
+        p.*
+      from ${process.env.TABLE_PREFIX}_products p
+      where
+        isArchived = 1`;
+
+  if(props.productName){
+    sql+= ` and name like '%${props.productName}%'`
+  }
+
   const products = await connection
-    .query(
-      `select * from ${process.env.TABLE_PREFIX}_products where isArchived = 1`
-    )
+    .query(sql
+    ,[props.productName])
     .then(([x]: any) => x)
     .catch((err) => {
       console.error("err #fj48", err);
       return [];
     });
+    
   await connection.end();
   return products;
 }
