@@ -2,13 +2,21 @@ import dbConnection from "@/db/connect";
 import { ProductFromDB } from "@/types/products/prodyctType";
 import AuthedLayout from "@/utils/authedLayout";
 import ReturnProductFromArchive from "./ReturnProductFromArchive";
+import Filter from "./components/filter";
 
-export default async function Page() {
+export default async function Page(props:{
+  searchParams:{
+    productName?:string
+  }
+}) {
   const products = await getProductsFromArchive();
   return (
     <>
       <AuthedLayout title="Архив">
         <>
+        <div className="mb-4">
+          <Filter searchParams={props.searchParams}/>
+        </div>
           <table className="table table-striped">
             <thead>
               <tr>
