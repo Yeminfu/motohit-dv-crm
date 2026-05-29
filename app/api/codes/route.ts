@@ -1,6 +1,8 @@
 import dbWorker from "@/db/dbWorker2";
 import { NextResponse } from "next/server";
 
+export const dynamic = 'force-dynamic';
+
 export async function GET() {
   const codes = await dbWorker(`
     select
