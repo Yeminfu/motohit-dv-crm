@@ -64,7 +64,7 @@ async function getHistory(
 ): Promise<ts_historyInDB[] | undefined> {
   console.log({ searchParams });
 
-  const limit = searchParams.limit || 1000;
+  const limit = Number(searchParams.limit) || 1000;
 
   const productWhere = searchParams.productName ? `and p.name like '%${searchParams.productName}%'` : '';
 
