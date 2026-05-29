@@ -4,8 +4,6 @@ import getCategoriesWithIerarchy from "@/utils/side-menu/getCategoriesWithIerarc
 import Link from "next/link";
 import GlobalSearch from "./global-search/globalSearch";
 import ts_categoryFilter from "@/types/ts_categoryFilter";
-import { getCategoryById } from "@/utils/getCategoryById";
-import dbWorker from "@/db/dbWorker2";
 import getUserByToken from "@/utils/users/getUserByToken";
 import { cookies } from "next/headers";
 import checkUserIsInGroup from "@/utils/users/checkUserIsInGroup";
