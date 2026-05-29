@@ -1,14 +1,11 @@
 import dbWorker from "@/db/dbWorker2";
 import AuthedLayout from "@/utils/authedLayout";
-
-const defaultLimit = 1000;
+import Filter from "./components/filter";
 
 export default async function Page(pageProps: {
   searchParams: ts_searchParams;
 }) {
-  // const { limit } = pageProps.searchParams;
-
-  const history = await getHistory(pageProps.searchParams, defaultLimit);
+  const history = await getHistory(pageProps.searchParams);
   return (
     <>
       <AuthedLayout title="История">
@@ -20,6 +17,9 @@ export default async function Page(pageProps: {
 
             return (
               <>
+                <div className="mb-4">
+                  <Filter searchParams={pageProps.searchParams}/>
+                </div>
                 <table className="table table-bordered table-striped w-auto table-hover">
                   <thead>
                     <tr>
@@ -53,8 +53,6 @@ export default async function Page(pageProps: {
               </>
             );
           })()}
-
-          {/* <pre>{JSON.stringify(history, null, 2)}</pre> */}
         </>
       </AuthedLayout>
     </>
@@ -63,11 +61,12 @@ export default async function Page(pageProps: {
 
 async function getHistory(
   searchParams: ts_searchParams,
-  defaultLimit: number
 ): Promise<ts_historyInDB[] | undefined> {
   console.log({ searchParams });
 
-  const limit = searchParams.limit || defaultLimit;
+  const limit = searchParams.limit || 1000;
+
+  const productWhere = searchParams.productName ? `and p.name like '%${searchParams.productName}%'` : '';
 
   const sql = `
     select
@@ -86,6 +85,7 @@ async function getHistory(
     where
       h.action = 'chbfs_stock'
       and json_extract(h.data, '$.oldValue') <> json_extract(h.data, '$.newValue')
+      ${productWhere}
       order by h.id desc
     limit ${limit}
   `;
@@ -110,5 +110,6 @@ interface ts_historyInDB {
 }
 
 interface ts_searchParams {
-  limit: string;
+  limit:    string;
+  productName:string
 }

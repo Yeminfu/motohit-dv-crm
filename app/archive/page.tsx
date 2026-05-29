@@ -7,6 +7,7 @@ import Filter from "./components/filter";
 export default async function Page(props:{
   searchParams:{
     productName?:string
+    limit:string
   }
 }) {
   const products = await getProductsFromArchive(props.searchParams);
